@@ -2,3 +2,6 @@ django==1.6.1
 django-allauth==0.15.0
 django-avatar==2.0
 Pillow==2.2.2
+psycopg2==2.5.1
+django-toolbelt
+honcho==0.5.0
