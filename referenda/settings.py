@@ -63,17 +63,17 @@ WSGI_APPLICATION = 'referenda.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'referenda',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-        'USER': 'sdmt',
+        'USER': 'psql',
         'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '5432'
     }
 }
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
@@ -91,7 +91,9 @@ USE_TZ = True
 
 # Parse database configuration from $DATABASE_URL
 import dj_database_url
-DATABASES['default'] =  dj_database_url.config()
+#DATABASES['default'] = dj_database_url.config()
+#DATABASES['default'] = dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+DATABASES = {'default': dj_database_url.config(default='postgres://zjcqxxyskstkvy:mC1pP0VAcPGa5sUmYfTM7dfsqN@ec2-79-125-25-99.eu-west-1.compute.amazonaws.com:5432/debl6dvkif60up')}
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
