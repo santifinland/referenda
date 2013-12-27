@@ -34,8 +34,17 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.twitter',
+    'referendum',
+    'avatar',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -57,8 +66,12 @@ WSGI_APPLICATION = 'referenda.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'referenda',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+        'USER': 'sdmt',
+        'PASSWORD': '',
     }
 }
 
@@ -95,3 +108,28 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+# all_auth
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.core.context_processors.request",
+    "allauth.account.context_processors.account",
+    "allauth.socialaccount.context_processors.socialaccount",
+    "django.contrib.messages.context_processors.messages",
+    "django.contrib.auth.context_processors.auth"
+)
+
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    "django.contrib.auth.backends.ModelBackend",
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    "allauth.account.auth_backends.AuthenticationBackend"
+)
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = (3)
+ACCOUNT_EMAIL_REQUIRED =(True)
+ACCOUNT_EMAIL_VERIFICATION = ("mandatory")
+
+# django-avatar
+AVATAR_STORAGE_DIR = 'avatars/'
