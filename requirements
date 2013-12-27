@@ -1,0 +1,4 @@
+django==1.6.1
+django-allauth==0.15.0
+django-avatar==2.0
+Pillow==2.2.2
