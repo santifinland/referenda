@@ -8,6 +8,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.6/ref/settings/
 """
 
+SITE_ID = 2
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -21,8 +23,20 @@ SECRET_KEY = 'd$85yora*btbuwf-mi0@)z360la-o*xqg5)4(h8+*unc=6bl=s'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
 TEMPLATE_DEBUG = True
+
+TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+#     'django.template.loaders.eggs.Loader',
+)
+
+import os.path
+PROJECT_DIR = os.path.dirname(__file__) # this is not Django setting.
+TEMPLATE_DIRS = (
+    os.path.join("referendum/templates"),
+    # here you can add another templates directory if you wish.
+)
 
 ALLOWED_HOSTS = []
 
@@ -117,7 +131,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "allauth.account.context_processors.account",
     "allauth.socialaccount.context_processors.socialaccount",
     "django.contrib.messages.context_processors.messages",
-    "django.contrib.auth.context_processors.auth"
+    "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.static"
 )
 
 AUTHENTICATION_BACKENDS = (

@@ -14,15 +14,15 @@
     {% if provider.name == "Twitter" %}
         <a title="{{provider.name}}" class="socialaccount_provider {{provider.id}}" 
         href="{% provider_login_url provider.id %}">
-        <img src="{{ STATIC_URL }} /static/img/twitter.png" height="50" width="50"></a>
+        <img src="{{ STATIC_URL }}/img/twitter.png" height="50" width="50"></a>
     {% elif provider.name == "Facebook" %}
         <a title="{{provider.name}}" class="socialaccount_provider {{provider.id}}" 
         href="{% provider_login_url provider.id %}">
-        <img src="{{ STATIC_URL }} /static/img/facebook.png" height="50" width="50"></a>
+        <img src="{{ STATIC_URL }}/img/facebook.png" height="50" width="50"></a>
     {% elif provider.name == "Google" %}
         <a title="{{provider.name}}" class="socialaccount_provider {{provider.id}}" 
         href="{% provider_login_url provider.id %}">
-        <img src="{{ STATIC_URL }} /static/img/google.png" height="50" width="50"></a>
+        <img src="{{ STATIC_URL }}/img/google.png" height="50" width="50"></a>
     {% else %}
     {% endif %}
 {% endfor %}
