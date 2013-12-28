@@ -16,8 +16,8 @@
 
         {% if socialaccount.providers  %}
         <p>{% blocktrans with site.name as site_name %}Please sign in with one
-        of your existing third party accounts. Or, <a href="{{ signup_url }}">register</a> 
-        for a {{site_name}} account:{% endblocktrans %}</p>
+        of your existing third party accounts: <!--Or, <a href="{{ signup_url }}">register</a> 
+        for a {{site_name}} account:-->{% endblocktrans %}</p>
 
         <div class="socialaccount_ballot">
 
@@ -25,7 +25,7 @@
             {% include "socialaccount/snippets/provider_list.html" %}
         </ul>
 
-    <div class="login-or">{% trans 'or' %}</div>
+    <!--<div class="login-or">{% trans 'or' %}</div>-->
 
     </div>
 
@@ -33,7 +33,7 @@
 
     {% endif %}
 
-    <form class="login" method="POST" action="{% url 'account_login' %}">
+    <!--<form class="login" method="POST" action="{% url 'account_login' %}">
         {% csrf_token %}
         {{ form.as_p }}
         {% if redirect_field_value %}
@@ -41,7 +41,7 @@
         {% endif %}
         <a class="button menium secondary radius" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
         <button class="button large radius" type="submit">{% trans "Sign In" %}</button>
-    </form>
+    </form>-->
 
     </div>
 
