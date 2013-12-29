@@ -8,6 +8,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.6/ref/settings/
 """
 
+AUTO_GENERATE_AVATAR_SIZES = (50, 80, 300)
 SITE_ID = 2
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -120,10 +121,11 @@ import os
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
-
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 # all_auth
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -150,3 +152,4 @@ ACCOUNT_EMAIL_REQUIRED =(False)
 
 # django-avatar
 AVATAR_STORAGE_DIR = 'avatars/'
+AVATAR_MAX_AVATARS_PER_USER = 1

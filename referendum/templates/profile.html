@@ -1,75 +1,25 @@
-{% extends "base.html" %}
-
-{% load account %}
+{% extends "avatar/base.html" %}
 {% load i18n avatar_tags %}
 {% load url from future %}
-{% load staticfiles %}
 
 {% block content %}
-
 <div class="row">
-
-    <div class="small-4 large-4 columns">
-
-        <div class="panel radius">
-            <h5>My Profile</h5>
-
-            <div class="row">
-                <div class="panel callout radius">
-
-                    <div class="small-4 large-4 columns">
-                        <a href="{% url 'avatar_change' %}">{% avatar user %}</a>
-                    </div>
-
-                    <div class="small-8 large-8 columns">
-                        <h6>{% user_display user %} </h6>
-                    </div>
-                    <br>
-                    <br>
-                    <br>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="small-12 large-12 columns">
-                    <script>
-                        $( document ).ready(function() {
-                            $( "#email" ).click(function( event ) {
-                                $( "#div-avatar" ).hide();
-                                $( "#div-email" ).show();
-                            });
-                            $( "#avatar" ).click(function( event ) {
-                                $( "#div-email" ).hide();
-                                $( "#div-avatar" ).show();
-                            });
-                        });
-                    </script>
-                    <ul class="side-nav">
-                        <li class="active"><a id="email" href="#" class="button radius">E-mail</a></li>
-                        <li class="active"><a id="avatar" href="#" class="button radius">Avatar</a></li>
-                    </ul>
-                </div>
-            </div>
-
-        </div>
-
+    <div class="small-6 large-6 columns">
+        <h4 class="subheader">{% trans "Your current avatar: " %}</h4>
+        {% avatar user 300 %}
     </div>
-
-    <div class="small-8 large-8 columns">
-
-        <div class="panel radius">
-            <div id="div-email">
-                <a href="/accounts/email" class="button radius expand"> Manage my e-maiils </a>
-            </div>
-
-            <div id="div-avatar" style="display: none">
-                <a href="/avatar/change" class="button radius expand"> Manage my avatars</a>
-            </div>
-        </div>
-
+    <div class="small-6 large-6 columns">
+        <br>
+        <br>
+        <br>
+        {% if not avatars %}
+            <h4 class="subheader">{% trans "Do you want to change your avatar?" %}</h4>
+        {% endif %}
+        <form enctype="multipart/form-data" method="POST" action="{% url 'avatar_add' %}">
+            {% csrf_token %}
+            {{ upload_avatar_form.avatar }}
+            <input type="submit" value="{% trans "Upload New Image" %}" class="radius button"/>
+        </form>
     </div>
-
 </div>
-
-
 {% endblock %}
