@@ -5,3 +5,4 @@ Pillow==2.2.2
 psycopg2==2.5.1
 django-toolbelt
 dj-static
+pil==1.1.7
