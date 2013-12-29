@@ -145,7 +145,7 @@ AUTHENTICATION_BACKENDS = (
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = (3)
-#ACCOUNT_EMAIL_REQUIRED =(True)
+ACCOUNT_EMAIL_REQUIRED =(False)
 #ACCOUNT_EMAIL_VERIFICATION = ("mandatory")
 
 # django-avatar
