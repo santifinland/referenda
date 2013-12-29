@@ -27,7 +27,7 @@ urlpatterns = patterns('',
     (r'^accounts/', include('allauth.urls')),
 
     # Profile
-    url(r'^profile/', 'referendum.views.profile', name='profile'),
+    url(r'^accounts/profile/$', 'referendum.views.profile', name='profile')),
 
     # Avatar
     (r'^avatar/', include('avatar.urls'))
