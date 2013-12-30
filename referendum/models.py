@@ -10,6 +10,7 @@ class Poll(models.Model):
     vote_date = models.DateTimeField('date voted')
     votes_positive = models.IntegerField(default=0)
     votes_negative = models.IntegerField(default=0)
+    votes_abstention = models.IntegerField(default=0)
 
     def get_absolute_url(self):
         return "/referendum/%i/" % self.id
@@ -20,7 +21,8 @@ class Poll(models.Model):
 class Vote(models.Model):
     referendum = models.ForeignKey('Poll')
     userid = models.IntegerField(default=0)
-    vote = models.BooleanField()
+    VOTE_CHOICES = (('YES', 'Yes'), ('NO','No'), ('ABS', 'Abs'),)
+    vote = models.CharField(max_length=3, choices=VOTE_CHOICES, default='Yes')
 
 class Comment(models.Model):
     referendum = models.ForeignKey('Poll')

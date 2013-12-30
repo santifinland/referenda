@@ -39,8 +39,10 @@ def vote(request, poll_id):
                 print user
                 if voteform.data['vote'] == 'Yes':
                     p.votes_positive = p.votes_positive + 1
-                else:
+                elif voteform.data['vote'] == 'No':
                     p.votes_negative = p.votes_negative + 1
+                else:
+                    p.votes_abstention = p.votes_abstention + 1
                 p.save()
                 vote = Vote()
                 print "Vote"
