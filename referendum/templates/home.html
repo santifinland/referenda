@@ -17,7 +17,6 @@
                     <ul class="pricing-table">
                         <li class="title small">No</li>
                         <li class="price">{{ poll.votes_negative }}</li>
-
                         {% if user.is_authenticated %}
                             <li class="cta-button">
                             <form action="{% url 'vote' poll.id %}" method="post">
@@ -31,11 +30,28 @@
                         {% endif %}
                     </ul>
                 </div>
+                <div class="small-2 large-2 columns">
+                     <ul class="pricing-table">
+                        <li class="title small">Abstention</li>
+                        <li class="price">{{ poll.votes_abstention }}</li>
+                        {% if user.is_authenticated %}
+                            <li class="cta-button">
+                            <form action="{% url 'vote' poll.id %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="vote" value="Abs" />
+                            <input type="submit" class="button" value="Vote" />
+                            </form>
+                            </li>
+                        {% else %}
+                            <li class="cta-button"><a class="button" href="{% url 'account_login' %}">Vote</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
 
-                <div class="small-8 large-8 columns">
+                <div class="small-6 large-6 columns">
                     <ul class="pricing-table">
                         <li class="title" style="text-align: left"><a href="/referendum/{{ poll.id }}/">{{ poll.headline }}</a></li>
-                        <li class="bullet-item" style="text-align: left">{{ poll.long_description }}</li>
+                        <li class="bullet-item" style="text-align: left">{{ poll.short_description }}</li>
                         <li class="bullet-item" style="text-align: left">
                             <a href={{ poll.link }} target="_blank">Official link</a> | 
                             Can vote until {{ poll.vote_date }}
