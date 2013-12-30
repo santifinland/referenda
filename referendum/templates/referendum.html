@@ -12,9 +12,23 @@
         {% if referendum %}
             <div class="small-2 large-2 columns">
                 <ul class="pricing-table">
+                    <li class="title" style="text-align: center"> Yes </li>
+                    <div id="votes-positive" align="center">
+                        <h2 class="subheader">{{ referendum.votes_positive }}</h2>
+                    </div>
+                </ul>
+                <ul class="pricing-table">
+                    <li class="title" style="text-align: center"> Abstention </li>
+                    <div id="votes-positive" align="center">
+                        <h2 class="subheader">{{ referendum.votes_negative }}</h2>
+                    </div>
+                </ul>
+            </div>
+            <div class="small-2 large-2 columns">
+                <ul class="pricing-table">
                     <li class="title" style="text-align: center"> No </li>
                     <div id="votes-positive" align="center">
-                        <h1 class="subheader">{{ referendum.votes_negative }}</h1>
+                        <h2 class="subheader">{{ referendum.votes_negative }}</h2>
                     </div>
                 </ul>
             </div>
@@ -29,14 +43,6 @@
                             </div>
                         </div>
                     </li>
-                </ul>
-            </div>
-            <div class="small-2 large-2 columns">
-                <ul class="pricing-table">
-                    <li class="title" style="text-align: center"> Yes </li>
-                    <div id="votes-positive" align="center">
-                        <h1 class="subheader">{{ referendum.votes_positive }}</h1>
-                    </div>
                 </ul>
             </div>
         {% else %}
