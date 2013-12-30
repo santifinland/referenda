@@ -22,7 +22,11 @@
                             <form action="{% url 'vote' poll.id %}" method="post">
                             {% csrf_token %}
                             <input type="hidden" name="vote" value="No" />
-                            <input type="submit" class="button" value="Vote" />
+                            {% if poll.vote_date_start < now < poll.vote_date_end %}
+                                <input type="submit" class="button" value="Vote" />
+                            {% else %}
+                                <input type="submit" class="button disabled" value="Vote" />
+                            {% endif %}
                             </form>
                             </li>
                         {% else %}
@@ -39,7 +43,11 @@
                             <form action="{% url 'vote' poll.id %}" method="post">
                             {% csrf_token %}
                             <input type="hidden" name="vote" value="Abs" />
-                            <input type="submit" class="button" value="Vote" />
+                            {% if poll.vote_date_start < now < poll.vote_date_end %}
+                                <input type="submit" class="button" value="Vote" />
+                            {% else %}
+                                <input type="submit" class="button disabled" value="Vote" />
+                            {% endif %}
                             </form>
                             </li>
                         {% else %}
@@ -54,7 +62,7 @@
                         <li class="bullet-item" style="text-align: left">{{ poll.short_description }}</li>
                         <li class="bullet-item" style="text-align: left">
                             <a href={{ poll.link }} target="_blank">Official link</a> | 
-                            Can vote until {{ poll.vote_date }}
+                            Can vote from {{ poll.vote_date_start.date }} until {{ poll.vote_date_end.date }}
                         </li>
                     </ul>
                 </div>
@@ -69,7 +77,11 @@
                             <form action="{% url 'vote' poll.id %}" method="post">
                             {% csrf_token %}
                             <input type="hidden" name="vote" value="Yes" />
-                            <input type="submit" class="button" value="Vote" />
+                            {% if poll.vote_date_start < now < poll.vote_date_end %}
+                                <input type="submit" class="button" value="Vote" />
+                            {% else %}
+                                <input type="submit" class="button disabled" value="Vote" />
+                            {% endif %}
                             </form>
                             </li>
                         {% else %}

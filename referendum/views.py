@@ -8,12 +8,14 @@ from forms import CommentForm
 
 from models import Poll, Vote, Comment
 from forms import VoteForm
+from datetime import datetime
 
 def home(request):
-    poll_list = Poll.objects.order_by('-pub_date')[:5]
+    poll_list = Poll.objects.order_by('vote_date_end')[:5]
     voteform = VoteForm()
     voteform.fields['vote'].widget = forms.HiddenInput()
-    context = {'poll_list': poll_list, 'voteform': voteform}
+    now = datetime.now()
+    context = {'poll_list': poll_list, 'voteform': voteform, 'now': now}
     return render(request, 'home.html', context)
 
 def profile(request):
@@ -21,11 +23,11 @@ def profile(request):
 
 def vote(request, poll_id):
     p = get_object_or_404(Poll, pk=poll_id)
-    poll_list = Poll.objects.order_by('-pub_date')[:5]
+    poll_list = Poll.objects.order_by('vote_date_end')[:5]
     context = {'poll_list': poll_list}
     try:
         voteform = VoteForm(request.POST)
-        if voteform.is_valid():
+        if voteform.is_valid() and p.vote_date_start < datetime.now() < p.vote_date_end:
             print "Form valid"
             #user_votes = Vote.objects.filter(referendum=p)
             user_votes = Vote.objects.filter(referendum=p).filter(userid=request.user.id)
