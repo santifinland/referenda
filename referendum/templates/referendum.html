@@ -12,13 +12,13 @@
         {% if referendum %}
             <div class="small-2 large-2 columns">
                 <ul class="pricing-table">
-                    <li class="title" style="text-align: center"> Yes </li>
+                    <li class="title" style="text-align: center">{% trans "Yes" %} </li>
                     <div id="votes-positive" align="center">
                         <h2 class="subheader">{{ referendum.votes_positive }}</h2>
                     </div>
                 </ul>
                 <ul class="pricing-table">
-                    <li class="title" style="text-align: center"> Abstention </li>
+                    <li class="title" style="text-align: center">{% trans "Abstention" %}</li>
                     <div id="votes-positive" align="center">
                         <h2 class="subheader">{{ referendum.votes_negative }}</h2>
                     </div>
@@ -26,7 +26,7 @@
             </div>
             <div class="small-2 large-2 columns">
                 <ul class="pricing-table">
-                    <li class="title" style="text-align: center"> No </li>
+                    <li class="title" style="text-align: center">{% trans "No" %}</li>
                     <div id="votes-positive" align="center">
                         <h2 class="subheader">{{ referendum.votes_negative }}</h2>
                     </div>
@@ -39,14 +39,14 @@
                     <li class="bullet-item" style="text-align: left">
                         <div class="row">
                             <div class="small-10 large-10 columns">
-                                <a href={{ referendum.link }} target="_blank">Official link</a>
+                                <a href={{ referendum.link }} target="_blank">{% trans "Official link" %}</a>
                             </div>
                         </div>
                     </li>
                 </ul>
             </div>
         {% else %}
-            <p>No referendum is available.</p>
+            <p>{% trans "No referendum is available." %}</p>
         {% endif %}
     </div>
 </div>
@@ -57,7 +57,7 @@
             {{ comment_form.comment }}
     </div>
     <div class="small-2 large-2 columns">
-            <input type="submit" value="Comment" class="right small radius button">
+            <input type="submit" value={% trans "Comment" %} class="right small radius button">
         </form>
     </div>
 </div>
