@@ -1,0 +1,111 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-12-31 12:20+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: referendum/templates/base.html:31
+msgid "Direct Democracy"
+msgstr "Democracia Directa"
+
+#: referendum/templates/base.html:37
+#: referendum/templates/account/logout.html:6
+#: referendum/templates/account/logout.html:9
+#: referendum/templates/account/logout.html:19
+msgid "Sign Out"
+msgstr "Desconectar"
+
+#: referendum/templates/base.html:41
+msgid "View my profile"
+msgstr "Ver mi perfil"
+
+#: referendum/templates/base.html:48 referendum/templates/account/login.html:7
+#: referendum/templates/account/login.html:15
+#: referendum/templates/account/login.html:43
+msgid "Sign In"
+msgstr "Iniciar sesión"
+
+#: referendum/templates/base.html:49
+msgid "Register"
+msgstr "Registrarse"
+
+#: referendum/templates/home.html:26 referendum/templates/home.html.py:28
+#: referendum/templates/home.html:33 referendum/templates/home.html.py:47
+#: referendum/templates/home.html:49 referendum/templates/home.html.py:54
+#: referendum/templates/home.html:81 referendum/templates/home.html.py:83
+#: referendum/templates/home.html:88
+msgid "Vote"
+msgstr "Vota"
+
+#: referendum/templates/home.html:39 referendum/templates/referendum.html:21
+msgid "Abstention"
+msgstr "Abstención"
+
+#: referendum/templates/home.html:65
+msgid "Can vote from"
+msgstr "Puedes votar desde el"
+
+#: referendum/templates/home.html:65
+msgid "until"
+msgstr "hasta el"
+
+#: referendum/templates/home.html:72 referendum/templates/referendum.html:15
+msgid "Yes"
+msgstr "Sí"
+
+#: referendum/templates/home.html:97
+msgid "No polls are available."
+msgstr "No hay referendums disponibles"
+
+#: referendum/templates/profile.html:8 referendum/templates/avatar/add.html:6
+#: referendum/templates/avatar/change.html:8
+msgid "Your current avatar: "
+msgstr "Tu avatar actual"
+
+#: referendum/templates/profile.html:16
+msgid "Do you want to change your avatar?"
+msgstr "¿Quieres cambiar tu avatar?"
+
+#: referendum/templates/profile.html:21
+#: referendum/templates/avatar/add.html:13
+#: referendum/templates/avatar/change.html:21
+msgid "Upload New Image"
+msgstr "Cargar Nueva Imagen"
+
+#: referendum/templates/avatar/add.html:9
+#: referendum/templates/avatar/change.html:16
+msgid "You haven't uploaded an avatar yet. Please upload one now."
+msgstr "No has subido ningún avatar todavía. Por favor, añade uno ahora."
+
+#: referendum/templates/referendum.html:29
+msgid "No"
+msgstr "No"
+
+#: referendum/templates/referendum.html:42
+msgid "Official link"
+msgstr "Link oficial"
+
+#: referendum/templates/referendum.html:49
+msgid "No referendum is available."
+msgstr "No hay referendums"
+
+#: referendum/templates/referendum.html:60
+msgid "Comment"
+msgstr "Comentar"
+
+#: referendum/templates/account/login.html:18
+msgid "Please sign in with one of your existing third party accounts:"
+msgstr "Por favor, inicia sesión con tu cuenta preferida"
