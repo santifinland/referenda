@@ -129,7 +129,19 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+MEDIA_URL = 'http://referenda.s3.amazonaws.com/'
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3.S3Storage'
+#from S3 import CallingFormat
+#AWS_CALLING_FORMAT = CallingFormat.SUBDOMAIN
+
+
+AWS_ACCESS_KEY_ID = 'AKIAIFNTR5K6QRTPJYXA'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'referenda.s3.amazonaws.com'
+AWS_QUERYSTRING_AUTH = False
+AWS_S3_SECURE_URLS = False
+        
 
 # all_auth
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -157,3 +169,6 @@ ACCOUNT_EMAIL_REQUIRED =(False)
 # django-avatar
 AVATAR_STORAGE_DIR = 'avatars/'
 AVATAR_MAX_AVATARS_PER_USER = 1
+iAVATAR_HASH_FILENAMES = False
+AVATAR_HASH_USERDIRNAMES = False
+AVATAR_GRAVATAR_BACKUP = False
