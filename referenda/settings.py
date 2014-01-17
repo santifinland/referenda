@@ -29,11 +29,11 @@ TEMPLATE_DEBUG = True
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
+    #'django.template.loaders.eggs.Loader',
 )
 
 import os.path
-PROJECT_DIR = os.path.dirname(__file__) # this is not Django setting.
+PROJECT_DIR = os.path.dirname(__file__)  # this is not Django setting.
 TEMPLATE_DIRS = (
     os.path.join("referendum/templates"),
     # here you can add another templates directory if you wish.
@@ -60,6 +60,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.twitter',
     'referendum',
     'avatar',
+    'storages',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -131,7 +132,7 @@ STATICFILES_DIRS = (
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = 'http://referenda.s3.amazonaws.com/'
 
-DEFAULT_FILE_STORAGE = 'storages.backends.s3.S3Storage'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 #from S3 import CallingFormat
 #AWS_CALLING_FORMAT = CallingFormat.SUBDOMAIN
 
@@ -141,7 +142,7 @@ AWS_SECRET_ACCESS_KEY = '/U4sjroLITdCNsqD2wGbF8S46i6F8QA3Bptg5kjZ'
 AWS_STORAGE_BUCKET_NAME = 'referenda.s3.amazonaws.com'
 AWS_QUERYSTRING_AUTH = False
 AWS_S3_SECURE_URLS = False
-        
+
 
 # all_auth
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -163,7 +164,7 @@ AUTHENTICATION_BACKENDS = (
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = (3)
-ACCOUNT_EMAIL_REQUIRED =(False)
+ACCOUNT_EMAIL_REQUIRED = (False)
 #ACCOUNT_EMAIL_VERIFICATION = ("mandatory")
 
 # django-avatar
