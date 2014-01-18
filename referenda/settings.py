@@ -130,15 +130,15 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = 'http://referenda.s3.amazonaws.com/'
+MEDIA_URL = 'https://referenda.s3.amazonaws.com/'
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-#from S3 import CallingFormat
-#AWS_CALLING_FORMAT = CallingFormat.SUBDOMAIN
+from S3 import CallingFormat
+AWS_CALLING_FORMAT = CallingFormat.SUBDOMAIN
 
 
-AWS_ACCESS_KEY_ID = 'AKIAIFNTR5K6QRTPJYXA'
-AWS_SECRET_ACCESS_KEY = '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'
+AWS_ACCESS_KEY_ID = 'AKIAI4OEMVSX6D45PU7A'
+AWS_SECRET_ACCESS_KEY = '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'
 AWS_STORAGE_BUCKET_NAME = 'referenda.s3.amazonaws.com'
 AWS_QUERYSTRING_AUTH = False
 AWS_S3_SECURE_URLS = False
