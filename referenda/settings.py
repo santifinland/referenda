@@ -59,8 +59,8 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.twitter',
     'referendum',
-    'avatar',
     'storages',
+    'avatar'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -129,19 +129,18 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = 'https://referenda.s3.amazonaws.com/'
+
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 from S3 import CallingFormat
 AWS_CALLING_FORMAT = CallingFormat.SUBDOMAIN
 
+AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+AWS_STORAGE_BUCKET_NAME = os.environ['S3_BUCKET_NAME']
 
-AWS_ACCESS_KEY_ID = 'AKIAI4OEMVSX6D45PU7A'
-AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'referenda.s3.amazonaws.com'
-AWS_QUERYSTRING_AUTH = False
-AWS_S3_SECURE_URLS = False
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '//s3.amazonaws.com/%s/media/' % AWS_STORAGE_BUCKET_NAME
 
 
 # all_auth
@@ -173,3 +172,9 @@ AVATAR_MAX_AVATARS_PER_USER = 1
 iAVATAR_HASH_FILENAMES = False
 AVATAR_HASH_USERDIRNAMES = False
 AVATAR_GRAVATAR_BACKUP = False
+
+
+try:
+    from local_settings import *
+except ImportError:
+    pass
