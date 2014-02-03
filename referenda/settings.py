@@ -130,17 +130,19 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+#STATICFILES_STORAGE = 'myproject.s3utils.StaticRootS3BotoStorage'
 from S3 import CallingFormat
 AWS_CALLING_FORMAT = CallingFormat.SUBDOMAIN
 
 AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
 AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
-AWS_STORAGE_BUCKET_NAME = os.environ['S3_BUCKET_NAME']
+#AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
+AWS_STORAGE_BUCKET_NAME = "referenda"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '//s3.amazonaws.com/%s/media/' % AWS_STORAGE_BUCKET_NAME
+#MEDIA_URL = '/media/'
 
 
 # all_auth
@@ -174,7 +176,7 @@ AVATAR_HASH_USERDIRNAMES = False
 AVATAR_GRAVATAR_BACKUP = False
 
 
-try:
-    from local_settings import *
-except ImportError:
-    pass
+#try:
+    #from local_settings import *
+#except ImportError:
+    #pass
