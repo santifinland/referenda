@@ -2,18 +2,19 @@
 {% load i18n %}
 {% load i18n avatar_tags %}
 {% load account %}
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <title>{% block title %}Referenda{% endblock %}</title>
     <link rel="shortcut icon" type="image/x-icon" href="{{ STATIC_URL }}/img/favicon.ico">
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/layout.css">
-    <link rel="stylesheet" href="{{ STATIC_URL }}foundation/css/foundation.min.css">
-    <script type="text/javascript" src="{{ STATIC_URL }}foundation/js/foundation.min.js"></script>
+    <link rel="stylesheet" href="{% static "css/layout.css" %}">
+    <link rel="stylesheet" href="{% static "foundation/css/foundation.min.css" %}">
+    <script type="text/javascript" src="{% static "foundation/js/foundation.min.js" %}"></script>
     <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}foundation/js/vendor/custom.modernizr.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}foundation/js/vendor/jquery.js"></script>
+    <script type="text/javascript" src="{% static "foundation/js/vendor/custom.modernizr.js" %}"></script>
+    <script type="text/javascript" src="{% static "foundation/js/vendor/jquery.js" %}"></script>
 
     <style>
       input.required, error {
