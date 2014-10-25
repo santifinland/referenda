@@ -6,15 +6,17 @@ from django import forms
 from django.contrib.auth.models import User
 from forms import CommentForm
 
+from django.template import Context, Template
 from models import Poll, Vote, Comment
 from forms import VoteForm
-from django.utils import timezone
+from datetime import datetime
 
 def home(request):
+    print "kkkkk"
     poll_list = Poll.objects.order_by('vote_date_end')[:5]
     voteform = VoteForm()
     voteform.fields['vote'].widget = forms.HiddenInput()
-    now = timezone.now()
+    now = datetime.now()
     context = {'poll_list': poll_list, 'voteform': voteform, 'now': now}
     return render(request, 'home.html', context)
 
@@ -27,7 +29,7 @@ def vote(request, poll_id):
     context = {'poll_list': poll_list}
     try:
         voteform = VoteForm(request.POST)
-        if voteform.is_valid() and p.vote_date_start < timezone.now() < p.vote_date_end:
+        if voteform.is_valid() and p.vote_date_start < datetime.now() < p.vote_date_end:
             print "Form valid"
             #user_votes = Vote.objects.filter(referendum=p)
             user_votes = Vote.objects.filter(referendum=p).filter(userid=request.user.id)
