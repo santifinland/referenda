@@ -8,7 +8,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.6/ref/settings/
 """
 
-AUTO_GENERATE_AVATAR_SIZES = (50, 80, 300)
 SITE_ID = 2
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -45,6 +44,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
+    'referendum',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -58,9 +58,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.twitter',
-    'referendum',
-    'storages',
-    'avatar'
+    'avatar',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -126,23 +124,9 @@ import os
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = 'static'
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
+MEDIA_ROOT = '/Users/santifinland/referenda/media/'
+MEDIA_URL = '/media/'
 
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-#STATICFILES_STORAGE = 'myproject.s3utils.StaticRootS3BotoStorage'
-from S3 import CallingFormat
-AWS_CALLING_FORMAT = CallingFormat.SUBDOMAIN
-
-AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
-AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
-#AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
-AWS_STORAGE_BUCKET_NAME = "referenda"
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '//s3.amazonaws.com/%s/media/' % AWS_STORAGE_BUCKET_NAME
-#MEDIA_URL = '/media/'
 
 
 # all_auth
@@ -169,6 +153,7 @@ ACCOUNT_EMAIL_REQUIRED = (False)
 #ACCOUNT_EMAIL_VERIFICATION = ("mandatory")
 
 # django-avatar
+AVATAR_AUTO_GENERATE_SIZES = (50, 80, 300)
 AVATAR_STORAGE_DIR = 'avatars/'
 AVATAR_MAX_AVATARS_PER_USER = 1
 AVATAR_HASH_FILENAMES = False
