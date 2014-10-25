@@ -1,5 +1,5 @@
 """
-WSGI config for referenda project.
+WSGI config for kk project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,7 @@ import os
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "referenda.settings")
 
 from django.core.wsgi import get_wsgi_application
-from dj_static import Cling
-
-application = Cling(get_wsgi_application())
+application = get_wsgi_application()
+print "00"
+print application._view_middleware
+print "00"

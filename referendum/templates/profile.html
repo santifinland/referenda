@@ -15,11 +15,7 @@
         {% if not avatars %}
             <h4 class="subheader">{% trans "Do you want to change your avatar?" %}</h4>
         {% endif %}
-        <form enctype="multipart/form-data" method="POST" action="{% url 'avatar_add' %}">
-            {% csrf_token %}
-            {{ upload_avatar_form.avatar }}
-            <input type="submit" value="{% trans "Upload New Image" %}" class="radius button"/>
-        </form>
+        <a href="{% url 'avatar_change' %}" class="radius button">{% trans "Upload New Image" %}</a>
     </div>
 </div>
 {% endblock %}

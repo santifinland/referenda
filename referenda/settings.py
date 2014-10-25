@@ -8,7 +8,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.6/ref/settings/
 """
 
-AUTO_GENERATE_AVATAR_SIZES = (50, 80, 300)
 SITE_ID = 2
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -29,7 +28,7 @@ TEMPLATE_DEBUG = True
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
+    #'django.template.loaders.eggs.Loader',
 )
 
 import os.path
@@ -45,6 +44,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
+    'referendum',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -58,7 +58,6 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.twitter',
-    'referendum',
     'avatar',
 )
 
@@ -123,25 +122,12 @@ ALLOWED_HOSTS = ['*']
 # Static asset configuration
 import os
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-STATIC_ROOT = 'staticfiles'
+STATIC_ROOT = 'static'
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = 'http://referenda.s3.amazonaws.com/'
-
-DEFAULT_FILE_STORAGE = 'storages.backends.s3.S3Storage'
-#from S3 import CallingFormat
-#AWS_CALLING_FORMAT = CallingFormat.SUBDOMAIN
+MEDIA_ROOT = '/Users/santifinland/referenda/media/'
+MEDIA_URL = '/media/'
 
 
-AWS_ACCESS_KEY_ID = 'AKIAIFNTR5K6QRTPJYXA'
-AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'referenda.s3.amazonaws.com'
-AWS_QUERYSTRING_AUTH = False
-AWS_S3_SECURE_URLS = False
-        
 
 # all_auth
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -167,8 +153,9 @@ ACCOUNT_EMAIL_REQUIRED =(False)
 #ACCOUNT_EMAIL_VERIFICATION = ("mandatory")
 
 # django-avatar
+AVATAR_AUTO_GENERATE_SIZES = (50, 80, 300)
 AVATAR_STORAGE_DIR = 'avatars/'
 AVATAR_MAX_AVATARS_PER_USER = 1
-iAVATAR_HASH_FILENAMES = False
+AVATAR_HASH_FILENAMES = False
 AVATAR_HASH_USERDIRNAMES = False
 AVATAR_GRAVATAR_BACKUP = False
