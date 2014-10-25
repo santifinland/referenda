@@ -6,6 +6,7 @@ from django import forms
 from django.contrib.auth.models import User
 from forms import CommentForm
 
+from django.template import Context, Template
 from models import Poll, Vote, Comment
 from forms import VoteForm
 from datetime import datetime

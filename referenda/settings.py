@@ -127,8 +127,6 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = '/Users/santifinland/referenda/media/'
 MEDIA_URL = '/media/'
 
-
-
 # all_auth
 TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.request",
