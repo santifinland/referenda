@@ -9,14 +9,14 @@ from forms import CommentForm
 from django.template import Context, Template
 from models import Poll, Vote, Comment
 from forms import VoteForm
-from datetime import datetime
+from django.utils import timezone
 
 def home(request):
     print "kkkkk"
     poll_list = Poll.objects.order_by('vote_date_end')[:5]
     voteform = VoteForm()
     voteform.fields['vote'].widget = forms.HiddenInput()
-    now = datetime.now()
+    now = timezone.now()
     context = {'poll_list': poll_list, 'voteform': voteform, 'now': now}
     return render(request, 'home.html', context)
 
@@ -29,7 +29,7 @@ def vote(request, poll_id):
     context = {'poll_list': poll_list}
     try:
         voteform = VoteForm(request.POST)
-        if voteform.is_valid() and p.vote_date_start < datetime.now() < p.vote_date_end:
+        if voteform.is_valid() and p.vote_date_start < timezone.now() < p.vote_date_end:
             print "Form valid"
             #user_votes = Vote.objects.filter(referendum=p)
             user_votes = Vote.objects.filter(referendum=p).filter(userid=request.user.id)
@@ -42,6 +42,7 @@ def vote(request, poll_id):
                 print "User"
                 print user
                 if voteform.data['vote'] == 'Yes':
+                    print "si"
                     p.votes_positive = p.votes_positive + 1
                 elif voteform.data['vote'] == 'No':
                     p.votes_negative = p.votes_negative + 1
