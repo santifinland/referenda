@@ -113,3 +113,6 @@ def comment(request, poll_id):
         raise Http404
     else:
         return render(request, 'referendum.html', context)
+
+def cookies(request):
+    return render(request, 'cookies.html')

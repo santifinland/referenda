@@ -30,7 +30,10 @@ urlpatterns = patterns('',
     url(r'^accounts/profile/$', 'referendum.views.profile', name='profile'),
 
     # Avatar
-    (r'^avatar/', include('avatar.urls'))
+    (r'^avatar/', include('avatar.urls')),
+
+     # Cookies
+    url(r'cookies$', views.cookies, name='cookies')
 #) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 )
 
