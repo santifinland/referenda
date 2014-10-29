@@ -124,7 +124,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = 'static'
 STATIC_URL = '/static/'
-MEDIA_ROOT = '/Users/santifinland/referenda/media/'
+MEDIA_ROOT = '/home/sdmt/referenda/media/'
 MEDIA_URL = '/media/'
 
 # all_auth
