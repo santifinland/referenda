@@ -11,9 +11,13 @@
     <link rel="stylesheet" href="/static/css/layout.css">
     <link rel="stylesheet" href="/static/css/cookies.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.4.6/css/foundation.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css">
     <script type="text/javascript" src="/static/js/cookies.js"></script>
     <script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.4.6/js/foundation.min.js"></script>
+    <script type="text/javascript"
+            src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.4.6/js/foundation.min.js"></script>
+    <script type="text/javascript"
+            src="//cdnjs.cloudflare.com/ajax/libs/fouIndation/5.4.7/js/foundation/foundation.magellan.min.js"></script>
     <script type="text/javascript" src="/static/foundation/js/vendor/custom.modernizr.js"></script>
     <script type="text/javascript" src="/static/foundation/js/vendor/jquery.js"></script>
 
@@ -28,7 +32,6 @@
 <div class="wrapper">
 
     <div class="row">
-
         <div class="small-8 large-8 columns">
             <h1><a href="/">Referenda</a></h1>
             <h4 class="subheader">{% trans "Direct Democracy" %}</h4>
@@ -52,11 +55,21 @@
                 <!--<h6 class="subheader" style="text-align:right"><a href="{% url 'account_signup' %}">{% trans "Register" %}</a></h6>-->
             {% endif %}
         </div>
-
     </div>
 
     <div class="row">
         <div class="small-12 large-12 columns">
+            <a> <i class="fi-home"></i> Home </a>
+            <a> <i class="fi-plus"></i> Resultados </a>
+            <hr>
+            <h3 data-magellan-destination="js">Using Our Javascript</h3>
+
+            <div data-magellan-expedition="fixed">
+                <ul class="sub-nav">
+                    <li data-magellan-arrival="build"><a href="#build">Build with HTML</a></li>
+                    <li data-magellan-arrival="js"><a href="#js">Arrival 2</a></li>
+                </ul>
+            </div>
             <hr>
             {% block content %}{% endblock %}
         </div>
