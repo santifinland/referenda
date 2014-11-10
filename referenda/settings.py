@@ -110,8 +110,7 @@ LOCALE_PATHS = (
 # Parse database configuration from $DATABASE_URL
 import dj_database_url
 #DATABASES['default'] = dj_database_url.config()
-#DATABASES['default'] = dj_database_url.config(default=os.environ.get('DATABASE_URL'))
-DATABASES = {'default': dj_database_url.config(default='postgres://zjcqxxyskstkvy:mC1pP0VAcPGa5sUmYfTM7dfsqN@ec2-79-125-25-99.eu-west-1.compute.amazonaws.com:5432/debl6dvkif60up')}
+DATABASES['default'] = dj_database_url.config(default=os.environ.get('REFERENDA_DATABASE_URL'))
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')

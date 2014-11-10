@@ -14,10 +14,11 @@ from django.utils import timezone
 def home(request):
     print "kkkkk"
     poll_list = Poll.objects.order_by('vote_date_end')[:5]
+    current_polls = [ r for r in poll_list if r.vote_date_end > timezone.now()]
     voteform = VoteForm()
     voteform.fields['vote'].widget = forms.HiddenInput()
     now = timezone.now()
-    context = {'poll_list': poll_list, 'voteform': voteform, 'now': now}
+    context = {'poll_list': current_polls, 'voteform': voteform, 'now': now}
     return render(request, 'home.html', context)
 
 def profile(request):
@@ -113,6 +114,12 @@ def comment(request, poll_id):
         raise Http404
     else:
         return render(request, 'referendum.html', context)
+
+def results(request):
+    poll_list = Poll.objects.order_by('vote_date_end')[:5]
+    finished_polls = [ r for r in poll_list if r.vote_date_end < timezone.now()]
+    context = {'poll_list': finished_polls}
+    return render(request, 'results.html', context)
 
 def cookies(request):
     return render(request, 'cookies.html')

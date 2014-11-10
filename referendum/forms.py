@@ -5,7 +5,7 @@ class VoteForm(forms.Form):
     vote = forms.BooleanField(initial=True)
 
 class CommentForm(forms.ModelForm):
-    comment = forms.CharField(required=True, widget=forms.widgets.Textarea(attrs={'placeholder': 'Your Comment'}), label='Comment')
+    comment = forms.CharField(required=True, widget=forms.widgets.Textarea(attrs={'placeholder': 'Tu comentario '}), label='Comment')
  
     def is_valid(self):
         form = super(CommentForm, self).is_valid()
