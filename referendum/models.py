@@ -12,6 +12,9 @@ class Poll(models.Model):
     votes_positive = models.IntegerField(default=0)
     votes_negative = models.IntegerField(default=0)
     votes_abstention = models.IntegerField(default=0)
+    result_positive = models.IntegerField(default=0)
+    result_negative = models.IntegerField(default=0)
+    result_abstention = models.IntegerField(default=0)
 
     def get_absolute_url(self):
         return "/referendum/%i/" % self.id

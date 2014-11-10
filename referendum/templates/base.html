@@ -57,29 +57,19 @@
         </div>
     </div>
 
+    <div style="background-color: grey">
+        {% block nav %}{% endblock %}
+    </div>
+
     <div class="row">
         <div class="small-12 large-12 columns">
-            <a> <i class="fi-home"></i> Home </a>
-            <a> <i class="fi-plus"></i> Resultados </a>
-            <hr>
-            <h3 data-magellan-destination="js">Using Our Javascript</h3>
-
-            <div data-magellan-expedition="fixed">
-                <ul class="sub-nav">
-                    <li data-magellan-arrival="build"><a href="#build">Build with HTML</a></li>
-                    <li data-magellan-arrival="js"><a href="#js">Arrival 2</a></li>
-                </ul>
-            </div>
-            <hr>
             {% block content %}{% endblock %}
         </div>
-    </div">
+    </div>
 
     <div class="push">
-    </div">
+    </div>
 
-</div>
-</div>
 </div>
 
 <div class="footer">

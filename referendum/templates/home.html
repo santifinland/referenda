@@ -8,9 +8,19 @@
 {% load account %}
 {% load url from future %}
 
+{% block nav %}
+<div class="row">
+    <div class="small-12 large-12 columns">
+        <dl class="sub-nav" style="margin-top: 4px; margin-bottom: 0px">
+            <dd class="active"><a href="/"><i class="fi-home"></i> Votaciones</a></dd>
+            <dd><a href="/results" style="color: white"><i class="fi-mail"></i> Resultados</a></dd>
+        </dl>
+    </div>
+</div>
+{% endblock %}
+
 {% block content %}
-
-
+<br>
 <div class="row">
     {% if poll_list %}
 
@@ -98,8 +108,7 @@
         {% endfor %}
 
    {% else %}
-   <p>{% trans "No polls are available." %}</p>
+     <h2>{% trans "Currently there are no polls available." %}</h2>
    {% endif %}
 </div>
-
 {% endblock %}
