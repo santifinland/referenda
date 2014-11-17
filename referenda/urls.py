@@ -30,7 +30,10 @@ urlpatterns = patterns('',
     (r'^accounts/', include('allauth.urls')),
 
     # Profile
+    url(r'^accounts/avatar/$', 'referendum.views.avatar', name='avatar'),
     url(r'^accounts/profile/$', 'referendum.views.profile', name='profile'),
+    url(r'^accounts/delete/$', 'referendum.views.delete', name='delete'),
+    url(r'^accounts/delete/thanks$', 'referendum.views.delete_thanks', name='delete_thanks'),
 
     # Avatar
     (r'^avatar/', include('avatar.urls')),

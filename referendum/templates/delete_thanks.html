@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n %}
+
+{% block nav %}
+<div class="row">
+    <div class="small-12 large-12 columns">
+        <dl class="sub-nav" style="margin-top: 4px; margin-bottom: 0px">
+            <dd><a href="/" style="color: white"><i class="fi-home"></i> Votaciones</a></dd>
+            <dd><a href="/results" style="color: white"><i class="fi-graph-pie"></i> Resultados</a></dd>
+        </dl>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="small-12 large-12 columns">
+        <br>
+        <br>
+        <h4 class="subheader">{% trans "Thanks for your time at Referenda.es" %}</h4>
+        <h4 class="subheader">{% trans "We hope to see you soon!" %}</h4>
+    </div>
+</div>
+
+{% endblock %}

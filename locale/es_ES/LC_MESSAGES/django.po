@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-10 14:42+0000\n"
+"POT-Creation-Date: 2014-11-21 16:15+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,39 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: referendum/forms.py:10
+msgid "Your comment"
+msgstr "Comentar"
+
+#: referendum/forms.py:27
+msgid "Please, could you tell us why you leave Referenda.es?"
+msgstr "Por favor, ¿podrías decirnos por qué dejas Referenda.es?"
+
+#: referendum/templates/avatar.html:23 referendum/templates/delete.html:25
+#: referendum/templates/profile.html:25
+msgid "Avatar"
+msgstr "Avatar"
+
+#: referendum/templates/avatar.html:27 referendum/templates/delete.html:29
+#: referendum/templates/profile.html:29
+#: referendum/templates/account/email.html:6
+msgid "Account"
+msgstr "Cuenta"
+
+#: referendum/templates/avatar.html:32 referendum/templates/avatar/add.html:6
+#: referendum/templates/avatar/change.html:8
+msgid "Your current avatar: "
+msgstr "Tu avatar actual"
+
+#: referendum/templates/avatar.html:40
+msgid "Do you want to change your avatar?"
+msgstr "¿Quieres cambiar tu avatar?"
+
+#: referendum/templates/avatar.html:42 referendum/templates/avatar/add.html:13
+#: referendum/templates/avatar/change.html:20
+msgid "Upload New Image"
+msgstr "Cargar Nueva Imagen"
 
 #: referendum/templates/base.html:37
 msgid "Direct Democracy"
@@ -41,6 +74,22 @@ msgstr "Iniciar sesión"
 #: referendum/templates/base.html:55
 msgid "Register"
 msgstr "Registrarse"
+
+#: referendum/templates/delete.html:36 referendum/templates/profile.html:68
+msgid "Delete account"
+msgstr "Borrar cuenta"
+
+#: referendum/templates/delete.html:40
+msgid "Delete Account"
+msgstr "Borrar cuenta"
+
+#: referendum/templates/delete_thanks.html:21
+msgid "Thanks for your time at Referenda.es"
+msgstr "Gracias por haber formado parte de Referenda.es"
+
+#: referendum/templates/delete_thanks.html:22
+msgid "We hope to see you soon!"
+msgstr "¡Esperamos verte pronto!"
 
 #: referendum/templates/home.html:35 referendum/templates/referendum.html:42
 #: referendum/templates/results.html:29
@@ -77,20 +126,21 @@ msgstr "Abstención"
 msgid "Currently there are no polls available."
 msgstr "Actualmente no hay referendums disponibles."
 
-#: referendum/templates/profile.html:8 referendum/templates/avatar/add.html:6
-#: referendum/templates/avatar/change.html:8
-msgid "Your current avatar: "
-msgstr "Tu avatar actual"
+#: referendum/templates/profile.html:36
+msgid "Data provided directly to referenda.es: "
+msgstr "Datos proporcionados directamente a Referenda.es"
 
-#: referendum/templates/profile.html:16
-msgid "Do you want to change your avatar?"
-msgstr "¿Quieres cambiar tu avatar?"
+#: referendum/templates/profile.html:42 referendum/templates/profile.html:61
+msgid "(Visible)"
+msgstr "Visible"
 
-#: referendum/templates/profile.html:18
-#: referendum/templates/avatar/add.html:13
-#: referendum/templates/avatar/change.html:20
-msgid "Upload New Image"
-msgstr "Cargar Nueva Imagen"
+#: referendum/templates/profile.html:46
+msgid "Data provided through "
+msgstr "Datos proporcionados a través de "
+
+#: referendum/templates/profile.html:62
+msgid "(Not shown)"
+msgstr "No mostrado"
 
 #: referendum/templates/referendum.html:29
 #: referendum/templates/results.html:41
@@ -106,7 +156,6 @@ msgid "Comment"
 msgstr "Comentar"
 
 #: referendum/templates/results.html:30
-#, fuzzy
 msgid "Voted "
 msgstr "Vota"
 
@@ -120,10 +169,6 @@ msgstr ""
 
 #: referendum/templates/results.html:53
 msgid "Referenda"
-msgstr ""
-
-#: referendum/templates/account/email.html:6
-msgid "Account"
 msgstr ""
 
 #: referendum/templates/account/email.html:9
@@ -236,7 +281,7 @@ msgstr ""
 
 #: referendum/templates/account/logout.html:23
 msgid "Thanks for visiting referenda"
-msgstr ""
+msgstr "Gracias por visitar Referenda.es"
 
 #: referendum/templates/account/password_change.html:4
 #: referendum/templates/account/password_change.html:7
@@ -249,7 +294,7 @@ msgstr ""
 #: referendum/templates/account/password_delete.html:5
 #: referendum/templates/account/password_delete.html:8
 msgid "Delete Password"
-msgstr ""
+msgstr "Borrar password"
 
 #: referendum/templates/account/password_delete.html:9
 msgid ""
@@ -540,6 +585,9 @@ msgstr ""
 #: referendum/templates/socialaccount/messages/account_disconnected.txt:2
 msgid "The social account has been disconnected."
 msgstr ""
+
+#~ msgid "(Publicly visible)"
+#~ msgstr "Visible públicamente"
 
 #~ msgid "No polls are available."
 #~ msgstr "No hay referendums disponibles"

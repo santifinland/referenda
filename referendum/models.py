@@ -22,11 +22,13 @@ class Poll(models.Model):
     def __unicode__(self):
         return self.headline
 
+
 class Vote(models.Model):
     referendum = models.ForeignKey('Poll')
     userid = models.IntegerField(default=0)
     VOTE_CHOICES = (('YES', 'Yes'), ('NO','No'), ('ABS', 'Abs'),)
     vote = models.CharField(max_length=3, choices=VOTE_CHOICES, default='Yes')
+
 
 class Comment(models.Model):
     referendum = models.ForeignKey('Poll')
