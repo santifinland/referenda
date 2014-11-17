@@ -44,7 +44,7 @@
                 <div class="row">
                     <div class="small-9 large-9 columns">
                         <h6 style="text-align:right">{% user_display user %} <br>
-                        <a href="/accounts/profile" >{% trans "View my profile" %}</a> </h6>
+                        <a href="/accounts/avatar" >{% trans "View my profile" %}</a> </h6>
                     </div>
                     <div class="small-3 large-3 columns">
                         <a href="{% url 'avatar_change' %}">{% avatar user 50 %}</a>
@@ -76,13 +76,14 @@
     <div class="row">
         <div class="small-12 large-12 columns">
             <hr>
-            <p>Copyright © Referenda 2014 | <a href="mailto:admin@referenda.es">Contacto</a> </p>
+            <p>Copyright © Referenda 2014 | <a href="mailto:admin@referenda.es">Contacto</a>
+               | <a href="http://twitter.com/Referenda_es" <i class="fi-social-twitter"></i></a></p>
         </div>
     </div>
 </div>
 
 <div class="cookiesms" id="cookie1">
-    Esta web utiliza cookies, puedes ver nuestra  <a href="/cookies">la política de cookies, aquí</a>
+    Esta web utiliza cookies, puedes ver nuestra  <a href="/cookies">política de cookies, aquí</a>
     Si continuas navegando estás aceptándola
     <button onclick="controlcookies()">Aceptar</button>
     <div  class="cookies2" onmouseover="document.getElementById('cookie1').style.bottom = '0px';">Política de cookies + </div>

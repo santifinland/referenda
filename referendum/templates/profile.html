@@ -1,21 +1,71 @@
 {% extends "avatar/base.html" %}
 {% load i18n avatar_tags %}
 {% load url from future %}
+{% load socialaccount %}
+{% load account %}
+
+{% block nav %}
+<div class="row">
+    <div class="small-12 large-12 columns">
+        <dl class="sub-nav" style="margin-top: 4px; margin-bottom: 0px">
+            <dd><a href="/" style="color: white"><i class="fi-home"></i> Votaciones</a></dd>
+            <dd><a href="/results" style="color: white"><i class="fi-graph-pie"></i> Resultados</a></dd>
+        </dl>
+    </div>
+</div>
+{% endblock %}
 
 {% block content %}
 <div class="row">
-    <div class="small-6 large-6 columns">
-        <h4 class="subheader">{% trans "Your current avatar: " %}</h4>
-        {% avatar user 300 %}
+    <div class="small-2 large-2 columns">
+        <div class="icon-bar vertical" style="background-color: grey; height: 65%">
+            <a class="item"></a>
+            <a href="/accounts/avatar" class="item">
+                <i class="fi-torsos-male-female"></i>
+                <label>Avatar</label>
+            </a>
+            <a href="/accounts/profile" class="item" style="background-color: dimgrey">
+                <i class="fi-list"></i>
+                <label>Account</label>
+            </a>
+        </div>
     </div>
-    <div class="small-6 large-6 columns">
+    <div class="small-10 large-10 columns">
         <br>
-        <br>
-        <br>
-        {% if not avatars %}
-            <h4 class="subheader">{% trans "Do you want to change your avatar?" %}</h4>
+        <hr>
+        <h4 class="subheader">{% trans "Data provided directly to referenda.es: " %}</h4>
+    </div>
+    <div class="small-8 large-8 columns">
+        <p><b>Avatar: </b>{% avatar user 50 %}</p>
+    </div>
+    <div class="small-2 large-2 columns">
+        <p>{% trans "(Publicly visible)" %}</p>
+    </div>
+    <div class="small-10 large-10 columns">
+        <hr>
+        <h4 class="subheader">{% trans "Data provided through " %} {{ user.socialaccount_set.all.0.provider }}</h4>
+    </div>
+    <div class="small-8 large-8 columns">
+        <p><b>Username: </b> {{ user }}</p>
+        {% if user.first_name|length > 0 %}
+            <p><b>First name: </b> {{ user.first_name }}</p>
         {% endif %}
-        <a href="{% url 'avatar_change' %}" class="radius button">{% trans "Upload New Image" %}</a>
+        {% if user.last_name|length > 0 %}
+            <p><b>Last name: </b> {{ user.last_name }}</p>
+        {% endif %}
+        {% if user.email|length > 0 %}
+            <p><b>E-mail: </b> {{ user.email }}</p>
+        {% endif %}
+    </div>
+    <div class="small-2 large-2 columns">
+        <p>{% trans "(Never shown)" %}</p>
+        <p>{% trans "(Never shown)" %}</p>
+    </div>
+
+    <div class="small-10 large-10 columns"><hr><br><br><br><br><br></div>
+    <div class="small-7 large-7 columns"></div>
+    <div class="small-3 large-3 columns">
+        <a href="/accounts/delete" class="button alert">{% trans "Delete account" %}</a>
     </div>
 </div>
 {% endblock %}

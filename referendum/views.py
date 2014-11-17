@@ -4,15 +4,15 @@ from django.shortcuts import render, render_to_response
 from django.shortcuts import get_object_or_404
 from django import forms
 from django.contrib.auth.models import User
-from forms import CommentForm
+from forms import CommentForm, DeleteAccountForm
 
+from django.contrib.auth.decorators import login_required
 from django.template import Context, Template
 from models import Poll, Vote, Comment
 from forms import VoteForm
 from django.utils import timezone
 
 def home(request):
-    print "kkkkk"
     poll_list = Poll.objects.order_by('vote_date_end')[:5]
     current_polls = [ r for r in poll_list if r.vote_date_end > timezone.now()]
     voteform = VoteForm()
@@ -21,8 +21,23 @@ def home(request):
     context = {'poll_list': current_polls, 'voteform': voteform, 'now': now}
     return render(request, 'home.html', context)
 
+
+@login_required
+def avatar(request):
+    return render(request, 'avatar.html')
+
+
+@login_required
 def profile(request):
     return render(request, 'profile.html')
+
+
+@login_required
+def delete(request):
+    delete_account_form = DeleteAccountForm(data=request.POST)
+    context = {'comment_form': delete_account_form}
+    return render(request, 'delete.html', context)
+
 
 def vote(request, poll_id):
     p = get_object_or_404(Poll, pk=poll_id)
