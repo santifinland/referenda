@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/sh
 
 NOW=$(date +"%Y-%m-%d")
 FILE="db_referenda_backup.$NOW"

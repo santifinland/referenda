@@ -1,10 +1,8 @@
 from boto.s3.connection import S3Connection
 from boto.s3.bucket import Bucket
-from boto.s3.key import Key
-from crypto import encrypt
+from crypto import decrypt
 from datetime import date
 import ConfigParser
-import os
 import tarfile
 
 
@@ -25,25 +23,19 @@ encrypted_backup_filename_with_day = "encrypted_" + backup_filename_with_day
 zipped_encrypted_backup_filename_with_day = encrypted_backup_filename_with_day + ".tar.gz"
 
 
-# Encrypt database backup file
-with open(backup_filename_with_day, 'rb') as in_file, open(encrypted_backup_filename_with_day, 'wb') as out_file:
-    encrypt(in_file, out_file, password)
-
-
-# Make tar gz file
-tar = tarfile.open(zipped_encrypted_backup_filename_with_day, "w:gz")
-tar.add(encrypted_backup_filename_with_day)
-tar.close()
-
-
-# Upload daily database backup file
+# Download daily database backup file
 conn = S3Connection(aws_access_key, aws_secret_key)
 b = Bucket(conn, bucket_name)
 key = b.new_key(s3_folder + "/" + zipped_encrypted_backup_filename_with_day)
-key.set_contents_from_filename(zipped_encrypted_backup_filename_with_day)
+key.get_contents_to_filename(zipped_encrypted_backup_filename_with_day)
 
 
-# Remove not needed files
-os.remove(backup_filename_with_day)
-os.remove(encrypted_backup_filename_with_day)
+# Unzip downloaded database backup file
+tar = tarfile.open(zipped_encrypted_backup_filename_with_day)
+tar.extractall()
+tar.close()
 
+
+# Decrypt downloaded database backup file
+with open(encrypted_backup_filename_with_day, 'rb') as in_file, open(backup_filename_with_day, 'wb') as out_file:
+    decrypt(in_file, out_file, password)
