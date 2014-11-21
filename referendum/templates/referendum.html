@@ -5,10 +5,21 @@
 {% load account %}
 {% load url from future %}
 
-{% block content %}
-
+{% block nav %}
 <div class="row">
     <div class="small-12 large-12 columns">
+        <dl class="sub-nav" style="margin-top: 4px; margin-bottom: 0px">
+            <dd><a href="/" style="color: white"><i class="fi-home"></i> Votaciones</a></dd>
+            <dd><a href="/results" style="color: white"><i class="fi-graph-pie"></i> Resultados</a></dd>
+        </dl>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="small-12 large-12 columns">
+        <br>
         {% if referendum %}
             <div class="small-2 large-2 columns">
                 <ul class="pricing-table">
@@ -35,7 +46,7 @@
             <div class="small-8 large-8 columns">
                 <ul class="pricing-table">
                     <li class="title" style="text-align: left"><a href="/referendum/{{ referendum.id }}/">{{ referendum.headline }}</a></li>
-                    <li class="bullet-item" style="text-align: left">{{ referendum.long_description|linebreaksbr }}</li>
+                    <li class="description">{{ referendum.long_description|linebreaks }}</li>
                     <li class="bullet-item" style="text-align: left">
                         <div class="row">
                             <div class="small-10 large-10 columns">
@@ -82,5 +93,4 @@
         {% endfor %}
     </div>
 </div>
-
 {% endblock %}

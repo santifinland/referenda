@@ -21,3 +21,8 @@ Sticky Footer by Ryan Fait
 http://ryanfait.com/
 
 */
+
+.pricing-table li.description {
+    text-align: justify;
+    text-justify: initial;
+}
