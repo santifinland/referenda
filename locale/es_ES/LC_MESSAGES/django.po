@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-21 16:15+0000\n"
+"POT-Creation-Date: 2014-11-22 18:02+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -91,38 +91,38 @@ msgstr "Gracias por haber formado parte de Referenda.es"
 msgid "We hope to see you soon!"
 msgstr "¡Esperamos verte pronto!"
 
-#: referendum/templates/home.html:35 referendum/templates/referendum.html:42
+#: referendum/templates/home.html:35 referendum/templates/referendum.html:53
 #: referendum/templates/results.html:29
-msgid "Official link"
-msgstr "Link oficial"
+msgid "Full proposal"
+msgstr "Propuesta completa"
 
 #: referendum/templates/home.html:36
-msgid "Can vote from"
-msgstr "Puedes votar desde el"
+msgid "Can vote until"
+msgstr "Puedes votar hasta el "
 
-#: referendum/templates/home.html:36
-msgid "until"
-msgstr "hasta el"
+#: referendum/templates/home.html:37 referendum/templates/results.html:31
+msgid "of"
+msgstr "de"
 
-#: referendum/templates/home.html:43 referendum/templates/referendum.html:15
-#: referendum/templates/results.html:40
+#: referendum/templates/home.html:44 referendum/templates/referendum.html:26
+#: referendum/templates/results.html:41
 msgid "Yes"
 msgstr "Sí"
 
-#: referendum/templates/home.html:51 referendum/templates/home.html.py:53
-#: referendum/templates/home.html:58 referendum/templates/home.html.py:73
-#: referendum/templates/home.html:75 referendum/templates/home.html.py:80
-#: referendum/templates/home.html:94 referendum/templates/home.html.py:96
-#: referendum/templates/home.html:101
+#: referendum/templates/home.html:52 referendum/templates/home.html.py:54
+#: referendum/templates/home.html:59 referendum/templates/home.html.py:74
+#: referendum/templates/home.html:76 referendum/templates/home.html.py:81
+#: referendum/templates/home.html:95 referendum/templates/home.html.py:97
+#: referendum/templates/home.html:102
 msgid "Vote"
 msgstr "Vota"
 
-#: referendum/templates/home.html:86 referendum/templates/referendum.html:21
-#: referendum/templates/results.html:42
+#: referendum/templates/home.html:87 referendum/templates/referendum.html:32
+#: referendum/templates/results.html:43
 msgid "Abstention"
 msgstr "Abstención"
 
-#: referendum/templates/home.html:111 referendum/templates/results.html:66
+#: referendum/templates/home.html:112 referendum/templates/results.html:67
 msgid "Currently there are no polls available."
 msgstr "Actualmente no hay referendums disponibles."
 
@@ -142,32 +142,32 @@ msgstr "Datos proporcionados a través de "
 msgid "(Not shown)"
 msgstr "No mostrado"
 
-#: referendum/templates/referendum.html:29
-#: referendum/templates/results.html:41
+#: referendum/templates/referendum.html:40
+#: referendum/templates/results.html:42
 msgid "No"
 msgstr "No"
 
-#: referendum/templates/referendum.html:49
+#: referendum/templates/referendum.html:60
 msgid "No referendum is available."
 msgstr "No hay referendums"
 
-#: referendum/templates/referendum.html:60
+#: referendum/templates/referendum.html:71
 msgid "Comment"
 msgstr "Comentar"
 
 #: referendum/templates/results.html:30
-msgid "Voted "
-msgstr "Vota"
+msgid "Voted"
+msgstr "Votada el"
 
-#: referendum/templates/results.html:39
+#: referendum/templates/results.html:40
 msgid "Results"
 msgstr "Resultados"
 
-#: referendum/templates/results.html:47
+#: referendum/templates/results.html:48
 msgid "Congreso"
 msgstr ""
 
-#: referendum/templates/results.html:53
+#: referendum/templates/results.html:54
 msgid "Referenda"
 msgstr ""
 
@@ -585,6 +585,12 @@ msgstr ""
 #: referendum/templates/socialaccount/messages/account_disconnected.txt:2
 msgid "The social account has been disconnected."
 msgstr ""
+
+#~ msgid "Official link"
+#~ msgstr "Link oficial"
+
+#~ msgid "until"
+#~ msgstr "hasta el"
 
 #~ msgid "(Publicly visible)"
 #~ msgstr "Visible públicamente"

@@ -32,8 +32,9 @@
                         <li class="title" style="text-align: left"><a href="/referendum/{{ poll.id }}/">{{ poll.headline }}</a></li>
                         <li class="bullet-item" style="text-align: left">{{ poll.short_description }}</li>
                         <li class="bullet-item" style="text-align: left">
-                        <a href={{ poll.link }} target="_blank">{% trans "Official link" %}</a> | 
-                            {% trans "Can vote from" %} {{ poll.vote_date_start.date }} {% trans "until" %} {{ poll.vote_date_end.date }}
+                        <a href={{ poll.link }} target="_blank">{% trans "Full proposal" %}</a> |
+                            {% trans "Can vote until" %} {{ poll.vote_date_end.date|date:"d" }}
+                            {% trans "of" %} {{ poll.vote_date_end.date|date:"F" }}
                         </li>
                     </ul>
                 </div>
