@@ -22,8 +22,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = 'd$85yora*btbuwf-mi0@)z360la-o*xqg5)4(h8+*unc=6bl=s'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-TEMPLATE_DEBUG = False
+DEBUG = True
+TEMPLATE_DEBUG = True
 
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
