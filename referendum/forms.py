@@ -1,6 +1,7 @@
 from django import forms
+from django.forms import widgets
 from django.utils.translation import ugettext_lazy
-from models import Comment
+from models import Comment, DelegatedVote
 
 class VoteForm(forms.Form):
     vote = forms.BooleanField(initial=True)
@@ -35,4 +36,19 @@ class DeleteAccountForm(forms.Form):
 
     class Meta:
         fields = ['reason']
+        exclude = ('user',)
+
+
+class DelegateVoteForm(forms.Form):
+    partie = forms.CharField()
+
+    def is_valid(self):
+        form = super(DelegateVoteForm, self).is_valid()
+        for f in self.errors.iterkeys():
+            if f != '__all__':
+                self.fields[f].widget.attrs.update({'class': 'error'})
+        return form
+
+    class Meta:
+        fields = ['partie']
         exclude = ('user',)

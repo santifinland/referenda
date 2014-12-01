@@ -1,12 +1,10 @@
 from django.conf.urls import patterns, include, url
-from django.conf import settings
-from django.conf.urls.static import static
+from django.contrib import admin
 from referendum import views
 
 
-# Uncomment the next two lines to enable the admin:
-from django.contrib import admin
 admin.autodiscover()
+
 
 urlpatterns = patterns('',
     # Home:
@@ -18,13 +16,16 @@ urlpatterns = patterns('',
     url(r'^referendum/(?P<poll_id>\d+)/comment/$', views.comment, name='comment'),
 
     # Results
-    url(r'results$', views.results, name='results'),
+    url(r'^results$', views.results, name='results'),
+
+    # Delegate Vode
+    url(r'^delegatevote$', views.delegatevote, name='delegatevote'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
-    #url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', include(admin.site.urls)),
 
     # Accounts login and register
     (r'^accounts/', include('allauth.urls')),
