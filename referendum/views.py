@@ -24,7 +24,14 @@ def avatar(request):
 
 @login_required
 def profile(request):
-    return render(request, 'profile.html')
+    context = {}
+    delegated_vote_objects = DelegatedVote.objects.filter(user=request.user)
+    if len(delegated_vote_objects) > 0:
+        delegated_vote = delegated_vote_objects[0]
+        if delegated_vote.partie.name != "none":
+            delegated_vote_partie_logo_url = delegated_vote.partie.logo.url
+            context.update({'delegated_vote_partie_logo_url': delegated_vote_partie_logo_url})
+    return render(request, 'profile.html', context)
 
 
 @login_required
@@ -32,6 +39,9 @@ def delete(request):
     if request.method == 'POST':
         delete_account_form = DeleteAccountForm(request.POST)
         if delete_account_form.is_valid():
+            delegated_vote_objects = DelegatedVote.objects.filter(user=request.user)
+            delegated_vote = delegated_vote_objects[0]
+            delegated_vote.delete()
             user = User.objects.get(pk = request.user.id)
             user.delete()
             return render(request, 'delete_thanks.html')
@@ -164,9 +174,12 @@ def delegatevote(request):
     parties = Partie.objects.all()
     delegated_vote_partie_name = ""
     delegated_vote_partie_logo_url = ""
-    if delegated_vote != None:
-        delegated_vote_partie_name = delegated_vote.partie.description
-        delegated_vote_partie_logo_url = delegated_vote.partie.logo.url
+    delegated_vote_objects = DelegatedVote.objects.filter(user=request.user)
+    if len(delegated_vote_objects) > 0:
+        delegated_vote = delegated_vote_objects[0]
+        if delegated_vote.partie.name != "none":
+            delegated_vote_partie_name = delegated_vote.partie.description
+            delegated_vote_partie_logo_url = delegated_vote.partie.logo.url
     context = {'delegated_vote_partie_name': delegated_vote_partie_name,
                'delegated_vote_partie_logo_url': delegated_vote_partie_logo_url,
                'delegate_vote_form': delegate_vote_form, 'parties': parties}

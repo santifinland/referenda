@@ -109,8 +109,16 @@
 
         {% endfor %}
 
-   {% else %}
-     <h2>{% trans "Currently there are no polls available." %}</h2>
-   {% endif %}
+    {% else %}
+      <div class="panel radius">
+        <h2>{% trans "This week there are no votings in the Congress" %}</h2>
+      </div>
+      <div class="panel radius">
+        <h2>{% trans "Please, follow us on" %} <i class="fi-social-twitter style2"></i></h2>
+      </div>
+      <div class="panel radius">
+        <h2>{%trans "We will let you know when votings are available" %}</h2>
+      </div>
+    {% endif %}
 </div>
 {% endblock %}

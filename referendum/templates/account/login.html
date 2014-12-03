@@ -6,20 +6,34 @@
 
 {% block head_title %}{% trans "Sign In" %}{% endblock %}
 
-{% block content %}
+{% block nav %}
+<div class="row">
+    <div class="small-12 large-12 columns">
+        <dl class="sub-nav" style="margin-top: 4px; margin-bottom: 0px">
+            <dd><a href="/" style="color: white"><i class="fi-home"></i> Votaciones</a></dd>
+            <dd><a href="/results" style="color: white"><i class="fi-graph-pie"></i> Resultados</a></dd>
+            <dd><a href="/delegatevote" style="color: white"><i class="fi-paperclip"></i> Delegar Votos </a></dd>
+        </dl>
+    </div>
+</div>
+{% endblock %}
 
+{% block content %}
+<br>
 <div class="row">
 
-    <div class="small-5 large-5 columns">
+    <div class="small-12 large-12 columns">
 
         <h1>{% trans "Sign In" %}</h1>
 
         {% if socialaccount.providers  %}
-        <p>{% blocktrans with site.name as site_name %} {% endblocktrans %}
+        <h4 class="subheader">{% blocktrans with site.name as site_name %} {% endblocktrans %}
         {% trans "Please sign in with one of your existing third party accounts:" %}
         <!--Or, <a href="{{ signup_url }}">register</a> 
-        for a {{site_name}} account:--></p>
+        for a {{site_name}} account:--></h4>
 
+        <br>
+        <br>
         <div class="socialaccount_ballot">
 
         <ul class="socialaccount_providers">
@@ -47,6 +61,5 @@
     </div>
 
 </div>
-
 {% endblock %}
 
