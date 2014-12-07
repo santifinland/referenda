@@ -38,11 +38,14 @@
                             {{ poll.short_description }}
                         </li>
                         <li class="bullet-item" style="text-align: left">
-                        <a href={{ poll.link }} target="_blank" itemprop="endDate"
-                            datetime="{{ poll.vote_date_end.date|date:"Y-m-d" }}T{{ poll.vote_date_end.time|date:"H:i" }}+01:00">
-                            {% trans "Full proposal" %}</a> |
-                            {% trans "Can vote until" %} {{ poll.vote_date_end.date|date:"d" }}
+                        <a href={{ poll.link }} target="_blank"> {% trans "Full proposal" %}</a> |
+                            <time itemprop="startDate" datetime="{{ poll.vote_date_start.date|date:"Y-m-d"}}T{{ poll.vote_date_start.time|date:"H:i" }}+01:00">
+                            </time>
+                            <time itemprop="endtDate" datetime="{{ poll.vote_date_end.date|date:"Y-m-d"}}T{{ poll.vote_date_end.time|date:"H:i" }}+01:00">
+                            {% trans "Can vote until" %}
+                            {{ poll.vote_date_end.date|date:"d" }}
                             {% trans "of" %} {{ poll.vote_date_end.date|date:"F" }}
+                            </time>
                         </li>
                     </ul>
                 </div>
