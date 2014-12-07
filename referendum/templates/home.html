@@ -32,7 +32,7 @@
                     <ul class="pricing-table" itemscope itemtype="http://data-vocabulary.org/Event"
                             itemprop="eventType" "Votación">
                         <li class="title" style="text-align: left">
-                            <a href="/referendum/{{ poll.id }}/" itemprop="summary">{{ poll.headline }}</a>
+                            <a itemprop="url" href="/referendum/{{ poll.id }}/" itemprop="summary">{{ poll.headline }}</a>
                         </li>
                         <li class="bullet-item" style="text-align: left" itemprop="description">
                             {{ poll.short_description }}
