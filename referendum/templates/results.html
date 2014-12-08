@@ -24,7 +24,7 @@
 
         <div class="small-6 large-6 columns">
             <ul class="pricing-table">
-                <li class="title" style="text-align: left"><a href="/referendum/{{ poll.id }}/">{{ poll.headline }}</a></li>
+                <li class="title" style="text-align: left"><a href="/referendum/{{ poll.slug }}/">{{ poll.headline }}</a></li>
                 <li class="bullet-item" style="text-align: left">{{ poll.short_description }}</li>
                 <li class="bullet-item" style="text-align: left">
                     <a href={{ poll.link }} target="_blank">{% trans "Full proposal" %}</a> |
