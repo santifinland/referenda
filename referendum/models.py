@@ -1,3 +1,4 @@
+from autoslug.fields import AutoSlugField
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -5,6 +6,7 @@ from django.contrib.auth.models import User
 VOTE_CHOICES = (('YES', 'Yes'), ('NO','No'), ('ABS', 'Abs'),)
 
 class Poll(models.Model):
+    slug = AutoSlugField(populate_from='headline', unique=True)
     headline = models.CharField(max_length=100)
     short_description = models.CharField(max_length=500)
     long_description = models.TextField()
@@ -33,7 +35,7 @@ class Poll(models.Model):
     fa = models.CharField(max_length=3, choices=VOTE_CHOICES, default='Yes')
 
     def get_absolute_url(self):
-        return "/referendum/%i/" % self.id
+        return "/referendum/%s/" % self.slug
 
     def __unicode__(self):
         return self.headline
