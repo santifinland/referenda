@@ -12,8 +12,8 @@ urlpatterns = patterns('',
     url(r'^vote/(?P<poll_id>\d+)/$', views.vote, name='vote'),
 
     # Referendum
-    url(r'^referendum/(?P<poll_id>\d+)/$', views.referendum, name='referendum'),
-    url(r'^referendum/(?P<poll_id>\d+)/comment/$', views.comment, name='comment'),
+    url(r'^referendum/(?P<poll_slug>[\w-]+)/$', views.referendum, name='referendum'),
+    url(r'^referendum/(?P<poll_slug>[\w-]+)/comment/$', views.comment, name='comment'),
 
     # Results
     url(r'^results$', views.results, name='results'),

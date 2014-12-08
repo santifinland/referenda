@@ -105,11 +105,11 @@ def vote_referendum(request, poll_id):
     return redirect(p)
 
 
-def referendum(request, poll_id):
+def referendum(request, poll_slug):
     try:
-        referendum = Poll.objects.get(pk=poll_id)
+        referendum = Poll.objects.get(slug=poll_slug)
         context = {'referendum': referendum}
-        comments = Comment.objects.filter(referendum_id = poll_id)
+        comments = Comment.objects.filter(referendum_id = referendum.id)
         if comments != None:
             context.update({'comments': comments})
         comment_form = CommentForm(data=request.POST)
@@ -121,11 +121,11 @@ def referendum(request, poll_id):
 
 
 @login_required
-def comment(request, poll_id):
+def comment(request, poll_slug):
     try:
-        referendum = Poll.objects.get(pk=poll_id)
+        referendum = Poll.objects.get(slug=poll_slug)
         context = {'referendum': referendum}
-        comments = Comment.objects.filter(referendum_id = poll_id)
+        comments = Comment.objects.filter(referendum_id = referendum.id)
         if comments != None:
             context.update({'comments': comments})
         comment_form = CommentForm(request.POST)
