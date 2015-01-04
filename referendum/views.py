@@ -186,5 +186,9 @@ def delegatevote(request):
     return render(request, 'delegatevote.html', context)
 
 
+def dataprotection(request):
+    return render(request, 'dataprotection.html')
+
+
 def cookies(request):
     return render(request, 'cookies.html')

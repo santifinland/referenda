@@ -39,6 +39,9 @@ urlpatterns = patterns('',
     # Avatar
     (r'^avatar/', include('avatar.urls')),
 
+    # Data protection
+    url(r'dataprotection$', views.dataprotection, name='dataprotection'),
+
      # Cookies
     url(r'cookies$', views.cookies, name='cookies')
 #) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
