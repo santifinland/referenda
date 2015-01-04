@@ -1,5 +1,7 @@
-#!/bin/sh
+#!/bin/bash
 
-NOW=$(date +"%Y-%m-%d")
-FILE="db_referenda_backup.$NOW"
-pg_dump -U postgres -w -d referenda > $FILE
+cd
+source /home/sdmt/.virtualenv/referenda/bin/activate
+cd referenda/scripts
+python db_backup_upload_s3.py
+
