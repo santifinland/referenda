@@ -3,8 +3,10 @@ from django.forms import widgets
 from django.utils.translation import ugettext_lazy
 from models import Comment, DelegatedVote
 
+
 class VoteForm(forms.Form):
     vote = forms.BooleanField(initial=True)
+
 
 class CommentForm(forms.ModelForm):
     comment = forms.CharField(required=True, widget=forms.widgets.Textarea(attrs={'placeholder':
@@ -52,3 +54,48 @@ class DelegateVoteForm(forms.Form):
     class Meta:
         fields = ['partie']
         exclude = ('user',)
+
+
+class RegionForm(forms.Form):
+    region = forms.CharField()
+
+    def is_valid(self):
+        form = super(RegionForm, self).is_valid()
+        for f in self.errors.iterkeys():
+            if f != '__all__':
+                self.fields[f].widget.attrs.update({'class': 'error'})
+        return form
+
+    class Meta:
+        fields = ['region']
+        exclude = ('user',)
+
+
+class CityForm(forms.Form):
+    city = forms.CharField()
+    region = forms.CharField()
+
+    def is_valid(self):
+        form = super(CityForm, self).is_valid()
+        for f in self.errors.iterkeys():
+            if f != '__all__':
+                self.fields[f].widget.attrs.update({'class': 'error'})
+        return form
+
+    class Meta:
+        fields = ['city',]
+        exclude = ('user', 'region')
+
+
+class TierForm(forms.Form):
+    tier = forms.IntegerField()
+
+    def is_valid(self):
+        form = super(TierForm, self).is_valid()
+        for f in self.errors.iterkeys():
+            if f != '__all__':
+                self.fields[f].widget.attrs.update({'class': 'error'})
+        return form
+
+    class Meta:
+        fields = ['tier',]

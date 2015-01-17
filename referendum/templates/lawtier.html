@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load i18n avatar_tags %}
+{% load url from future %}
+
+{% block nav %}
+<div class="row">
+    <div class="small-12 large-12 columns">
+        <dl class="sub-nav" style="margin-top: 4px; margin-bottom: 0px">
+            <dd><a href="/" style="color: white"><i class="fi-home"></i> Votaciones</a></dd>
+            <dd><a href="/results" style="color: white"><i class="fi-graph-pie"></i> Resultados</a></dd>
+            <dd class="active"><a href="/delegatevote"><i class="fi-paperclip"></i> Delegar Votos</a></dd>
+        </dl>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="small-2 large-2 columns">
+        <div class="icon-bar vertical" style="background-color: grey; height: 65%">
+            <a class="item"></a>
+            <a href="/accounts/avatar" class="item">
+                <i class="fi-torsos-male-female"></i>
+                <label>{% trans "Avatar" %}</label>
+            </a>
+            <a href="/accounts/location" class="item">
+                <i class="fi-marker"></i>
+                <label>{% trans "Location" %}</label>
+            </a>
+            <a href="/delegatevote" class="item"">
+                <i class="fi-paperclip"></i>
+                <label>{% trans "Delegate" %}</label>
+                <label>{% trans "Votes" %}</label>
+            </a>
+            <a href="/accounts/lawtier" class="item" style="background-color: dimgrey">
+                <i class="fi-mail"></i>
+                <label>{% trans "Poll types" %}</label>
+            </a>
+            <a href="/accounts/profile" class="item">
+                <i class="fi-list"></i>
+                <label>{% trans "Account" %}</label>
+            </a>
+        </div>
+    </div>
+    <div class="small-10 large-10 columns">
+        <div class="row">
+            <div class="small-10 large-10 columns">
+                <br>
+                <br>
+                <h4 class="subheader">{% trans "Preferred poll types: " %}</h4>
+            </div>
+            <div class="small-2 large-2 columns">
+                <br>
+                <br>
+                {% if tier %}
+                    <h4 class="subheader">{% trans "Level " %} {{ tier.tier }}</h4>
+                {% endif %}
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <div class="row">
+            <form action="/accounts/lawtier" method="post"> {% csrf_token %}
+                <div class="small-4 large-4 columns">
+                    <div class="panel" style="heigh: 250px">
+                        <h4>{% trans "Level " %} 1.</h4>
+                        <p>{% trans "General Laws. Recommended Level" %}</p>
+                        <button name="tier" type="submit" value=1>{% trans "Select" %}</button>
+                    </div>
+                </div>
+                <div class="small-4 large-4 columns">
+                    <div class="panel" data-equalizer-watch>
+                        <h4>{% trans "Level " %} 2.</h4>
+                        <p>{% trans "Specific Laws for certain matters" %}</p>
+                        <button name="tier" type="submit" value=2>{% trans "Select" %}</button>
+                    </div>
+                </div>
+                <div class="small-4 large-4 columns">
+                    <div class="panel" data-equalizer-watch>
+                        <h4>{% trans "Level " %} 3.</h4>
+                        <p>{% trans "All Laws" %}</p>
+                        <br>
+                        <button name="tier" type="submit" value=3>{% trans "Select" %}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

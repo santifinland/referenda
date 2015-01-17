@@ -1,20 +1,55 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
-from forms import CommentForm, DelegateVoteForm, DeleteAccountForm, VoteForm
-from models import Comment, DelegatedVote, Partie, Poll, Vote
+from forms import CommentForm, CityForm, DelegateVoteForm, DeleteAccountForm, TierForm, RegionForm, VoteForm
+from models import Comment, City, DelegatedVote, Location, Partie, Poll, Region, Tier, Vote
 
 
-def home(request):
-    poll_list = Poll.objects.order_by('vote_date_end')
+CATALUNYA_CHOICES = (
+    ('BARCELONA', u'Barcelona'))
+
+
+COMUNIDAD_DE_MADRID_CHOICES = (
+    ('MADRID', u'Madrid'))
+
+
+def home(request, institution=None):
+    if institution is not None:
+        poll_list = Poll.objects.filter(institution=institution).order_by('vote_date_end')
+    else:
+        return redirect('home_country', institution='Congreso')
     current_polls = [ r for r in poll_list if r.vote_date_end > timezone.now()]
     voteform = VoteForm()
     voteform.fields['vote'].widget = forms.HiddenInput()
     now = timezone.now()
     context = {'poll_list': current_polls, 'voteform': voteform, 'now': now}
+    if request.user.is_authenticated():
+        location_objects = Location.objects.filter(user=request.user)
+        if len(location_objects) > 0:
+            location = location_objects[0]
+            city = location.city.name
+            region = location.region.name
+            context.update({'city': city, 'region': region})
     return render(request, 'home.html', context)
+
+
+def results(request, institution=None):
+    if institution is not None:
+        poll_list = Poll.objects.filter(institution=institution).order_by('vote_date_end')
+    else:
+        return redirect('results_country', institution='Congreso')
+    finished_polls = [ r for r in poll_list if r.vote_date_end < timezone.now()]
+    context = {'poll_list': finished_polls}
+    if request.user.is_authenticated():
+        location_objects = Location.objects.filter(user=request.user)
+        if len(location_objects) > 0:
+            location = location_objects[0]
+            city = location.city.name
+            region = location.region.name
+            context.update({'city': city, 'region': region})
+    return render(request, 'results.html', context)
 
 
 @login_required
@@ -31,6 +66,17 @@ def profile(request):
         if delegated_vote.partie.name != "none":
             delegated_vote_partie_logo_url = delegated_vote.partie.logo.url
             context.update({'delegated_vote_partie_logo_url': delegated_vote_partie_logo_url})
+    location_objects = Location.objects.filter(user=request.user)
+    if len(location_objects) > 0:
+        location = location_objects[0]
+        context.update({'region_logo_url': location.region.logo.url})
+        if location.city != None:
+            context.update({'city_logo_url': location.city.logo.url})
+    tier_objects = Tier.objects.filter(user=request.user)
+    if len(tier_objects) > 0:
+        tier = tier_objects[0]
+        if tier.tier != None:
+            context.update({'tier': tier })
     return render(request, 'profile.html', context)
 
 
@@ -145,13 +191,6 @@ def comment(request, poll_slug):
         return render(request, 'referendum.html', context)
 
 
-def results(request):
-    poll_list = Poll.objects.order_by('vote_date_end')
-    finished_polls = [ r for r in poll_list if r.vote_date_end < timezone.now()]
-    context = {'poll_list': finished_polls}
-    return render(request, 'results.html', context)
-
-
 @login_required
 def delegatevote(request):
     delegated_vote = None
@@ -184,6 +223,97 @@ def delegatevote(request):
                'delegated_vote_partie_logo_url': delegated_vote_partie_logo_url,
                'delegate_vote_form': delegate_vote_form, 'parties': parties}
     return render(request, 'delegatevote.html', context)
+
+@login_required
+def region(request):
+    context = {}
+    cities = City.objects.all()
+    location = None
+    location_objects = Location.objects.filter(user=request.user)
+    if len(location_objects) > 0:
+        location = location_objects[0]
+    if request.method == 'POST':
+        region_form = RegionForm(request.POST)
+        if region_form.is_valid():
+            region = Region.objects.get(name=request.POST.get('region'))
+            if location != None:
+                location.region = region
+                location.save()
+                cities = cities.filter(region=location.region)
+            else:
+                new_location = Location()
+                new_location.region = region
+                new_location.city = City.objects.get(name="Madrid")
+                new_location.user = request.user
+                new_location.save()
+                cities = cities.filter(region=new_location.region)
+    regions = Region.objects.all()
+    context.update({'region_form': RegionForm(), 'regions': regions, 'location': location, 'cities': cities})
+    return render(request, 'location.html', context)
+
+
+@login_required
+def city(request):
+    context = {}
+    cities = City.objects.all()
+    location = None
+    location_objects = Location.objects.filter(user=request.user)
+    if len(location_objects) > 0:
+        location = location_objects[0]
+    if request.method == 'POST':
+        city_form = CityForm(request.POST)
+        if city_form.is_valid():
+            city = City.objects.get(name=request.POST.get('city'))
+            if location != None:
+                location.city = city
+                location.save()
+                cities = cities.filter(region=location.region)
+            else:
+                new_location = Location()
+                new_location.city = city
+                new_location.region = Region.objects.get(name="Comunidad de Madrid")
+                new_location.user = request.user
+                new_location.save()
+                cities = cities.filter(region=new_location.region)
+    regions = Region.objects.all()
+    context.update({'region_form': RegionForm(), 'regions': regions, 'location': location, 'cities': cities})
+    return render(request, 'location.html', context)
+
+
+@login_required
+def location(request):
+    location = None
+    location_objects = Location.objects.filter(user=request.user)
+    cities = City.objects.all()
+    if len(location_objects) > 0:
+        location = location_objects[0]
+        cities = cities.filter(region=location.region)
+    regions = Region.objects.all()
+    context = {'location': location, 'region_form': RegionForm(), 'regions': regions, 'cities': cities}
+    return render(request, 'location.html', context)
+
+
+@login_required
+def lawtier(request):
+    tier = None
+    tier_objects = Tier.objects.filter(user=request.user)
+    if len(tier_objects) > 0:
+        tier = tier_objects[0]
+    if request.method == 'POST':
+        tier_form = TierForm(request.POST)
+        if tier_form.is_valid():
+            posted_tier = request.POST.get('tier')
+            if tier != None:
+                tier.tier = posted_tier
+                tier.user = request.user
+                tier.save()
+            else:
+                new_tier = Tier()
+                new_tier.tier = posted_tier
+                new_tier.user = request.user
+                new_tier.save()
+    context = {'tier_form': TierForm(), 'tier': tier}
+    return render(request, 'lawtier.html', context)
 
 
 def dataprotection(request):

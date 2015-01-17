@@ -9,6 +9,9 @@ admin.autodiscover()
 urlpatterns = patterns('',
     # Home:
     url(r'^$', 'referendum.views.home', name='home'),
+    url(r'^polls/country/(?P<institution>[ \w-]+)/$', 'referendum.views.home', name='home_country'),
+    url(r'^polls/region/(?P<institution>[ \w-]+)/$', 'referendum.views.home', name='home_region'),
+    url(r'^polls/city/(?P<institution>[ \w-]+)/$', 'referendum.views.home', name='home_city'),
     url(r'^vote/(?P<poll_id>\d+)/$', views.vote, name='vote'),
 
     # Referendum
@@ -17,6 +20,9 @@ urlpatterns = patterns('',
 
     # Results
     url(r'^results$', views.results, name='results'),
+    url(r'^results/country/(?P<institution>[ \w-]+)/$', 'referendum.views.results', name='results_country'),
+    url(r'^results/region/(?P<institution>[ \w-]+)/$', 'referendum.views.results', name='results_region'),
+    url(r'^results/city/(?P<institution>[ \w-]+)/$', 'referendum.views.results', name='results_city'),
 
     # Delegate Vode
     url(r'^delegatevote$', views.delegatevote, name='delegatevote'),
@@ -32,6 +38,10 @@ urlpatterns = patterns('',
 
     # Profile
     url(r'^accounts/avatar/$', 'referendum.views.avatar', name='avatar'),
+    url(r'^accounts/location$', 'referendum.views.location', name='location'),
+    url(r'^accounts/location/region$', 'referendum.views.region', name='region'),
+    url(r'^accounts/location/city$', 'referendum.views.city', name='city'),
+    url(r'^accounts/lawtier$', 'referendum.views.lawtier', name='lawtier'),
     url(r'^accounts/profile/$', 'referendum.views.profile', name='profile'),
     url(r'^accounts/delete/$', 'referendum.views.delete', name='delete'),
     url(r'^accounts/delete/thanks$', 'referendum.views.delete_thanks', name='delete_thanks'),
