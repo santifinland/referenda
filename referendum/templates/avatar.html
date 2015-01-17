@@ -23,18 +23,27 @@
                 <i class="fi-torsos-male-female"></i>
                 <label>{% trans "Avatar" %}</label>
             </a>
-            <a href="/accounts/profile" class="item">
-                <i class="fi-list"></i>
-                <label>{% trans "Account" %}</label>
+            <a href="/accounts/location" class="item">
+                <i class="fi-marker"></i>
+                <label>{% trans "Location" %}</label>
             </a>
             <a href="/delegatevote" class="item">
                 <i class="fi-paperclip"></i>
                 <label>{% trans "Delegate" %}</label>
                 <label>{% trans "Votes" %}</label>
             </a>
+            <a href="/accounts/lawtier" class="item">
+                <i class="fi-mail"></i>
+                <label>{% trans "Poll types" %}</label>
+            </a>
+            <a href="/accounts/profile" class="item">
+                <i class="fi-list"></i>
+                <label>{% trans "Account" %}</label>
+            </a>
         </div>
     </div>
     <div class="small-6 large-6 columns">
+        <br>
         <br>
         <h4 class="subheader">{% trans "Your current avatar: " %}</h4>
         {% avatar user 300 %}

@@ -20,6 +20,54 @@
 </div>
 {% endblock %}
 
+{% block location %}
+<div class="row">
+    <div class="small-4 large-4 columns">
+        <dl class="sub-nav" style="margin-top: 4px; margin-bottom: 0px; margin-left: 30%">
+            {% if "congreso" in request.get_full_path %}
+                <dd><a href="/polls/country/congreso/" style="color: grey"><ins>Congreso</ins></a></dd>
+            {% else %}
+                <dd><a href="/polls/country/congreso/" style="color: grey"> Congreso</a></dd>
+            {% endif %}
+        </dl>
+    </div>
+    <div class="small-4 large-4 columns">
+        <dl class="sub-nav" style="margin-top: 4px; margin-bottom: 0px; margin-left: 10%">
+            {% if region %}
+                {% if "region" in request.get_full_path %}
+                    <dd><a href="/polls/region/{{ region }}/" style="color: grey"><ins> {{ region }} </ins></a></dd>
+                {% else %}
+                    <dd><a href="/polls/region/{{ region }}/" style="color: grey"> {{ region }} </a></dd>
+                {% endif %}
+            {% else %}
+                {% if "region" in request.get_full_path %}
+                    <dd><a href="/polls/region/comunidad_de_madrid/" style="color: grey"><ins> Comunidad de Madrid </ins></a></dd>
+                {% else %}
+                    <dd><a href="/polls/region/comunidad_de_madrid/" style="color: grey"> Comunidad de Madrid </a></dd>
+                {% endif %}
+            {% endif %}
+        </dl>
+    </div>
+    <div class="small-4 large-4 columns">
+        <dl class="sub-nav" style="margin-top: 4px; margin-bottom: 0px; margin-left: 10%">
+            {% if city %}
+                {% if "city" in request.get_full_path %}
+                  <dd><a href="/polls/city/{{ city }}/" style="color: grey"><ins> {{ city }} </ins></a></dd>
+                {% else %}
+                    <dd><a href="/polls/city/{{ city }}/" style="color: grey"> {{ city }} </a></dd>
+                {% endif %}
+            {% else %}
+                {% if "city" in request.get_full_path %}
+                    <dd><a href="/polls/city/madrid/" style="color: grey"><ins> Madrid</ins></a></dd>
+                {% else %}
+                    <dd><a href="/polls/city/madrid/" style="color: grey"> Madrid</a></dd>
+                {% endif %}
+            {% endif %}
+        </dl>
+    </div>
+</div>
+{% endblock %}
+
 {% block content %}
 <br>
 <div class="row">

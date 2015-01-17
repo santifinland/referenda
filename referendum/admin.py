@@ -1,5 +1,5 @@
 from django.contrib import admin
-from models import DelegatedVote, Partie, Poll
+from models import City, DelegatedVote, Location, Partie, Poll, Region
 
 class PollAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
@@ -20,3 +20,6 @@ class PollAdmin(admin.ModelAdmin):
 
 admin.site.register(Poll, PollAdmin)
 admin.site.register(Partie)
+admin.site.register(City)
+admin.site.register(Region)
+admin.site.register(Location)
