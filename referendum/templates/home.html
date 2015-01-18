@@ -24,10 +24,10 @@
 <div class="row">
     <div class="small-4 large-4 columns">
         <dl class="sub-nav" style="margin-top: 4px; margin-bottom: 0px; margin-left: 30%">
-            {% if "congreso" in request.get_full_path %}
-                <dd><a href="/polls/country/congreso/" style="color: grey"><ins>Congreso</ins></a></dd>
+            {% if "Congreso" in request.get_full_path %}
+                <dd><a href="/polls/country/Congreso/" style="color: grey"><ins>Congreso</ins></a></dd>
             {% else %}
-                <dd><a href="/polls/country/congreso/" style="color: grey"> Congreso</a></dd>
+                <dd><a href="/polls/country/Congreso/" style="color: grey"> Congreso</a></dd>
             {% endif %}
         </dl>
     </div>
@@ -171,7 +171,7 @@
 
     {% else %}
       <div class="panel radius">
-        <h2>{% trans "This week there are no votings in the Congress" %}</h2>
+        <h2>{% trans "This week there are no votings" %}</h2>
       </div>
       <div class="panel radius">
         <h2>{% trans "Please, follow us on" %} <i class="fi-social-twitter style2"></i></h2>
