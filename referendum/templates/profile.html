@@ -48,78 +48,87 @@
         <br>
         <br>
         <h4 class="subheader">{% trans "Data provided directly to referenda.es: " %}</h4>
-    </div>
-    <div class="small-3 large-3 columns">
-        <p><b>Avatar: </b></p>
-    </div>
-    <div class="small-5 large-5 columns">
-        {% avatar user 50 %}
-    </div>
-    <div class="small-2 large-2 columns">
-        <p>{% trans "(Visible)" %}</p>
-        <br>
-    </div>
-    <div class="small-3 large-3 columns">
-        <p><b>{% trans "Location: " %} </b></p>
-    </div>
-    <div class="small-5 large-5 columns">
-        {% if region_logo_url %}
-            <img src="{{ region_logo_url }}" style="height:50px;width:75px;">
-        {% endif %}
-        {% if city_logo_url %}
-            <img src="{{ city_logo_url }}" style="height:50px;width:75px;">
-        {% endif %}
-    </div>
-    <div class="small-2 large-2 columns">
-        <p>{% trans "(Visible)" %}</p>
-        <br>
-    </div>
-    <div class="small-3 large-3 columns">
-        <p><b>{% trans "Delegated vote: " %} </b></p>
-    </div>
-    <div class="small-5 large-5 columns">
-        {% if delegated_vote_partie_logo_url %}
-            <img src="{{ delegated_vote_partie_logo_url }}" style="height:50px;width:75px;">
-        {% endif %}
-    </div>
-    <div class="small-2 large-2 columns">
-        <p>{% trans "(Not shown)" %}</p>
-        <br>
-    </div>
-    <div class="small-3 large-3 columns">
-        <p><b>{% trans "Polls type to be voted: " %}</b></p>
-    </div>
-    <div class="small-5 large-5 columns">
-        <p class="subheader">{% trans "Level " %} {{ tier.tier }} </p>
-    </div>
-    <div class="small-2 large-2 columns">
-        <p>{% trans "(Not shown)" %}</p>
-    </div>
-    <div class="small-10 large-10 columns">
-        <hr>
-        <h4 class="subheader">{% trans "Data provided through " %} {{ user.socialaccount_set.all.0.provider }}</h4>
-    </div>
-    <div class="small-8 large-8 columns">
-        <p><b>{% trans "Username: " %}</b> {{ user }}</p>
-        {% if user.first_name|length > 0 %}
-            <p><b>{% trans "First name: " %}</b> {{ user.first_name }}</p>
-        {% endif %}
-        {% if user.last_name|length > 0 %}
-            <p><b>{% trans "Last name: " %}</b> {{ user.last_name }}</p>
-        {% endif %}
-        {% if user.email|length > 0 %}
-            <p><b>{% trans "E-mail: " %} </b> {{ user.email }}</p>
-        {% endif %}
-    </div>
-    <div class="small-2 large-2 columns">
-        <p>{% trans "(Visible)" %}</p>
-        <p>{% trans "(Not shown)" %}</p>
-    </div>
+        <div class="row">
+            <div class="small-4 large-4 columns">
+                <p><b>Avatar: </b></p>
+            </div>
+            <div class="small-5 large-5 columns">
+                {% avatar user 50 %}
+            </div>
+            <div class="small-3 large-3 columns">
+                <p>{% trans "(Visible)" %}</p>
+                <br>
+            </div>
+            <div class="small-4 large-4 columns">
+                <p><b>{% trans "Location: " %} </b></p>
+            </div>
+            <div class="small-5 large-5 columns">
+                {% if region_logo_url %}
+                    <img src="{{ region_logo_url }}" style="height:50px;width:75px;">
+                {% else %}
+                    <p></p>
+                {% endif %}
+                {% if city_logo_url %}
+                    <img src="{{ city_logo_url }}" style="height:50px;width:75px;">
+                {% else %}
+                    <p></p>
+                {% endif %}
+            </div>
+            <div class="small-3 large-3 columns">
+                <p>{% trans "(Visible)" %}</p>
+                <br>
+            </div>
+            <div class="small-4 large-4 columns">
+                <p><b>{% trans "Delegated vote: " %} </b></p>
+            </div>
+            <div class="small-5 large-5 columns">
+                {% if delegated_vote_partie_logo_url %}
+                    <img src="{{ delegated_vote_partie_logo_url }}" style="height:50px;width:75px;">
+                {% endif %}
+            </div>
+            <div class="small-3 large-3 columns">
+                <p>{% trans "(Not shown)" %}</p>
+                <br>
+            </div>
+            <div class="small-4 large-4 columns">
+                <p><b>{% trans "Polls type to be voted: " %}</b></p>
+            </div>
+            <div class="small-5 large-5 columns">
+                <p class="subheader">{% trans "Level " %}
+                {% if tier %}
+                    {{ tier.tier }}
+                {% endif %}</p>
+            </div>
+            <div class="small-3 large-3 columns">
+                <p>{% trans "(Not shown)" %}</p>
+            </div>
+            <div class="small-12 large-12 columns">
+                <hr>
+                <h4 class="subheader">{% trans "Data provided through " %} {{ user.socialaccount_set.all.0.provider }}</h4>
+            </div>
+            <div class="small-9 large-9 columns">
+                <p><b>{% trans "Username: " %}</b> {{ user }}</p>
+                {% if user.first_name|length > 0 %}
+                    <p><b>{% trans "First name: " %}</b> {{ user.first_name }}</p>
+                {% endif %}
+                {% if user.last_name|length > 0 %}
+                    <p><b>{% trans "Last name: " %}</b> {{ user.last_name }}</p>
+                {% endif %}
+                {% if user.email|length > 0 %}
+                    <p><b>{% trans "E-mail: " %} </b> {{ user.email }}</p>
+                {% endif %}
+            </div>
+            <div class="small-3 large-3 columns">
+                <p>{% trans "(Visible)" %}</p>
+                <p>{% trans "(Not shown)" %}</p>
+            </div>
 
-    <div class="small-10 large-10 columns"><hr></div>
-    <div class="small-7 large-7 columns"></div>
-    <div class="small-3 large-3 columns">
-        <a href="/accounts/delete" class="button alert">{% trans "Delete account" %}</a>
+            <div class="small-12 large-12 columns"><hr></div>
+            <div class="small-9 large-9 columns"></div>
+            <div class="small-3 large-3 columns">
+                <a href="/accounts/delete" class="button alert">{% trans "Delete account" %}</a>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

@@ -20,11 +20,10 @@ def home(request, institution=None):
         poll_list = Poll.objects.filter(institution=institution).order_by('vote_date_end')
     else:
         return redirect('home_country', institution='Congreso')
-    current_polls = [ r for r in poll_list if r.vote_date_end > timezone.now()]
     voteform = VoteForm()
     voteform.fields['vote'].widget = forms.HiddenInput()
     now = timezone.now()
-    context = {'poll_list': current_polls, 'voteform': voteform, 'now': now}
+    context = {}
     if request.user.is_authenticated():
         location_objects = Location.objects.filter(user=request.user)
         if len(location_objects) > 0:
@@ -32,6 +31,12 @@ def home(request, institution=None):
             city = location.city.name
             region = location.region.name
             context.update({'city': city, 'region': region})
+        tier_objects = Tier.objects.filter(user=request.user)
+        if len(tier_objects) > 0:
+            tier = tier_objects[0]
+            poll_list = poll_list.filter(tier__lt=tier.tier)
+    current_polls = [ r for r in poll_list if r.vote_date_end > timezone.now()]
+    context.update({'poll_list': current_polls, 'voteform': voteform, 'now': now})
     return render(request, 'home.html', context)
 
 
@@ -40,8 +45,7 @@ def results(request, institution=None):
         poll_list = Poll.objects.filter(institution=institution).order_by('vote_date_end')
     else:
         return redirect('results_country', institution='Congreso')
-    finished_polls = [ r for r in poll_list if r.vote_date_end < timezone.now()]
-    context = {'poll_list': finished_polls}
+    context = {}
     if request.user.is_authenticated():
         location_objects = Location.objects.filter(user=request.user)
         if len(location_objects) > 0:
@@ -49,6 +53,12 @@ def results(request, institution=None):
             city = location.city.name
             region = location.region.name
             context.update({'city': city, 'region': region})
+        tier_objects = Tier.objects.filter(user=request.user)
+        if len(tier_objects) > 0:
+            tier = tier_objects[0]
+            poll_list = poll_list.filter(tier__lt=tier.tier)
+    finished_polls = [ r for r in poll_list if r.vote_date_end < timezone.now()]
+    context = {'poll_list': finished_polls}
     return render(request, 'results.html', context)
 
 

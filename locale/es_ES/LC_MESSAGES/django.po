@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-15 14:10+0000\n"
+"POT-Creation-Date: 2015-01-18 10:06+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -68,16 +68,16 @@ msgstr "Tipo de Votaciones"
 msgid "Account"
 msgstr "Cuenta"
 
-#: referendum/templates/avatar.html:47 referendum/templates/avatar/add.html:6
+#: referendum/templates/avatar.html:48 referendum/templates/avatar/add.html:6
 #: referendum/templates/avatar/change.html:8
 msgid "Your current avatar: "
 msgstr "Tu avatar actual"
 
-#: referendum/templates/avatar.html:55
+#: referendum/templates/avatar.html:56
 msgid "Do you want to change your avatar?"
 msgstr "¿Quieres cambiar tu avatar?"
 
-#: referendum/templates/avatar.html:57 referendum/templates/avatar/add.html:13
+#: referendum/templates/avatar.html:58 referendum/templates/avatar/add.html:13
 #: referendum/templates/avatar/change.html:20
 msgid "Upload New Image"
 msgstr "Cargar Nueva Imagen"
@@ -107,24 +107,24 @@ msgstr "Iniciar sesión"
 msgid "Register"
 msgstr "Registrarse"
 
-#: referendum/templates/delegatevote.html:51
+#: referendum/templates/delegatevote.html:50
 msgid "Your currently have your votes delegated to: "
 msgstr "Tienes delegados tus votos a: "
 
-#: referendum/templates/delegatevote.html:63
+#: referendum/templates/delegatevote.html:62
 msgid "This is how it works: "
 msgstr "Así es como funciona: "
 
-#: referendum/templates/delegatevote.html:64
+#: referendum/templates/delegatevote.html:63
 msgid "if you do not vote on a given poll, "
 msgstr "si no votas en una determinada votación, "
 
-#: referendum/templates/delegatevote.html:65
+#: referendum/templates/delegatevote.html:64
 msgid ""
 "your vote will be the one selected by the partie you delegate your vote to"
 msgstr "tu voto será el efectuado por el partido al que delegues tu voto"
 
-#: referendum/templates/delegatevote.html:66
+#: referendum/templates/delegatevote.html:65
 msgid ""
 "You can change partie whenever you want, or not delegating your vote to any "
 "partie"
@@ -132,18 +132,18 @@ msgstr ""
 "Puedes cambiar de partido las veces que quieras, o no delegar tu voto a "
 "ningún partido"
 
-#: referendum/templates/delegatevote.html:68
+#: referendum/templates/delegatevote.html:67
 msgid "Delegate votes to: "
 msgstr "Delegar votos a: "
 
-#: referendum/templates/delegatevote.html:79
-#: referendum/templates/delegatevote.html:81
-#: referendum/templates/delegatevote.html:83
-#: referendum/templates/location.html:95
+#: referendum/templates/delegatevote.html:78
+#: referendum/templates/delegatevote.html:80
+#: referendum/templates/delegatevote.html:82
+#: referendum/templates/location.html:97 referendum/templates/location.html:99
 msgid "by"
 msgstr "por"
 
-#: referendum/templates/delete.html:42 referendum/templates/profile.html:97
+#: referendum/templates/delete.html:42 referendum/templates/profile.html:129
 msgid "Delete account"
 msgstr "Borrar cuenta"
 
@@ -159,72 +159,73 @@ msgstr "Gracias por haber formado parte de Referenda.es"
 msgid "We hope to see you soon!"
 msgstr "¡Esperamos verte pronto!"
 
-#: referendum/templates/home.html:71 referendum/templates/referendum.html:54
-#: referendum/templates/results.html:30
+#: referendum/templates/home.html:91 referendum/templates/referendum.html:54
+#: referendum/templates/results.html:78
 msgid "Full proposal"
 msgstr "Propuesta completa"
 
-#: referendum/templates/home.html:75
+#: referendum/templates/home.html:95
 msgid "Can vote until"
 msgstr "Puedes votar hasta el "
 
-#: referendum/templates/home.html:77 referendum/templates/results.html:32
+#: referendum/templates/home.html:97 referendum/templates/results.html:80
 msgid "of"
 msgstr "de"
 
-#: referendum/templates/home.html:85 referendum/templates/referendum.html:27
-#: referendum/templates/results.html:42
+#: referendum/templates/home.html:105 referendum/templates/referendum.html:27
+#: referendum/templates/results.html:90
 msgid "Yes"
 msgstr "Sí"
 
-#: referendum/templates/home.html:93 referendum/templates/home.html.py:95
-#: referendum/templates/home.html:100 referendum/templates/home.html.py:115
-#: referendum/templates/home.html:117 referendum/templates/home.html.py:122
-#: referendum/templates/home.html:136 referendum/templates/home.html.py:138
-#: referendum/templates/home.html:143
+#: referendum/templates/home.html:113 referendum/templates/home.html.py:115
+#: referendum/templates/home.html:120 referendum/templates/home.html.py:135
+#: referendum/templates/home.html:137 referendum/templates/home.html.py:142
+#: referendum/templates/home.html:156 referendum/templates/home.html.py:158
+#: referendum/templates/home.html:163
 msgid "Vote"
 msgstr "Vota"
 
-#: referendum/templates/home.html:128 referendum/templates/referendum.html:33
-#: referendum/templates/results.html:44
+#: referendum/templates/home.html:148 referendum/templates/referendum.html:33
+#: referendum/templates/results.html:92
 msgid "Abstention"
 msgstr "Abstención"
 
-#: referendum/templates/home.html:154
-msgid "This week there are no votings in the Congress"
-msgstr "Esta semana no hay votaciones en el Congreso"
+#: referendum/templates/home.html:174
+msgid "This week there are no votings"
+msgstr "Esta semana no hay votaciones"
 
-#: referendum/templates/home.html:157
+#: referendum/templates/home.html:177
 msgid "Please, follow us on"
 msgstr "Por favor, síguenos en "
 
-#: referendum/templates/home.html:160
+#: referendum/templates/home.html:180
 msgid "We will let you know when votings are available"
 msgstr "Te avisaremos cuando haya nuevas votaciones"
 
-#: referendum/templates/lawtier.html:51
+#: referendum/templates/lawtier.html:50
 msgid "Preferred poll types: "
 msgstr "Tipo de votaciones preferidas: "
 
-#: referendum/templates/lawtier.html:57 referendum/templates/lawtier.html:68
-#: referendum/templates/lawtier.html:75 referendum/templates/lawtier.html:82
+#: referendum/templates/lawtier.html:56 referendum/templates/lawtier.html:67
+#: referendum/templates/lawtier.html:74 referendum/templates/lawtier.html:81
+#: referendum/templates/profile.html:97
 msgid "Level "
 msgstr "Nivel "
 
-#: referendum/templates/lawtier.html:69
+#: referendum/templates/lawtier.html:68
 msgid "General Laws. Recommended Level"
 msgstr "Votaciones de interés general. Nivel recomendado"
 
-#: referendum/templates/lawtier.html:70 referendum/templates/lawtier.html:77
-#: referendum/templates/lawtier.html:85
+#: referendum/templates/lawtier.html:69 referendum/templates/lawtier.html:76
+#: referendum/templates/lawtier.html:84
 msgid "Select"
 msgstr "Seleccionar"
 
-#: referendum/templates/lawtier.html:76
+#: referendum/templates/lawtier.html:75
 msgid "Specific Laws for certain matters"
 msgstr "Votaciones específicas sobre materias concretas"
 
-#: referendum/templates/lawtier.html:83
+#: referendum/templates/lawtier.html:82
 msgid "All Laws"
 msgstr "Todas las votaciones"
 
@@ -248,45 +249,51 @@ msgstr "Selecciona tu ciudad: "
 msgid "Data provided directly to referenda.es: "
 msgstr "Datos proporcionados directamente a Referenda.es"
 
-#: referendum/templates/profile.html:56 referendum/templates/profile.html:90
+#: referendum/templates/profile.html:59 referendum/templates/profile.html:78
+#: referendum/templates/profile.html:122
 msgid "(Visible)"
 msgstr "Visible"
 
-#: referendum/templates/profile.html:59
+#: referendum/templates/profile.html:63
+#, fuzzy
+msgid "Location: "
+msgstr "Localización"
+
+#: referendum/templates/profile.html:82
 msgid "Delegated vote: "
 msgstr "Votos delegados a: "
 
-#: referendum/templates/profile.html:65 referendum/templates/profile.html:71
-#: referendum/templates/profile.html:91
+#: referendum/templates/profile.html:90 referendum/templates/profile.html:103
+#: referendum/templates/profile.html:123
 msgid "(Not shown)"
 msgstr "No mostrado"
 
-#: referendum/templates/profile.html:68
+#: referendum/templates/profile.html:94
 msgid "Polls type to be voted: "
 msgstr "Tipo de votaciones: "
 
-#: referendum/templates/profile.html:75
+#: referendum/templates/profile.html:107
 msgid "Data provided through "
 msgstr "Datos proporcionados a través de "
 
-#: referendum/templates/profile.html:78
+#: referendum/templates/profile.html:110
 msgid "Username: "
 msgstr "Nombre de usuario"
 
-#: referendum/templates/profile.html:80
+#: referendum/templates/profile.html:112
 msgid "First name: "
 msgstr "Nombre"
 
-#: referendum/templates/profile.html:83
+#: referendum/templates/profile.html:115
 msgid "Last name: "
 msgstr "Apellidos"
 
-#: referendum/templates/profile.html:86
+#: referendum/templates/profile.html:118
 msgid "E-mail: "
 msgstr "Correo electrónico"
 
 #: referendum/templates/referendum.html:41
-#: referendum/templates/results.html:43
+#: referendum/templates/results.html:91
 msgid "No"
 msgstr "No"
 
@@ -298,25 +305,25 @@ msgstr "No hay referendums"
 msgid "Comment"
 msgstr "Comentar"
 
-#: referendum/templates/results.html:31
+#: referendum/templates/results.html:79
 msgid "Voted"
 msgstr "Votada el"
 
-#: referendum/templates/results.html:41
+#: referendum/templates/results.html:89
 msgid "Results"
 msgstr "Resultados"
 
-#: referendum/templates/results.html:49
+#: referendum/templates/results.html:97
 msgid "Congreso"
 msgstr ""
 
-#: referendum/templates/results.html:55
+#: referendum/templates/results.html:103
 msgid "Referenda"
 msgstr ""
 
-#: referendum/templates/results.html:68
+#: referendum/templates/results.html:116
 msgid "Currently there are no polls available."
-msgstr "Actualmente no hay referendums disponibles."
+msgstr "Actualmente no hay votaciones disponibles."
 
 #: referendum/templates/account/email.html:9
 msgid "E-mail Addresses"
