@@ -34,7 +34,7 @@ def home(request, institution=None):
         tier_objects = Tier.objects.filter(user=request.user)
         if len(tier_objects) > 0:
             tier = tier_objects[0]
-            poll_list = poll_list.filter(tier__lt=tier.tier)
+            poll_list = poll_list.filter(tier__lte=tier.tier)
     current_polls = [ r for r in poll_list if r.vote_date_end > timezone.now()]
     context.update({'poll_list': current_polls, 'voteform': voteform, 'now': now})
     return render(request, 'home.html', context)
@@ -56,7 +56,7 @@ def results(request, institution=None):
         tier_objects = Tier.objects.filter(user=request.user)
         if len(tier_objects) > 0:
             tier = tier_objects[0]
-            poll_list = poll_list.filter(tier__lt=tier.tier)
+            poll_list = poll_list.filter(tier__lte=tier.tier)
     finished_polls = [ r for r in poll_list if r.vote_date_end < timezone.now()]
     context = {'poll_list': finished_polls}
     return render(request, 'results.html', context)
