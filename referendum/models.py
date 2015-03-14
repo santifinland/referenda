@@ -34,7 +34,7 @@ class Poll(models.Model):
     institution = models.CharField(max_length=50, choices=INSTITUTION_CHOICES, default='Congreso')
     tier = models.IntegerField(default=1)
     headline = models.CharField(max_length=100)
-    short_description = models.CharField(max_length=500)
+    short_description = models.TextField()
     long_description = models.TextField()
     link = models.CharField(max_length=500)
     pub_date = models.DateTimeField('date published')

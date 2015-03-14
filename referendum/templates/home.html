@@ -40,7 +40,7 @@
                             </a>
                         </li>
                         <li class="bullet-item" style="text-align: left" itemprop="description">
-                            {{ poll.short_description }}
+                            {{ poll.short_description|linebreaks }}
                         </li>
                         <li class="bullet-item" style="text-align: left">
                         <a href={{ poll.link }} target="_blank"> {% trans "Full proposal" %}</a> |
