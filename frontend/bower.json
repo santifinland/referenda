@@ -1,0 +1,27 @@
+{
+  "name": "Referenda",
+  "version": "0.1.0",
+  "description": "Referenda frontend",
+  "main": "index.html",
+  "moduleType": [],
+  "keywords": [
+    "Referenda"
+  ],
+  "authors": [
+    "Santifinland"
+  ],
+  "license": "None",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.6",
+    "font-awesome": "~4.4.0",
+    "angular": "~1.5.7"
+  }
+}
