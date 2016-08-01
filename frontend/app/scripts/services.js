@@ -12,6 +12,16 @@ angular.module('referendaApp')
 
 }])
 
+.factory('lawFactory', ['$resource', 'baseURL', function ($resource, baseURL) {
+
+        return $resource(baseURL + "laws/:id", null, {
+            'update': {
+                method: 'PUT'
+            }
+        });
+
+}])
+
 .factory('commentFactory', ['$resource', 'baseURL', function ($resource, baseURL) {
 
         return $resource(baseURL + "dishes/:id/comments/:commentId", {id:"@Id", commentId: "@CommentId"}, {

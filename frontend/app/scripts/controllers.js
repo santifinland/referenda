@@ -135,13 +135,64 @@ angular.module('referendaApp')
     }
 }])
 
+.controller('LawDetailController', ['$scope', '$state', '$stateParams', 'lawFactory', 'commentFactory',
+            function ($scope, $state, $stateParams, lawFactory, commentFactory) {
+
+    $scope.law = {};
+    $scope.showLaw = false;
+    $scope.message = "Loading ...";
+
+    $scope.law = lawFactory.get({
+            id: $stateParams.id
+        })
+        .$promise.then(
+            function (response) {
+                $scope.law = response;
+                $scope.showLaw = true;
+            },
+            function (response) {
+                $scope.message = "Error: " + response.status + " " + response.statusText;
+            }
+        );
+
+    $scope.mycomment = {
+        rating: 5,
+        comment: ""
+    };
+
+    $scope.submitComment = function () {
+
+        commentFactory.save({id: $stateParams.id}, $scope.mycomment);
+
+        $state.go($state.current, {}, {reload: true});
+
+        $scope.commentForm.$setPristine();
+
+        $scope.mycomment = {
+            rating: 5,
+            comment: ""
+        };
+    }
+}])
+
 // implement the IndexController and About Controller here
 
-.controller('HomeController', ['$scope', 'menuFactory', 'corporateFactory', 'promotionFactory', function ($scope, menuFactory, corporateFactory, promotionFactory) {
+.controller('HomeController', ['$scope', 'lawFactory', 'menuFactory', 'corporateFactory', 'promotionFactory',
+            function ($scope, lawFactory, menuFactory, corporateFactory, promotionFactory) {
     $scope.showDish = false;
     $scope.showLeader = false;
     $scope.showPromotion = false;
     $scope.message = "Loading ...";
+
+    lawFactory.query(
+        function (response) {
+            $scope.laws = response;
+            $scope.showLaws = true;
+        },
+        function (response) {
+            $scope.message = "Error: " + response.status + " " + response.statusText;
+        });
+
     var leaders = corporateFactory.query({
             featured: "true"
         })
@@ -181,6 +232,10 @@ angular.module('referendaApp')
                 $scope.message = "Error: " + response.status + " " + response.statusText;
             }
         );
+}])
+
+.controller('ResultController', ['$scope', function ($scope) {
+
 }])
 
 .controller('AboutController', ['$scope', 'corporateFactory', function ($scope, corporateFactory) {
@@ -255,6 +310,10 @@ angular.module('referendaApp')
         ngDialog.open({ template: 'views/login.html', scope: $scope, className: 'ngdialog-theme-default', controller:"LoginController" });
     };
 
+    $scope.openRegister = function () {
+        ngDialog.open({ template: 'views/register.html', scope: $scope, className: 'ngdialog-theme-default', controller:"RegisterController" });
+    };
+
     $scope.logOut = function() {
        AuthFactory.logout();
         $scope.loggedIn = false;
@@ -309,6 +368,10 @@ angular.module('referendaApp')
 
         ngDialog.close();
 
+    };
+
+    $scope.openRegister = function () {
+        ngDialog.open({ template: 'views/register.html', scope: $scope, className: 'ngdialog-theme-default', controller:"RegisterController" });
     };
 }])
 ;

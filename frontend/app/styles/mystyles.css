@@ -3,8 +3,8 @@
   padding: 0px 0px;
 }
 .row-content {
-  margin: 0px auto;
-  padding: 50px 0px;
+  margin: 0px, 0px, 0px, 0px;
+  padding: 0px 0px;
   border-bottom: 1px ridge;
   min-height: 400px;
 }
@@ -31,9 +31,44 @@
   position: absolute;
   top: 0;
 }
-.navbar-inverse {
-  background: #303f9f;
+.undertop {
+  min-height: 70px;
+  background: #ffffff;
   color: #ffffff;
+}
+.sections {
+  padding: 0px;
+  margin: 0px;
+  min-height: 50px;
+  background: #ffffff;
+  font-size: 200%;
+  color: #ffffff;
+}
+.navbar-brand {
+  margin: 0px auto;
+  padding: 0px 0px;
+}
+@font-face {
+    font-family: "Montserrat-Bold";
+    src: url("../fonts/Montserrat-Regular.ttf") format("truetype");
+}
+.sections .navbar-nav > li > a {
+  font-family: "Montserrat-Bold";
+}
+.sections .navbar-nav > li > a > hr {
+  height: 5px;
+  border: none;
+  margin: 0px, 0px, 0px, 0px;
+  padding: 3px, 0px, 0px, 0px;
+  width: 100%;
+  background-color: #208376;
+}
+.navbar-inverse {
+  background: #208376;
+  color: #ffffff;
+}
+.navbar-inverse .navbar-nav > li > a {
+  color: #dddddd;
 }
 .navbar-inverse .navbar-nav > .active > a {
   background: #1a237e;
@@ -93,4 +128,68 @@ body {
   bottom: 0px;
   position: absolute;
   right: 0px;
+}
+.btn.sharp {
+  padding: 10px 0px;
+  margin: 5px;
+  border-radius:0;
+  border: 0 none;
+  width: 110px;
+  font-family: "Montserrat-Bold";
+}
+.btn.sharp.yes {
+  background: #145458;
+  color: #ffffff;
+}
+.btn.sharp.no {
+  background: #208575;
+  color: #ffffff;
+}
+.btn.sharp.abstention {
+  background: #7BA3A0;
+  color: #ffffff;
+}
+.vertical-line {
+    border-left: thick solid #7BA3A0;
+    border-left-width: 10px;
+    height: 80%;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    padding-top: 0px;
+    padding-left: 10px;
+}
+.result-number {
+  font-family: "Montserrat-Bold";
+  font-size: 250%;
+  vertical-align: middle;
+}
+.result-number.yes {
+  color: #145458;
+}
+.result-number.no {
+  color: #208575;
+}
+.result-number.abstention {
+  color: #7BA3A0;
+}
+.law-headline {
+  font-family: "Montserrat-Bold";
+  text-decoration: underline;
+  font-size: 150%;
+  color: #000000;
+}
+.law-description {
+    text-align: justify;
+}
+.full-proposal {
+  background: #000;
+  color: #ffffff;
+  font-family: "Montserrat-Bold";
+  vertical-align: middle;
+}
+.full-proposal > a:visited {
+  color: #ffffff;
+}
+.date-end {
+  font-family: "Montserrat-Bold";
 }

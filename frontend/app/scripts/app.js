@@ -45,6 +45,17 @@ angular.module('referendaApp', ['ui.router','ngResource','ngDialog'])
                 }
             })
 
+            // route for the results page
+            .state('app.result', {
+                url: 'result',
+                views: {
+                    'content@': {
+                        templateUrl : 'views/result.html',
+                        controller  : 'ResultController'
+                    }
+                }
+            })
+
             // route for the menu page
             .state('app.menu', {
                 url: 'menu',
@@ -63,6 +74,17 @@ angular.module('referendaApp', ['ui.router','ngResource','ngDialog'])
                     'content@': {
                         templateUrl : 'views/dishdetail.html',
                         controller  : 'DishDetailController'
+                   }
+                }
+            })
+
+            // route for the lawdetail page
+            .state('app.lawdetails', {
+                url: 'law/:id',
+                views: {
+                    'content@': {
+                        templateUrl : 'views/lawdetail.html',
+                        controller  : 'LawDetailController'
                    }
                 }
             })

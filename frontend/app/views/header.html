@@ -7,56 +7,37 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" ui-sref="app"><img src="images/logo.png" height=30 width=41></a>
+                <a class="navbar-brand" ui-sref="app"><img src="images/logo.png" height=100></a>
             </div>
-            <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li ng-class="{active: stateis('app')}"><a ui-sref="app">
-                        <span class="glyphicon glyphicon-home"
-                         aria-hidden="true"></span> Home</a></li>
-                    <li ng-class="{active: stateis('app.aboutus')}"><a ui-sref="app.aboutus">
-                        <span class="glyphicon glyphicon-info-sign"
-                         aria-hidden="true"></span> About</a></li>
-                    <li ng-class="{active: stateis('app.menu') || stateis('app.dishdetails')}"><a ui-sref="app.menu">
-                         <span class="glyphicon glyphicon-list-alt"
-                         aria-hidden="true"></span> 
-                         Menu</a></li>
-                     <li ng-class="{active: stateis('app.favorites')}"><a ui-sref="app.favorites">
-                     <i class="fa fa-heart-o"></i> Favorites</a></li>
-                     <li ng-class="{active: stateis('app.contactus')}"><a ui-sref="app.contactus">
-                     <i class="fa fa-envelope-o"></i> Contact</a></li>
-                </ul>
+            <div id="loginbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li ng-if="!loggedIn"><a ng-click="openLogin()">
-                    <span class="glyphicon glyphicon-log-in"></span> Login</a>
+                    <li ng-if="!loggedIn"><a ng-click="openLogin()"> Iniciar Sesi&oacute;n</a>
+                    </li>
+                    <li ng-if="!loggedIn"><a ng-click="openRegister()"> Registrarse</a>
                     </li>
                     <li ng-if="loggedIn">
                     <a>{{username}}</a>
                     </li>
                     <li ng-if="loggedIn">
                     <a ng-click="logOut()">
-                    <span class="glyphicon glyphicon-log-in"></span> Logout</a>
+                    <span class="glyphicon glyphicon-log-in"></span> Salir </a>
                     </li>
                 </ul>
             </div>
         </div>
-    </nav>         
-               
-    <header class="jumbotron">
+    </nav>
 
-        <!-- Main component for a primary marketing message or call to action -->
+    <nav class="undertop">
+    </nav>
 
+    <nav class="sections">
         <div class="container">
-            <div class="row row-header">
-                <div class="col-xs-12 col-sm-8">
-                    <h1>Referenda</h1>
-                    <p style="padding:40px;"></p>
-                    <p>Online Democracy</p>
-                </div>
-                <div class="col-xs-12 col-sm-2">
-                </div>
-                <div class="col-xs-12 col-sm-2">
-                </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li ng-class="{active: stateis('app')}"><a ui-sref="app"> VOTACIONES <hr></a></li>
+                    <li ng-class="{active: stateis('app.result')}"><a ui-sref="app.result"> RESULTADOS </a></li>
+                    <li ng-class="{active: stateis('app')}"><a ui-sref="app.delegar"> DELEGAR VOTOS </a></li>
+                </ul>
             </div>
         </div>
-    </header>
+    </nav>
