@@ -22,6 +22,29 @@ angular.module('referendaApp')
 
 }])
 
+.factory('voteFactory', ['$resource', 'baseURL', function ($resource, baseURL) {
+
+        return $resource(baseURL + "laws/:id/votes/:voteId", {id:"@Id", voteId:"@VoteId"}, {
+            'update': {
+                method: 'PUT'
+            }
+        });
+
+}])
+
+.factory('partyFactory', ['$resource', 'baseURL', function ($resource, baseURL) {
+
+        return $resource(baseURL + "parties/:id", null, {
+        });
+
+}])
+
+.factory('userFactory', ['$resource', 'baseURL', function ($resource, baseURL) {
+
+        return $resource(baseURL + "users/delegateparty", {
+        });
+}])
+
 .factory('commentFactory', ['$resource', 'baseURL', function ($resource, baseURL) {
 
         return $resource(baseURL + "dishes/:id/comments/:commentId", {id:"@Id", commentId: "@CommentId"}, {
@@ -97,7 +120,8 @@ angular.module('referendaApp')
     }
 }])
 
-.factory('AuthFactory', ['$resource', '$http', '$localStorage', '$rootScope', '$window', 'baseURL', 'ngDialog', function($resource, $http, $localStorage, $rootScope, $window, baseURL, ngDialog){
+.factory('AuthFactory', ['$resource', '$http', '$localStorage', '$rootScope', '$window', 'baseURL', 'ngDialog',
+         function($resource, $http, $localStorage, $rootScope, $window, baseURL, ngDialog){
 
     var authFac = {};
     var TOKEN_KEY = 'Token';

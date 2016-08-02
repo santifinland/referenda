@@ -1,0 +1,63 @@
+
+    <div class="container">
+
+        <div class="row row-content">
+
+            <div class="col-xs-5">
+                <p class="delegados">Actualmente tienes tus votos delegados a:</p>
+                <div class="funciona">
+                    <p>As&iacute; es como funciona</p>
+                    <span>Solo si no votas en una determinada propuesta,
+                        tu voto ser&aacute; el seleccionado por el partido al que delegas tu voto.</span>
+                </div>
+            </div>
+            <div class="col-xs-2">
+                <img src="{{party.logo}}" height="100" width="120"/>
+            </div>
+            <div class="col-xs-5">
+            </div>
+
+            <div class="col-xs-12">
+                <hr>
+                <center><span><b>Puedes cambiar de partido cuando quieras o no delegar tu voto a ninguno
+                </b></span></center>
+            </div>
+
+            <div class="col-xs-12">
+                <hr>
+                <h3>Selecciona el partido al que delegas tu voto</h3>
+
+                <div class="col-xs-12 col-sm-2 party">
+                    <form name="partyFormPP" ng-submit="submitDelegatePartyPP()" novalidate>
+                        <button type="submit" ng-disabled="partyFormPP.$invalid">
+                            <img src="../images/pp.png" height="80" width="100"/>
+                        </button>
+                    </form>
+                </div>
+                <div class="col-xs-12 col-sm-2 party">
+                    <form name="partyFormPsoe" ng-submit="submitDelegatePartyPsoe()" novalidate>
+                        <button type="submit" ng-disabled="partyFormPsoe.$invalid">
+                            <img src="../images/psoe.png" height="80" width="100"/>
+                        </button>
+                    </form>
+                </div>
+                <div class="col-xs-12 col-sm-2 party">
+                    <form class="form-horizontal" name="partyFormErc" ng-submit="submitDelegatePartyErc()" novalidate>
+                        <button type="submit" ng-disabled="partyFormErc.$invalid">
+                            <img src="../images/erc.png" height="80" width="135"/>
+                        </button>
+                    </form>
+                </div>
+                <div class="col-xs-12 col-sm-2 party">
+                    <form class="form-horizontal" name="partyFormCC" ng-submit="submitDelegatePartyCC()" novalidate>
+                        <button type="submit" ng-disabled="partyFormCC.$invalid">
+                            <img src="../images/cc.png" height="80" width="100"/>
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>

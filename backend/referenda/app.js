@@ -21,6 +21,7 @@ db.once('open', function () {
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var lawRouter = require('./routes/lawRouter');
+var partyRouter = require('./routes/partyRouter');
 var dishRouter = require('./routes/dishRouter');
 var promoRouter = require('./routes/promoRouter');
 var leaderRouter = require('./routes/leaderRouter');
@@ -62,8 +63,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/dishes',dishRouter);
-app.use('/laws',lawRouter);
+app.use('/dishes', dishRouter);
+app.use('/laws', lawRouter);
+app.use('/parties', partyRouter);
 app.use('/promotions',promoRouter);
 app.use('/leadership',leaderRouter);
 

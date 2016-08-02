@@ -16,7 +16,7 @@
                     <li ng-if="!loggedIn"><a ng-click="openRegister()"> Registrarse</a>
                     </li>
                     <li ng-if="loggedIn">
-                    <a>{{username}}</a>
+                    <a ui-sref="app.profile">{{username}}</a>
                     </li>
                     <li ng-if="loggedIn">
                     <a ng-click="logOut()">
@@ -36,7 +36,7 @@
                 <ul class="nav navbar-nav">
                     <li ng-class="{active: stateis('app')}"><a ui-sref="app"> VOTACIONES <hr></a></li>
                     <li ng-class="{active: stateis('app.result')}"><a ui-sref="app.result"> RESULTADOS </a></li>
-                    <li ng-class="{active: stateis('app')}"><a ui-sref="app.delegar"> DELEGAR VOTOS </a></li>
+                    <li ng-class="{active: stateis('app')}"><a ui-sref="app.delegate"> DELEGAR VOTOS </a></li>
                 </ul>
             </div>
         </div>

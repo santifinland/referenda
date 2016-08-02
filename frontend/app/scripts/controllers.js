@@ -2,6 +2,11 @@
 
 angular.module('referendaApp')
 
+.controller('ProfileController', ['$scope', function ($scope) {
+
+    $scope.showProfile = false;
+}])
+
 .controller('MenuController', ['$scope', 'menuFactory', 'favoriteFactory', function ($scope, menuFactory, favoriteFactory) {
 
     $scope.tab = 1;
@@ -135,8 +140,8 @@ angular.module('referendaApp')
     }
 }])
 
-.controller('LawDetailController', ['$scope', '$state', '$stateParams', 'lawFactory', 'commentFactory',
-            function ($scope, $state, $stateParams, lawFactory, commentFactory) {
+.controller('LawDetailController', ['$scope', '$state', '$stateParams', 'lawFactory', 'commentFactory', 'voteFactory',
+            function ($scope, $state, $stateParams, lawFactory, commentFactory, voteFactory) {
 
     $scope.law = {};
     $scope.showLaw = false;
@@ -173,12 +178,88 @@ angular.module('referendaApp')
             comment: ""
         };
     }
+
+    $scope.submitVoteYes = function () {
+        $scope.myvoteyes = {
+            vote: 1,
+        };
+        voteFactory.save({id: $stateParams.id}, $scope.myvoteyes);
+        $state.go($state.current, {}, {reload: true});
+    }
+
+    $scope.submitVoteNo = function () {
+        $scope.myvoteno = {
+            vote: 2,
+        };
+        voteFactory.save({id: $stateParams.id}, $scope.myvoteno);
+        $state.go($state.current, {}, {reload: true});
+    }
+
+    $scope.submitVoteAbstention = function () {
+        $scope.myvoteabstention = {
+            vote: 3,
+        };
+        voteFactory.save({id: $stateParams.id}, $scope.myvoteabstention);
+        $state.go($state.current, {}, {reload: true});
+    }
+
+}])
+
+.controller('DelegateController', ['$scope', '$state', '$stateParams', 'userFactory', 'partyFactory',
+            function ($scope, $state, $stateParams, userFactory, partyFactory) {
+    $scope.party = {};
+    $scope.showDelegatedParty = false;
+    $scope.message = "Loading ...";
+
+    $scope.party = userFactory.get({
+        id: $stateParams.id
+    })
+    .$promise.then(
+        function (response) {
+            console.log(response.id);
+            $scope.partyId = response.id;
+            $scope.party = partyFactory.get({
+                id: $scope.partyId
+            })
+            .$promise.then(
+                function (response) {
+                    console.log(response);
+                    $scope.party = response;
+                    $scope.showDelegatedParty = true;
+                },
+                function (response) {
+                    $scope.message = "Error: " + response.status + " " + response.statusText;
+                }
+            );
+        },
+        function (response) {
+            $scope.message = "Error: " + response.status + " " + response.statusText;
+        }
+    );
+
+    $scope.submitDelegatePartyPP = function () {
+        userFactory.save({ party: "pp"});
+        $state.go($state.current, {}, {reload: true});
+    }
+    $scope.submitDelegatePartyPsoe = function () {
+        userFactory.save({ party: "psoe"});
+        $state.go($state.current, {}, {reload: true});
+    }
+    $scope.submitDelegatePartyErc = function () {
+        userFactory.save({ party: "erc"});
+        $state.go($state.current, {}, {reload: true});
+    }
+    $scope.submitDelegatePartyCC = function () {
+        userFactory.save({ party: "cc"});
+        $state.go($state.current, {}, {reload: true});
+    }
+
 }])
 
 // implement the IndexController and About Controller here
 
-.controller('HomeController', ['$scope', 'lawFactory', 'menuFactory', 'corporateFactory', 'promotionFactory',
-            function ($scope, lawFactory, menuFactory, corporateFactory, promotionFactory) {
+.controller('HomeController', ['$scope', 'lawFactory', 'voteFactory', 'menuFactory', 'corporateFactory', 'promotionFactory',
+            function ($scope, lawFactory, voteFactory, menuFactory, corporateFactory, promotionFactory) {
     $scope.showDish = false;
     $scope.showLeader = false;
     $scope.showPromotion = false;

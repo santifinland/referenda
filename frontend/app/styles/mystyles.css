@@ -130,8 +130,8 @@ body {
   right: 0px;
 }
 .btn.sharp {
-  padding: 10px 0px;
-  margin: 5px;
+  padding: 0px, 0px;
+  margin: 1px;
   border-radius:0;
   border: 0 none;
   width: 110px;
@@ -148,6 +148,15 @@ body {
 .btn.sharp.abstention {
   background: #7BA3A0;
   color: #ffffff;
+}
+.btn.sharp.yes.maxi-font {
+  font-size: 150%;
+}
+.btn.sharp.no.maxi-font {
+  font-size: 150%;
+}
+.btn.sharp.abstention.maxi-font {
+  font-size: 150%;
 }
 .vertical-line {
     border-left: thick solid #7BA3A0;
@@ -192,4 +201,26 @@ body {
 }
 .date-end {
   font-family: "Montserrat-Bold";
+}
+.party {
+}
+.party > form {
+  border-right: thick solid #7BA3A0;
+}
+.party > image {
+  display: block;
+  margin: auto;
+}
+.delegados {
+  font-family: "Montserrat-Bold";
+  font-size: 150%;
+}
+.funciona {
+  padding: 0px 0px 0px 10px;
+  font-family: "Montserrat-Bold";
+  border-left: thick solid #7BA3A0;
+}
+.funciona > p {
+  font-weight: bold;
+  color: #208575;
 }

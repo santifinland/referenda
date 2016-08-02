@@ -23,6 +23,17 @@ angular.module('referendaApp', ['ui.router','ngResource','ngDialog'])
 
             })
 
+            // route for the profile page
+            .state('app.profile', {
+                url:'profile',
+                views: {
+                    'content@': {
+                        templateUrl : 'views/profile.html',
+                        controller  : 'ProfileController'
+                    }
+                }
+            })
+
             // route for the aboutus page
             .state('app.aboutus', {
                 url:'aboutus',
@@ -52,6 +63,17 @@ angular.module('referendaApp', ['ui.router','ngResource','ngDialog'])
                     'content@': {
                         templateUrl : 'views/result.html',
                         controller  : 'ResultController'
+                    }
+                }
+            })
+
+            // route for the delegate vote page
+            .state('app.delegate', {
+                url: 'delegate',
+                views: {
+                    'content@': {
+                        templateUrl : 'views/delegate.html',
+                        controller  : 'DelegateController'
                     }
                 }
             })

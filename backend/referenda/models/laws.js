@@ -20,6 +20,21 @@ var commentSchema = new Schema({
     timestamps: true
 });
 
+var voteSchema = new Schema({
+    vote: {
+        type: Number,
+        min: 1,
+        max: 3,
+        required:true
+    },
+    votedBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    },
+}, {
+    timestamps: true
+});
+
 // create a schema
 var lawSchema = new Schema({
       law_type: String,
@@ -42,9 +57,17 @@ var lawSchema = new Schema({
         type: Boolean,
         default:false
       },
-      comments: [commentSchema]
+      comments: [commentSchema],
+      votes: [voteSchema]
 }, {
     timestamps: true
+});
+
+lawSchema.set('toJSON', {
+    transform: function(doc, ret, options) {
+        delete ret.votes;
+        return ret;
+    }
 });
 
 // the schema is useless so far
