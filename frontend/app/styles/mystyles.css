@@ -9,9 +9,10 @@
   min-height: 400px;
 }
 .row-footer {
+  height: 100px;
   margin: 0px auto;
-  padding: 20px 0px;
-  background-color: #AfAfAf;
+  padding: 0px 0px;
+  background-color: #208376;
 }
 .jumbotron {
   margin: 0px auto;
@@ -38,8 +39,8 @@
 }
 .sections {
   padding: 0px;
-  margin: 0px;
-  min-height: 50px;
+  margin: -10px 0px 10px 0px;
+  min-height: 80px;
   background: #ffffff;
   font-size: 200%;
   color: #ffffff;
@@ -54,21 +55,19 @@
 }
 .sections .navbar-nav > li > a {
   font-family: "Montserrat-Bold";
+  color: #666;
+  background-color: #fff;
 }
-.sections .navbar-nav > li > a > hr {
-  height: 5px;
-  border: none;
-  margin: 0px, 0px, 0px, 0px;
-  padding: 3px, 0px, 0px, 0px;
-  width: 100%;
-  background-color: #208376;
+.sections .navbar-nav > .active > a {
+  border-bottom: thick solid #208376;
+  color: #000;
 }
 .navbar-inverse {
   background: #208376;
   color: #ffffff;
 }
 .navbar-inverse .navbar-nav > li > a {
-  color: #dddddd;
+  color: #ffffff;
 }
 .navbar-inverse .navbar-nav > .active > a {
   background: #1a237e;
