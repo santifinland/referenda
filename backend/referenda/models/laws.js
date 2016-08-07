@@ -20,21 +20,6 @@ var commentSchema = new Schema({
     timestamps: true
 });
 
-var voteSchema = new Schema({
-    vote: {
-        type: Number,
-        min: 1,
-        max: 3,
-        required:true
-    },
-    votedBy: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    },
-}, {
-    timestamps: true
-});
-
 // create a schema
 var lawSchema = new Schema({
       law_type: String,
@@ -58,7 +43,16 @@ var lawSchema = new Schema({
         default:false
       },
       comments: [commentSchema],
-      votes: [voteSchema]
+      pp: Number,
+      psoe: Number,
+      podemos: Number,
+      ciudadanos: Number,
+      erc: Number,
+      pnv: Number,
+      mixto: Number,
+      positiveParties: [String],
+      negativeParties: [String],
+      abstentionParties: [String]
 }, {
     timestamps: true
 });

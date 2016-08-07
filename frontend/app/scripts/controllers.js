@@ -245,12 +245,24 @@ angular.module('referendaApp')
         userFactory.save({ party: "psoe"});
         $state.go($state.current, {}, {reload: true});
     }
+    $scope.submitDelegatePartyPodemos = function () {
+        userFactory.save({ party: "podemos"});
+        $state.go($state.current, {}, {reload: true});
+    }
+    $scope.submitDelegatePartyCiudadanos = function () {
+        userFactory.save({ party: "ciudadanos"});
+        $state.go($state.current, {}, {reload: true});
+    }
     $scope.submitDelegatePartyErc = function () {
         userFactory.save({ party: "erc"});
         $state.go($state.current, {}, {reload: true});
     }
-    $scope.submitDelegatePartyCC = function () {
-        userFactory.save({ party: "cc"});
+    $scope.submitDelegatePartyPnv = function () {
+        userFactory.save({ party: "pnv"});
+        $state.go($state.current, {}, {reload: true});
+    }
+    $scope.submitDelegatePartyMixto = function () {
+        userFactory.save({ party: "mixto"});
         $state.go($state.current, {}, {reload: true});
     }
 

@@ -201,12 +201,33 @@ body {
 .date-end {
   font-family: "Montserrat-Bold";
 }
-.party {
+.party-right {
+  padding: 30px;
+  text-align:center;
+  border-right: 1px solid #999;
+  border-bottom: 1px solid #999;
 }
-.party > form {
-  border-right: thick solid #7BA3A0;
+.no-border {
+  border: 0px;
+  padding: 0px;
+  background-color: #fff;
 }
-.party > image {
+.party-left {
+  padding: 30px;
+  text-align:center;
+  border-right: 0px;
+  border-bottom: 1px solid #999;
+}
+.party-mixto {
+  padding: 30px;
+  text-align:center;
+  text-align:center;
+  border-right: 1px solid #999;
+}
+.party-selected {
+  margin-top: 20px;
+}
+.party > button {
   display: block;
   margin: auto;
 }
