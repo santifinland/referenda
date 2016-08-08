@@ -67,7 +67,7 @@
   color: #ffffff;
 }
 .navbar-inverse .navbar-nav > li > a {
-  color: #ffffff;
+  color: #ddd;
 }
 .navbar-inverse .navbar-nav > .active > a {
   background: #1a237e;
@@ -137,25 +137,31 @@ body {
   font-family: "Montserrat-Bold";
 }
 .btn.sharp.yes {
+  font-size: 160%;
   background: #145458;
   color: #ffffff;
 }
 .btn.sharp.no {
+  font-size: 160%;
   background: #208575;
   color: #ffffff;
 }
 .btn.sharp.abstention {
+  font-size: 160%;
   background: #7BA3A0;
   color: #ffffff;
 }
 .btn.sharp.yes.maxi-font {
-  font-size: 150%;
+  font-size: 160%;
+  padding: 10px;
 }
 .btn.sharp.no.maxi-font {
-  font-size: 150%;
+  font-size: 160%;
+  padding: 10px;
 }
 .btn.sharp.abstention.maxi-font {
-  font-size: 150%;
+  font-size: 160%;
+  padding: 10px;
 }
 .vertical-line {
     border-left: thick solid #7BA3A0;
@@ -214,7 +220,7 @@ body {
 }
 .party-left {
   padding: 30px;
-  text-align:center;
+  text-align:center;G
   border-right: 0px;
   border-bottom: 1px solid #999;
 }
@@ -243,4 +249,21 @@ body {
 .funciona > p {
   font-weight: bold;
   color: #208575;
+}
+.ul-referenda {
+  padding: 0px 15px;
+}
+.ng-binding {
+  color: #000;
+}
+a:hover {
+  color: #777;
+  text-decoration: none;
+}
+.login {
+  color: #666;
+}
+hr {
+  border-top-width: 2px;
+  border-top-color: #ddd;
 }
