@@ -3,15 +3,16 @@
   padding: 0px 0px;
 }
 .row-content {
-  margin: 0px auto;
-  padding: 50px 0px;
+  margin: 0px, 0px, 0px, 0px;
+  padding: 0px 0px;
   border-bottom: 1px ridge;
   min-height: 400px;
 }
 .row-footer {
+  height: 100px;
   margin: 0px auto;
-  padding: 20px 0px;
-  background-color: #AfAfAf;
+  padding: 0px 0px;
+  background-color: #208376;
 }
 .jumbotron {
   margin: 0px auto;
@@ -31,9 +32,42 @@
   position: absolute;
   top: 0;
 }
-.navbar-inverse {
-  background: #303f9f;
+.undertop {
+  min-height: 70px;
+  background: #ffffff;
   color: #ffffff;
+}
+.sections {
+  padding: 0px;
+  margin: -10px 0px 10px 0px;
+  min-height: 80px;
+  background: #ffffff;
+  font-size: 200%;
+  color: #ffffff;
+}
+.navbar-brand {
+  margin: 0px auto;
+  padding: 0px 0px;
+}
+@font-face {
+    font-family: "Montserrat-Bold";
+    src: url("../fonts/Montserrat-Regular.ttf") format("truetype");
+}
+.sections .navbar-nav > li > a {
+  font-family: "Montserrat-Bold";
+  color: #666;
+  background-color: #fff;
+}
+.sections .navbar-nav > .active > a {
+  border-bottom: thick solid #208376;
+  color: #000;
+}
+.navbar-inverse {
+  background: #208376;
+  color: #ffffff;
+}
+.navbar-inverse .navbar-nav > li > a {
+  color: #ddd;
 }
 .navbar-inverse .navbar-nav > .active > a {
   background: #1a237e;
@@ -93,4 +127,143 @@ body {
   bottom: 0px;
   position: absolute;
   right: 0px;
+}
+.btn.sharp {
+  padding: 0px, 0px;
+  margin: 1px;
+  border-radius:0;
+  border: 0 none;
+  width: 110px;
+  font-family: "Montserrat-Bold";
+}
+.btn.sharp.yes {
+  font-size: 160%;
+  background: #145458;
+  color: #ffffff;
+}
+.btn.sharp.no {
+  font-size: 160%;
+  background: #208575;
+  color: #ffffff;
+}
+.btn.sharp.abstention {
+  font-size: 160%;
+  background: #7BA3A0;
+  color: #ffffff;
+}
+.btn.sharp.yes.maxi-font {
+  font-size: 160%;
+  padding: 10px;
+}
+.btn.sharp.no.maxi-font {
+  font-size: 160%;
+  padding: 10px;
+}
+.btn.sharp.abstention.maxi-font {
+  font-size: 160%;
+  padding: 10px;
+}
+.vertical-line {
+    border-left: thick solid #7BA3A0;
+    border-left-width: 10px;
+    height: 80%;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    padding-top: 0px;
+    padding-left: 10px;
+}
+.result-number {
+  font-family: "Montserrat-Bold";
+  font-size: 250%;
+  vertical-align: middle;
+}
+.result-number.yes {
+  color: #145458;
+}
+.result-number.no {
+  color: #208575;
+}
+.result-number.abstention {
+  color: #7BA3A0;
+}
+.law-headline {
+  font-family: "Montserrat-Bold";
+  text-decoration: underline;
+  font-size: 150%;
+  color: #000000;
+}
+.law-description {
+    text-align: justify;
+}
+.full-proposal {
+  background: #000;
+  color: #ffffff;
+  font-family: "Montserrat-Bold";
+  vertical-align: middle;
+}
+.full-proposal > a:visited {
+  color: #ffffff;
+}
+.date-end {
+  font-family: "Montserrat-Bold";
+}
+.party-right {
+  padding: 30px;
+  text-align:center;
+  border-right: 1px solid #999;
+  border-bottom: 1px solid #999;
+}
+.no-border {
+  border: 0px;
+  padding: 0px;
+  background-color: #fff;
+}
+.party-left {
+  padding: 30px;
+  text-align:center;G
+  border-right: 0px;
+  border-bottom: 1px solid #999;
+}
+.party-mixto {
+  padding: 30px;
+  text-align:center;
+  text-align:center;
+  border-right: 1px solid #999;
+}
+.party-selected {
+  margin-top: 20px;
+}
+.party > button {
+  display: block;
+  margin: auto;
+}
+.delegados {
+  font-family: "Montserrat-Bold";
+  font-size: 150%;
+}
+.funciona {
+  padding: 0px 0px 0px 10px;
+  font-family: "Montserrat-Bold";
+  border-left: thick solid #7BA3A0;
+}
+.funciona > p {
+  font-weight: bold;
+  color: #208575;
+}
+.ul-referenda {
+  padding: 0px 15px;
+}
+.ng-binding {
+  color: #000;
+}
+a:hover {
+  color: #777;
+  text-decoration: none;
+}
+.login {
+  color: #666;
+}
+hr {
+  border-top-width: 2px;
+  border-top-color: #ddd;
 }

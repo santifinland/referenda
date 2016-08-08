@@ -1,7 +1,7 @@
 {
   "name": "Referenda",
-  "version": "0.1.0",
-  "description": "Referenda frontend",
+  "version": "1.0.0",
+  "description": "Online democracy",
   "main": "index.html",
   "moduleType": [],
   "keywords": [
@@ -10,7 +10,7 @@
   "authors": [
     "Santifinland"
   ],
-  "license": "None",
+  "license": "MIT",
   "homepage": "",
   "ignore": [
     "**/.*",
@@ -20,8 +20,13 @@
     "tests"
   ],
   "dependencies": {
+    "angular": "~1.5.5",
+    "angular-ui-router": "~0.2.18",
+    "angular-mocks": "~1.5.5",
+    "angular-resource": "~1.5.5",
+    "angular-route": "~1.5.5",
     "bootstrap": "~3.3.6",
-    "font-awesome": "~4.4.0",
-    "angular": "~1.5.7"
+    "font-awesome": "fontawesome#~4.6.1",
+    "ng-dialog": "~0.6.0"
   }
 }
