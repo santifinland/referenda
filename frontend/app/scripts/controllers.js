@@ -141,7 +141,8 @@ angular.module('referendaApp')
 }])
 
 .controller('LawDetailController', ['$scope', '$state', '$stateParams', 'lawFactory', 'commentFactory', 'voteFactory',
-            function ($scope, $state, $stateParams, lawFactory, commentFactory, voteFactory) {
+            'commentVoteFactory',
+            function ($scope, $state, $stateParams, lawFactory, commentFactory, voteFactory, commentVoteFactory) {
 
     $scope.law = {};
     $scope.showLaw = false;
@@ -161,22 +162,28 @@ angular.module('referendaApp')
         );
 
     $scope.mycomment = {
-        rating: 5,
         comment: ""
     };
 
     $scope.submitComment = function () {
 
-        commentFactory.save({id: $stateParams.id}, $scope.mycomment);
-
-        $state.go($state.current, {}, {reload: true});
+        commentFactory
+            .save({id: $stateParams.id}, $scope.mycomment)
+            .$promise.then(function(res) {$state.go($state.current, {}, {reload: true});});
 
         $scope.commentForm.$setPristine();
 
         $scope.mycomment = {
-            rating: 5,
             comment: ""
         };
+    }
+
+    $scope.submitCommentVote = function (commentId, vote) {
+        $scope.mycommentvote = {
+            vote: vote
+        };
+        commentVoteFactory.save({id: $stateParams.id, commentId: commentId}, $scope.mycommentvote);
+        $state.go($state.current, {}, {reload: true});
     }
 
     $scope.submitVoteYes = function () {

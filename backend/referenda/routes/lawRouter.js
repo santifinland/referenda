@@ -7,6 +7,7 @@ var Verify = require('./verify');
 var Laws = require('../models/laws');
 var Users = require('../models/user');
 var Votes = require('../models/votes');
+var CommentVotes = require('../models/commentVotes');
 
 var lawRouter = express.Router();
 lawRouter.use(bodyParser.json());
@@ -171,7 +172,6 @@ lawRouter.route('/:lawId')
         res.json(law);
     });
 })
-
 .put(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function (req, res, next) {
     // Count votes per type
     Votes.find({"lawId": req.params.lawId, "vote": 1}, {'userId':1, '_id':0}, function(err, positives) {
@@ -447,7 +447,6 @@ lawRouter.route('/:lawId')
         });
     });
 })
-
 .delete(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function (req, res, next) {
         Laws.findByIdAndRemove(req.params.lawId, function (err, resp) {
         if (err) return next(err);
@@ -635,5 +634,53 @@ lawRouter.route('/:lawId/comments/:commentId')
         });
     });
 });
+
+lawRouter.route('/:lawId/comments/:commentId/votes')
+.post(Verify.verifyOrdinaryUser, function (req, res, next) {
+    Laws.findById(req.params.lawId, function (err, law) {
+        if (err) return next(err);
+        console.log("En post de comment votes");
+        // Find previous vote from same user
+        CommentVotes.find({"lawId": req.params.lawId, "commentId": req.params.commentId,
+            "userId": req.decoded._id}).exec(function (err, votes) {
+            if (err) return next(err);
+            console.log(votes.length);
+            if (!votes.length) {
+                console.log("No has votado todavia");
+                Users.findById(req.decoded._id, function (err, user) {
+                    if (err) return next(err);
+                    console.log(user);
+                    // Create vote
+                    console.log(req.body.vote);
+                    var newCommentVote = new CommentVotes({
+                        "lawId": req.params.lawId,
+                        "commentId": req.params.commentId,
+                        "userId": req.decoded._id,
+                         "vote": req.body.vote});
+                    console.log(newCommentVote);
+                    newCommentVote.save(function (err, v) {
+                        if (err) return console.error(err);
+                        console.log('Saved CommentVote!');
+                    });
+                    var comment = law.comments.id(req.params.commentId);
+                    if (req.body.vote == 1) {
+                        comment.positive = comment.positive + 1;
+                    } else {
+                        comment.negative = comment.negative + 1;
+                    }
+                    law.comments.id(req.params.commentId).remove();
+                    law.comments.push(comment);
+                    law.save(function (err, law) {
+                        if (err) return next(err);
+                        console.log('Updated Comments!');
+                        res.json(law);
+                    });
+                });
+            } else {
+                console.log("Ya votaste");
+            }
+        });
+    });
+})
 
 module.exports = lawRouter;
