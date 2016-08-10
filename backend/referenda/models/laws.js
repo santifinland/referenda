@@ -2,11 +2,13 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var commentSchema = new Schema({
-    rating:  {
+    positive: {
         type: Number,
-        min: 1,
-        max: 5,
-        required: true
+        default: 0
+    },
+    negative: {
+        type: Number,
+        default: 0
     },
     comment:  {
         type: String,
@@ -19,6 +21,8 @@ var commentSchema = new Schema({
 }, {
     timestamps: true
 });
+
+commentSchema.add({ replies: [commentSchema] });
 
 // create a schema
 var lawSchema = new Schema({

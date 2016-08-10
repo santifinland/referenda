@@ -172,6 +172,9 @@ body {
     padding-top: 0px;
     padding-left: 10px;
 }
+.vertical-line > h2 > a {
+  color: #000;
+}
 .result-number {
   font-family: "Montserrat-Bold";
   font-size: 250%;
@@ -253,9 +256,6 @@ body {
 .ul-referenda {
   padding: 0px 15px;
 }
-.ng-binding {
-  color: #000;
-}
 a:hover {
   color: #777;
   text-decoration: none;
@@ -266,4 +266,28 @@ a:hover {
 hr {
   border-top-width: 2px;
   border-top-color: #ddd;
+}
+.comment {
+  text-align: justify;
+  font-size: 14px;
+  margin: 10px 0px 0px 0px;
+}
+.comment-username {
+  font-family: "Montserrat-Bold";
+  font-size: 155%;
+  line-height: 70%;
+  margin: 0px;
+}
+.comment-datetime {
+  font-size: 80%;
+  color: #777;
+  margin: 0px;
+  padding: 0px;
+}
+blockquote {
+  border: none;
+  margin: 0px;
+}
+.acuerdo {
+  color: #195123;
 }

@@ -29,7 +29,15 @@ angular.module('referendaApp')
                 method: 'PUT'
             }
         });
+}])
 
+.factory('commentVoteFactory', ['$resource', 'baseURL', function ($resource, baseURL) {
+
+        return $resource(baseURL + "laws/:id/comments/:commentId/votes", {id:"@Id", commentId: "@CommentId"}, {
+            'update': {
+                method: 'PUT'
+            }
+        });
 }])
 
 .factory('partyFactory', ['$resource', 'baseURL', function ($resource, baseURL) {
@@ -47,7 +55,7 @@ angular.module('referendaApp')
 
 .factory('commentFactory', ['$resource', 'baseURL', function ($resource, baseURL) {
 
-        return $resource(baseURL + "dishes/:id/comments/:commentId", {id:"@Id", commentId: "@CommentId"}, {
+        return $resource(baseURL + "laws/:id/comments/:commentId", {id:"@Id", commentId: "@CommentId"}, {
             'update': {
                 method: 'PUT'
             }
