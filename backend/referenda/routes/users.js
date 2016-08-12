@@ -14,6 +14,11 @@ userRouter.route('/')
   res.send('respond with a resource');
 });
 
+userRouter.route('/logged')
+.get(Verify.verifyOrdinaryUser, function(req, res, next) {
+  res.status(200).json({"tt": "kk"});
+});
+
 userRouter.route('/register')
 .post(function(req, res) {
     User.register(new User({ username : req.body.username }),

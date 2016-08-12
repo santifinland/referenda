@@ -146,6 +146,15 @@ body {
   background: #208575;
   color: #ffffff;
 }
+.btn.sharp.yes.vote {
+  width: 175px;
+}
+.btn.sharp.no.vote {
+  width: 175px;
+}
+.btn.sharp.abstention.vote {
+  width: 175px;
+}
 .btn.sharp.abstention {
   font-size: 160%;
   background: #7BA3A0;
@@ -154,14 +163,17 @@ body {
 .btn.sharp.yes.maxi-font {
   font-size: 160%;
   padding: 10px;
+  cursor: default;
 }
 .btn.sharp.no.maxi-font {
   font-size: 160%;
   padding: 10px;
+  cursor: default;
 }
 .btn.sharp.abstention.maxi-font {
   font-size: 160%;
   padding: 10px;
+  cursor: default;
 }
 .vertical-line {
     border-left: thick solid #7BA3A0;

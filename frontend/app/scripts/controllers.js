@@ -7,58 +7,6 @@ angular.module('referendaApp')
     $scope.showProfile = false;
 }])
 
-.controller('MenuController', ['$scope', 'menuFactory', 'favoriteFactory', function ($scope, menuFactory, favoriteFactory) {
-
-    $scope.tab = 1;
-    $scope.filtText = '';
-    $scope.showDetails = false;
-    $scope.showFavorites = false;
-    $scope.showMenu = false;
-    $scope.message = "Loading ...";
-
-    menuFactory.query(
-        function (response) {
-            $scope.dishes = response;
-            $scope.showMenu = true;
-
-        },
-        function (response) {
-            $scope.message = "Error: " + response.status + " " + response.statusText;
-        });
-
-    $scope.select = function (setTab) {
-        $scope.tab = setTab;
-
-        if (setTab === 2) {
-            $scope.filtText = "appetizer";
-        } else if (setTab === 3) {
-            $scope.filtText = "mains";
-        } else if (setTab === 4) {
-            $scope.filtText = "dessert";
-        } else {
-            $scope.filtText = "";
-        }
-    };
-
-    $scope.isSelected = function (checkTab) {
-        return ($scope.tab === checkTab);
-    };
-
-    $scope.toggleDetails = function () {
-        $scope.showDetails = !$scope.showDetails;
-    };
-
-    $scope.toggleFavorites = function () {
-        $scope.showFavorites = !$scope.showFavorites;
-    };
-
-    $scope.addToFavorites = function(dishid) {
-        console.log('Add to favorites', dishid);
-        favoriteFactory.save({_id: dishid});
-        $scope.showFavorites = !$scope.showFavorites;
-    };
-}])
-
 .controller('ContactController', ['$scope', 'feedbackFactory', function ($scope, feedbackFactory) {
 
     $scope.feedback = {
@@ -101,48 +49,10 @@ angular.module('referendaApp')
     };
 }])
 
-.controller('DishDetailController', ['$scope', '$state', '$stateParams', 'menuFactory', 'commentFactory', function ($scope, $state, $stateParams, menuFactory, commentFactory) {
-
-    $scope.dish = {};
-    $scope.showDish = false;
-    $scope.message = "Loading ...";
-
-    $scope.dish = menuFactory.get({
-            id: $stateParams.id
-        })
-        .$promise.then(
-            function (response) {
-                $scope.dish = response;
-                $scope.showDish = true;
-            },
-            function (response) {
-                $scope.message = "Error: " + response.status + " " + response.statusText;
-            }
-        );
-
-    $scope.mycomment = {
-        rating: 5,
-        comment: ""
-    };
-
-    $scope.submitComment = function () {
-
-        commentFactory.save({id: $stateParams.id}, $scope.mycomment);
-
-        $state.go($state.current, {}, {reload: true});
-
-        $scope.commentForm.$setPristine();
-
-        $scope.mycomment = {
-            rating: 5,
-            comment: ""
-        };
-    }
-}])
-
 .controller('LawDetailController', ['$scope', '$state', '$stateParams', 'lawFactory', 'commentFactory', 'voteFactory',
-            'commentVoteFactory',
-            function ($scope, $state, $stateParams, lawFactory, commentFactory, voteFactory, commentVoteFactory) {
+            'commentVoteFactory','ngDialog',
+            function ($scope, $state, $stateParams, lawFactory, commentFactory, voteFactory, commentVoteFactory,
+                ngDialog) {
 
     $scope.law = {};
     $scope.showLaw = false;
@@ -169,7 +79,9 @@ angular.module('referendaApp')
 
         commentFactory
             .save({id: $stateParams.id}, $scope.mycomment)
-            .$promise.then(function(res) {$state.go($state.current, {}, {reload: true});});
+            .$promise.then(function(res) {
+                $state.go($state.current, {}, {reload: true});
+            });
 
         $scope.commentForm.$setPristine();
 
@@ -182,32 +94,43 @@ angular.module('referendaApp')
         $scope.mycommentvote = {
             vote: vote
         };
-        commentVoteFactory.save({id: $stateParams.id, commentId: commentId}, $scope.mycommentvote);
-        $state.go($state.current, {}, {reload: true});
+        commentVoteFactory
+            .save({id: $stateParams.id, commentId: commentId}, $scope.mycommentvote)
+            .$promise.then(function(res) {$state.go($state.current, {}, {reload: true});});
     }
 
     $scope.submitVoteYes = function () {
         $scope.myvoteyes = {
             vote: 1,
         };
-        voteFactory.save({id: $stateParams.id}, $scope.myvoteyes);
-        $state.go($state.current, {}, {reload: true});
+        voteFactory
+            .save({id: $stateParams.id}, $scope.myvoteyes)
+            .$promise.then(function(res) {
+                $state.go($state.current, {}, {reload: true});
+            }, function(error) {
+                console.log("in error");
+                $scope.loggedIn = false;
+                ngDialog.open({ template: 'views/login.html', scope: $scope, className: 'ngdialog-theme-default',
+                    controller:"LoginController" });
+            });
     }
 
     $scope.submitVoteNo = function () {
         $scope.myvoteno = {
             vote: 2,
         };
-        voteFactory.save({id: $stateParams.id}, $scope.myvoteno);
-        $state.go($state.current, {}, {reload: true});
+        voteFactory
+            .save({id: $stateParams.id}, $scope.myvoteno)
+            .$promise.then(function(res) {$state.go($state.current, {}, {reload: true});});
     }
 
     $scope.submitVoteAbstention = function () {
         $scope.myvoteabstention = {
             vote: 3,
         };
-        voteFactory.save({id: $stateParams.id}, $scope.myvoteabstention);
-        $state.go($state.current, {}, {reload: true});
+        voteFactory
+            .save({id: $stateParams.id}, $scope.myvoteabstention)
+            .$promise.then(function(res) {$state.go($state.current, {}, {reload: true});});
     }
 
 }])
@@ -277,11 +200,10 @@ angular.module('referendaApp')
 
 // implement the IndexController and About Controller here
 
-.controller('HomeController', ['$scope', 'lawFactory', 'voteFactory', 'menuFactory', 'corporateFactory', 'promotionFactory',
-            function ($scope, lawFactory, voteFactory, menuFactory, corporateFactory, promotionFactory) {
-    $scope.showDish = false;
-    $scope.showLeader = false;
-    $scope.showPromotion = false;
+.controller('HomeController', ['$scope', 'lawFactory', 'voteFactory',
+            function ($scope, lawFactory, voteFactory) {
+
+    $scope.showLaws = false;
     $scope.message = "Loading ...";
 
     lawFactory.query(
@@ -292,46 +214,6 @@ angular.module('referendaApp')
         function (response) {
             $scope.message = "Error: " + response.status + " " + response.statusText;
         });
-
-    var leaders = corporateFactory.query({
-            featured: "true"
-        })
-        .$promise.then(
-            function (response) {
-                var leaders = response;
-                $scope.leader = leaders[0];
-                $scope.showLeader = true;
-            },
-            function (response) {
-                $scope.message = "Error: " + response.status + " " + response.statusText;
-            }
-        );
-    $scope.dish = menuFactory.query({
-            featured: "true"
-        })
-        .$promise.then(
-            function (response) {
-                var dishes = response;
-                $scope.dish = dishes[0];
-                $scope.showDish = true;
-            },
-            function (response) {
-                $scope.message = "Error: " + response.status + " " + response.statusText;
-            }
-        );
-    var promotions = promotionFactory.query({
-        featured: "true"
-    })
-    .$promise.then(
-            function (response) {
-                var promotions = response;
-                $scope.promotion = promotions[0];
-                $scope.showPromotion = true;
-            },
-            function (response) {
-                $scope.message = "Error: " + response.status + " " + response.statusText;
-            }
-        );
 }])
 
 .controller('ResultController', ['$scope', function ($scope) {
@@ -344,62 +226,12 @@ angular.module('referendaApp')
 
 }])
 
-.controller('FavoriteController', ['$scope', '$state', 'favoriteFactory', function ($scope, $state, favoriteFactory) {
-
-    $scope.tab = 1;
-    $scope.filtText = '';
-    $scope.showDetails = false;
-    $scope.showDelete = false;
-    $scope.showMenu = false;
-    $scope.message = "Loading ...";
-
-    favoriteFactory.query(
-        function (response) {
-            $scope.dishes = response.dishes;
-            $scope.showMenu = true;
-        },
-        function (response) {
-            $scope.message = "Error: " + response.status + " " + response.statusText;
-        });
-
-    $scope.select = function (setTab) {
-        $scope.tab = setTab;
-
-        if (setTab === 2) {
-            $scope.filtText = "appetizer";
-        } else if (setTab === 3) {
-            $scope.filtText = "mains";
-        } else if (setTab === 4) {
-            $scope.filtText = "dessert";
-        } else {
-            $scope.filtText = "";
-        }
-    };
-
-    $scope.isSelected = function (checkTab) {
-        return ($scope.tab === checkTab);
-    };
-
-    $scope.toggleDetails = function () {
-        $scope.showDetails = !$scope.showDetails;
-    };
-
-    $scope.toggleDelete = function () {
-        $scope.showDelete = !$scope.showDelete;
-    };
-
-    $scope.deleteFavorite = function(dishid) {
-        console.log('Delete favorites', dishid);
-        favoriteFactory.delete({id: dishid});
-        $scope.showDelete = !$scope.showDelete;
-        $state.go($state.current, {}, {reload: true});
-    };
-}])
-
-.controller('HeaderController', ['$scope', '$state', '$rootScope', 'ngDialog', 'AuthFactory', function ($scope, $state, $rootScope, ngDialog, AuthFactory) {
+.controller('HeaderController', ['$scope', '$state', '$rootScope', 'ngDialog', 'AuthFactory', '$timeout',
+            function ($scope, $state, $rootScope, ngDialog, AuthFactory, $timeout) {
 
     $scope.loggedIn = false;
     $scope.username = '';
+    AuthFactory.checkLogged();
 
     if(AuthFactory.isAuthenticated()) {
         $scope.loggedIn = true;
@@ -423,6 +255,7 @@ angular.module('referendaApp')
     $rootScope.$on('login:Successful', function () {
         $scope.loggedIn = AuthFactory.isAuthenticated();
         $scope.username = AuthFactory.getUsername();
+        $timeout(callAtTimeout, 40000);
     });
 
     $rootScope.$on('registration:Successful', function () {
@@ -430,9 +263,21 @@ angular.module('referendaApp')
         $scope.username = AuthFactory.getUsername();
     });
 
+    $rootScope.$on('logged:Successful', function () {
+        $scope.loggedIn = true;
+    });
+
+    $rootScope.$on('logged:Failure', function () {
+        $scope.loggedIn = false;
+    });
+
     $scope.stateis = function(curstate) {
        return $state.is(curstate);
     };
+
+    function callAtTimeout() {
+        AuthFactory.checkLogged();
+    }
 
 }])
 
