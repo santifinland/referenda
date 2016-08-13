@@ -89,6 +89,28 @@ angular.module('referendaApp', ['ui.router','ngResource','ngDialog'])
                 }
             })
 
+            // route for the data protection page
+            .state('app.dataprotection', {
+                url: 'dataprotection',
+                views: {
+                    'content@': {
+                        templateUrl : 'views/dataprotection.html',
+                        controller  : 'DataProtectionController'
+                   }
+                }
+            })
+
+            // route for the data protection page
+            .state('app.cookies', {
+                url: 'cookies',
+                views: {
+                    'content@': {
+                        templateUrl : 'views/cookies.html',
+                        controller  : 'CookiesController'
+                   }
+                }
+            })
+
         $urlRouterProvider.otherwise('/');
     })
 ;

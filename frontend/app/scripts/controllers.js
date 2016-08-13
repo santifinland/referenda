@@ -359,6 +359,12 @@ angular.module('referendaApp')
 .controller('ResultController', ['$scope', function ($scope) {
 }])
 
+.controller('DataProtectionController', ['$scope', function ($scope) {
+}])
+
+.controller('CookiesController', ['$scope', function ($scope) {
+}])
+
 .controller('AboutController', ['$scope', 'corporateFactory', function ($scope, corporateFactory) {
 
     $scope.leaders = corporateFactory.query();
