@@ -8,10 +8,20 @@ var Parties = require('../models/parties');
 var userRouter = express.Router();
 userRouter.use(bodyParser.json());
 
-userRouter.route('/')
+userRouter.route('/find/:username')
 /* GET users listing. */
-.get(function(req, res, next) {
-  res.send('respond with a resource');
+.get(Verify.verifyOrdinaryUser, function(req, res, next) {
+    name = req.params.username.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+    console.log(name);
+    if (name.length < 4) {
+        return res.status(200).json([]);
+    } else {
+        User.find({"username": new RegExp('^'+name, "i")}).limit(4).select("username")
+            .exec(function (err, users) {
+            if (err) return next(err);
+            res.status(200).json(users);
+        });
+    }
 });
 
 userRouter.route('/logged')
@@ -98,6 +108,38 @@ userRouter.route('/delegateparty')
                 });
             } else {
                 res.status(400).json({status: 'Party not found'});
+            }
+        });
+    });
+});
+
+userRouter.route('/delegateuser')
+.get(Verify.verifyOrdinaryUser, function (req, res, next) {
+    console.log(req.decoded._id);
+    User.findById(req.decoded._id)
+        .exec(function (err, user) {
+        if (err) return next(err);
+        res.status(200).json({"id": user.delegatedUser});
+    });
+})
+.post(Verify.verifyOrdinaryUser, function (req, res, next) {
+    User.findById(req.decoded._id, function (err, user) {
+        if (err) return next(err);
+        console.log("body.id");
+        console.log(req.body.id);
+        User.findById(req.body.id, function(err, delegatedUser) {
+            if (err) return next(err);
+            if (delegatedUser != null) {
+                user.delegatedUser = delegatedUser._id;
+                console.log("usernmae");
+                console.log(delegatedUser);
+                user.save(function (err, user) {
+                    if (err) return next(err);
+                    console.log('Updated User!');
+                    res.status(200).json({});
+                });
+            } else {
+                res.status(400).json({status: 'User not found'});
             }
         });
     });

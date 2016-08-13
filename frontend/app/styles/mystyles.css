@@ -303,3 +303,17 @@ blockquote {
 .acuerdo {
   color: #195123;
 }
+.no-search {
+  cursor: default;
+}
+.user-delegated {
+  display: block;
+  font-family: "Montserrat-Bold";
+  font-size: 160%;
+  text-align: center;
+}
+.user-delegated > button {
+  text-align: center;
+  position:relative;
+  margin: 0 auto;
+}

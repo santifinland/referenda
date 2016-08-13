@@ -145,9 +145,10 @@ angular.module('referendaApp')
     }
 }])
 
-.controller('DelegateController', ['$scope', '$rootScope', '$state', '$stateParams', 'userFactory', 'partyFactory',
-            'AuthFactory',
-            function ($scope, $rootScope, $state, $stateParams, userFactory, partyFactory, AuthFactory) {
+.controller('DelegateController', ['$scope', '$rootScope', '$state', '$stateParams', 'delegatePartyFactory',
+            'partyFactory', 'AuthFactory', 'userFactory', 'delegateUserFactory',
+            function ($scope, $rootScope, $state, $stateParams, delegatePartyFactory, partyFactory, AuthFactory,
+                      userFactory, delegateUserFactory) {
     $scope.party = {};
     $scope.showDelegatedParty = false;
     $scope.message = "Loading ...";
@@ -163,7 +164,34 @@ angular.module('referendaApp')
     });
 
     $rootScope.$on('login:Successful', function () {
-        $scope.party = userFactory.get({
+        $scope.party = delegatePartyFactory.get({
+            id: $stateParams.id
+        })
+        .$promise.then(
+            function (response) {
+                $scope.partyId = response.id;
+                $scope.party = partyFactory.get({
+                    id: $scope.partyId
+                })
+                .$promise.then(
+                    function (response) {
+                        $scope.party = response;
+                        $scope.showDelegatedParty = true;
+                    },
+                    function (response) {
+                        $scope.message = "Error: " + response.status + " " + response.statusText;
+                    }
+                );
+            },
+            function (response) {
+                $scope.message = "Error: " + response.status + " " + response.statusText;
+            }
+        );
+        $scope.loggedIn = true;
+    });
+
+    $rootScope.$on('logged:Successful', function () {
+        $scope.party = delegatePartyFactory.get({
             id: $stateParams.id
         })
         .$promise.then(
@@ -193,7 +221,7 @@ angular.module('referendaApp')
         $scope.loggedIn = false;
     });
 
-    $scope.party = userFactory.get({
+    $scope.party = delegatePartyFactory.get({
         id: $stateParams.id
     })
     .$promise.then(
@@ -218,55 +246,96 @@ angular.module('referendaApp')
     );
 
     $scope.submitDelegatePartyPP = function () {
-        userFactory
+        delegatePartyFactory
             .save({ party: "pp"})
             .$promise.then(function(res) {
                 $scope.party = res;
             });
     }
     $scope.submitDelegatePartyPsoe = function () {
-        userFactory
+        delegatePartyFactory
             .save({ party: "psoe"})
             .$promise.then(function(res) {
                 $scope.party = res;
             });
     }
     $scope.submitDelegatePartyPodemos = function () {
-        userFactory
+        delegatePartyFactory
             .save({ party: "podemos"})
             .$promise.then(function(res) {
                 $scope.party = res;
             });
     }
     $scope.submitDelegatePartyCiudadanos = function () {
-        userFactory
+        delegatePartyFactory
             .save({ party: "ciudadanos"})
             .$promise.then(function(res) {
                 $scope.party = res;
             });
     }
     $scope.submitDelegatePartyErc = function () {
-        userFactory
+        delegatePartyFactory
             .save({ party: "erc"})
             .$promise.then(function(res) {
                 $scope.party = res;
             });
     }
     $scope.submitDelegatePartyPnv = function () {
-        userFactory
+        delegatePartyFactory
             .save({ party: "pnv"})
             .$promise.then(function(res) {
                 $scope.party = res;
             });
     }
     $scope.submitDelegatePartyMixto = function () {
-        userFactory
+        delegatePartyFactory
             .save({ party: "mixto"})
             .$promise.then(function(res) {
                 $scope.party = res;
             });
     }
 
+    $scope.delegatedUser = delegateUserFactory.get({
+        id: $stateParams.id
+    })
+    .$promise.then(
+        function (response) {
+            $scope.delegatedUSer = response;
+        },
+        function (response) {
+            $scope.message = "Error: " + response.status + " " + response.statusText;
+        }
+    );
+
+    $scope.submitDelegateUser = function (id) {
+        delegateUserFactory
+            .save({ id: id})
+            .$promise.then(function(res) {
+            });
+    }
+
+    function getUsers(username){
+        userFactory.query({
+            username: username
+        })
+        .$promise.then(
+            function (response) {
+                $scope.users = response;
+            },
+            function (response) {
+                $scope.message = "Error: " + response.status + " " + response.statusText;
+            });
+    }
+
+    $scope.search = '';
+    var regex;
+    $scope.$watch('search', function (value) {
+        if (value.length > 3) {
+            getUsers(value);
+        } else {
+            $scope.users = [];
+        }
+    });
 }])
 
 // implement the IndexController and About Controller here
@@ -288,7 +357,6 @@ angular.module('referendaApp')
 }])
 
 .controller('ResultController', ['$scope', function ($scope) {
-
 }])
 
 .controller('AboutController', ['$scope', 'corporateFactory', function ($scope, corporateFactory) {
