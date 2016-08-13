@@ -38,9 +38,21 @@ angular.module('referendaApp')
 
 }])
 
-.factory('userFactory', ['$resource', 'baseURL', function ($resource, baseURL) {
+.factory('delegatePartyFactory', ['$resource', 'baseURL', function ($resource, baseURL) {
 
         return $resource(baseURL + "users/delegateparty", {
+        });
+}])
+
+.factory('delegateUserFactory', ['$resource', 'baseURL', function ($resource, baseURL) {
+
+        return $resource(baseURL + "users/delegateuser/:id", {id:"@Id"}, {
+        });
+}])
+
+.factory('userFactory', ['$resource', 'baseURL', function ($resource, baseURL) {
+
+        return $resource(baseURL + "users/find/:username", {username:"@username"}, {
         });
 }])
 
@@ -51,18 +63,15 @@ angular.module('referendaApp')
                 method: 'PUT'
             }
         });
-
 }])
 
 .factory('feedbackFactory', ['$resource', 'baseURL', function ($resource, baseURL) {
-
 
     return $resource(baseURL + "feedback/:id", null, {
             'update': {
                 method: 'PUT'
             }
         });
-
 }])
 
 .factory('$localStorage', ['$window', function ($window) {
