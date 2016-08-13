@@ -14,6 +14,11 @@ userRouter.route('/')
   res.send('respond with a resource');
 });
 
+userRouter.route('/logged')
+.get(Verify.verifyOrdinaryUser, function(req, res, next) {
+  res.status(200).json({"tt": "kk"});
+});
+
 userRouter.route('/register')
 .post(function(req, res) {
     User.register(new User({ username : req.body.username }),
@@ -89,7 +94,7 @@ userRouter.route('/delegateparty')
                 user.save(function (err, user) {
                     if (err) return next(err);
                     console.log('Updated Party!');
-                    res.status(200).json({status: 'OK'});
+                    res.status(200).json(party);
                 });
             } else {
                 res.status(400).json({status: 'Party not found'});

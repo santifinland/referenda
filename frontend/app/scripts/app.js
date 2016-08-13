@@ -78,28 +78,6 @@ angular.module('referendaApp', ['ui.router','ngResource','ngDialog'])
                 }
             })
 
-            // route for the menu page
-            .state('app.menu', {
-                url: 'menu',
-                views: {
-                    'content@': {
-                        templateUrl : 'views/menu.html',
-                        controller  : 'MenuController'
-                    }
-                }
-            })
-
-            // route for the dishdetail page
-            .state('app.dishdetails', {
-                url: 'menu/:id',
-                views: {
-                    'content@': {
-                        templateUrl : 'views/dishdetail.html',
-                        controller  : 'DishDetailController'
-                   }
-                }
-            })
-
             // route for the lawdetail page
             .state('app.lawdetails', {
                 url: 'law/:id',
@@ -110,17 +88,6 @@ angular.module('referendaApp', ['ui.router','ngResource','ngDialog'])
                    }
                 }
             })
-
-            // route for the dishdetail page
-            .state('app.favorites', {
-                url: 'favorites',
-                views: {
-                    'content@': {
-                        templateUrl : 'views/favorites.html',
-                        controller  : 'FavoriteController'
-                   }
-                }
-            });
 
         $urlRouterProvider.otherwise('/');
     })

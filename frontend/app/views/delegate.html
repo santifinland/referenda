@@ -5,7 +5,8 @@
 
             <div class="col-xs-12 col-md-12">
                 <div class="col-xs-6 col-md-7 ">
-                    <h3>Actualmente tienes tus votos delegados a:</h3>
+                    <h3 ng-if="loggedIn">Actualmente tienes tus votos delegados a:</h3>
+                    <h3 ng-if="!loggedIn">Inicia sesi&oacute;n para delegar tu voto</h3>
                     <div class="funciona">
                         <p>As&iacute; es como funciona</p>
                         <span>Solo si no votas en una determinada propuesta,
@@ -14,7 +15,9 @@
                         <span>Puedes cambiar de partido cuando quieras, o no delegar tu voto a ning&uacute;n partido</span>
                     </div>
                 </div>
-                <div class="col-xs-2 col-md-2 party-selected">
+                <div ng-if="!loggedIn" class="col-xs-2 col-md-2 party-selected">
+                </div>
+                <div ng-if="loggedIn" class="col-xs-2 col-md-2 party-selected">
                     <img src="{{party.logo}}" height="150" width="250"/>
                 </div>
             </div>
