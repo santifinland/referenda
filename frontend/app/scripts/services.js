@@ -147,15 +147,14 @@ angular.module('referendaApp')
 
                 ngDialog.openConfirm({ template: message, plain: 'true'});
            }
-
         );
-
     };
 
     authFac.logout = function() {
         $resource(baseURL + "users/logout").get(function(response){
         });
         destroyUserCredentials();
+        $rootScope.$broadcast('logout:Successful');
     };
 
     authFac.register = function(registerData) {

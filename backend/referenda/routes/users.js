@@ -94,7 +94,7 @@ userRouter.route('/delegateparty')
                 user.save(function (err, user) {
                     if (err) return next(err);
                     console.log('Updated Party!');
-                    res.status(200).json({status: 'OK'});
+                    res.status(200).json(party);
                 });
             } else {
                 res.status(400).json({status: 'Party not found'});

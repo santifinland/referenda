@@ -83,8 +83,6 @@ angular.module('referendaApp')
                 $state.go($state.current, {}, {reload: true});
             });
 
-        $scope.commentForm.$setPristine();
-
         $scope.mycomment = {
             comment: ""
         };
@@ -96,7 +94,9 @@ angular.module('referendaApp')
         };
         commentVoteFactory
             .save({id: $stateParams.id, commentId: commentId}, $scope.mycommentvote)
-            .$promise.then(function(res) {$state.go($state.current, {}, {reload: true});});
+            .$promise.then(function(res) {
+                $scope.law = res;
+            });
     }
 
     $scope.submitVoteYes = function () {
@@ -106,9 +106,8 @@ angular.module('referendaApp')
         voteFactory
             .save({id: $stateParams.id}, $scope.myvoteyes)
             .$promise.then(function(res) {
-                $state.go($state.current, {}, {reload: true});
+                $scope.law = res;
             }, function(error) {
-                console.log("in error");
                 $scope.loggedIn = false;
                 ngDialog.open({ template: 'views/login.html', scope: $scope, className: 'ngdialog-theme-default',
                     controller:"LoginController" });
@@ -121,7 +120,13 @@ angular.module('referendaApp')
         };
         voteFactory
             .save({id: $stateParams.id}, $scope.myvoteno)
-            .$promise.then(function(res) {$state.go($state.current, {}, {reload: true});});
+            .$promise.then(function(res) {
+                $scope.law = res;
+            }, function(error) {
+                $scope.loggedIn = false;
+                ngDialog.open({ template: 'views/login.html', scope: $scope, className: 'ngdialog-theme-default',
+                    controller:"LoginController" });
+            });
     }
 
     $scope.submitVoteAbstention = function () {
@@ -130,30 +135,75 @@ angular.module('referendaApp')
         };
         voteFactory
             .save({id: $stateParams.id}, $scope.myvoteabstention)
-            .$promise.then(function(res) {$state.go($state.current, {}, {reload: true});});
+            .$promise.then(function(res) {
+                $scope.law = res;
+            }, function(error) {
+                $scope.loggedIn = false;
+                ngDialog.open({ template: 'views/login.html', scope: $scope, className: 'ngdialog-theme-default',
+                    controller:"LoginController" });
+            });
     }
-
 }])
 
-.controller('DelegateController', ['$scope', '$state', '$stateParams', 'userFactory', 'partyFactory',
-            function ($scope, $state, $stateParams, userFactory, partyFactory) {
+.controller('DelegateController', ['$scope', '$rootScope', '$state', '$stateParams', 'userFactory', 'partyFactory',
+            'AuthFactory',
+            function ($scope, $rootScope, $state, $stateParams, userFactory, partyFactory, AuthFactory) {
     $scope.party = {};
     $scope.showDelegatedParty = false;
     $scope.message = "Loading ...";
+    $scope.loggedIn = false;
+    AuthFactory.checkLogged();
+
+    if(AuthFactory.isAuthenticated()) {
+        $scope.loggedIn = true;
+    }
+
+    $rootScope.$on('logout:Successful', function () {
+        $scope.loggedIn = false;
+    });
+
+    $rootScope.$on('login:Successful', function () {
+        $scope.party = userFactory.get({
+            id: $stateParams.id
+        })
+        .$promise.then(
+            function (response) {
+                $scope.partyId = response.id;
+                $scope.party = partyFactory.get({
+                    id: $scope.partyId
+                })
+                .$promise.then(
+                    function (response) {
+                        $scope.party = response;
+                        $scope.showDelegatedParty = true;
+                    },
+                    function (response) {
+                        $scope.message = "Error: " + response.status + " " + response.statusText;
+                    }
+                );
+            },
+            function (response) {
+                $scope.message = "Error: " + response.status + " " + response.statusText;
+            }
+        );
+        $scope.loggedIn = true;
+    });
+
+    $rootScope.$on('logged:Failure', function () {
+        $scope.loggedIn = false;
+    });
 
     $scope.party = userFactory.get({
         id: $stateParams.id
     })
     .$promise.then(
         function (response) {
-            console.log(response.id);
             $scope.partyId = response.id;
             $scope.party = partyFactory.get({
                 id: $scope.partyId
             })
             .$promise.then(
                 function (response) {
-                    console.log(response);
                     $scope.party = response;
                     $scope.showDelegatedParty = true;
                 },
@@ -168,32 +218,53 @@ angular.module('referendaApp')
     );
 
     $scope.submitDelegatePartyPP = function () {
-        userFactory.save({ party: "pp"});
-        $state.go($state.current, {}, {reload: true});
+        userFactory
+            .save({ party: "pp"})
+            .$promise.then(function(res) {
+                $scope.party = res;
+            });
     }
     $scope.submitDelegatePartyPsoe = function () {
-        userFactory.save({ party: "psoe"});
-        $state.go($state.current, {}, {reload: true});
+        userFactory
+            .save({ party: "psoe"})
+            .$promise.then(function(res) {
+                $scope.party = res;
+            });
     }
     $scope.submitDelegatePartyPodemos = function () {
-        userFactory.save({ party: "podemos"});
-        $state.go($state.current, {}, {reload: true});
+        userFactory
+            .save({ party: "podemos"})
+            .$promise.then(function(res) {
+                $scope.party = res;
+            });
     }
     $scope.submitDelegatePartyCiudadanos = function () {
-        userFactory.save({ party: "ciudadanos"});
-        $state.go($state.current, {}, {reload: true});
+        userFactory
+            .save({ party: "ciudadanos"})
+            .$promise.then(function(res) {
+                $scope.party = res;
+            });
     }
     $scope.submitDelegatePartyErc = function () {
-        userFactory.save({ party: "erc"});
-        $state.go($state.current, {}, {reload: true});
+        userFactory
+            .save({ party: "erc"})
+            .$promise.then(function(res) {
+                $scope.party = res;
+            });
     }
     $scope.submitDelegatePartyPnv = function () {
-        userFactory.save({ party: "pnv"});
-        $state.go($state.current, {}, {reload: true});
+        userFactory
+            .save({ party: "pnv"})
+            .$promise.then(function(res) {
+                $scope.party = res;
+            });
     }
     $scope.submitDelegatePartyMixto = function () {
-        userFactory.save({ party: "mixto"});
-        $state.go($state.current, {}, {reload: true});
+        userFactory
+            .save({ party: "mixto"})
+            .$promise.then(function(res) {
+                $scope.party = res;
+            });
     }
 
 }])
@@ -255,7 +326,7 @@ angular.module('referendaApp')
     $rootScope.$on('login:Successful', function () {
         $scope.loggedIn = AuthFactory.isAuthenticated();
         $scope.username = AuthFactory.getUsername();
-        $timeout(callAtTimeout, 40000);
+        $timeout(callAtTimeout, 6 * 60 * 60 * 1000);
     });
 
     $rootScope.$on('registration:Successful', function () {
@@ -307,12 +378,8 @@ angular.module('referendaApp')
     $scope.loginData={};
 
     $scope.doRegister = function() {
-        console.log('Doing registration', $scope.registration);
-
         AuthFactory.register($scope.registration);
-
         ngDialog.close();
-
     };
 
     $scope.openRegister = function () {
