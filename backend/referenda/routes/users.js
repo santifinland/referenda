@@ -100,6 +100,7 @@ userRouter.route('/delegateparty')
             party = parties[0];
             if (party != null) {
                 user.delegatedParty = party._id;
+                user.delegatedUser = null;
                 console.log(party.name);
                 user.save(function (err, user) {
                     if (err) return next(err);
@@ -131,6 +132,7 @@ userRouter.route('/delegateuser')
             if (err) return next(err);
             if (delegatedUser != null) {
                 user.delegatedUser = delegatedUser._id;
+                user.delegatedParty = null;
                 console.log("usernmae");
                 console.log(delegatedUser);
                 user.save(function (err, user) {
