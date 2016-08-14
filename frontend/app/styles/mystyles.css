@@ -317,3 +317,9 @@ blockquote {
   position:relative;
   margin: 0 auto;
 }
+.footer > ul {
+  margin-top: 5px;
+}
+.footer > ul > p > a {
+  color: #333;
+}

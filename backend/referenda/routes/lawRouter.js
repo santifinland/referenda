@@ -30,28 +30,62 @@ lawRouter.route('/')
     });
 })
 .post(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function (req, res, next) {
+    // Search all users having delegated votes to other users
+    //Users.find({}, function (err, peperos) {
+    kk = function(us, acc, callback) {
+        console.log("INICIO US");
+        console.log(us);
+        if (us.length > 0) {
+            Users.find({"delegatedUser": us[0]._id}, function (err, delegando) {
+                if (!delegando.length) {
+                    us.shift();
+                    return kk(us, acc, callback);
+                } else {
+                    console.log("ELSE delegando");
+                    console.log(delegando);
+                    acc = acc + delegando.length;
+                    us.shift();
+                    console.log("after shift us");
+                    console.log(us);
+                    new_us = us.concat(delegando);
+                    console.log("after concat new_us");
+                    console.log(new_us);
+                    return kk(new_us, acc, callback);
+                }
+            });
+        } else {
+            return callback(null, acc);
+        }
+    }
     // Search all users having delegated votes to each party
-    Users.find({"delegatedParty": pp}, function (err, peperos) {
+    Users.find({"delegatedParty": pp, "delegatedUser": null}, function (err, peperos) {
+      if (err) return next(err);
+      new_votes = kk(peperos, peperos.length, function(err, delegatedToPP) {
         if (err) return next(err);
-        delegatedToPP = peperos.length;
-        Users.find({"delegatedParty": psoe}, function (err, sociatas) {
+        Users.find({"delegatedParty": psoe, "delegatedUser": null}, function (err, sociatas) {
+          if (err) return next(err);
+          new_votes = kk(sociatas, sociatas.length, function(err, delegatedToPsoe) {
             if (err) return next(err);
-            delegatedToPsoe = sociatas.length;
-            Users.find({"delegatedParty": podemos}, function (err, podemitas) {
+            Users.find({"delegatedParty": podemos, "delegatedUser": null}, function (err, podemitas) {
+              if (err) return next(err);
+              new_votes = kk(podemitas, podemitas.length, function(err, delegatedToPodemos) {
                 if (err) return next(err);
-                delegatedToPodemos = podemitas.length;
-                Users.find({"delegatedParty": pnv}, function (err, vascos) {
+                Users.find({"delegatedParty": pnv, "delegatedUser": null}, function (err, vascos) {
+                  if (err) return next(err);
+                  new_votes = kk(vascos, vascos.length, function(err, delegatedToPnv) {
                     if (err) return next(err);
-                    delegatedToPnv = vascos.length;
-                    Users.find({"delegatedParty": erc}, function (err, catalanes) {
+                    Users.find({"delegatedParty": erc, "delegatedUser": null}, function (err, catalanes) {
+                      if (err) return next(err);
+                      new_votes = kk(catalanes, catalanes.length, function(err, delegatedToErc) {
                         if (err) return next(err);
-                        delegatedToErc = catalanes.length;
-                        Users.find({"delegatedParty": ciudadanos}, function (err, naranjitos) {
-                            if (err) return next(err);
-                            delegatedToCiudadanos = naranjitos.length;
-                            Users.find({"delegatedParty": mixto}, function (err, mixtos) {
+                        Users.find({"delegatedParty": ciudadanos, "delegatedUser": null}, function (err, naranjitos) {
+                          if (err) return next(err);
+                          new_votes = kk(naranjitos, naranjitos.length, function(err, delegatedToCiudadanos) {
+                          if (err) return next(err);
+                            Users.find({"delegatedParty": mixto, "delegatedUser": null}, function (err, mixtos) {
+                              if (err) return next(err);
+                              new_votes = kk(mixtos, mixtos.length, function(err, delegatedToMixto) {
                                 if (err) return next(err);
-                                delegatedToMixto = mixtos.length;
                                 req.body.positiveParties = [];
                                 req.body.negativeParties = [];
                                 req.body.abstentionParties = [];
@@ -147,13 +181,20 @@ lawRouter.route('/')
                                        'Content-Type': 'text/plain'
                                    });
                                    res.end('Added the law with id: ' + id);
-                               });
+                                });
+                              });
                             });
+                          });
                         });
+                      });
                     });
+                  });
                 });
+              });
             });
+          });
         });
+      });
     });
 })
 .delete(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function (req, res, next) {
@@ -507,14 +548,19 @@ lawRouter.route('/:lawId/votes')
             if (err) return next(err);
             console.log(votes.length);
             if (!votes.length) {
-                //req.body.votedBy = req.decoded._id;
-                //law.votes.push(req.body);
+                // Find delegations to other user and check if that user has already voted
+                // and remove delegated vote in the law
+                //Users.findById(req.decoded._id, function (err, user) {
+                    //if (err) return next(err);
+                    //console.log("User delegation: " + user.delegatedUser);
+
+
                 // Find delegations and remove delegated vote in the law
                 console.log("No previous vote found");
                 Users.findById(req.decoded._id, function (err, user) {
                     if (err) return next(err);
                     console.log(user);
-                    console.log("User delegation: " + user.delegatedParty)
+                    console.log("Party delegation: " + user.delegatedParty)
                     if (law.positiveParties.indexOf(user.delegatedParty) != -1) {
                         law.positive = law.positive - 1;
                     }
