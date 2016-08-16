@@ -62,12 +62,12 @@ passport.deserializeUser(User.deserializeUser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/users', users);
-app.use('/dishes', dishRouter);
-app.use('/laws', lawRouter);
-app.use('/parties', partyRouter);
-app.use('/promotions',promoRouter);
-app.use('/leadership',leaderRouter);
+app.use('/api/users', users);
+app.use('/api/dishes', dishRouter);
+app.use('/api/laws', lawRouter);
+app.use('/api/parties', partyRouter);
+app.use('/api/promotions',promoRouter);
+app.use('/api/leadership',leaderRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
