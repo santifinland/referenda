@@ -44,7 +44,7 @@
                             </div>
                             <div class="col-xs-12 col-sm-11">
                                 <button type="button" class="btn btn-primary sharp yes maxi-font"
-                                        style="width: {{ (100 * law.positive / (law.positive + law.negative +
+                                        style="width: {{ (80 * law.positive / (law.positive + law.negative +
                                         law.abstention)) | number:0 }}%; text-align: left;">S&Iacute;</button>
                                 <span class="result-number yes">{{ ( 100 * law.positive / (law.positive +
                                     law.negative + law.abstention)) | number:0 }}%</span>
@@ -54,7 +54,7 @@
                             </div>
                             <div class="col-xs-12 col-sm-11">
                                 <button type="button" class="btn btn-primary sharp no maxi-font"
-                                        style="width: {{ (100 * law.negative / (law.positive + law.negative +
+                                        style="width: {{ (80 * law.negative / (law.positive + law.negative +
                                         law.abstention)) | number:0 }}%; text-align: left;">NO</button>
                                 <span class="result-number no">{{ ( 100 * law.negative / (law.positive +
                                     law.negative + law.abstention)) | number:0 }}%</span>
@@ -64,7 +64,7 @@
                             </div>
                             <div class="col-xs-12 col-sm-11">
                                 <button type="button" class="btn btn-primary sharp abstention maxi-font"
-                                        style="width: {{ (100 * law.abstention / (law.positive + law.negative +
+                                        style="width: {{ (80 * law.abstention / (law.positive + law.negative +
                                         law.abstention)) | number:0 }}%; text-align: left;">ABSTENCI&Oacute;N</button>
                                 <span class="result-number abstention">{{ ( 100 * law.abstention / (law.positive +
                                     law.negative + law.abstention)) | number:0 }}%</span>

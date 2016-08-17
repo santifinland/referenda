@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('referendaApp')
-.constant("baseURL", "https://localhost:3443/")
+.constant("baseURL", "https://referenda.es:3443/api/")
 
 .factory('lawFactory', ['$resource', 'baseURL', function ($resource, baseURL) {
 

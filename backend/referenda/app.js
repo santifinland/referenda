@@ -33,6 +33,8 @@ app.all('*', function(req, res, next){
     console.log('req start: ',req.secure, req.hostname, req.url, req.socket.localPort, req.socket.remotePort,
         app.get('port'));
   if (req.secure) {
+    res.setHeader('Access-Control-Allow-Origin', 'https://referenda.es');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type,x-access-token');
     return next();
   };
 
@@ -62,12 +64,12 @@ passport.deserializeUser(User.deserializeUser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/users', users);
-app.use('/dishes', dishRouter);
-app.use('/laws', lawRouter);
-app.use('/parties', partyRouter);
-app.use('/promotions',promoRouter);
-app.use('/leadership',leaderRouter);
+app.use('/api/users', users);
+app.use('/api/dishes', dishRouter);
+app.use('/api/laws', lawRouter);
+app.use('/api/parties', partyRouter);
+app.use('/api/promotions',promoRouter);
+app.use('/api/leadership',leaderRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
