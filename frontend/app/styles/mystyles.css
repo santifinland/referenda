@@ -147,12 +147,18 @@ body {
 }
 .btn.sharp.yes.vote {
   width: 175px;
+  display: block;
+  margin: 0 auto;
 }
 .btn.sharp.no.vote {
   width: 175px;
+  display: block;
+  margin: 0 auto;
 }
 .btn.sharp.abstention.vote {
   width: 175px;
+  display: block;
+  margin: 0 auto;
 }
 .btn.sharp.abstention {
   font-size: 160%;
@@ -187,6 +193,7 @@ body {
   color: #000;
 }
 .result-number {
+  margin-right: 10px;
   font-family: "Montserrat-Bold";
   font-size: 250%;
   vertical-align: middle;
