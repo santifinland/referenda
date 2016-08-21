@@ -9,7 +9,6 @@
   min-height: 400px;
 }
 .row-footer {
-  height: 100px;
   margin: 0px auto;
   padding: 0px 0px;
   background-color: #208376;
@@ -319,6 +318,7 @@ blockquote {
 }
 .footer > ul {
   margin-top: 5px;
+  padding: 5px;
 }
 .footer > ul > p > a {
   color: #333;
