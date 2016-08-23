@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var URLSlugs = require('mongoose-url-slugs');
 
 var commentSchema = new Schema({
     positive: {
@@ -67,6 +68,8 @@ lawSchema.set('toJSON', {
         return ret;
     }
 });
+
+lawSchema.plugin(URLSlugs('headline'));
 
 // the schema is useless so far
 // we need to create a model using it
