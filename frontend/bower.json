@@ -27,6 +27,7 @@
     "angular-route": "~1.5.5",
     "bootstrap": "~3.3.6",
     "font-awesome": "fontawesome#~4.6.1",
-    "ng-dialog": "~0.6.0"
+    "ng-dialog": "~0.6.0",
+    "angular-cookies": "^1.5.8"
   }
 }

@@ -330,3 +330,16 @@ blockquote {
 .footer > ul > p > a {
   color: #333;
 }
+.cookie-consent {
+  padding: 5px;
+  height: 70px;
+  background-color: #888888;
+  text-align: center;
+}
+.aceptar-cookie {
+  padding: 10px;
+}
+.cookie-policy {
+  color: #fff;
+  text-decoration: underline;
+}
