@@ -147,9 +147,8 @@ angular.module('referendaApp')
 
               var message = '\
                 <div class="ngdialog-message">\
-                <div><h3>Login Unsuccessful</h3></div>' +
-                  '<div><p>' +  response.data.err.message + '</p><p>' +
-                    response.data.err.name + '</p></div>' +
+                <div><h3>Error de inicio de sesi&oacute;n</h3></div>' +
+                  '<div><p>' +  response.data.err.message + '</p></div>' +
                 '<div class="ngdialog-buttons">\
                     <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click=confirm("OK")>OK</button>\
                 </div>'
@@ -183,9 +182,9 @@ angular.module('referendaApp')
 
               var message = '\
                 <div class="ngdialog-message">\
-                <div><h3>Registration Unsuccessful</h3></div>' +
+                <div><h3>Error de registro</h3></div>' +
                   '<div><p>' +  response.data.err.message +
-                  '</p><p>' + response.data.err.name + '</p></div>';
+                  '</p></div>';
 
                 ngDialog.openConfirm({ template: message, plain: 'true'});
 
