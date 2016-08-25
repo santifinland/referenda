@@ -433,7 +433,8 @@ angular.module('referendaApp')
 
 }])
 
-.controller('LoginController', ['$scope', 'ngDialog', '$localStorage', 'AuthFactory', function ($scope, ngDialog, $localStorage, AuthFactory) {
+.controller('LoginController', ['$scope', 'ngDialog', '$localStorage', 'AuthFactory',
+    function ($scope, ngDialog, $localStorage, AuthFactory) {
 
     $scope.loginData = $localStorage.getObject('userinfo','{}');
 
@@ -448,23 +449,62 @@ angular.module('referendaApp')
     };
 
     $scope.openRegister = function () {
-        ngDialog.open({ template: 'views/register.html', scope: $scope, className: 'ngdialog-theme-default', controller:"RegisterController" });
+        ngDialog.open({ template: 'views/register.html', scope: $scope, className: 'ngdialog-theme-default',
+        controller:"RegisterController" });
     };
 
 }])
 
-.controller('RegisterController', ['$scope', 'ngDialog', '$localStorage', 'AuthFactory', function ($scope, ngDialog, $localStorage, AuthFactory) {
+.controller('RegisterController', ['$scope', 'ngDialog', '$localStorage', 'AuthFactory',
+    function ($scope, ngDialog, $localStorage, AuthFactory) {
 
+    $scope.usernameEmpty = false;
+    $scope.passwordMatch = true;
+    $scope.usernameLabel = "Nombre de usuario";
+    $scope.passwordLabel = "Contraseña";
     $scope.register={};
     $scope.loginData={};
+    $scope.registration = {} ;
+    $scope.registration.password == null;
+    $scope.registration.username == null;
 
     $scope.doRegister = function() {
-        AuthFactory.register($scope.registration);
-        ngDialog.close();
+        if ($scope.registration.password == null || $scope.registration.password.length == 0 ||
+            $scope.registration.password != $scope.registration.password_confirmation ||
+            $scope.registration.username == null) {
+            if($scope.registration.username == null || $scope.registration.username.length == 0) {
+                $scope.usernameEmpty = true;
+                $scope.usernameLabel = "Nombre de usuario: el nombre de usuario está vacío";
+            } else {
+                $scope.usernameEmpty = false;
+                $scope.usernameLabel = "Nombre de usuario";
+            }
+            if ($scope.registration.password != $scope.registration.password_confirmation) {
+                $scope.passwordMatch = false;
+                $scope.passwordLabel = "Contraseña: las contraseñas no coinciden.";
+            } else {
+                $scope.passwordMatch = true;
+                $scope.passwordLabel = "Contraseña";
+            }
+            if ($scope.registration.password == null || $scope.registration.password.length == 0) {
+                $scope.passwordMatch = false;
+                $scope.passwordLabel = "Contraseña: la contraseña está vacía";
+            }
+        } else {
+            $scope.passwordMatch = true;
+            $scope.passwordLabel = "Contraseña";
+            $scope.usernameEmpty = false;
+            $scope.usernameLabel = "Nombre de usuario";
+            if ($scope.acceptLOPD) {
+                AuthFactory.register($scope.registration);
+                ngDialog.close();
+            }
+        }
     };
 
     $scope.openRegister = function () {
-        ngDialog.open({ template: 'views/register.html', scope: $scope, className: 'ngdialog-theme-default', controller:"RegisterController" });
+        ngDialog.open({ template: 'views/register.html', scope: $scope, className: 'ngdialog-theme-default',
+        controller:"RegisterController" });
     };
 }])
 ;

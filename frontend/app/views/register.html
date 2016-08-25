@@ -5,17 +5,42 @@
         <div class="">&nbsp;</div>
         <div class="">
             <form ng-submit="doRegister()">
-                <div class="form-group">
-                    <label class="sr-only" for="username">Username</label>
-                    <input type="text" class="form-control input-sm" id="username" placeholder="Nombre de usuario" ng-model="registration.username">
+                <div ng-if="usernameEmpty" class="form-group has-error">
+                    <label class="control-label" for="username">{{usernameLabel}}</label>
+                    <input type="text" class="form-control input-sm" id="username_has_error"
+                           placeholder="Nombre de usuario" ng-model="registration.username">
+                </div>
+                <div ng-if="!usernameEmpty" class="form-group">
+                    <label class="control-label" for="username">{{usernameLabel}}</label>
+                    <input type="text" class="form-control input-sm" id="username" placeholder="Nombre de usuario"
+                           ng-model="registration.username">
+                </div>
+                <div ng-if="!passwordMatch" class="form-group has-error">
+                    <label class="control-label" for="password">{{passwordLabel}}</label>
+                </div>
+                <div ng-if="passwordMatch" class="form-group">
+                    <label class="control-label" for="password">{{passwordLabel}}</label>
                 </div>
                 <div class="form-group">
-                    <label class="sr-only" for="password">Password</label>
-                    <input type="password" class="form-control input-sm" id="password" placeholder="Contraseña" ng-model="registration.password">
+                    <input type="password" name="password" class="form-control input-sm" id="password"
+                           placeholder="Contraseña" ng-model="registration.password">
+                </div>
+                <div ng-if="!passwordMatch" class="form-group has-error">
+                    <input type="password" name="password_confirmation" class="form-control input-sm"
+                           placeholder="Confirmar Contraseña"
+                           id="password_confirmation_has_error"
+                           ng-model="registration.password_confirmation">
+                </div>
+                <div ng-if="passwordMatch" class="form-group">
+                    <input type="password" name="password_confirmation" class="form-control input-sm"
+                           placeholder="Confirmar Contraseña"
+                           id="password_confirmation"
+                           ng-model="registration.password_confirmation">
                 </div>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" ng-model="registration.rememberMe"> Recordarme
+                        <input type="checkbox" ng-model="acceptLOPD"> He le&iacute;do y acepto la
+                        <a ui-sref="app.dataprotection">pol&iacute;tica de privacidad y protecci&oacute;n de datos</a>
                     </label>
                 </div>
                 <button type="submit" class="btn btn-info btn-sm">Registrarse</button>

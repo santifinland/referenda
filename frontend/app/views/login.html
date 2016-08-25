@@ -7,11 +7,13 @@
             <form ng-submit="doLogin()">
                 <div class="form-group">
                     <label class="sr-only" for="username">Username</label>
-                    <input type="text" class="form-control input-sm" id="username" placeholder="Username" ng-model="loginData.username">
+                    <input type="text" class="form-control input-sm" id="username" placeholder="Username"
+                           ng-model="loginData.username">
                 </div>
                 <div class="form-group">
                     <label class="sr-only" for="password">Password</label>
-                    <input type="password" class="form-control input-sm" id="password" placeholder="Password" ng-model="loginData.password">
+                    <input type="password" class="form-control input-sm" id="password" placeholder="Password"
+                           ng-model="loginData.password">
                 </div>
                 <div class="checkbox">
                     <label>
@@ -19,7 +21,9 @@
                     </label>
                 </div>
                 <button type="submit" class="btn btn-info btn-sm">Entrar</button>
-                <button type="button" class="btn btn-default btn-sm" ng-click=closeThisDialog("Cancel")>Cancelar</button> &nbsp; &nbsp;
+                <button type="button" class="btn btn-default btn-sm" ng-click=closeThisDialog("Cancel")>
+                    Cancelar
+                </button> &nbsp; &nbsp;
                 <a ng-click=openRegister()>Registrarse</a>
             </form>
         </div>
