@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('referendaApp', ['ui.router','ngResource','ngDialog'])
+angular.module('referendaApp', ['ui.router','ngResource','ngDialog', 'ngCookies'])
 .config(function($stateProvider, $urlRouterProvider) {
         $stateProvider
 

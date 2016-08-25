@@ -371,12 +371,19 @@ angular.module('referendaApp')
 
 }])
 
-.controller('HeaderController', ['$scope', '$state', '$rootScope', 'ngDialog', 'AuthFactory', '$timeout',
-            function ($scope, $state, $rootScope, ngDialog, AuthFactory, $timeout) {
+.controller('HeaderController', ['$scope', '$state', '$rootScope', 'ngDialog', 'AuthFactory', '$timeout', '$cookies',
+            function ($scope, $state, $rootScope, ngDialog, AuthFactory, $timeout, $cookies) {
 
     $scope.loggedIn = false;
     $scope.username = '';
     AuthFactory.checkLogged();
+
+    $scope.cookiesConsent = $cookies.get('cookieConsent');
+
+    $scope.consentCookie = function () {
+        $cookies.put('cookieConsent', true);
+        $scope.cookiesConsent = $cookies.get('cookieConsent');
+    }
 
     if(AuthFactory.isAuthenticated()) {
         $scope.loggedIn = true;
