@@ -5,7 +5,7 @@ angular.module('referendaApp')
 
 .factory('lawFactory', ['$resource', 'baseURL', function ($resource, baseURL) {
 
-        return $resource(baseURL + "laws/:id", null, {
+        return $resource(baseURL + "laws/:slug", null, {
             'update': {
                 method: 'PUT'
             }
@@ -15,7 +15,7 @@ angular.module('referendaApp')
 
 .factory('voteFactory', ['$resource', 'baseURL', function ($resource, baseURL) {
 
-        return $resource(baseURL + "laws/:id/votes/:voteId", {id:"@Id", voteId:"@VoteId"}, {
+        return $resource(baseURL + "laws/:slug/votes/:voteId", {slug:"@Slug", voteId:"@VoteId"}, {
             'update': {
                 method: 'PUT'
             }
@@ -24,7 +24,7 @@ angular.module('referendaApp')
 
 .factory('commentVoteFactory', ['$resource', 'baseURL', function ($resource, baseURL) {
 
-        return $resource(baseURL + "laws/:id/comments/:commentId/votes", {id:"@Id", commentId: "@CommentId"}, {
+        return $resource(baseURL + "laws/:slug/comments/:commentId/votes", {slug:"@Slug", commentId: "@CommentId"}, {
             'update': {
                 method: 'PUT'
             }
@@ -58,7 +58,7 @@ angular.module('referendaApp')
 
 .factory('commentFactory', ['$resource', 'baseURL', function ($resource, baseURL) {
 
-        return $resource(baseURL + "laws/:id/comments/:commentId", {id:"@Id", commentId: "@CommentId"}, {
+        return $resource(baseURL + "laws/:slug/comments/:commentId", {slug:"@Slug", commentId: "@CommentId"}, {
             'update': {
                 method: 'PUT'
             }

@@ -22,9 +22,6 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var lawRouter = require('./routes/lawRouter');
 var partyRouter = require('./routes/partyRouter');
-var dishRouter = require('./routes/dishRouter');
-var promoRouter = require('./routes/promoRouter');
-var leaderRouter = require('./routes/leaderRouter');
 
 var app = express();
 
@@ -65,11 +62,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/api/users', users);
-app.use('/api/dishes', dishRouter);
 app.use('/api/laws', lawRouter);
 app.use('/api/parties', partyRouter);
-app.use('/api/promotions',promoRouter);
-app.use('/api/leadership',leaderRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

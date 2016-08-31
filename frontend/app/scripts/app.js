@@ -80,7 +80,7 @@ angular.module('referendaApp', ['ui.router','ngResource','ngDialog', 'ngCookies'
 
             // route for the lawdetail page
             .state('app.lawdetails', {
-                url: 'law/:id',
+                url: 'law/:slug',
                 views: {
                     'content@': {
                         templateUrl : 'views/lawdetail.html',

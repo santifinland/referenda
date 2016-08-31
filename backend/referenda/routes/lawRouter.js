@@ -203,9 +203,9 @@ lawRouter.route('/')
     });
 });
 
-lawRouter.route('/:lawId')
+lawRouter.route('/:slug')
 .get(function (req, res, next) {
-    Laws.findById(req.params.lawId)
+    Laws.findOne({"slug": req.params.slug})
         .populate('comments.postedBy')
         .exec(function (err, law) {
         if (err) return next(err);
@@ -236,35 +236,37 @@ lawRouter.route('/:lawId')
         }
     }
     // Count votes per type
-    Votes.find({"lawId": req.params.lawId, "vote": 1}, {'userId':1, '_id':0}, function(err, positives) {
+    Laws.findOne({"slug": req.params.slug}, function (err, law) {
         if (err) return next(err);
-        var positivers = [];
-        for(var i = 0; i < positives.length; i++) {
-            var obj = positives[i];
-            console.log(obj.userId);
-            positivers.push(obj.userId.replace(/[']/g, ""));
-        }
-        Votes.find({"lawId": req.params.lawId, "vote": 2}, {'userId':1, '_id':0}, function(err, negatives) {
+        console.log(law);
+        Votes.find({"lawId": law._id, "vote": 1}, {'userId':1, '_id':0}, function(err, positives) {
             if (err) return next(err);
-            var negativers = [];
-            for(var i = 0; i < negatives.length; i++) {
-                var obj = negatives[i];
+            var positivers = [];
+            for(var i = 0; i < positives.length; i++) {
+                var obj = positives[i];
+                console.log("=========");
                 console.log(obj.userId);
-                negativers.push(obj.userId);
+                positivers.push(obj.userId.replace(/[']/g, ""));
             }
-            Votes.find({"lawId": req.params.lawId, "vote": 3}, {'userId':1, '_id':0}, function(err, abstentiones) {
+            Votes.find({"lawId": law._id, "vote": 2}, {'userId':1, '_id':0}, function(err, negatives) {
                 if (err) return next(err);
-                var abstentioners = [];
-                for (var i = 0; i < abstentiones.length; i++) {
-                    var obj = abstentiones[i];
+                var negativers = [];
+                for(var i = 0; i < negatives.length; i++) {
+                    var obj = negatives[i];
+                    console.log("********");
                     console.log(obj.userId);
-                    abstentioners.push(obj.userId);
+                    negativers.push(obj.userId);
                 }
-                console.log(abstentioners);
-                console.log('Abstention votes are ' + abstentioners.length);
-                // Find law
-                Laws.findById(req.params.lawId, function (err, law) {
+                Votes.find({"lawId": law._id, "vote": 3}, {'userId':1, '_id':0}, function(err, abstentiones) {
                     if (err) return next(err);
+                    var abstentioners = [];
+                    for (var i = 0; i < abstentiones.length; i++) {
+                        var obj = abstentiones[i];
+                        console.log(obj.userId);
+                        abstentioners.push(obj.userId);
+                    }
+                    console.log(abstentioners);
+                    console.log('Abstention votes are ' + abstentioners.length);
                     diff = function(a1, a2) {
                         var result = [];
                         for (var i = 0; i < a1.length; i++) {
@@ -287,12 +289,6 @@ lawRouter.route('/:lawId')
                         }
                         kk(peperos, ty, function(err, peperosIds) {
                           if (err) return next(err);
-                          //var peperosIds = [];
-                          //for (var i = 0; i < peperos.length; i++) {
-                                //var obj = peperos[i];
-                                //console.log(obj.userId);
-                                //peperosIds.push(obj._id);
-                            //}
                           delegatedToPPYes = diff(peperosIds, positivers);
                           delegatedToPPNo = diff(delegatedToPPYes, negativers);
                           delegatedToPPAbs = diff(delegatedToPPNo, abstentioners);
@@ -304,16 +300,6 @@ lawRouter.route('/:lawId')
                             }
                             kk(sociatas, ty, function(err, sociatasIds) {
                                 if (err) return next(err);
-                                //console.log(delegated)
-                                //if (err) return next(err);
-                                //console.log("Numero de sociatas");
-                                //console.log(sociatas.length);
-                                //var sociatasIds = [];
-                                //for (var i = 0; i < sociatas.length; i++) {
-                                    //var obj = sociatas[i];
-                                    //console.log(obj.userId);
-                                    //sociatasIds.push(obj._id);
-                                //}
                                 delegatedToPsoeYes = diff(sociatasIds, positivers);
                                 delegatedToPsoeNo = diff(delegatedToPsoeYes, negativers);
                                 delegatedToPsoeAbs = diff(delegatedToPsoeNo, abstentioners);
@@ -325,12 +311,6 @@ lawRouter.route('/:lawId')
                                   }
                                   kk(podemitas, ty, function(err, podemitasIds) {
                                     if (err) return next(err);
-                                    //var podemitasIds = [];
-                                    //for (var i = 0; i < podemitas.length; i++) {
-                                        //var obj = podemitas[i];
-                                        //console.log(obj.userId);
-                                        //podemitasIds.push(obj._id);
-                                    //}
                                     console.log("PodemitasIds");
                                     console.log(podemitasIds);
                                     console.log("Positivers");
@@ -356,12 +336,6 @@ lawRouter.route('/:lawId')
                                       }
                                       kk(vascos, ty, function(err,vascosIds) {
                                         if (err) return next(err);
-                                        //var vascosIds = [];
-                                        //for (var i = 0; i < vascos.length; i++) {
-                                            //var obj = vascos[i];
-                                            //console.log(obj.userId);
-                                            //vascosIds.push(obj._id);
-                                        //}
                                         delegatedToPnvYes = diff(vascosIds, positivers);
                                         delegatedToPnvNo = diff(delegatedToPnvYes, negativers);
                                         delegatedToPnvAbs = diff(delegatedToPnvNo, abstentioners);
@@ -373,12 +347,6 @@ lawRouter.route('/:lawId')
                                           }
                                           kk(catalanes, ty, function(err,catalanesIds) {
                                             if (err) return next(err);
-                                            //var catalanesIds = [];
-                                            //for (var i = 0; i < catalanes.length; i++) {
-                                                //var obj = catalanes[i];
-                                                //console.log(obj.userId);
-                                                //catalanesIds.push(obj._id);
-                                            //}
                                             delegatedToErcYes = diff(catalanesIds, positivers);
                                             delegatedToErcNo = diff(delegatedToErcYes, negativers);
                                             delegatedToErcAbs = diff(delegatedToErcNo, abstentioners);
@@ -390,12 +358,6 @@ lawRouter.route('/:lawId')
                                               }
                                               kk(naranjitos, ty, function(err,naranjitosIds) {
                                                 if (err) return next(err);
-                                                //var naranjitosIds = [];
-                                                //for (var i = 0; i < naranjitos.length; i++) {
-                                                    //var obj = naranjitos[i];
-                                                    //console.log(obj.userId);
-                                                    //naranjitosIds.push(obj._id);
-                                                //}
                                                 delegatedToCiudadanosYes = diff(naranjitosIds, positivers);
                                                 delegatedToCiudadanosNo = diff(delegatedToCiudadanosYes, negativers);
                                                 delegatedToCiudadanosAbs = diff(delegatedToCiudadanosNo, abstentioners);
@@ -407,12 +369,6 @@ lawRouter.route('/:lawId')
                                                   }
                                                   kk(mixtos, ty, function(err,mixtosIds) {
                                                     if (err) return next(err);
-                                                    //var mixtosIds = [];
-                                                    //for (var i = 0; i < mixtos.length; i++) {
-                                                        //var obj = mixtos[i];
-                                                        //console.log(obj.userId);
-                                                        //mixtosIds.push(obj._id);
-                                                    //}
                                                     delegatedToMixtoYes = diff(mixtosIds, positivers);
                                                     delegatedToMixtoNo = diff(delegatedToMixtoYes, negativers);
                                                     delegatedToMixtoAbs = diff(delegatedToMixtoNo, abstentioners);
@@ -517,6 +473,13 @@ lawRouter.route('/:lawId')
 
                                                     // Update law
                                                     console.log('Updating law');
+                                                    law.pp = req.body.pp;
+                                                    law.psoe = req.body.psoe;
+                                                    law.podemos = req.body.podemos;
+                                                    law.ciudadanos = req.body.ciudadanos;
+                                                    law.erc = req.body.erc;
+                                                    law.pnv = req.body.pnv;
+                                                    law.mixto = req.body.mixto;
                                                     law.positive = req.body.positive;
                                                     law.negative = req.body.negative;
                                                     law.abstention = req.body.abstention;
@@ -560,10 +523,10 @@ lawRouter.route('/:lawId')
     });
 });
 
-lawRouter.route('/:lawId/comments')
+lawRouter.route('/:slug/comments')
 
 .get(function (req, res, next) {
-    Laws.findById(req.params.lawId)
+    Laws.findOne({"slug": req.params.slug})
         .populate('comments.postedBy')
         .exec(function (err, law) {
         if (err) return next(err);
@@ -572,7 +535,7 @@ lawRouter.route('/:lawId/comments')
 })
 
 .post(Verify.verifyOrdinaryUser, function (req, res, next) {
-    Laws.findById(req.params.lawId, function (err, law) {
+    Laws.findOne({"slug": req.params.slug}, function (err, law) {
         if (err) return next(err);
         req.body.postedBy = req.decoded._id;
         law.comments.push(req.body);
@@ -585,7 +548,7 @@ lawRouter.route('/:lawId/comments')
 })
 
 .delete(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function (req, res, next) {
-    Laws.findById(req.params.lawId, function (err, law) {
+    Laws.findOne({"slug": req.params.slug}, function (err, law) {
         if (err) return next(err);
         for (var i = (law.comments.length - 1); i >= 0; i--) {
             law.comments.id(law.comments[i]._id).remove();
@@ -600,13 +563,13 @@ lawRouter.route('/:lawId/comments')
     });
 });
 
-lawRouter.route('/:lawId/votes')
+lawRouter.route('/:slug/votes')
 
 .post(Verify.verifyOrdinaryUser, function (req, res, next) {
     kk = function(user, law, callback) {
         console.log("INICIO kk");
         console.log(user);
-        Votes.find({"lawId": req.params.lawId, "userId": user.delegatedUser}).exec(function (err, votes) {
+        Votes.find({"lawId": law._id, "userId": user.delegatedUser}).exec(function (err, votes) {
             if (!votes.length) {
                 console.log("El usuario delegado no votó");
                 console.log(user.delegatedUser);
@@ -639,13 +602,13 @@ lawRouter.route('/:lawId/votes')
             }
         });
     }
-    Laws.findById(req.params.lawId, function (err, law) {
+    Laws.findOne({"slug": req.params.slug}, function (err, law) {
         if (err) return next(err);
         console.log("En post de votes");
         console.log(req.body);
         console.log(law.positive);
         // Find previous vote from same user
-        Votes.find({"lawId": req.params.lawId, "userId": req.decoded._id}).exec(function (err, votes) {
+        Votes.find({"lawId": law._id, "userId": req.decoded._id}).exec(function (err, votes) {
             if (err) return next(err);
             console.log(votes.length);
             if (!votes.length) {
@@ -670,7 +633,7 @@ lawRouter.route('/:lawId/votes')
                         }
                         // Create vote
                         console.log(req.body.vote);
-                        var newVote = new Votes({"lawId": req.params.lawId, "userId": req.decoded._id, "vote": req.body.vote});
+                        var newVote = new Votes({"lawId": law._id, "userId": req.decoded._id, "vote": req.body.vote});
                         console.log(newVote);
                         newVote.save(function (err, v) {
                             if (err) return console.error(err);
@@ -710,7 +673,7 @@ lawRouter.route('/:lawId/votes')
                             }
                             // Create vote
                             console.log(req.body.vote);
-                            var newVote = new Votes({"lawId": req.params.lawId,
+                            var newVote = new Votes({"lawId": law._id,
                                                      "userId": req.decoded._id,
                                                      "vote": req.body.vote});
                             console.log(newVote);
@@ -753,7 +716,7 @@ lawRouter.route('/:lawId/votes')
                     console.log('Remove last Vote');
                     // Create vote
                     console.log(req.params.vote);
-                    var newVote = new Votes({"lawId": req.params.lawId,
+                    var newVote = new Votes({"lawId": law._id,
                                              "userId": req.decoded._id,
                                              "vote": req.body.vote});
                     console.log(newVote);
@@ -781,10 +744,10 @@ lawRouter.route('/:lawId/votes')
     });
 });
 
-lawRouter.route('/:lawId/comments/:commentId')
+lawRouter.route('/:slug/comments/:commentId')
 
 .get(Verify.verifyOrdinaryUser, function (req, res, next) {
-    Laws.findById(req.params.lawId)
+    Laws.findOne({"slug": req.params.slug})
         .populate('comments.postedBy')
         .exec(function (err, law) {
         if (err) return next(err);
@@ -795,7 +758,7 @@ lawRouter.route('/:lawId/comments/:commentId')
 .put(Verify.verifyOrdinaryUser, function (req, res, next) {
     // We delete the existing commment and insert the updated
     // comment as a new comment
-    Laws.findById(req.params.lawId, function (err, law) {
+    Laws.findOne({"slug": req.params.slug}, function (err, law) {
         if (err) return next(err);
         law.comments.id(req.params.commentId).remove();
         req.body.postedBy = req.decoded._id;
@@ -809,7 +772,7 @@ lawRouter.route('/:lawId/comments/:commentId')
 })
 
 .delete(Verify.verifyOrdinaryUser, function (req, res, next) {
-    Laws.findById(req.params.lawId, function (err, law) {
+    Laws.findOne({"slug": req.params.slug}, function (err, law) {
         if (law.comments.id(req.params.commentId).postedBy
            != req.decoded._id) {
             var err = new Error('You are not authorized to perform this operation!');
@@ -824,13 +787,13 @@ lawRouter.route('/:lawId/comments/:commentId')
     });
 });
 
-lawRouter.route('/:lawId/comments/:commentId/votes')
+lawRouter.route('/:slug/comments/:commentId/votes')
 .post(Verify.verifyOrdinaryUser, function (req, res, next) {
-    Laws.findById(req.params.lawId, function (err, law) {
+    Laws.findOne({"slug": req.params.slug}, function (err, law) {
         if (err) return next(err);
         console.log("En post de comment votes");
         // Find previous vote from same user
-        CommentVotes.find({"lawId": req.params.lawId, "commentId": req.params.commentId,
+        CommentVotes.find({"lawId": law._id, "commentId": req.params.commentId,
             "userId": req.decoded._id}).exec(function (err, votes) {
             if (err) return next(err);
             console.log(votes.length);
@@ -842,7 +805,7 @@ lawRouter.route('/:lawId/comments/:commentId/votes')
                     // Create vote
                     console.log(req.body.vote);
                     var newCommentVote = new CommentVotes({
-                        "lawId": req.params.lawId,
+                        "lawId": law._id,
                         "commentId": req.params.commentId,
                         "userId": req.decoded._id,
                          "vote": req.body.vote});

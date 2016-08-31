@@ -59,7 +59,7 @@ angular.module('referendaApp')
     $scope.message = "Loading ...";
 
     $scope.law = lawFactory.get({
-            id: $stateParams.id
+            slug: $stateParams.slug
         })
         .$promise.then(
             function (response) {
@@ -78,7 +78,7 @@ angular.module('referendaApp')
     $scope.submitComment = function () {
 
         commentFactory
-            .save({id: $stateParams.id}, $scope.mycomment)
+            .save({slug: $stateParams.slug}, $scope.mycomment)
             .$promise.then(function(res) {
                 $state.go($state.current, {}, {reload: true});
             });
@@ -93,7 +93,7 @@ angular.module('referendaApp')
             vote: vote
         };
         commentVoteFactory
-            .save({id: $stateParams.id, commentId: commentId}, $scope.mycommentvote)
+            .save({slug: $stateParams.slug, commentId: commentId}, $scope.mycommentvote)
             .$promise.then(function(res) {
                 $scope.law = res;
             });
@@ -104,7 +104,7 @@ angular.module('referendaApp')
             vote: 1,
         };
         voteFactory
-            .save({id: $stateParams.id}, $scope.myvoteyes)
+            .save({slug: $stateParams.slug}, $scope.myvoteyes)
             .$promise.then(function(res) {
                 $scope.law = res;
             }, function(error) {
@@ -119,7 +119,7 @@ angular.module('referendaApp')
             vote: 2,
         };
         voteFactory
-            .save({id: $stateParams.id}, $scope.myvoteno)
+            .save({slug: $stateParams.slug}, $scope.myvoteno)
             .$promise.then(function(res) {
                 $scope.law = res;
             }, function(error) {
@@ -134,7 +134,7 @@ angular.module('referendaApp')
             vote: 3,
         };
         voteFactory
-            .save({id: $stateParams.id}, $scope.myvoteabstention)
+            .save({slug: $stateParams.slug}, $scope.myvoteabstention)
             .$promise.then(function(res) {
                 $scope.law = res;
             }, function(error) {
