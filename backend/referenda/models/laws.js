@@ -31,6 +31,7 @@ var lawSchema = new Schema({
       institution: String,
       tier: Number,
       headline: String,
+      slug: String,
       short_description: String,
       long_description: String,
       link: String,
@@ -69,7 +70,7 @@ lawSchema.set('toJSON', {
     }
 });
 
-lawSchema.plugin(URLSlugs('headline'));
+lawSchema.plugin(URLSlugs('headline'), {field: 'slug'});
 
 // the schema is useless so far
 // we need to create a model using it
