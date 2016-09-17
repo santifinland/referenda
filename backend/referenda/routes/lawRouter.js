@@ -4,21 +4,14 @@ var mongoose = require('mongoose');
 var Verify = require('./verify');
 
 
+var CommentVotes = require('../models/commentVotes');
 var Laws = require('../models/laws');
 var Users = require('../models/user');
 var Votes = require('../models/votes');
-var CommentVotes = require('../models/commentVotes');
+var Parties = require('../models/parties');
 
 var lawRouter = express.Router();
 lawRouter.use(bodyParser.json());
-
-var pp = "57a07e50e120c6965b14bd9e"
-var psoe = "57a0748d8bf653af576487ad"
-var podemos = "57a1a6f105a802aa324fde80"
-var ciudadanos = "57a6fbd4b2e70034539927b7"
-var erc = "57a07e7fe120c6965b14bd9f"
-var pnv = "57a6fc0bb2e70034539927b8"
-var mixto = "57a07f47e120c6965b14bda0"
 
 lawRouter.route('/')
 .get(function (req, res, next) {
@@ -56,130 +49,142 @@ lawRouter.route('/')
             return callback(null, acc);
         }
     }
-    // Search all users having delegated votes to each party
-    Users.find({"delegatedParty": pp, "delegatedUser": null}, function (err, peperos) {
+    // Find ids of the parties
+    Parties.find({}, function (err, p) {
       if (err) return next(err);
-      new_votes = kk(peperos, peperos.length, function(err, delegatedToPP) {
+      console.log("PPP")
+      parties = {};
+      for (var i=0, l=p.length; i<l; i++ ) {
+          console.log(p[i]._id);
+          console.log(p[i].name);
+          parties[p[i].name] = p[i]._id;
+      }
+      console.log(parties);
+      // Search all users having delegated votes to each party
+      Users.find({"delegatedParty": parties["pp"], "delegatedUser": null}, function (err, peperos) {
         if (err) return next(err);
-        Users.find({"delegatedParty": psoe, "delegatedUser": null}, function (err, sociatas) {
+        new_votes = kk(peperos, peperos.length, function(err, delegatedToPP) {
           if (err) return next(err);
-          new_votes = kk(sociatas, sociatas.length, function(err, delegatedToPsoe) {
+          Users.find({"delegatedParty": parties["psoe"], "delegatedUser": null}, function (err, sociatas) {
             if (err) return next(err);
-            Users.find({"delegatedParty": podemos, "delegatedUser": null}, function (err, podemitas) {
+            new_votes = kk(sociatas, sociatas.length, function(err, delegatedToPsoe) {
               if (err) return next(err);
-              new_votes = kk(podemitas, podemitas.length, function(err, delegatedToPodemos) {
+              Users.find({"delegatedParty": parties["podemos"], "delegatedUser": null}, function (err, podemitas) {
                 if (err) return next(err);
-                Users.find({"delegatedParty": pnv, "delegatedUser": null}, function (err, vascos) {
+                new_votes = kk(podemitas, podemitas.length, function(err, delegatedToPodemos) {
                   if (err) return next(err);
-                  new_votes = kk(vascos, vascos.length, function(err, delegatedToPnv) {
+                  Users.find({"delegatedParty": parties["pnv"], "delegatedUser": null}, function (err, vascos) {
                     if (err) return next(err);
-                    Users.find({"delegatedParty": erc, "delegatedUser": null}, function (err, catalanes) {
+                    new_votes = kk(vascos, vascos.length, function(err, delegatedToPnv) {
                       if (err) return next(err);
-                      new_votes = kk(catalanes, catalanes.length, function(err, delegatedToErc) {
+                      Users.find({"delegatedParty": parties["erc"], "delegatedUser": null}, function (err, catalanes) {
                         if (err) return next(err);
-                        Users.find({"delegatedParty": ciudadanos, "delegatedUser": null}, function (err, naranjitos) {
+                        new_votes = kk(catalanes, catalanes.length, function(err, delegatedToErc) {
                           if (err) return next(err);
-                          new_votes = kk(naranjitos, naranjitos.length, function(err, delegatedToCiudadanos) {
-                          if (err) return next(err);
-                            Users.find({"delegatedParty": mixto, "delegatedUser": null}, function (err, mixtos) {
-                              if (err) return next(err);
-                              new_votes = kk(mixtos, mixtos.length, function(err, delegatedToMixto) {
+                          Users.find({"delegatedParty": parties["ciudadanos"], "delegatedUser": null}, function (err, naranjitos) {
+                            if (err) return next(err);
+                            new_votes = kk(naranjitos, naranjitos.length, function(err, delegatedToCiudadanos) {
+                            if (err) return next(err);
+                              Users.find({"delegatedParty": parties["mixto"], "delegatedUser": null}, function (err, mixtos) {
                                 if (err) return next(err);
-                                req.body.positiveParties = [];
-                                req.body.negativeParties = [];
-                                req.body.abstentionParties = [];
-                                console.log(delegatedToPP);
-                                console.log(delegatedToPsoe);
-                                console.log(delegatedToPodemos);
-                                console.log(delegatedToCiudadanos);
-                                console.log(delegatedToErc);
-                                console.log(delegatedToPnv);
-                                console.log(delegatedToMixto);
-                                // PP
-                                if (req.body.pp == 1) {
-                                    req.body.positive = delegatedToPP
-                                    req.body.positiveParties.push(pp);
-                                } else if (req.body.pp == 2) {
-                                    req.body.negative = delegatedToPP
-                                    req.body.negativeParties.push(pp);
-                                } else {
-                                    req.body.abstention = delegatedToPP
-                                    req.body.abstentionParties.push(pp);
-                                }
-                                // Psoe
-                                if (req.body.psoe == 1) {
+                                new_votes = kk(mixtos, mixtos.length, function(err, delegatedToMixto) {
+                                  if (err) return next(err);
+                                  req.body.positiveParties = [];
+                                  req.body.negativeParties = [];
+                                  req.body.abstentionParties = [];
+                                  console.log(delegatedToPP);
+                                  console.log(delegatedToPsoe);
+                                  console.log(delegatedToPodemos);
+                                  console.log(delegatedToCiudadanos);
+                                  console.log(delegatedToErc);
+                                  console.log(delegatedToPnv);
+                                  console.log(delegatedToMixto);
+                                  // PP
+                                  if (req.body.pp == 1) {
+                                      req.body.positive = delegatedToPP
+                                      req.body.positiveParties.push(parties["pp"]);
+                                  } else if (req.body.pp == 2) {
+                                      req.body.negative = delegatedToPP
+                                      req.body.negativeParties.push(parties["pp"]);
+                                  } else {
+                                      req.body.abstention = delegatedToPP
+                                      req.body.abstentionParties.push(parties["pp"]);
+                                  }
+                                  // Psoe
+                                  if (req.body.psoe == 1) {
                                     req.body.positive = req.body.positive + delegatedToPsoe
-                                    req.body.positiveParties.push(psoe);
-                                } else if (req.body.psoe == 2) {
-                                    req.body.negative = req.body.negative + delegatedToPsoe
-                                    req.body.negativeParties.push(psoe);
-                                } else {
-                                    req.body.abstention = req.body.abstention + delegatedToPsoe
-                                    req.body.abstentionParties.push(psoe);
-                                }
-                                // Podemos
-                                if (req.body.podemos == 1) {
-                                    req.body.positive = req.body.positive + delegatedToPodemos
-                                    req.body.positiveParties.push(podemos);
-                                } else if (req.body.podemos == 2) {
-                                    req.body.negative = req.body.negative + delegatedToPodemos
-                                    req.body.negativeParties.push(podemos);
-                                } else {
-                                    req.body.abstention = req.body.abstention + delegatedToPodemos
-                                    req.body.abstentionParties.push(podemos);
-                                }
-                                // Ciudadanos
-                                if (req.body.ciudadanos == 1) {
-                                    req.body.positive = req.body.positive + delegatedToCiudadanos
-                                    req.body.positiveParties.push(ciudadanos);
-                                } else if (req.body.ciudadanos == 2) {
-                                    req.body.negative = req.body.negative + delegatedToCiudadanos
-                                    req.body.negativeParties.push(ciudadanos);
-                                } else {
-                                    req.body.abstention = req.body.abstention + delegatedToCiudadanos
-                                    req.body.abstentionParties.push(ciudadanos);
-                                }
-                                // Erc
-                                if (req.body.erc == 1) {
-                                    req.body.positive = req.body.positive + delegatedToErc
-                                    req.body.positiveParties.push(erc);
-                                } else if (req.body.erc == 2) {
-                                    req.body.negative = req.body.negative + delegatedToErc
-                                    req.body.negativeParties.push(erc);
-                                } else {
-                                    req.body.abstention = req.body.abstention + delegatedToErc
-                                    req.body.abstentionParties.push(erc);
-                                }
-                                // Pnv
-                                if (req.body.pnv == 1) {
-                                    req.body.positive = req.body.positive + delegatedToPnv
-                                    req.body.positiveParties.push(pnv);
-                                } else if (req.body.pnv == 2) {
-                                    req.body.negative = req.body.negative + delegatedToPnv
-                                    req.body.negativeParties.push(pnv);
-                                } else {
-                                    req.body.abstention = req.body.abstention + delegatedToPnv
-                                    req.body.abstentionParties.push(pnv);
-                                }
-                                // Mixto
-                                if (req.body.mixto == 1) {
-                                    req.body.positive = req.body.positive + delegatedToMixto
-                                    req.body.positiveParties.push(mixto);
-                                } else if (req.body.mixto == 2) {
-                                    req.body.negative = req.body.negative + delegatedToMixto
-                                    req.body.negativeParties.push(mixto);
-                                } else {
-                                    req.body.abstention = req.body.abstention + delegatedToMixto
-                                    req.body.abstentionParties.push(mixto);
-                                }
-                                Laws.create(req.body, function (err, law) {
-                                   if (err) return next(err);
-                                   console.log('law created!');
-                                   var id = law._id;
-                                   res.writeHead(201, {
-                                       'Content-Type': 'text/plain'
-                                   });
-                                   res.end('Added the law with id: ' + id);
+                                    req.body.positiveParties.push(parties["psoe"]);
+                                  } else if (req.body.psoe == 2) {
+                                      req.body.negative = req.body.negative + delegatedToPsoe
+                                      req.body.negativeParties.push(parties["psoe"]);
+                                  } else {
+                                      req.body.abstention = req.body.abstention + delegatedToPsoe
+                                      req.body.abstentionParties.push(parties["psoe"]);
+                                  }
+                                  // Podemos
+                                  if (req.body.podemos == 1) {
+                                      req.body.positive = req.body.positive + delegatedToPodemos
+                                      req.body.positiveParties.push(parties["podemos"]);
+                                  } else if (req.body.podemos == 2) {
+                                      req.body.negative = req.body.negative + delegatedToPodemos
+                                      req.body.negativeParties.push(parties["podemos"]);
+                                  } else {
+                                      req.body.abstention = req.body.abstention + delegatedToPodemos
+                                      req.body.abstentionParties.push(parties["podemos"]);
+                                  }
+                                  // Ciudadanos
+                                  if (req.body.ciudadanos == 1) {
+                                      req.body.positive = req.body.positive + delegatedToCiudadanos
+                                      req.body.positiveParties.push(parties["ciudadanos"]);
+                                  } else if (req.body.ciudadanos == 2) {
+                                      req.body.negative = req.body.negative + delegatedToCiudadanos
+                                      req.body.negativeParties.push(parties["ciudadanos"]);
+                                  } else {
+                                      req.body.abstention = req.body.abstention + delegatedToCiudadanos
+                                      req.body.abstentionParties.push(parties["ciudadanos"]);
+                                  }
+                                  // Erc
+                                  if (req.body.erc == 1) {
+                                      req.body.positive = req.body.positive + delegatedToErc
+                                      req.body.positiveParties.push(parties["erc"]);
+                                  } else if (req.body.erc == 2) {
+                                      req.body.negative = req.body.negative + delegatedToErc
+                                      req.body.negativeParties.push(parties["erc"]);
+                                  } else {
+                                      req.body.abstention = req.body.abstention + delegatedToErc
+                                      req.body.abstentionParties.push(parties["erc"]);
+                                  }
+                                  // Pnv
+                                  if (req.body.pnv == 1) {
+                                      req.body.positive = req.body.positive + delegatedToPnv
+                                      req.body.positiveParties.push(parties["pnv"]);
+                                  } else if (req.body.pnv == 2) {
+                                      req.body.negative = req.body.negative + delegatedToPnv
+                                      req.body.negativeParties.push(parties["pnv"]);
+                                  } else {
+                                      req.body.abstention = req.body.abstention + delegatedToPnv
+                                      req.body.abstentionParties.push(parties["pnv"]);
+                                  }
+                                  // Mixto
+                                  if (req.body.mixto == 1) {
+                                      req.body.positive = req.body.positive + delegatedToMixto
+                                      req.body.positiveParties.push(parties["mixto"]);
+                                  } else if (req.body.mixto == 2) {
+                                      req.body.negative = req.body.negative + delegatedToMixto
+                                      req.body.negativeParties.push(parties["mixto"]);
+                                  } else {
+                                      req.body.abstention = req.body.abstention + delegatedToMixto
+                                      req.body.abstentionParties.push(parties["mixto"]);
+                                  }
+                                  Laws.create(req.body, function (err, law) {
+                                     if (err) return next(err);
+                                     console.log('law created!');
+                                     var id = law._id;
+                                     res.writeHead(201, {
+                                         'Content-Type': 'text/plain'
+                                     });
+                                     res.end('Added the law with id: ' + id);
+                                  });
                                 });
                               });
                             });
@@ -194,6 +199,7 @@ lawRouter.route('/')
           });
         });
       });
+      console.log("ENDPPP")
     });
 })
 .delete(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function (req, res, next) {
@@ -235,8 +241,19 @@ lawRouter.route('/:slug')
             return callback(null, acc);
         }
     }
-    // Count votes per type
-    Laws.findOne({"slug": req.params.slug}, function (err, law) {
+    // Find ids of the parties
+    Parties.find({}, function (err, p) {
+      if (err) return next(err);
+      console.log("PPP")
+      parties = {};
+      for (var i=0, l=p.length; i<l; i++ ) {
+          console.log(p[i]._id);
+          console.log(p[i].name);
+          parties[p[i].name] = p[i]._id;
+      }
+      console.log(parties);
+      // Count votes per type
+      Laws.findOne({"slug": req.params.slug}, function (err, law) {
         if (err) return next(err);
         console.log(law);
         Votes.find({"lawId": law._id, "vote": 1}, {'userId':1, '_id':0}, function(err, positives) {
@@ -280,9 +297,9 @@ lawRouter.route('/:slug')
                             }
                         }
                         return result;
-                    };
+                    }
                     // Search all users having delegated votes to each party
-                    Users.find({"delegatedParty": pp}, function (err, peperos) {
+                    Users.find({"delegatedParty": parties["pp"]}, function (err, peperos) {
                         ty = []
                         for (var i = 0; i < peperos.length; i++) {
                             ty.push(peperos[i]._id);
@@ -293,7 +310,7 @@ lawRouter.route('/:slug')
                           delegatedToPPNo = diff(delegatedToPPYes, negativers);
                           delegatedToPPAbs = diff(delegatedToPPNo, abstentioners);
                           delegatedToPP = delegatedToPPAbs.length;
-                          Users.find({"delegatedParty": psoe}, function (err, sociatas) {
+                          Users.find({"delegatedParty": parties["psoe"]}, function (err, sociatas) {
                             ty = []
                             for (var i = 0; i < sociatas.length; i++) {
                                 ty.push(sociatas[i]._id);
@@ -304,7 +321,7 @@ lawRouter.route('/:slug')
                                 delegatedToPsoeNo = diff(delegatedToPsoeYes, negativers);
                                 delegatedToPsoeAbs = diff(delegatedToPsoeNo, abstentioners);
                                 delegatedToPsoe = delegatedToPsoeAbs.length;
-                                Users.find({"delegatedParty": podemos}, function (err, podemitas) {
+                                Users.find({"delegatedParty": parties["podemos"]}, function (err, podemitas) {
                                   ty = []
                                   for (var i = 0; i < podemitas.length; i++) {
                                       ty.push(podemitas[i]._id);
@@ -329,7 +346,7 @@ lawRouter.route('/:slug')
                                     delegatedToPodemosAbs = diff(delegatedToPodemosNo, abstentioners);
                                     console.log(delegatedToPodemosAbs);
                                     delegatedToPodemos = delegatedToPodemosAbs.length;
-                                    Users.find({"delegatedParty": pnv}, function (err, vascos) {
+                                    Users.find({"delegatedParty": parties["pnv"]}, function (err, vascos) {
                                       ty = []
                                       for (var i = 0; i < vascos.length; i++) {
                                           ty.push(vascos[i]._id);
@@ -340,7 +357,7 @@ lawRouter.route('/:slug')
                                         delegatedToPnvNo = diff(delegatedToPnvYes, negativers);
                                         delegatedToPnvAbs = diff(delegatedToPnvNo, abstentioners);
                                         delegatedToPnv = delegatedToPnvAbs.length;
-                                        Users.find({"delegatedParty": erc}, function (err, catalanes) {
+                                        Users.find({"delegatedParty": parties["erc"]}, function (err, catalanes) {
                                           ty = []
                                           for (var i = 0; i < catalanes.length; i++) {
                                               ty.push(catalanes[i]._id);
@@ -351,7 +368,7 @@ lawRouter.route('/:slug')
                                             delegatedToErcNo = diff(delegatedToErcYes, negativers);
                                             delegatedToErcAbs = diff(delegatedToErcNo, abstentioners);
                                             delegatedToErc = delegatedToErcAbs.length;
-                                            Users.find({"delegatedParty": ciudadanos}, function (err, naranjitos) {
+                                            Users.find({"delegatedParty": parties["ciudadanos"]}, function (err, naranjitos) {
                                               ty = []
                                               for (var i = 0; i < naranjitos.length; i++) {
                                                   ty.push(naranjitos[i]._id);
@@ -362,7 +379,7 @@ lawRouter.route('/:slug')
                                                 delegatedToCiudadanosNo = diff(delegatedToCiudadanosYes, negativers);
                                                 delegatedToCiudadanosAbs = diff(delegatedToCiudadanosNo, abstentioners);
                                                 delegatedToCiudadanos = delegatedToCiudadanosAbs.length;
-                                                Users.find({"delegatedParty": mixto}, function (err, mixtos) {
+                                                Users.find({"delegatedParty": parties["mixto"]}, function (err, mixtos) {
                                                   ty = []
                                                   for (var i = 0; i < mixtos.length; i++) {
                                                       ty.push(mixtos[i]._id);
@@ -396,79 +413,79 @@ lawRouter.route('/:slug')
                                                     // PP
                                                     if (req.body.pp == 1) {
                                                         req.body.positive = req.body.positive + delegatedToPP
-                                                        req.body.positiveParties.push(pp);
+                                                        req.body.positiveParties.push(parties["pp"]);
                                                     } else if (req.body.pp == 2) {
                                                         req.body.negative = req.body.negative + delegatedToPP
-                                                        req.body.negativeParties.push(pp);
+                                                        req.body.negativeParties.push(parties["pp"]);
                                                     } else {
                                                         req.body.abstention = req.body.abstention + delegatedToPP
-                                                        req.body.abstentionParties.push(pp);
+                                                        req.body.abstentionParties.push(parties["pp"]);
                                                     }
                                                     // Psoe
                                                     if (req.body.psoe == 1) {
                                                         req.body.positive = req.body.positive + delegatedToPsoe
-                                                        req.body.positiveParties.push(psoe);
+                                                        req.body.positiveParties.push(parties["psoe"]);
                                                     } else if (req.body.psoe == 2) {
                                                         req.body.negative = req.body.negative + delegatedToPsoe
-                                                        req.body.negativeParties.push(psoe);
+                                                        req.body.negativeParties.push(parties["psoe"]);
                                                     } else {
                                                         req.body.abstention = req.body.abstention + delegatedToPsoe
-                                                        req.body.abstentionParties.push(psoe);
+                                                        req.body.abstentionParties.push(parties["psoe"]);
                                                     }
                                                     // Podemos
                                                     if (req.body.podemos == 1) {
                                                         req.body.positive = req.body.positive + delegatedToPodemos
-                                                        req.body.positiveParties.push(podemos);
+                                                        req.body.positiveParties.push(parties["podemos"]);
                                                     } else if (req.body.podemos == 2) {
                                                         req.body.negative = req.body.negative + delegatedToPodemos
-                                                        req.body.negativeParties.push(podemos);
+                                                        req.body.negativeParties.push(parties["podemos"]);
                                                     } else {
                                                         req.body.abstention = req.body.abstention + delegatedToPodemos
-                                                        req.body.abstentionParties.push(podemos);
+                                                        req.body.abstentionParties.push(parties["podemos"]);
                                                     }
                                                     // Ciudadanos
                                                     if (req.body.ciudadanos == 1) {
                                                         req.body.positive = req.body.positive + delegatedToCiudadanos
-                                                        req.body.positiveParties.push(ciudadanos);
+                                                        req.body.positiveParties.push(parties["ciudadanos"]);
                                                     } else if (req.body.ciudadanos == 2) {
                                                         req.body.negative = req.body.negative + delegatedToCiudadanos
-                                                        req.body.negativeParties.push(ciudadanos);
+                                                        req.body.negativeParties.push(parties["ciudadanos"]);
                                                     } else {
                                                         req.body.abstention = req.body.abstention + delegatedToCiudadanos
-                                                        req.body.abstentionParties.push(ciudadanos);
+                                                        req.body.abstentionParties.push(parties["ciudadanos"]);
                                                     }
                                                     // Erc
                                                     if (req.body.erc == 1) {
                                                         req.body.positive = req.body.positive + delegatedToErc
-                                                        req.body.positiveParties.push(erc);
+                                                        req.body.positiveParties.push(parties["erc"]);
                                                     } else if (req.body.erc == 2) {
                                                         req.body.negative = req.body.negative + delegatedToErc
-                                                        req.body.negativeParties.push(erc);
+                                                        req.body.negativeParties.push(parties["erc"]);
                                                     } else {
                                                         req.body.abstention = req.body.abstention + delegatedToErc
-                                                        req.body.abstentionParties.push(erc);
+                                                        req.body.abstentionParties.push(parties["erc"]);
                                                     }
                                                     // Pnv
                                                     if (req.body.pnv == 1) {
                                                         req.body.positive = req.body.positive + delegatedToPnv
-                                                        req.body.positiveParties.push(pnv);
+                                                        req.body.positiveParties.push(parties["pnv"]);
                                                     } else if (req.body.pnv == 2) {
                                                         req.body.negative = req.body.negative + delegatedToPnv
-                                                        req.body.negativeParties.push(pnv);
+                                                        req.body.negativeParties.push(parties["pnv"]);
                                                     } else {
                                                         req.body.abstention = req.body.abstention + delegatedToPnv
-                                                        req.body.abstentionParties.push(pnv);
+                                                        req.body.abstentionParties.push(parties["pnv"]);
                                                     }
                                                     // Mixto
                                                     if (req.body.mixto == 1) {
                                                         req.body.positive = req.body.positive + delegatedToMixto
-                                                        req.body.positiveParties.push(mixto);
+                                                        req.body.positiveParties.push(parties["mixto"]);
                                                     } else if (req.body.mixto == 2) {
                                                         req.body.negative = req.body.negative + delegatedToMixto
-                                                        req.body.negativeParties.push(mixto);
+                                                        req.body.negativeParties.push(parties["mixto"]);
                                                     } else {
                                                         req.body.abstention = req.body.abstention + delegatedToMixto
-                                                        req.body.abstentionParties.push(mixto);
+                                                        req.body.abstentionParties.push(parties["mixto"]);
                                                     }
 
                                                     // Update law
@@ -514,6 +531,7 @@ lawRouter.route('/:slug')
                 });
             });
         });
+      });
     });
 })
 .delete(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function (req, res, next) {
