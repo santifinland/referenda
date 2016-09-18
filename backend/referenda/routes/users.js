@@ -120,7 +120,17 @@ userRouter.route('/delegateuser')
     User.findById(req.decoded._id)
         .exec(function (err, user) {
         if (err) return next(err);
-        res.status(200).json({"id": user.delegatedUser});
+        User.findById(user.delegatedUser)
+            .exec(function (err, delegatedUser) {
+            if (err) return next(err);
+            if (user.delegatedUser == null) {
+                 console.log("NUUUUUUUUUUUUUUUUUUUUUUUULL");
+                res.status(200).json({"id": user.delegatedUser});
+            } else {
+                 console.log("NO ES NULL");
+                res.status(200).json({"id": user.delegatedUser, "username": delegatedUser.username});
+            }
+        });
     });
 })
 .post(Verify.verifyOrdinaryUser, function (req, res, next) {
