@@ -5,7 +5,10 @@
 
             <div class="col-xs-12 col-md-12">
                 <div class="col-xs-6 col-md-7 ">
-                    <h3 ng-if="loggedIn">Actualmente tienes tus votos delegados a:</h3>
+                    <div ng-if="loggedIn">
+                        <h3 ng-if="delegation != 'none'">Actualmente tienes tus votos delegados a:</h3>
+                        <h3 ng-if="delegation == 'none'">Todav&iacute;a no has delegado tu voto a nadie:</h3>
+                    </div>
                     <h3 ng-if="!loggedIn">Inicia sesi&oacute;n para delegar tu voto</h3>
                     <div class="funciona">
                         <p>As&iacute; es como funciona</p>
@@ -19,8 +22,13 @@
                 </div>
                 <div ng-if="!loggedIn" class="col-xs-2 col-md-2 party-selected">
                 </div>
-                <div ng-if="loggedIn" class="col-xs-2 col-md-2 party-selected">
-                    <img src="{{party.logo}}" height="150" width="250"/>
+                <div ng-if="loggedIn">
+                    <div ng-if="delegation == 'party'" class="col-xs-2 col-md-2 party-selected">
+                        <img src="{{party.logo}}" height="150" width="250"/>
+                    </div>
+                    <div ng-if="delegation == 'user'">
+                        <h3> {{delegatedUser.username}}</h3>
+                    </div>
                 </div>
             </div>
 
@@ -83,6 +91,7 @@
                 <div class="col-xs-12 col-sm-2 party">
                 </div>
             </div>
+
             <div class="col-xs-12">
                 <div class="col-xs-12 col-sm-1 party">
                 </div>
@@ -110,14 +119,71 @@
                 <div class="col-xs-12 col-sm-2 party">
                 </div>
             </div>
+
+            <div class="col-xs-12">
+                <div class="col-xs-12 col-sm-1 party">
+                </div>
+                <div class="col-xs-12 col-sm-3 party-right">
+                    <form class="form-horizontal" name="partyFormCC" ng-submit="submitDelegatePartyCC()" novalidate>
+                        <button class="no-border" type="submit" ng-disabled="partyFormCC.$invalid">
+                            <img src="../images/cc.png" height="80" width="100"/>
+                        </button>
+                    </form>
+                </div>
+                <div class="col-xs-12 col-sm-3 party-right">
+                    <form class="form-horizontal" name="partyFormNC" ng-submit="submitDelegatePartyNC()" novalidate>
+                        <button class="no-border" type="submit" ng-disabled="partyFormNC.$invalid">
+                            <img src="../images/nc.png" height="80" width="100"/>
+                        </button>
+                    </form>
+                </div>
+                <div class="col-xs-12 col-sm-3 party-left">
+                    <form class="form-horizontal" name="partyFormCompromis" ng-submit="submitDelegatePartyCompromis()" novalidate>
+                        <button class="no-border" type="submit" ng-disabled="partyFormCompromis.$invalid">
+                            <img src="../images/compromis.png" height="80" width="300"/>
+                        </button>
+                    </form>
+                </div>
+                <div class="col-xs-12 col-sm-2 party">
+                </div>
+            </div>
+
+            <div class="col-xs-12">
+                <div class="col-xs-12 col-sm-1 party">
+                </div>
+                <div class="col-xs-12 col-sm-3 party-right">
+                    <form class="form-horizontal" name="partyFormFA" ng-submit="submitDelegatePartyFA()" novalidate>
+                        <button class="no-border" type="submit" ng-disabled="partyFormFA.$invalid">
+                            <img src="../images/fa.jpg" height="80" width="100"/>
+                        </button>
+                    </form>
+                </div>
+                <div class="col-xs-12 col-sm-3 party-right">
+                    <form class="form-horizontal" name="partyFormUpn" ng-submit="submitDelegatePartyUpn()" novalidate>
+                        <button class="no-border" type="submit" ng-disabled="partyFormUpn.$invalid">
+                            <img src="../images/upn.png" height="80" width="100"/>
+                        </button>
+                    </form>
+                </div>
+                <div class="col-xs-12 col-sm-3 party-left">
+                    <form class="form-horizontal" name="partyFormBildu" ng-submit="submitDelegatePartyBildu()" novalidate>
+                        <button class="no-border" type="submit" ng-disabled="partyFormBildu.$invalid">
+                            <img src="../images/bildu.png" height="80" width="300"/>
+                        </button>
+                    </form>
+                </div>
+                <div class="col-xs-12 col-sm-2 party">
+                </div>
+            </div>
+
             <div class="col-xs-12">
                 <div class="col-xs-12 col-sm-4 party-mixto">
                     <img src="../images/void.png" height="80" width="100"/>
                 </div>
                 <div class="col-xs-12 col-sm-3 party-mixto">
-                    <form class="form-horizontal" name="partyFormMixto" ng-submit="submitDelegatePartyMixto()" novalidate>
-                        <button class="no-border" type="submit" ng-disabled="partyFormMixto.$invalid">
-                            <img src="../images/cc.png" height="80" width="100"/>
+                    <form class="form-horizontal" name="partyFormNoDelegar" ng-submit="submitDelegatePartyNoDelegar()" novalidate>
+                        <button class="no-border" type="submit" ng-disabled="partyFormNoDelegar.$invalid">
+                            <h3> No delegar </h3>
                         </button>
                     </form>
                 </div>
