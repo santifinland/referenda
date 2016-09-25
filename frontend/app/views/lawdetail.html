@@ -14,6 +14,7 @@
                                 <h2>{{law.headline}}</h2>
                             </div>
                             <p class="law-description">{{law.long_description}}</p>
+                            <br>
                             <span class="date-end"> &nbsp;&nbsp;&nbsp;&nbsp;</span>
                             <span class="glyphicon glyphicon-calendar"/>
                             <span class="date-end"> Puedes votar hasta el
@@ -35,8 +36,57 @@
                                         ng-disabled="voteFormAbstention.$invalid">ABSTENCI&Oacute;N</button>
                             </form>
                         </div>
+
+                        <div ng-if="resultsCongreso" class="col-xs-12 col-sm-12">
+                            <hr>
+                            <div class="col-xs-12 col-sm-12">
+                                <b class="results-black">Resultados</b> <b class="results">Congreso de los Diputados</b>
+                                <br>
+                                <br>
+                            </div>
+                            <div class="col-xs-12 col-sm-12">
+                            </div>
+                            <div class="col-xs-3 col-sm-2">
+                                <span class="result-number yes">{{law.positive}}</span>
+                            </div>
+                            <div class="col-xs-9 col-sm-10">
+                                <button type="button" class="btn btn-primary sharp yes maxi-font"
+                                        style="width: {{ (50 * law.positive / (law.positive + law.negative +
+                                        law.abstention)) | number:0 }}%; text-align: left;">S&Iacute;</button>
+                                <span class="result-number yes">{{ ( 100 * law.positive / (law.positive +
+                                    law.negative + law.abstention)) | number:0 }}%</span>
+                            </div>
+                            <div class="col-xs-3 col-sm-2">
+                                <span class="result-number no">{{law.negative}}</span>
+                            </div>
+                            <div class="col-xs-9 col-sm-10">
+                                <button type="button" class="btn btn-primary sharp no maxi-font"
+                                        style="width: {{ (50 * law.negative / (law.positive + law.negative +
+                                        law.abstention)) | number:0 }}%; text-align: left;">NO</button>
+                                <span class="result-number no">{{ ( 100 * law.negative / (law.positive +
+                                    law.negative + law.abstention)) | number:0 }}%</span>
+                            </div>
+                            <div class="col-xs-3 col-sm-2">
+                                <span class="result-number abstention">{{law.abstention}}</span>
+                            </div>
+                            <div class="col-xs-9 col-sm-10">
+                                <button type="button" class="btn btn-primary sharp abstention maxi-font"
+                                        style="width: {{ (50 * law.abstention / (law.positive + law.negative +
+                                        law.abstention)) | number:0 }}%; text-align: left;">ABSTENCI&Oacute;N</button>
+                                <span class="result-number abstention">{{ ( 100 * law.abstention / (law.positive +
+                                    law.negative + law.abstention)) | number:0 }}%</span>
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+
                         <div class="col-xs-12 col-sm-12">
                             <hr>
+                            <div class="col-xs-12 col-sm-12">
+                                <b class="results-black">Resultados</b> <b class="results">Referenda</b>
+                                <br>
+                                <br>
+                            </div>
                             <div class="col-xs-3 col-sm-2">
                                 <span class="result-number yes">{{law.positive}}</span>
                             </div>
@@ -68,6 +118,7 @@
                                     law.negative + law.abstention)) | number:0 }}%</span>
                             </div>
                         </div>
+
                         <div class="col-xs-12 col-sm-12">
                             <hr>
                         </div>

@@ -15,6 +15,14 @@ lawRouter.use(bodyParser.json());
 
 lawRouter.route('/')
 .get(function (req, res, next) {
+    var today = new Date();
+    if (req.query.results) {
+        req.query.vote_end = {$lt: today};
+        delete req.query.results;
+    } else {
+        req.query.vote_start = {$lt: today};
+        req.query.vote_end = {$gte: today};
+    }
     Laws.find(req.query)
         .populate('comments.postedBy')
         .exec(function (err, law) {
@@ -883,36 +891,125 @@ lawRouter.route('/:slug/votes')
     }
     Laws.findOne({"slug": req.params.slug}, function (err, law) {
         if (err) return next(err);
-        console.log("En post de votes");
-        console.log(req.body);
-        console.log(law.positive);
-        // Find previous vote from same user
-        Votes.find({"lawId": law._id, "userId": req.decoded._id}).exec(function (err, votes) {
-            if (err) return next(err);
-            console.log(votes.length);
-            if (!votes.length) {
-                console.log("No previous vote found");
-                // Find delegations to other user: if so, remove delegated vote and add own vote
-                Users.findById(req.decoded._id, function (err, user) {
-                    if (err) return next(err);
-                    console.log("User delegation: " + user.delegatedUser);
-                    if (user.delegatedUser == null) {
-                        console.log("No delega a ningun tio");
-                        console.log(user);
-                        console.log("Party delegation: " + user.delegatedParty)
-                        if (law.positiveParties.indexOf(user.delegatedParty) != -1) {
-                            law.positive = law.positive - 1;
+        var today = new Date();
+        if (law.vote_end < today) {
+            res.json(law);
+        } else {
+            console.log("En post de votes");
+            console.log(req.body);
+            console.log(law.positive);
+            // Find previous vote from same user
+            Votes.find({"lawId": law._id, "userId": req.decoded._id}).exec(function (err, votes) {
+                if (err) return next(err);
+                console.log(votes.length);
+                if (!votes.length) {
+                    console.log("No previous vote found");
+                    // Find delegations to other user: if so, remove delegated vote and add own vote
+                    Users.findById(req.decoded._id, function (err, user) {
+                        if (err) return next(err);
+                        console.log("User delegation: " + user.delegatedUser);
+                        if (user.delegatedUser == null) {
+                            console.log("No delega a ningun tio");
+                            console.log(user);
+                            console.log("Party delegation: " + user.delegatedParty)
+                            if (law.positiveParties.indexOf(user.delegatedParty) != -1) {
+                                law.positive = law.positive - 1;
+                            }
+                            console.log(law.negativeParties);
+                            if (law.negativeParties.indexOf(user.delegatedParty) != -1) {
+                                law.negative = law.negative - 1;
+                            }
+                            if (law.abstentionParties.indexOf(user.delegatedParty) != -1) {
+                                law.abstention = law.abstention - 1;
+                            }
+                            // Create vote
+                            console.log(req.body.vote);
+                            var newVote = new Votes({"lawId": law._id, "userId": req.decoded._id, "vote": req.body.vote});
+                            console.log(newVote);
+                            newVote.save(function (err, v) {
+                                if (err) return console.error(err);
+                                console.log('Saved Vote!');
+                                // Update law
+                                if (req.body.vote == 1) {
+                                    console.log(law.positive);
+                                    law.positive = law.positive + 1;
+                                } else if (req.body.vote == 2) {
+                                    law.negative = law.negative + 1;
+                                } else {
+                                    law.abstention = law.abstention + 1;
+                                }
+                                law.save(function (err, law) {
+                                    if (err) return next(err);
+                                    console.log('Updated Votes!');
+                                    res.json(law);
+                                });
+                            });
+                        } else {
+                            // Check if delegated user has voted. If so remove it and add own vote
+                            new_votes = kk(user, law, function(err, votoDelegado) {
+                                if (err) return next(err);
+                                console.log(votoDelegado);
+                                // Delegated user has not voted and delegations
+                                if (votoDelegado == -1) {
+                                    console.log("No vote, no delegations");
+                                } else if (votoDelegado == 1) {
+                                    console.log("User delegation result into positive vote")
+                                    law.positive = law.positive - 1;
+                                } else if (votoDelegado == 2) {
+                                    law.negative = law.negative - 1;
+                                    console.log("User delegation result into negative vote")
+                                } else {
+                                    console.log("User delegation result into abstention vote")
+                                    law.abstention = law.abstention - 1;
+                                }
+                                // Create vote
+                                console.log(req.body.vote);
+                                var newVote = new Votes({"lawId": law._id,
+                                                         "userId": req.decoded._id,
+                                                         "vote": req.body.vote});
+                                console.log(newVote);
+                                newVote.save(function (err, v) {
+                                    if (err) return console.error(err);
+                                    console.log('Saved Vote!');
+                                    // Update law
+                                    if (req.body.vote == 1) {
+                                        console.log(law.positive);
+                                        law.positive = law.positive + 1;
+                                    } else if (req.body.vote == 2) {
+                                        law.negative = law.negative + 1;
+                                    } else {
+                                        law.abstention = law.abstention + 1;
+                                    }
+                                    law.save(function (err, law) {
+                                    if (err) return next(err);
+                                        console.log('Updated Votes!');
+                                        res.json(law);
+                                    });
+                                });
+                            });
                         }
-                        console.log(law.negativeParties);
-                        if (law.negativeParties.indexOf(user.delegatedParty) != -1) {
-                            law.negative = law.negative - 1;
-                        }
-                        if (law.abstentionParties.indexOf(user.delegatedParty) != -1) {
-                            law.abstention = law.abstention - 1;
-                        }
+                    });
+                } else {
+                    console.log("Previous vote found")
+                    lastVote = votes[0];
+                    console.log(lastVote);
+                    if (lastVote.vote == 1) {
+                        console.log(law.positive);
+                        law.positive = law.positive - 1;
+                        console.log(law.positive);
+                    } else if(lastVote.vote == 2) {
+                        law.negative = law.negative - 1;
+                    } else {
+                        law.abstention = law.abstention - 1;
+                    }
+                    Votes.remove(lastVote, function(err, v) {
+                        if (err) return next(err);
+                        console.log('Remove last Vote');
                         // Create vote
-                        console.log(req.body.vote);
-                        var newVote = new Votes({"lawId": law._id, "userId": req.decoded._id, "vote": req.body.vote});
+                        console.log(req.params.vote);
+                        var newVote = new Votes({"lawId": law._id,
+                                                 "userId": req.decoded._id,
+                                                 "vote": req.body.vote});
                         console.log(newVote);
                         newVote.save(function (err, v) {
                             if (err) return console.error(err);
@@ -932,94 +1029,10 @@ lawRouter.route('/:slug/votes')
                                 res.json(law);
                             });
                         });
-                    } else {
-                        // Check if delegated user has voted. If so remove it and add own vote
-                        new_votes = kk(user, law, function(err, votoDelegado) {
-                            if (err) return next(err);
-                            console.log(votoDelegado);
-                            // Delegated user has not voted and delegations
-                            if (votoDelegado == -1) {
-                                console.log("No vote, no delegations");
-                            } else if (votoDelegado == 1) {
-                                console.log("User delegation result into positive vote")
-                                law.positive = law.positive - 1;
-                            } else if (votoDelegado == 2) {
-                                law.negative = law.negative - 1;
-                                console.log("User delegation result into negative vote")
-                            } else {
-                                console.log("User delegation result into abstention vote")
-                                law.abstention = law.abstention - 1;
-                            }
-                            // Create vote
-                            console.log(req.body.vote);
-                            var newVote = new Votes({"lawId": law._id,
-                                                     "userId": req.decoded._id,
-                                                     "vote": req.body.vote});
-                            console.log(newVote);
-                            newVote.save(function (err, v) {
-                                if (err) return console.error(err);
-                                console.log('Saved Vote!');
-                                // Update law
-                                if (req.body.vote == 1) {
-                                    console.log(law.positive);
-                                    law.positive = law.positive + 1;
-                                } else if (req.body.vote == 2) {
-                                    law.negative = law.negative + 1;
-                                } else {
-                                    law.abstention = law.abstention + 1;
-                                }
-                                law.save(function (err, law) {
-                                if (err) return next(err);
-                                    console.log('Updated Votes!');
-                                    res.json(law);
-                                });
-                            });
-                        });
-                    }
-                });
-            } else {
-                console.log("Previous vote found")
-                lastVote = votes[0];
-                console.log(lastVote);
-                if (lastVote.vote == 1) {
-                    console.log(law.positive);
-                    law.positive = law.positive - 1;
-                    console.log(law.positive);
-                } else if(lastVote.vote == 2) {
-                    law.negative = law.negative - 1;
-                } else {
-                    law.abstention = law.abstention - 1;
-                }
-                Votes.remove(lastVote, function(err, v) {
-                    if (err) return next(err);
-                    console.log('Remove last Vote');
-                    // Create vote
-                    console.log(req.params.vote);
-                    var newVote = new Votes({"lawId": law._id,
-                                             "userId": req.decoded._id,
-                                             "vote": req.body.vote});
-                    console.log(newVote);
-                    newVote.save(function (err, v) {
-                        if (err) return console.error(err);
-                        console.log('Saved Vote!');
-                        // Update law
-                        if (req.body.vote == 1) {
-                            console.log(law.positive);
-                            law.positive = law.positive + 1;
-                        } else if (req.body.vote == 2) {
-                            law.negative = law.negative + 1;
-                        } else {
-                            law.abstention = law.abstention + 1;
-                        }
-                        law.save(function (err, law) {
-                            if (err) return next(err);
-                            console.log('Updated Votes!');
-                            res.json(law);
-                        });
                     });
-                });
-            }
-        });
+                }
+            });
+        }
     });
 });
 

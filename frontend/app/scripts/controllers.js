@@ -56,6 +56,7 @@ angular.module('referendaApp')
 
     $scope.law = {};
     $scope.showLaw = false;
+    $scope.resultsCongreso = false;
     $scope.message = "Loading ...";
 
     $scope.law = lawFactory.get({
@@ -65,6 +66,8 @@ angular.module('referendaApp')
             function (response) {
                 $scope.law = response;
                 $scope.showLaw = true;
+                var today = new Date();
+                if (new Date($scope.law.vote_end) < today) $scope.resultsCongreso = true;
             },
             function (response) {
                 $scope.message = "Error: " + response.status + " " + response.statusText;
@@ -429,7 +432,20 @@ angular.module('referendaApp')
         });
 }])
 
-.controller('ResultController', ['$scope', function ($scope) {
+.controller('ResultController', ['$scope', 'lawFactory', function ($scope, lawFactory) {
+
+    $scope.showLaws = false;
+    $scope.message = "Loading ...";
+
+    lawFactory.query({"results": "true"},
+        function (response) {
+            $scope.laws = response;
+            $scope.showLaws = true;
+        },
+        function (response) {
+            $scope.message = "Error: " + response.status + " " + response.statusText;
+        }
+    );
 }])
 
 .controller('DataProtectionController', ['$scope', function ($scope) {
