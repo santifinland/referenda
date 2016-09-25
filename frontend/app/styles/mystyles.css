@@ -343,3 +343,11 @@ blockquote {
   color: #fff;
   text-decoration: underline;
 }
+.results {
+  color: #195123;
+  font-size: 130%;
+}
+.results-black {
+  color: #000;
+  font-size: 130%;
+}

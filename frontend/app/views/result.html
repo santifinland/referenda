@@ -1,86 +1,89 @@
 
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <h2> No hay resultados de propuestas todav&iacute;a</h2>
-                <h2> </h2>
+<div class="container">
+    <div class="row row-content">
+
+        <ul class="ul-referenda" ng-repeat="law in laws">
+
+            <div class="col-xs-12 col-sm-7">
+                <div ng-if="!showLaws">
+                    <h3>{{message}}</h3>
+                </div>
+                <div class="media" ng-if="showLaws">
+                    <div class="media-body">
+                        <div class="vertical-line">
+                            <h2><a ui-sref="app.lawdetails({slug: law.slug})">{{law.headline}}</a></h2>
+                        </div>
+                        <p class="law-description">{{law.short_description}}</p>
+                    </div>
+                </div>
             </div>
-            <div class="col-xs-12">
-                <h2> </h2>
+
+            <div class="col-xs-12 col-sm-5">
+                <div ng-if="!showLaws">
+                    <h3>{{message}}</h3>
+                </div>
+                <div ng-if="showLaws">
+                    <br>
+                    <b class="results-black">Resultados</b> <b class="results">Congreso de los Diputados</b>
+                    <div class="col-xs-12 col-sm-12" style="padding: 0px;">
+                        <button type="button" class="btn btn-primary sharp yes maxi-font law-home"
+                                style="width: {{ (60 * law.official_positive / (law.official_positive + law.official_negative +
+                                    law.official_abstention)) | number:0 }}%; text-align: left;">S&Iacute;</button>
+                            <span class="result-number yes">{{ ( 100 * law.official_positive / (law.official_positive +
+                                law.official_negative + law.official_abstention)) | number:0 }}%</span>
+                    </div>
+                    <div class="col-xs-12 col-sm-12" style="padding: 0px;">
+                        <button type="button" class="btn btn-primary sharp no maxi-font"
+                                style="width: {{ (60 * law.official_negative / (law.official_positive + law.official_negative +
+                                    law.official_abstention)) | number:0 }}%; text-align: left">NO</button>
+                            <span class="result-number no">{{ ( 100 * law.official_negative / (law.official_positive +
+                                law.official_negative + law.official_abstention)) | number:0 }}%</span>
+                    </div>
+                    <div class="col-xs-12 col-sm-12" style="padding: 0px;">
+                        <button type="button" class="btn btn-primary sharp abstention maxi-font"
+                                style="width: {{ (60 * law.official_abstention / (law.official_positive + law.official_negative +
+                                    law.official_abstention)) | number:0 }}%; text-align: left;">ABSTENCI&Oacute;N</button>
+                            <span class="result-number abstention">{{ ( 100 * law.official_abstention / (law.official_positive +
+                                law.official_negative + law.official_abstention)) | number:0 }}%</span>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12">
+                    <br>
+                    <br>
+                </div>
+                <div ng-if="showLaws">
+                    <b class="results-black">Resultados</b> <b class="results">Referenda</b>
+                    <div class="col-xs-12 col-sm-12" style="padding: 0px;">
+                        <button type="button" class="btn btn-primary sharp yes maxi-font law-home"
+                                style="width: {{ (60 * law.positive / (law.positive + law.negative +
+                                    law.abstention)) | number:0 }}%; text-align: left;">S&Iacute;</button>
+                            <span class="result-number yes">{{ ( 100 * law.positive / (law.positive +
+                                law.negative + law.abstention)) | number:0 }}%</span>
+                    </div>
+                    <div class="col-xs-12 col-sm-12" style="padding: 0px;">
+                        <button type="button" class="btn btn-primary sharp no maxi-font"
+                                style="width: {{ (60 * law.negative / (law.positive + law.negative +
+                                    law.abstention)) | number:0 }}%; text-align: left">NO</button>
+                            <span class="result-number no">{{ ( 100 * law.negative / (law.positive +
+                                law.negative + law.abstention)) | number:0 }}%</span>
+                    </div>
+                    <div class="col-xs-12 col-sm-12" style="padding: 0px;">
+                        <button type="button" class="btn btn-primary sharp abstention maxi-font"
+                                style="width: {{ (60 * law.abstention / (law.positive + law.negative +
+                                    law.abstention)) | number:0 }}%; text-align: left;">ABSTENCI&Oacute;N</button>
+                            <span class="result-number abstention">{{ ( 100 * law.abstention / (law.positive +
+                                law.negative + law.abstention)) | number:0 }}%</span>
+                    </div>
+
+
+                </div>
             </div>
-            <div class="col-xs-12">
-                <h2> </h2>
+
+            <div class="col-xs-12 col-sm-12">
+                <hr>
             </div>
-            <div class="col-xs-12">
-                <h2> </h2>
-            </div>
-            <div class="col-xs-12">
-                <h2> </h2>
-            </div>
-            <div class="col-xs-12">
-                <h2> </h2>
-            </div>
-            <div class="col-xs-12">
-                <h2> </h2>
-            </div>
-            <div class="col-xs-12">
-                <h2> </h2>
-            </div>
-            <div class="col-xs-12">
-                <h2> </h2>
-            </div>
-            <div class="col-xs-12">
-                <h2> </h2>
-            </div>
-            <div class="col-xs-12">
-                <h2> </h2>
-            </div>
-            <div class="col-xs-12">
-                <h2> </h2>
-            </div>
-            <div class="col-xs-12">
-                <h2> </h2>
-            </div>
-            <div class="col-xs-12">
-                <h2> </h2>
-            </div>
-            <div class="col-xs-12">
-                <h2> </h2>
-            </div>
-            <div class="col-xs-12">
-                <h2> </h2>
-            </div>
-            <div class="col-xs-12">
-                <h2> </h2>
-            </div>
-            <div class="col-xs-12">
-                <h2> </h2>
-            </div>
-            <div class="col-xs-12">
-                <h2> </h2>
-            </div>
-            <div class="col-xs-12">
-                <h2> </h2>
-            </div>
-            <div class="col-xs-12">
-                <h2> </h2>
-            </div>
-            <div class="col-xs-12">
-                <h2> </h2>
-            </div>
-            <div class="col-xs-12">
-                <h2> </h2>
-            </div>
-            <div class="col-xs-12">
-                <h2> </h2>
-            </div>
-            <div class="col-xs-12">
-                <h2> </h2>
-            </div>
-            <div class="col-xs-12">
-                <h2> </h2>
-            </div>
-        </div>
-       </div>
+
+        </ul>
 
     </div>
+</div>
