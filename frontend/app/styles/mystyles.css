@@ -214,6 +214,7 @@ body {
   color: #000000;
 }
 .law-description {
+    white-space: pre-line;
     text-align: justify;
 }
 .full-proposal {
