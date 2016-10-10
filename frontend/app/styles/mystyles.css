@@ -231,7 +231,7 @@ body {
 }
 .party-right {
   padding: 30px;
-  text-align:center;
+  text-align: center;
   border-right: 1px solid #999;
   border-bottom: 1px solid #999;
 }
@@ -242,7 +242,7 @@ body {
 }
 .party-left {
   padding: 30px;
-  text-align:center;G
+  text-align: center;
   border-right: 0px;
   border-bottom: 1px solid #999;
 }
@@ -351,4 +351,7 @@ blockquote {
 .results-black {
   color: #000;
   font-size: 130%;
+}
+.justify {
+  text-align: justify;
 }
