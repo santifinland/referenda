@@ -28,7 +28,7 @@ gulp.task('clean', function() {
 
 // Default task
 gulp.task('default', ['clean'], function() {
-    gulp.start('usemin', 'imagemin','copyfonts');
+    gulp.start('usemin', 'imagemin','copyfonts', 'swagger');
 });
 
 
@@ -58,6 +58,11 @@ gulp.task('copyfonts', ['clean'], function() {
    .pipe(gulp.dest('./dist/fonts'));
 });
 
+gulp.task('swagger', function() {
+   gulp.src('app/swagger/**/*')
+   .pipe(gulp.dest('dist/swagger'))
+   .pipe(notify({ message: 'Swagger task complete' }));
+});
 
 // Watch
 gulp.task('watch', ['browser-sync'], function() {
@@ -75,6 +80,7 @@ gulp.task('browser-sync', ['default'], function () {
       'app/images/**/*.png',
       'app/scripts/*.js',
       'app/scripts/**/*.js',
+      'app/swagger/**/*',
       'dist/**/*'
    ];
 

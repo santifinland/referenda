@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('referendaApp', ['ui.router','ngResource','ngDialog', 'ngCookies'])
+angular.module('referendaApp', ['ui.router','ngResource','ngDialog', 'ngCookies', 'ngSanitize', 'swaggerUi'])
 .config(function($stateProvider, $urlRouterProvider) {
         $stateProvider
 
@@ -107,6 +107,17 @@ angular.module('referendaApp', ['ui.router','ngResource','ngDialog', 'ngCookies'
                     'content@': {
                         templateUrl : 'views/cookies.html',
                         controller  : 'CookiesController'
+                   }
+                }
+            })
+
+            // route for the developers page
+            .state('app.developers', {
+                url: 'developers',
+                views: {
+                    'content@': {
+                        templateUrl : 'views/developers.html',
+                        controller  : 'DevelopersController'
                    }
                 }
             })
