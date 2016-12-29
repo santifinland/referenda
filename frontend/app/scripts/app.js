@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('referendaApp', ['ui.router','ngResource','ngDialog', 'ngCookies', 'ngSanitize', 'swaggerUi'])
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         $stateProvider
 
             // route for the home page
@@ -123,5 +123,6 @@ angular.module('referendaApp', ['ui.router','ngResource','ngDialog', 'ngCookies'
             })
 
         $urlRouterProvider.otherwise('/');
+        $locationProvider.html5Mode(true);
     })
 ;
