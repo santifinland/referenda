@@ -420,12 +420,18 @@ angular.module('referendaApp')
             function ($scope, lawFactory, voteFactory) {
 
     $scope.showLaws = false;
-    $scope.message = "Loading ...";
+    $scope.message = "Cargando leyes ...";
 
     lawFactory.query(
         function (response) {
             $scope.laws = response;
-            $scope.showLaws = true;
+            if ($scope.laws.length < 1) {
+                $scope.showLaws = false;
+                $scope.message = "Esta semana no se debaten propuestas en el pleno del Congreso de los Diputados.";
+                $scope.message2 = "Puedes consultar las votaciones anteriores en la pestaña de Resultados.";
+            } else {
+                $scope.showLaws = true;
+            }
         },
         function (response) {
             $scope.message = "Error: " + response.status + " " + response.statusText;

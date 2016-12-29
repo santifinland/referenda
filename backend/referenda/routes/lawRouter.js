@@ -24,7 +24,8 @@ lawRouter.route('/')
         req.query.vote_end = {$gte: today};
     }
     Laws.find(req.query)
-        .populate('comments.postedBy')
+        .select('law_type institution tier headline slug short_description long_description link pub_date vote_start' +
+                 'vote_end positive negative abstention official_positive official_negative official_abstention')
         .exec(function (err, law) {
         if (err) next(err);
         res.json(law);

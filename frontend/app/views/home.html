@@ -3,11 +3,14 @@
 
         <div class="row row-content">
 
+            <div ng-if="!showLaws">
+                <div class="col-xs-12 col-sm-12">
+                    <h3>{{message}}</h3>
+                    <h3>{{message2}}</h3>
+                </div>
+            </div>
             <ul class="ul-referenda" ng-repeat="law in laws">
                 <div class="col-xs-12 col-sm-7">
-                    <div ng-if="!showLaws">
-                        <h3>{{message}}</h3>
-                    </div>
                     <div class="media" ng-if="showLaws">
                         <div class="media-body">
                             <div class="vertical-line">
@@ -24,9 +27,6 @@
                 </div>
 
                 <div class="col-xs-12 col-sm-5">
-                    <div ng-if="!showLaws">
-                        <h3>{{message}}</h3>
-                    </div>
                     <div ng-if="showLaws">
                         <br>
                         <div class="col-xs-12 col-sm-12" style="padding: 0px;">
