@@ -168,51 +168,39 @@ angular.module('referendaApp')
     });
 
     $rootScope.$on('login:Successful', function () {
-        $scope.party = delegatePartyFactory.get({
-            id: $stateParams.id
-        })
-        .$promise.then(
+        $scope.party = delegatePartyFactory.get(
             function (response) {
-                $scope.partyId = response.id;
-                $scope.party = partyFactory.get({
-                    id: $scope.partyId
-                })
-                .$promise.then(
-                    function (response) {
-                        $scope.party = response;
-                        $scope.delegation = "party";
-                    },
-                    function (response) {
-                        $scope.message = "Error: " + response.status + " " + response.statusText;
-                    }
-                );
+                $scope.party = response;
+                $scope.delegation = "party";
             },
             function (response) {
                 $scope.message = "Error: " + response.status + " " + response.statusText;
-            }
-        );
+            });
+        $scope.delegatedUser = delegateUserFactory.get(
+                function (response) {
+                    $scope.delegatedUser = response;
+                    $scope.delegation = "user";
+                },
+                function (response) {
+                    $scope.message = "Error: " + response.status + " " + response.statusText;
+                }
+            );
         $scope.loggedIn = true;
     });
 
     $rootScope.$on('logged:Successful', function () {
-        $scope.party = delegatePartyFactory.get({
-            id: $stateParams.id
-        })
-        .$promise.then(
+        $scope.party = delegatePartyFactory.get(
             function (response) {
-                $scope.partyId = response.id;
-                $scope.party = partyFactory.get({
-                    id: $scope.partyId
-                })
-                .$promise.then(
-                    function (response) {
-                        $scope.party = response;
-                        $scope.delegation = "party";
-                    },
-                    function (response) {
-                        $scope.message = "Error: " + response.status + " " + response.statusText;
-                    }
-                );
+                $scope.party = response;
+                $scope.delegation = "party";
+            },
+            function (response) {
+                $scope.message = "Error: " + response.status + " " + response.statusText;
+            });
+        $scope.delegatedUser = delegateUserFactory.get(
+            function (response) {
+                $scope.delegatedUser = response;
+            $scope.delegation = "user";
             },
             function (response) {
                 $scope.message = "Error: " + response.status + " " + response.statusText;
@@ -224,30 +212,6 @@ angular.module('referendaApp')
     $rootScope.$on('logged:Failure', function () {
         $scope.loggedIn = false;
     });
-
-    $scope.party = delegatePartyFactory.get({
-        id: $stateParams.id
-    })
-    .$promise.then(
-        function (response) {
-            $scope.partyId = response.id;
-            $scope.party = partyFactory.get({
-                id: $scope.partyId
-            })
-            .$promise.then(
-                function (response) {
-                    $scope.party = response;
-                    $scope.delegation = "party";
-                },
-                function (response) {
-                    $scope.message = "Error: " + response.status + " " + response.statusText;
-                }
-            );
-        },
-        function (response) {
-            $scope.message = "Error: " + response.status + " " + response.statusText;
-        }
-    );
 
     $scope.submitDelegatePartyPP = function () {
         delegatePartyFactory
@@ -353,19 +317,6 @@ angular.module('referendaApp')
                 $scope.delegation = "none";
             });
     }
-
-    $scope.delegatedUser = delegateUserFactory.get({
-        id: $stateParams.id
-    })
-    .$promise.then(
-        function (response) {
-            $scope.delegatedUser = response;
-            $scope.delegation = "user";
-        },
-        function (response) {
-            $scope.message = "Error: " + response.status + " " + response.statusText;
-        }
-    );
 
     $scope.submitDelegateUser = function (id) {
         delegateUserFactory

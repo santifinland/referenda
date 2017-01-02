@@ -10,7 +10,7 @@ partyRouter.use(bodyParser.json());
 
 partyRouter.route('/')
 .get(function (req, res, next) {
-    Parties.find(req.query).select('name logo quota')
+    Parties.find({}).select('name logo quota -_id')
         .exec(function (err, parties) {
         if (err) next(err);
         res.json(parties);
@@ -20,30 +20,30 @@ partyRouter.route('/')
     Parties.create(req.body, function (err, party) {
         if (err) return next(err);
         var id = party._id;
-        res.status(201).json({"name": party.name, "logo": party.logo, "quota": party.quota});
+        res.status(201).end();
     });
 });
 
-partyRouter.route('/:partyId')
+partyRouter.route('/:partyName')
 .get(function (req, res, next) {
-    Parties.findById(req.params.partyId).select('name logo quota')
+    Parties.findOne({"name": req.params.partyName}).select('name logo quota -_id')
         .exec(function (err, party) {
         if (err) return next(err);
         res.json(party);
     });
 })
 .put(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function (req, res, next) {
-    Parties.findByIdAndUpdate(req.params.partyId, {
+    Parties.findOneAndUpdate({"name": req.params.partyName}, {
         $set: req.body
     }, {
-        new: true
+        new: false
     }, function (err, party) {
         if (err) return next(err);
-        res.json({"name": party.name, "logo": party.logo, "quota": party.quota});
+        res.status(200).end();
     });
 })
 .delete(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function (req, res, next) {
-        Parties.findByIdAndRemove(req.params.partyId, function (err, resp) {
+        Parties.findOneAndRemove({"name":req.params.partyName}, function (err, resp) {
         if (err) return next(err);
         res.status(204).end();
     });

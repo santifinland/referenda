@@ -33,7 +33,7 @@ angular.module('referendaApp')
 
 .factory('partyFactory', ['$resource', 'baseURL', function ($resource, baseURL) {
 
-        return $resource(baseURL + "parties/:id", null, {
+        return $resource(baseURL + "parties/:name", null, {
         });
 
 }])
