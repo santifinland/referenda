@@ -88,7 +88,10 @@ userRouter.route('/delegateparty')
     User.findById(req.decoded._id)
         .exec(function (err, user) {
         if (err) return next(err);
-        res.status(200).json({"id": user.delegatedParty});
+        Parties.findOne({'name': user.delegatedParty}, function(err, party) {
+            if (err) return next(err);
+            res.status(200).json(party);
+        });
     });
 })
 .post(Verify.verifyOrdinaryUser, function (req, res, next) {
@@ -99,7 +102,7 @@ userRouter.route('/delegateparty')
             if (err) return next(err);
             party = parties[0];
             if (party != null) {
-                user.delegatedParty = party._id;
+                user.delegatedParty = party.name;
                 user.delegatedUser = null;
                 console.log(party.name);
                 user.save(function (err, user) {
