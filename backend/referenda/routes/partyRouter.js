@@ -29,7 +29,11 @@ partyRouter.route('/:partyName')
     Parties.findOne({"name": req.params.partyName}).select('name logo quota -_id')
         .exec(function (err, party) {
         if (err) return next(err);
-        res.json(party);
+        if (party) {
+            res.json(party);
+        } else {
+            res.status(404).end();
+        }
     });
 })
 .put(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function (req, res, next) {
@@ -39,13 +43,21 @@ partyRouter.route('/:partyName')
         new: false
     }, function (err, party) {
         if (err) return next(err);
-        res.status(200).end();
+        if (party) {
+            res.status(200).end();
+        } else {
+            res.status(404).end();
+        }
     });
 })
 .delete(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function (req, res, next) {
         Parties.findOneAndRemove({"name":req.params.partyName}, function (err, resp) {
         if (err) return next(err);
-        res.status(204).end();
+        if (resp) {
+            res.status(204).end();
+        } else {
+            res.status(404).end();
+        }
     });
 });
 
