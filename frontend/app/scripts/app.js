@@ -122,6 +122,17 @@ angular.module('referendaApp', ['ui.router','ngResource','ngDialog', 'ngCookies'
                 }
             })
 
+            // route for the debug api page
+            .state('app.debug', {
+                url: 'debug',
+                views: {
+                    'content@': {
+                        templateUrl : 'views/debug.html',
+                        controller  : 'DebugController'
+                   }
+                }
+            })
+
         $urlRouterProvider.otherwise('/');
         $locationProvider.html5Mode(true);
     })

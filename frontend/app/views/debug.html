@@ -1,0 +1,1189 @@
+    <div class="container">
+
+        <div class="row row-content">
+
+            <div class="col-xs-12">
+                <div swagger-ui input-type="json" api-explorer="true" input='
+                {
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Referenda",
+        "description": "Spanish Pleno del Congreso de los Diputados unofficial API\n\nToken needed for certain operations.\n\nPlease ask for it at webmaster@referenda.es\n"
+    },
+    "host": "localhost:3443",
+    "basePath": "/api",
+    "schemes": [
+        "https"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/parties": {
+            "get": {
+                "description": "Returns all parties with deputies in the Congress",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List all parties",
+                        "schema": {
+                            "title": "Party",
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Party"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "parameters": [
+                    {
+                        "name": "x-access-token",
+                        "in": "header",
+                        "description": "The access token needed for creating a new party",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "party",
+                        "in": "body",
+                        "description": "The party JSON to be created",
+                        "schema": {
+                            "$ref": "#/definitions/Party"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Create a new party"
+                    },
+                    "401": {
+                        "description": "x-access-token not authorized to perform this operation"
+                    }
+                }
+            }
+        },
+        "/parties/{partyName}": {
+            "get": {
+                "parameters": [
+                    {
+                        "name": "partyName",
+                        "in": "path",
+                        "type": "string",
+                        "description": "name of the party",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "sends the party with partyName"
+                    },
+                    "404": {
+                        "description": "party not found for provided partyName"
+                    }
+                }
+            },
+            "put": {
+                "parameters": [
+                    {
+                        "name": "x-access-token",
+                        "in": "header",
+                        "description": "The access token needed for updating a party",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "partyName",
+                        "in": "path",
+                        "type": "string",
+                        "description": "name of the party to be updated",
+                        "required": true
+                    },
+                    {
+                        "name": "party",
+                        "in": "body",
+                        "description": "The party JSON to be updated",
+                        "schema": {
+                            "$ref": "#/definitions/Party"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sends the updated party with partyName"
+                    },
+                    "401": {
+                        "description": "x-access-token not authorized to perform this operation"
+                    },
+                    "404": {
+                        "description": "party not found for provided partyName"
+                    }
+                }
+            },
+            "delete": {
+                "parameters": [
+                    {
+                        "name": "x-access-token",
+                        "in": "header",
+                        "description": "The access token needed for deleting a party",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "partyName",
+                        "in": "path",
+                        "type": "string",
+                        "description": "name of the party to be deleted",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "party successfuly deleted"
+                    },
+                    "401": {
+                        "description": "x-access-token not authorized to perform this operation"
+                    },
+                    "404": {
+                        "description": "party not found for provided partyName"
+                    }
+                }
+            }
+        },
+        "/laws": {
+            "get": {
+                "description": "Returns all laws being debated or debated in Congress",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "results",
+                        "in": "query",
+                        "required": false,
+                        "type": "boolean"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List all laws",
+                        "schema": {
+                            "title": "Law",
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Law"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Creates a new law being debated in Congress",
+                "parameters": [
+                    {
+                        "name": "x-access-token",
+                        "in": "header",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "law",
+                        "in": "body",
+                        "required": true,
+                        "description": "The law JSON to be created",
+                        "schema": {
+                            "$ref": "#/definitions/LawExtended"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Create a new law"
+                    }
+                }
+            }
+        },
+        "/laws/{slug}": {
+            "get": {
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "type": "string",
+                        "description": "slug of the law requested",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Details of the law",
+                        "schema": {
+                            "$ref": "#/definitions/LawWithComments"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "parameters": [
+                    {
+                        "name": "x-access-token",
+                        "in": "header",
+                        "description": "The access token needed for updating a law",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "type": "string",
+                        "description": "slug of the law to be modified",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sends the updated law",
+                        "schema": {
+                            "$ref": "#/definitions/Law"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "parameters": [
+                    {
+                        "name": "x-access-token",
+                        "in": "header",
+                        "description": "The access token needed for deleting a law",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "type": "string",
+                        "description": "slug of the law to be deleted",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "law successfuly deleted"
+                    }
+                }
+            }
+        },
+        "/laws/{slug}/votes": {
+            "post": {
+                "parameters": [
+                    {
+                        "name": "x-access-token",
+                        "in": "header",
+                        "description": "The access token needed for voting a law",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "type": "string",
+                        "description": "slug of the law to be voted",
+                        "required": true
+                    },
+                    {
+                        "name": "vote",
+                        "in": "body",
+                        "description": "vote to be added to the law",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Vote"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "added vote to the law",
+                        "schema": {
+                            "$ref": "#/definitions/LawExtended"
+                        }
+                    }
+                }
+            }
+        },
+        "/laws/{slug}/comments": {
+            "get": {
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "type": "string",
+                        "description": "slug of the requested law",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "comments posted by the community for the requested law",
+                        "schema": {
+                            "title": "comments",
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Comment"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "parameters": [
+                    {
+                        "name": "x-access-token",
+                        "in": "header",
+                        "description": "The access token needed for posting a comment",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "type": "string",
+                        "description": "slug of the law to be commented",
+                        "required": true
+                    },
+                    {
+                        "name": "comment",
+                        "in": "body",
+                        "description": "comment to be added to the law",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Comment"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "added comment to the low"
+                    }
+                }
+            },
+            "delete": {
+                "parameters": [
+                    {
+                        "name": "x-access-token",
+                        "in": "header",
+                        "description": "The access token needed for deleting law comments",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "type": "string",
+                        "description": "slug of the law having the comments to be deleted",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "deleted all comments from the low"
+                    }
+                }
+            }
+        },
+        "/laws/{slug}/comments/{commentId}": {
+            "get": {
+                "parameters": [
+                    {
+                        "name": "x-access-token",
+                        "in": "header",
+                        "description": "The access token needed for retrieving the comment",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "type": "string",
+                        "description": "slug of the law with the comment to be requested",
+                        "required": true
+                    },
+                    {
+                        "name": "commentId",
+                        "in": "path",
+                        "type": "string",
+                        "description": "commentId of the comment to be requested",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "comment posted by the community for the requested law",
+                        "schema": {
+                            "$ref": "#/definitions/Comment"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "parameters": [
+                    {
+                        "name": "x-access-token",
+                        "in": "header",
+                        "description": "The access token needed for updating the comment",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "type": "string",
+                        "description": "slug of the law with the comment to be updated",
+                        "required": true
+                    },
+                    {
+                        "name": "commentId",
+                        "in": "path",
+                        "type": "string",
+                        "description": "commentId of the comment to be updated",
+                        "required": true
+                    },
+                    {
+                        "name": "comment",
+                        "in": "body",
+                        "description": "comment to be updated",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Comment"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "comment updated",
+                        "schema": {
+                            "$ref": "#/definitions/LawExtended"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "parameters": [
+                    {
+                        "name": "x-access-token",
+                        "in": "header",
+                        "description": "The access token needed for deleting a comment",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "type": "string",
+                        "description": "slug of the law with the comment to be deleted",
+                        "required": true
+                    },
+                    {
+                        "name": "commentId",
+                        "in": "path",
+                        "type": "string",
+                        "description": "commentId of the comment to be deleted",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "comment successfuly deleted"
+                    }
+                }
+            }
+        },
+        "/laws/{slug}/comments/{commentId}/votes": {
+            "post": {
+                "parameters": [
+                    {
+                        "name": "x-access-token",
+                        "in": "header",
+                        "description": "The access token needed for voting a comment",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "type": "string",
+                        "description": "slug of the law with the comment to be voted",
+                        "required": true
+                    },
+                    {
+                        "name": "commentId",
+                        "in": "path",
+                        "type": "string",
+                        "description": "commentId of the comment to be updated",
+                        "required": true
+                    },
+                    {
+                        "name": "vote",
+                        "in": "body",
+                        "description": "vote to be added to the comment",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Vote"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "added vote to comment of the low"
+                    }
+                }
+            }
+        },
+        "/users/find/{username}": {
+            "get": {
+                "parameters": [
+                    {
+                        "name": "x-access-token",
+                        "in": "header",
+                        "description": "The access token needed for retrieving the users",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "username",
+                        "in": "path",
+                        "type": "string",
+                        "description": "string with at least the first 4 characters o of name of the user requested",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List all users starting with the username provided",
+                        "schema": {
+                            "title": "Users",
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Username"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/logged": {
+            "get": {
+                "parameters": [
+                    {
+                        "name": "x-access-token",
+                        "in": "header",
+                        "description": "The access token needed for checking the if user is logged",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "user logged or not",
+                        "schema": {
+                            "$ref": "#/definitions/UserLogged"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/register": {
+            "post": {
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "body",
+                        "description": "user to be registered in referenda.es",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "user added to referenda.es"
+                    }
+                }
+            }
+        },
+        "/users/login": {
+            "post": {
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "body",
+                        "description": "user to be logged in at referenda.es",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "user logged in at referenda.es"
+                    },
+                    "401": {
+                        "description": "wrong credentials"
+                    },
+                    "500": {
+                        "description": "internal error"
+                    }
+                }
+            }
+        },
+        "/users/logout": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "user logged out from referenda.es"
+                    }
+                }
+            }
+        },
+        "/users/delegateparty": {
+            "get": {
+                "parameters": [
+                    {
+                        "name": "x-access-token",
+                        "in": "header",
+                        "description": "The access token needed for retrieving the user delegated party",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "user delegated party",
+                        "schema": {
+                            "$ref": "#/definitions/DelegatedPartyId"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "parameters": [
+                    {
+                        "name": "x-access-token",
+                        "in": "header",
+                        "description": "The access token needed for setting the user delegated party",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "party",
+                        "in": "body",
+                        "description": "The user delegated party to be setted",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/DelegatedPartyName"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "user delegated party"
+                    }
+                }
+            }
+        },
+        "/users/delegateuser": {
+            "get": {
+                "parameters": [
+                    {
+                        "name": "x-access-token",
+                        "in": "header",
+                        "description": "The access token needed for retrieving the user delegated user",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "user delegated user",
+                        "schema": {
+                            "$ref": "#/definitions/DelegatedUserId"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "parameters": [
+                    {
+                        "name": "x-access-token",
+                        "in": "header",
+                        "description": "The access token needed for setting the user delegated user",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "body",
+                        "description": "The user delegated user id to be setted",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/DelegatedUserId"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "user delegated user"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Comment": {
+            "type": "object",
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "comment": {
+                    "type": "string"
+                },
+                "positive": {
+                    "description": "positive votes given to this comment by the community",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "negative": {
+                    "description": "negative votes given to this comment by the community",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "postedBy": {
+                    "description": "the id of the user that posted this comment",
+                    "type": "string"
+                },
+                "replies": {
+                    "description": "array of comments in reply of this comment",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Comment"
+                    }
+                }
+            }
+        },
+        "Party": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "description": "Name of the party",
+                    "type": "string"
+                },
+                "logo": {
+                    "description": "URL of the partys logo",
+                    "type": "string"
+                },
+                "quota": {
+                    "description": "Partys quota in the Congress",
+                    "type": "integer",
+                    "format": "int32"
+                }
+            }
+        },
+        "Law": {
+            "type": "object",
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "law_type": {
+                    "description": "type of the law",
+                    "type": "string"
+                },
+                "institution": {
+                    "description": "institution of party behind the law",
+                    "type": "string"
+                },
+                "tier": {
+                    "description": "importance of the law. 1 to 3 levels",
+                    "type": "string"
+                },
+                "headline": {
+                    "description": "short headline of the law",
+                    "type": "string"
+                },
+                "slug": {
+                    "description": "very short unique headline of the law",
+                    "type": "string"
+                },
+                "short_description": {
+                    "description": "brief description of the law",
+                    "type": "string"
+                },
+                "long_description": {
+                    "description": "long description of the law",
+                    "type": "string"
+                },
+                "link": {
+                    "description": "official link in the Congress online publications",
+                    "type": "string"
+                },
+                "pub_date": {
+                    "description": "date the law is publicated in referenda.es",
+                    "type": "string"
+                },
+                "vote_start": {
+                    "description": "date the law can be votedin referenda.es",
+                    "type": "string"
+                },
+                "vote_end": {
+                    "description": "date the law can no longer be voted in referenda.es",
+                    "type": "string"
+                },
+                "positive": {
+                    "description": "positive votes received by the law in referenda.es",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "negative": {
+                    "description": "negative votes received by the law in referenda.es",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "abstention": {
+                    "description": "abstention votes received by the law in referenda.es",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "official_positive": {
+                    "description": "positive votes received by the law in the Congress",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "official_negative": {
+                    "description": "negative votes received by the law in the Congress",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "official_abstention": {
+                    "description": "abstention votes received by the law in the Congress",
+                    "type": "integer",
+                    "format": "int32"
+                }
+            }
+        },
+        "LawWithComments": {
+            "type": "object",
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "law_type": {
+                    "description": "type of the law",
+                    "type": "string"
+                },
+                "institution": {
+                    "description": "institution of party behind the law",
+                    "type": "string"
+                },
+                "tier": {
+                    "description": "importance of the law. 1 to 3 levels",
+                    "type": "string"
+                },
+                "headline": {
+                    "description": "short headline of the law",
+                    "type": "string"
+                },
+                "slug": {
+                    "description": "very short unique headline of the law",
+                    "type": "string"
+                },
+                "short_description": {
+                    "description": "brief description of the law",
+                    "type": "string"
+                },
+                "long_description": {
+                    "description": "long description of the law",
+                    "type": "string"
+                },
+                "link": {
+                    "description": "official link in the Congress online publications",
+                    "type": "string"
+                },
+                "pub_date": {
+                    "description": "date the law is publicated in referenda.es",
+                    "type": "string"
+                },
+                "vote_start": {
+                    "description": "date the law can be votedin referenda.es",
+                    "type": "string"
+                },
+                "vote_end": {
+                    "description": "date the law can no longer be voted in referenda.es",
+                    "type": "string"
+                },
+                "positive": {
+                    "description": "positive votes received by the law in referenda.es",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "negative": {
+                    "description": "negative votes received by the law in referenda.es",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "abstention": {
+                    "description": "abstention votes received by the law in referenda.es",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "official_positive": {
+                    "description": "positive votes received by the law in the Congress",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "official_negative": {
+                    "description": "negative votes received by the law in the Congress",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "official_abstention": {
+                    "description": "abstention votes received by the law in the Congress",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "comments": {
+                    "description": "comments posted by the community for this law",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Comment"
+                    }
+                }
+            }
+        },
+        "LawExtended": {
+            "type": "object",
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "law_type": {
+                    "description": "type of the law",
+                    "type": "string"
+                },
+                "institution": {
+                    "description": "institution of party behind the law",
+                    "type": "string"
+                },
+                "tier": {
+                    "description": "importance of the law. 1 to 3 levels",
+                    "type": "string"
+                },
+                "headline": {
+                    "description": "short headline of the law",
+                    "type": "string"
+                },
+                "slug": {
+                    "description": "very short unique headline of the law",
+                    "type": "string"
+                },
+                "short_description": {
+                    "description": "brief description of the law",
+                    "type": "string"
+                },
+                "long_description": {
+                    "description": "long description of the law",
+                    "type": "string"
+                },
+                "link": {
+                    "description": "official link in the Congress online publications",
+                    "type": "string"
+                },
+                "pub_date": {
+                    "description": "date the law is publicated in referenda.es",
+                    "type": "string"
+                },
+                "vote_start": {
+                    "description": "date the law can be votedin referenda.es",
+                    "type": "string"
+                },
+                "vote_end": {
+                    "description": "date the law can no longer be voted in referenda.es",
+                    "type": "string"
+                },
+                "positive": {
+                    "description": "positive votes received by the law in referenda.es",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "negative": {
+                    "description": "negative votes received by the law in referenda.es",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "abstention": {
+                    "description": "abstention votes received by the law in referenda.es",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "official_positive": {
+                    "description": "positive votes received by the law in the Congress",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "official_negative": {
+                    "description": "negative votes received by the law in the Congress",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "official_abstention": {
+                    "description": "abstention votes received by the law in the Congress",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "pp": {
+                    "description": "pp position for this law. 1 yes, 2 no, 3 abstention",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "psoe": {
+                    "description": "psoe position for this law. 1 yes, 2 no, 3 abstention",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "podemos": {
+                    "description": "podemos position for this law. 1 yes, 2 no, 3 abstention",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "ciudadanos": {
+                    "description": "ciudadanos position for this law. 1 yes, 2 no, 3 abstention",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "erc": {
+                    "description": "erc position for this law. 1 yes, 2 no, 3 abstention",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "pnv": {
+                    "description": "pnv position for this law. 1 yes, 2 no, 3 abstention",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "cc": {
+                    "description": "cc position for this law. 1 yes, 2 no, 3 abstention",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "nc": {
+                    "description": "nc position for this law. 1 yes, 2 no, 3 abstention",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "compromis": {
+                    "description": "compromis position for this law. 1 yes, 2 no, 3 abstention",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "fa": {
+                    "description": "fa position for this law. 1 yes, 2 no, 3 abstention",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "upn": {
+                    "description": "upn position for this law. 1 yes, 2 no, 3 abstention",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "bildu": {
+                    "description": "bildu position for this law. 1 yes, 2 no, 3 abstention",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "pdecat": {
+                    "description": "pdecat position for this law. 1 yes, 2 no, 3 abstention",
+                    "type": "integer",
+                    "format": "int32"
+                }
+            }
+        },
+        "User": {
+            "type": "object",
+            "properties": {
+                "username": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "Username": {
+            "type": "object",
+            "properties": {
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "UserLogged": {
+            "type": "object",
+            "properties": {
+                "logged": {
+                    "type": "string"
+                }
+            }
+        },
+        "Vote": {
+            "type": "object",
+            "properties": {
+                "vote": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            }
+        },
+        "DelegatedPartyId": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                }
+            }
+        },
+        "DelegatedUserId": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                }
+            }
+        },
+        "DelegatedPartyName": {
+            "type": "object",
+            "properties": {
+                "party": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
+                '></div>
+
+
+            </div>
+
+        </div>
+
+    </div>

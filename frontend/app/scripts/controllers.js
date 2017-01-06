@@ -412,7 +412,9 @@ angular.module('referendaApp')
 }])
 
 .controller('DevelopersController', ['$scope', function ($scope) {
+}])
 
+.controller('DebugController', ['$scope', function ($scope) {
 }])
 
 .controller('AboutController', ['$scope', 'corporateFactory', function ($scope, corporateFactory) {
