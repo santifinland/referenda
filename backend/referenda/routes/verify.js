@@ -44,7 +44,7 @@ exports.verifyAdmin = function (req, res, next) {
     } else {
         var id = req.decoded._id;
         if (!req.decoded.admin) {
-            var err = new Error('You are not authorzed admin');
+            var err = new Error('You are not authorized admin');
             err.status = 403;
             return next(err);
         } else

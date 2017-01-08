@@ -7,15 +7,17 @@ var User = new Schema({
     password: String,
     admin:   {
         type: Boolean,
-        default: false
+        default: false,
     },
     delegatedUser: {
         type: String,
-        default: null
+        default: null,
+        select: false
     },
     delegatedParty: {
         type: String,
-        default: null
+        default: null,
+        select: false
     }
 });
 

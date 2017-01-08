@@ -96,10 +96,14 @@ angular.module('referendaApp')
             vote: vote
         };
         commentVoteFactory
-            .save({slug: $stateParams.slug, commentId: commentId}, $scope.mycommentvote)
-            .$promise.then(function(res) {
-                $scope.law = res;
-            });
+            .save({slug: $stateParams.slug, commentId: commentId}, $scope.mycommentvote,
+                function (response) {
+                    $scope.law = response;
+                    $state.go($state.current, {}, {reload: true});
+                },
+                function (response) {
+                    $scope.message = "Error: " + response.status + " " + response.statusText;
+                });
     }
 
     $scope.submitVoteYes = function () {
@@ -109,7 +113,9 @@ angular.module('referendaApp')
         voteFactory
             .save({slug: $stateParams.slug}, $scope.myvoteyes)
             .$promise.then(function(res) {
-                $scope.law = res;
+                $scope.law.positive = res.positive;
+                $scope.law.negative = res.negative;
+                $scope.law.abstention = res.abstention;
             }, function(error) {
                 $scope.loggedIn = false;
                 ngDialog.open({ template: 'views/login.html', scope: $scope, className: 'ngdialog-theme-default',
@@ -124,7 +130,9 @@ angular.module('referendaApp')
         voteFactory
             .save({slug: $stateParams.slug}, $scope.myvoteno)
             .$promise.then(function(res) {
-                $scope.law = res;
+                $scope.law.positive = res.positive;
+                $scope.law.negative = res.negative;
+                $scope.law.abstention = res.abstention;
             }, function(error) {
                 $scope.loggedIn = false;
                 ngDialog.open({ template: 'views/login.html', scope: $scope, className: 'ngdialog-theme-default',
@@ -139,7 +147,9 @@ angular.module('referendaApp')
         voteFactory
             .save({slug: $stateParams.slug}, $scope.myvoteabstention)
             .$promise.then(function(res) {
-                $scope.law = res;
+                $scope.law.positive = res.positive;
+                $scope.law.negative = res.negative;
+                $scope.law.abstention = res.abstention;
             }, function(error) {
                 $scope.loggedIn = false;
                 ngDialog.open({ template: 'views/login.html', scope: $scope, className: 'ngdialog-theme-default',
@@ -318,24 +328,15 @@ angular.module('referendaApp')
             });
     }
 
-    $scope.submitDelegateUser = function (id) {
+    $scope.submitDelegateUser = function (username) {
         delegateUserFactory
-            .save({ id: id})
-            .$promise.then(
-                function(res) {
-                    $scope.delegatedUser = delegateUserFactory.get({
-                            id: $stateParams.id
-                    })
-                    .$promise.then(
-                        function (response) {
-                            $scope.delegatedUser = response;
-                            $scope.delegation = "user";
-                        },
-                        function (response) {
-                            $scope.message = "Error: " + response.status + " " + response.statusText;
-                        }
-                    );
-                }, function (response) {
+            .save({ username: username},
+                function (response) {
+                    console.log(response);
+                    $scope.delegatedUser = response;
+                    $scope.delegation = "user";
+                },
+                function (response) {
                     $scope.message = "Error: " + response.status + " " + response.statusText;
                 }
             );

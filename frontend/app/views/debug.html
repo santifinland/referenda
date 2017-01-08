@@ -4,7 +4,7 @@
 
             <div class="col-xs-12">
                 <div swagger-ui input-type="json" api-explorer="true" input='
-                {
+{
     "swagger": "2.0",
     "info": {
         "version": "1.0.0",
@@ -84,7 +84,10 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "sends the party with partyName"
+                        "description": "sends the party with partyName",
+                        "schema": {
+                            "$ref": "#/definitions/Party"
+                        }
                     },
                     "404": {
                         "description": "party not found for provided partyName"
@@ -122,6 +125,9 @@
                         "description": "Sends the updated party with partyName"
                     },
                     "401": {
+                        "description": "x-access-token not authenticated"
+                    },
+                    "403": {
                         "description": "x-access-token not authorized to perform this operation"
                     },
                     "404": {
@@ -151,6 +157,9 @@
                         "description": "party successfuly deleted"
                     },
                     "401": {
+                        "description": "x-access-token not authenticated"
+                    },
+                    "403": {
                         "description": "x-access-token not authorized to perform this operation"
                     },
                     "404": {
@@ -168,6 +177,7 @@
                 "parameters": [
                     {
                         "name": "results",
+                        "description": "if true return only already debated and voted laws. If false return only laws not yet voted.",
                         "in": "query",
                         "required": false,
                         "type": "boolean"
@@ -187,7 +197,7 @@
                 }
             },
             "post": {
-                "description": "Creates a new law being debated in Congress",
+                "description": "Creates a new law being debated in Congress. Computes initial law votes based in user delegation, party delegation and initial party positions for the law.",
                 "parameters": [
                     {
                         "name": "x-access-token",
@@ -207,7 +217,16 @@
                 ],
                 "responses": {
                     "201": {
-                        "description": "Create a new law"
+                        "description": "create a new law",
+                        "schema": {
+                            "$ref": "#/definitions/Slug"
+                        }
+                    },
+                    "401": {
+                        "description": "x-access-token not authorized to perform this operation"
+                    },
+                    "500": {
+                        "description": "error creating a new law"
                     }
                 }
             }
@@ -229,10 +248,14 @@
                         "schema": {
                             "$ref": "#/definitions/LawWithComments"
                         }
+                    },
+                    "404": {
+                        "description": "Law not found for provided law slug"
                     }
                 }
             },
             "put": {
+                "description": "Updates a law. Updates law votes based in user delegation, party delegation and updated party positions for the law.",
                 "parameters": [
                     {
                         "name": "x-access-token",
@@ -247,14 +270,29 @@
                         "type": "string",
                         "description": "slug of the law to be modified",
                         "required": true
+                    },
+                    {
+                        "name": "law",
+                        "in": "body",
+                        "description": "The law JSON to be updated",
+                        "schema": {
+                            "$ref": "#/definitions/LawExtended"
+                        },
+                        "required": true
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Sends the updated law",
-                        "schema": {
-                            "$ref": "#/definitions/Law"
-                        }
+                        "description": "Law updated"
+                    },
+                    "401": {
+                        "description": "x-access-token not authenticated"
+                    },
+                    "403": {
+                        "description": "x-access-token not authorized to perform this operation"
+                    },
+                    "404": {
+                        "description": "Law not found for provided law slug"
                     }
                 }
             },
@@ -271,19 +309,29 @@
                         "name": "slug",
                         "in": "path",
                         "type": "string",
-                        "description": "slug of the law to be deleted",
+                        "description": "Slug of the law to be deleted",
                         "required": true
                     }
                 ],
                 "responses": {
                     "204": {
-                        "description": "law successfuly deleted"
+                        "description": "Law successfuly deleted"
+                    },
+                    "401": {
+                        "description": "x-access-token not authenticated"
+                    },
+                    "403": {
+                        "description": "x-access-token not authorized to perform this operation"
+                    },
+                    "404": {
+                        "description": "Law not found for provided law slug"
                     }
                 }
             }
         },
         "/laws/{slug}/votes": {
             "post": {
+                "description": "Add a vote from a user to the law. If the user had vote delegation to a party or to a user, that delegated vote is removed for this law.",
                 "parameters": [
                     {
                         "name": "x-access-token",
@@ -296,13 +344,13 @@
                         "name": "slug",
                         "in": "path",
                         "type": "string",
-                        "description": "slug of the law to be voted",
+                        "description": "Slug of the law to be voted",
                         "required": true
                     },
                     {
                         "name": "vote",
                         "in": "body",
-                        "description": "vote to be added to the law",
+                        "description": "Vote to be added to the law",
                         "required": true,
                         "schema": {
                             "$ref": "#/definitions/Vote"
@@ -311,28 +359,38 @@
                 ],
                 "responses": {
                     "201": {
-                        "description": "added vote to the law",
+                        "description": "Added vote to the law",
                         "schema": {
-                            "$ref": "#/definitions/LawExtended"
+                            "$ref": "#/definitions/LawVotes"
                         }
+                    },
+                    "401": {
+                        "description": "x-access-token not authenticated"
+                    },
+                    "404": {
+                        "description": "Law not found for provided law slug"
+                    },
+                    "405": {
+                        "description": "Votes no longer allowed for this law"
                     }
                 }
             }
         },
         "/laws/{slug}/comments": {
             "get": {
+                "description": "Retrieve all the comments posted by the community for the requested law",
                 "parameters": [
                     {
                         "name": "slug",
                         "in": "path",
                         "type": "string",
-                        "description": "slug of the requested law",
+                        "description": "Slug of the requested law",
                         "required": true
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "comments posted by the community for the requested law",
+                        "description": "Comments posted by the community for the requested law",
                         "schema": {
                             "title": "comments",
                             "type": "array",
@@ -340,6 +398,9 @@
                                 "$ref": "#/definitions/Comment"
                             }
                         }
+                    },
+                    "404": {
+                        "description": "Law not found for provided law slug"
                     }
                 }
             },
@@ -365,13 +426,19 @@
                         "description": "comment to be added to the law",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/Comment"
+                            "$ref": "#/definitions/CommentText"
                         }
                     }
                 ],
                 "responses": {
                     "201": {
                         "description": "added comment to the low"
+                    },
+                    "401": {
+                        "description": "x-access-token not authenticated"
+                    },
+                    "404": {
+                        "description": "Law not found for provided law slug"
                     }
                 }
             },
@@ -395,6 +462,15 @@
                 "responses": {
                     "204": {
                         "description": "deleted all comments from the low"
+                    },
+                    "401": {
+                        "description": "x-access-token not authenticated"
+                    },
+                    "403": {
+                        "description": "x-access-token not authorized to perform this operation"
+                    },
+                    "404": {
+                        "description": "Law not found for provided law slug"
                     }
                 }
             }
@@ -413,23 +489,26 @@
                         "name": "slug",
                         "in": "path",
                         "type": "string",
-                        "description": "slug of the law with the comment to be requested",
+                        "description": "Slug of the law with the comment to be requested",
                         "required": true
                     },
                     {
                         "name": "commentId",
                         "in": "path",
                         "type": "string",
-                        "description": "commentId of the comment to be requested",
+                        "description": "CommentId of the comment to be requested",
                         "required": true
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "comment posted by the community for the requested law",
+                        "description": "Comment posted by the community for the requested law",
                         "schema": {
                             "$ref": "#/definitions/Comment"
                         }
+                    },
+                    "404": {
+                        "description": "Law not found for provided law slug"
                     }
                 }
             },
@@ -446,32 +525,38 @@
                         "name": "slug",
                         "in": "path",
                         "type": "string",
-                        "description": "slug of the law with the comment to be updated",
+                        "description": "Slug of the law with the comment to be updated",
                         "required": true
                     },
                     {
                         "name": "commentId",
                         "in": "path",
                         "type": "string",
-                        "description": "commentId of the comment to be updated",
+                        "description": "CommentId of the comment to be updated",
                         "required": true
                     },
                     {
                         "name": "comment",
                         "in": "body",
-                        "description": "comment to be updated",
+                        "description": "Comment to be updated",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/Comment"
+                            "$ref": "#/definitions/CommentText"
                         }
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "comment updated",
-                        "schema": {
-                            "$ref": "#/definitions/LawExtended"
-                        }
+                    "200": {
+                        "description": "Comment updated"
+                    },
+                    "401": {
+                        "description": "x-access-token not authenticated"
+                    },
+                    "403": {
+                        "description": "x-access-token not authorized to perform this operation"
+                    },
+                    "404": {
+                        "description": "Law not found for provided law slug"
                     }
                 }
             },
@@ -488,20 +573,29 @@
                         "name": "slug",
                         "in": "path",
                         "type": "string",
-                        "description": "slug of the law with the comment to be deleted",
+                        "description": "Slug of the law with the comment to be deleted",
                         "required": true
                     },
                     {
                         "name": "commentId",
                         "in": "path",
                         "type": "string",
-                        "description": "commentId of the comment to be deleted",
+                        "description": "CommentId of the comment to be deleted",
                         "required": true
                     }
                 ],
                 "responses": {
                     "204": {
-                        "description": "comment successfuly deleted"
+                        "description": "Comment successfuly deleted"
+                    },
+                    "401": {
+                        "description": "x-access-token not authenticated"
+                    },
+                    "403": {
+                        "description": "x-access-token not authorized to perform this operation"
+                    },
+                    "404": {
+                        "description": "Law not found for provided law slug"
                     }
                 }
             }
@@ -520,20 +614,20 @@
                         "name": "slug",
                         "in": "path",
                         "type": "string",
-                        "description": "slug of the law with the comment to be voted",
+                        "description": "Slug of the law with the comment to be voted",
                         "required": true
                     },
                     {
                         "name": "commentId",
                         "in": "path",
                         "type": "string",
-                        "description": "commentId of the comment to be updated",
+                        "description": "CommentId of the comment to be updated",
                         "required": true
                     },
                     {
                         "name": "vote",
                         "in": "body",
-                        "description": "vote to be added to the comment",
+                        "description": "Vote to be added to the comment",
                         "required": true,
                         "schema": {
                             "$ref": "#/definitions/Vote"
@@ -542,7 +636,13 @@
                 ],
                 "responses": {
                     "201": {
-                        "description": "added vote to comment of the low"
+                        "description": "Added vote to comment of the low"
+                    },
+                    "401": {
+                        "description": "x-access-token not authenticated"
+                    },
+                    "404": {
+                        "description": "Law not found for provided law slug"
                     }
                 }
             }
@@ -575,6 +675,9 @@
                                 "$ref": "#/definitions/Username"
                             }
                         }
+                    },
+                    "405": {
+                        "description": "Username parameter too short"
                     }
                 }
             }
@@ -592,10 +695,10 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "user logged or not",
-                        "schema": {
-                            "$ref": "#/definitions/UserLogged"
-                        }
+                        "description": "User is logged"
+                    },
+                    "401": {
+                        "description": "x-access-token not authenticated. User is not logged"
                     }
                 }
             }
@@ -606,7 +709,7 @@
                     {
                         "name": "user",
                         "in": "body",
-                        "description": "user to be registered in referenda.es",
+                        "description": "User to be registered in referenda.es",
                         "required": true,
                         "schema": {
                             "$ref": "#/definitions/User"
@@ -615,7 +718,10 @@
                 ],
                 "responses": {
                     "201": {
-                        "description": "user added to referenda.es"
+                        "description": "User added to referenda.es"
+                    },
+                    "500": {
+                        "description": "User can not be registered to referenda.es"
                     }
                 }
             }
@@ -635,7 +741,10 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "user logged in at referenda.es"
+                        "description": "user logged in at referenda.es",
+                        "schema": {
+                            "$ref": "#/definitions/UserLogged"
+                        }
                     },
                     "401": {
                         "description": "wrong credentials"
@@ -647,7 +756,7 @@
             }
         },
         "/users/logout": {
-            "post": {
+            "get": {
                 "responses": {
                     "200": {
                         "description": "user logged out from referenda.es"
@@ -670,7 +779,7 @@
                     "200": {
                         "description": "user delegated party",
                         "schema": {
-                            "$ref": "#/definitions/DelegatedPartyId"
+                            "$ref": "#/definitions/Party"
                         }
                     }
                 }
@@ -696,7 +805,13 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "user delegated party"
+                        "description": "User delegated party"
+                    },
+                    "400": {
+                        "description": "Party not found"
+                    },
+                    "401": {
+                        "description": "x-access-token not authenticated"
                     }
                 }
             }
@@ -716,8 +831,11 @@
                     "200": {
                         "description": "user delegated user",
                         "schema": {
-                            "$ref": "#/definitions/DelegatedUserId"
+                            "$ref": "#/definitions/Username"
                         }
+                    },
+                    "401": {
+                        "description": "x-access-token not authenticated"
                     }
                 }
             },
@@ -731,18 +849,24 @@
                         "type": "string"
                     },
                     {
-                        "name": "id",
+                        "name": "username",
                         "in": "body",
-                        "description": "The user delegated user id to be setted",
+                        "description": "The user delegated username to be setted",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/DelegatedUserId"
+                            "$ref": "#/definitions/Username"
                         }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "user delegated user"
+                        "description": "User delegated user"
+                    },
+                    "401": {
+                        "description": "x-access-token not authenticated"
+                    },
+                    "404": {
+                        "description": "User not found"
                     }
                 }
             }
@@ -753,9 +877,11 @@
             "type": "object",
             "properties": {
                 "_id": {
+                    "description": "internal identifier of the comment",
                     "type": "string"
                 },
                 "comment": {
+                    "description": "text comment",
                     "type": "string"
                 },
                 "positive": {
@@ -769,8 +895,13 @@
                     "format": "int32"
                 },
                 "postedBy": {
-                    "description": "the id of the user that posted this comment",
-                    "type": "string"
+                    "description": "the username of the user that posted this comment",
+                    "type": "object",
+                    "properties": {
+                        "username": {
+                            "type": "string"
+                        }
+                    }
                 },
                 "replies": {
                     "description": "array of comments in reply of this comment",
@@ -778,6 +909,23 @@
                     "items": {
                         "$ref": "#/definitions/Comment"
                     }
+                },
+                "updatedAt": {
+                    "description": "update date of the comment",
+                    "type": "string"
+                },
+                "createdAt": {
+                    "description": "creation date of the comment",
+                    "type": "string"
+                }
+            }
+        },
+        "CommentText": {
+            "type": "object",
+            "properties": {
+                "comment": {
+                    "description": "text comment",
+                    "type": "string"
                 }
             }
         },
@@ -802,9 +950,6 @@
         "Law": {
             "type": "object",
             "properties": {
-                "_id": {
-                    "type": "string"
-                },
                 "law_type": {
                     "description": "type of the law",
                     "type": "string"
@@ -878,104 +1023,12 @@
                     "description": "abstention votes received by the law in the Congress",
                     "type": "integer",
                     "format": "int32"
-                }
-            }
-        },
-        "LawWithComments": {
-            "type": "object",
-            "properties": {
-                "_id": {
-                    "type": "string"
-                },
-                "law_type": {
-                    "description": "type of the law",
-                    "type": "string"
-                },
-                "institution": {
-                    "description": "institution of party behind the law",
-                    "type": "string"
-                },
-                "tier": {
-                    "description": "importance of the law. 1 to 3 levels",
-                    "type": "string"
-                },
-                "headline": {
-                    "description": "short headline of the law",
-                    "type": "string"
-                },
-                "slug": {
-                    "description": "very short unique headline of the law",
-                    "type": "string"
-                },
-                "short_description": {
-                    "description": "brief description of the law",
-                    "type": "string"
-                },
-                "long_description": {
-                    "description": "long description of the law",
-                    "type": "string"
-                },
-                "link": {
-                    "description": "official link in the Congress online publications",
-                    "type": "string"
-                },
-                "pub_date": {
-                    "description": "date the law is publicated in referenda.es",
-                    "type": "string"
-                },
-                "vote_start": {
-                    "description": "date the law can be votedin referenda.es",
-                    "type": "string"
-                },
-                "vote_end": {
-                    "description": "date the law can no longer be voted in referenda.es",
-                    "type": "string"
-                },
-                "positive": {
-                    "description": "positive votes received by the law in referenda.es",
-                    "type": "integer",
-                    "format": "int32"
-                },
-                "negative": {
-                    "description": "negative votes received by the law in referenda.es",
-                    "type": "integer",
-                    "format": "int32"
-                },
-                "abstention": {
-                    "description": "abstention votes received by the law in referenda.es",
-                    "type": "integer",
-                    "format": "int32"
-                },
-                "official_positive": {
-                    "description": "positive votes received by the law in the Congress",
-                    "type": "integer",
-                    "format": "int32"
-                },
-                "official_negative": {
-                    "description": "negative votes received by the law in the Congress",
-                    "type": "integer",
-                    "format": "int32"
-                },
-                "official_abstention": {
-                    "description": "abstention votes received by the law in the Congress",
-                    "type": "integer",
-                    "format": "int32"
-                },
-                "comments": {
-                    "description": "comments posted by the community for this law",
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/Comment"
-                    }
                 }
             }
         },
         "LawExtended": {
             "type": "object",
             "properties": {
-                "_id": {
-                    "type": "string"
-                },
                 "law_type": {
                     "description": "type of the law",
                     "type": "string"
@@ -1117,6 +1170,120 @@
                 }
             }
         },
+        "LawVotes": {
+            "type": "object",
+            "properties": {
+                "positive": {
+                    "description": "positive votes received by the law in referenda.es",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "negative": {
+                    "description": "negative votes received by the law in referenda.es",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "abstention": {
+                    "description": "abstention votes received by the law in referenda.es",
+                    "type": "integer",
+                    "format": "int32"
+                }
+            }
+        },
+        "LawWithComments": {
+            "type": "object",
+            "properties": {
+                "law_type": {
+                    "description": "type of the law",
+                    "type": "string"
+                },
+                "institution": {
+                    "description": "institution of party behind the law",
+                    "type": "string"
+                },
+                "tier": {
+                    "description": "importance of the law. 1 to 3 levels",
+                    "type": "string"
+                },
+                "headline": {
+                    "description": "short headline of the law",
+                    "type": "string"
+                },
+                "slug": {
+                    "description": "very short unique headline of the law",
+                    "type": "string"
+                },
+                "short_description": {
+                    "description": "brief description of the law",
+                    "type": "string"
+                },
+                "long_description": {
+                    "description": "long description of the law",
+                    "type": "string"
+                },
+                "link": {
+                    "description": "official link in the Congress online publications",
+                    "type": "string"
+                },
+                "pub_date": {
+                    "description": "date the law is publicated in referenda.es",
+                    "type": "string"
+                },
+                "vote_start": {
+                    "description": "date the law can be votedin referenda.es",
+                    "type": "string"
+                },
+                "vote_end": {
+                    "description": "date the law can no longer be voted in referenda.es",
+                    "type": "string"
+                },
+                "positive": {
+                    "description": "positive votes received by the law in referenda.es",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "negative": {
+                    "description": "negative votes received by the law in referenda.es",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "abstention": {
+                    "description": "abstention votes received by the law in referenda.es",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "official_positive": {
+                    "description": "positive votes received by the law in the Congress",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "official_negative": {
+                    "description": "negative votes received by the law in the Congress",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "official_abstention": {
+                    "description": "abstention votes received by the law in the Congress",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "comments": {
+                    "description": "comments posted by the community for this law",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Comment"
+                    }
+                }
+            }
+        },
+        "Slug": {
+            "type": "object",
+            "properties": {
+                "slug": {
+                    "type": "string"
+                }
+            }
+        },
         "User": {
             "type": "object",
             "properties": {
@@ -1139,7 +1306,13 @@
         "UserLogged": {
             "type": "object",
             "properties": {
-                "logged": {
+                "status": {
+                    "type": "string"
+                },
+                "success": {
+                    "type": "boolean"
+                },
+                "token": {
                     "type": "string"
                 }
             }
@@ -1150,22 +1323,6 @@
                 "vote": {
                     "type": "integer",
                     "format": "int32"
-                }
-            }
-        },
-        "DelegatedPartyId": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "string"
-                }
-            }
-        },
-        "DelegatedUserId": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "string"
                 }
             }
         },

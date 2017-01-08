@@ -46,7 +46,7 @@ angular.module('referendaApp')
 
 .factory('delegateUserFactory', ['$resource', 'baseURL', function ($resource, baseURL) {
 
-        return $resource(baseURL + "users/delegateuser/:id", {id:"@Id"}, {
+        return $resource(baseURL + "users/delegateuser", {
         });
 }])
 

@@ -24,8 +24,8 @@ lawRouter.route('/')
         req.query.vote_end = {$gte: today};
     }
     Laws.find(req.query)
-        .select('law_type institution tier headline slug short_description long_description link pub_date vote_start' +
-                 'vote_end positive negative abstention official_positive official_negative official_abstention')
+        .select('law_type institution tier headline slug short_description long_description link pub_date vote_start ' +
+                 'vote_end positive negative abstention official_positive official_negative official_abstention -_id')
         .exec(function (err, law) {
         if (err) next(err);
         res.json(law);
@@ -273,11 +273,7 @@ lawRouter.route('/')
                                                           Laws.create(req.body, function (err, law) {
                                                              if (err) return next(err);
                                                              console.log('law created!');
-                                                             var id = law._id;
-                                                             res.writeHead(201, {
-                                                                 'Content-Type': 'text/plain'
-                                                             });
-                                                             res.end('Added the law with id: ' + id);
+                                                             res.status(201).json({"slug": law.slug});
                                                           });
                                                         });
                                                       });
@@ -311,10 +307,17 @@ lawRouter.route('/')
 lawRouter.route('/:slug')
 .get(function (req, res, next) {
     Laws.findOne({"slug": req.params.slug})
-        .populate('comments.postedBy')
+        .select('law_type institution tier headline slug short_description long_description link pub_date vote_start ' +
+                 'vote_end positive negative abstention official_positive official_negative official_abstention ' +
+                 'comments -_id')
+        .populate('comments.postedBy', '-admin -_id -__v')
         .exec(function (err, law) {
         if (err) return next(err);
-        res.json(law);
+        if (law) {
+            res.json(law);
+        } else {
+            res.status(404).end();
+        }
     });
 })
 .put(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function (req, res, next) {
@@ -342,7 +345,8 @@ lawRouter.route('/:slug')
     }
     // Count votes per type
     Laws.findOne({"slug": req.params.slug}, function (err, law) {
-        if (err) return next(err);
+      if (err) return next(err);
+      if (law) {
         console.log(law);
         Votes.find({"lawId": law._id, "vote": 1}, {'userId':1, '_id':0}, function(err, positives) {
             if (err) return next(err);
@@ -741,7 +745,7 @@ lawRouter.route('/:slug')
                                                                             law.save(function (err, l) {
                                                                                 if (err) return next(err);
                                                                                 console.log('Updated Law!');
-                                                                                res.json(l);
+                                                                                res.status(200).end();
                                                                             });
                                                                           });
                                                                         });
@@ -772,49 +776,67 @@ lawRouter.route('/:slug')
                 });
             });
         });
+      } else {
+        res.status(404).end();
+      }
     });
 })
 .delete(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function (req, res, next) {
-        Laws.findByIdAndRemove(req.params.lawId, function (err, resp) {
+        Laws.findOne({"slug": req.params.slug}, function (err, law) {
         if (err) return next(err);
-        res.json(resp);
+        if (law) {
+            law.remove(function (err, remove_res) {
+                if (err) return next(err);
+                res.status(204).end();
+            });
+        } else {
+            res.status(404).end();
+        }
     });
 });
 
 lawRouter.route('/:slug/comments')
 .get(function (req, res, next) {
     Laws.findOne({"slug": req.params.slug})
-        .populate('comments.postedBy')
+        .populate('comments.postedBy', '-admin -_id -__v')
         .exec(function (err, law) {
         if (err) return next(err);
-        res.json(law.comments);
+        if (law) {
+            res.json(law.comments);
+        } else {
+            res.status(404).end();
+        }
     });
 })
 .post(Verify.verifyOrdinaryUser, function (req, res, next) {
     Laws.findOne({"slug": req.params.slug}, function (err, law) {
-        if (err) return next(err);
-        req.body.postedBy = req.decoded._id;
-        law.comments.push(req.body);
-        law.save(function (err, law) {
+        if (law) {
             if (err) return next(err);
-            console.log('Updated Comments!');
-            res.json(law);
-        });
+            law.comments.push({"comment": req.body.comment, "postedBy": req.decoded._id});
+            law.save(function (err, law) {
+                if (err) return next(err);
+                console.log('Updated Comments!');
+                res.status(201).end();
+            });
+        } else {
+            res.status(404).end();
+        }
     });
 })
 .delete(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function (req, res, next) {
     Laws.findOne({"slug": req.params.slug}, function (err, law) {
-        if (err) return next(err);
-        for (var i = (law.comments.length - 1); i >= 0; i--) {
-            law.comments.id(law.comments[i]._id).remove();
-        }
-        law.save(function (err, result) {
+        if (law) {
             if (err) return next(err);
-            res.writeHead(200, {
-                'Content-Type': 'text/plain'
+            for (var i = (law.comments.length - 1); i >= 0; i--) {
+                law.comments.id(law.comments[i]._id).remove();
+            }
+            law.save(function (err, result) {
+                if (err) return next(err);
+                res.status(204).end();
             });
-            res.end('Deleted all comments!');
-        });
+        } else {
+            res.status(404).end();
+        }
     });
 });
 
@@ -857,12 +879,16 @@ lawRouter.route('/:slug/votes')
             }
         });
     }
-    Laws.findOne({"slug": req.params.slug}, function (err, law) {
+    if (req.body.vote < 1 || req.body.vote > 3) {
+        res.status(400).json({"Reason": "Vote out of bounds: 1-3"});
+    } else {
+      Laws.findOne({"slug": req.params.slug}, function (err, law) {
         if (err) return next(err);
         var today = new Date();
-        if (law.vote_end < today) {
-            res.json(law);
-        } else {
+        if (law) {
+          if (law.vote_end < today) {
+             res.status(405).json({"Reason": "Votes no longer allowed for this law"});
+          } else {
             console.log("En post de votes");
             console.log(req.body);
             console.log(law.positive);
@@ -909,7 +935,11 @@ lawRouter.route('/:slug/votes')
                                 law.save(function (err, law) {
                                     if (err) return next(err);
                                     console.log('Updated Votes!');
-                                    res.json(law);
+                                    res.status(201).json({
+                                        "positive": law.positive,
+                                        "negative": law.negative,
+                                        "abstention": law.abstention
+                                        });
                                 });
                             });
                         } else {
@@ -951,7 +981,11 @@ lawRouter.route('/:slug/votes')
                                     law.save(function (err, law) {
                                     if (err) return next(err);
                                         console.log('Updated Votes!');
-                                        res.json(law);
+                                        res.status(201).json({
+                                            "positive": law.positive,
+                                            "negative": law.negative,
+                                            "abstention": law.abstention
+                                            });
                                     });
                                 });
                             });
@@ -994,24 +1028,36 @@ lawRouter.route('/:slug/votes')
                             law.save(function (err, law) {
                                 if (err) return next(err);
                                 console.log('Updated Votes!');
-                                res.json(law);
+                                res.status(201).json({
+                                    "positive": law.positive,
+                                    "negative": law.negative,
+                                    "abstention": law.abstention
+                                    });
                             });
                         });
                     });
                 }
             });
+          }
+        } else {
+            res.status(404).end();
         }
-    });
+      });
+    }
 });
 
 lawRouter.route('/:slug/comments/:commentId')
 
 .get(Verify.verifyOrdinaryUser, function (req, res, next) {
     Laws.findOne({"slug": req.params.slug})
-        .populate('comments.postedBy')
+        .populate('comments.postedBy', '-admin -_id -__v')
         .exec(function (err, law) {
         if (err) return next(err);
-        res.json(law.comments.id(req.params.commentId));
+        if (law) {
+            res.json(law.comments.id(req.params.commentId));
+        } else {
+            res.status(404).end();
+        }
     });
 })
 
@@ -1020,78 +1066,101 @@ lawRouter.route('/:slug/comments/:commentId')
     // comment as a new comment
     Laws.findOne({"slug": req.params.slug}, function (err, law) {
         if (err) return next(err);
-        law.comments.id(req.params.commentId).remove();
-        req.body.postedBy = req.decoded._id;
-        law.comments.push(req.body);
-        law.save(function (err, law) {
-            if (err) return next(err);
-            console.log('Updated Comments!');
-            res.json(law);
-        });
+        if (law) {
+            if (law.comments.id(req.params.commentId)) {
+                if (law.comments.id(req.params.commentId).postedBy == req.decoded._id) {
+                    law.comments.id(req.params.commentId).comment = req.body.comment;
+                    law.save(function (err, law) {
+                        if (err) return next(err);
+                        console.log('Updated Comments!');
+                        res.status(200).end();
+                    });
+                } else {
+                    res.status(403).end();
+                }
+            } else {
+                res.status(404).end();
+            }
+        } else {
+            res.status(404).end();
+        }
     });
 })
 
-.delete(Verify.verifyOrdinaryUser, function (req, res, next) {
+.delete(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function (req, res, next) {
     Laws.findOne({"slug": req.params.slug}, function (err, law) {
-        if (law.comments.id(req.params.commentId).postedBy
-           != req.decoded._id) {
-            var err = new Error('You are not authorized to perform this operation!');
-            err.status = 403;
-            return next(err);
+        if (err) return next(err);
+        if (law) {
+            if (law.comments.id(req.params.commentId)) {
+                law.comments.id(req.params.commentId).remove();
+                law.save(function (err, resp) {
+                    if (err) return next(err);
+                    res.status(204).end();
+                });
+            } else {
+                res.status(404).end();
+            }
+        } else {
+            res.status(404).end();
         }
-        law.comments.id(req.params.commentId).remove();
-        law.save(function (err, resp) {
-            if (err) return next(err);
-            res.json(resp);
-        });
     });
 });
 
 lawRouter.route('/:slug/comments/:commentId/votes')
 .post(Verify.verifyOrdinaryUser, function (req, res, next) {
-    Laws.findOne({"slug": req.params.slug}, function (err, law) {
+    Laws.findOne({"slug": req.params.slug})
+        .exec(function (err, law) {
         if (err) return next(err);
-        console.log("En post de comment votes");
-        // Find previous vote from same user
-        CommentVotes.find({"lawId": law._id, "commentId": req.params.commentId,
-            "userId": req.decoded._id}).exec(function (err, votes) {
-            if (err) return next(err);
-            console.log(votes.length);
-            if (!votes.length) {
-                console.log("No has votado todavia");
-                Users.findById(req.decoded._id, function (err, user) {
-                    if (err) return next(err);
-                    console.log(user);
-                    // Create vote
-                    console.log(req.body.vote);
-                    var newCommentVote = new CommentVotes({
-                        "lawId": law._id,
-                        "commentId": req.params.commentId,
-                        "userId": req.decoded._id,
-                         "vote": req.body.vote});
-                    console.log(newCommentVote);
-                    newCommentVote.save(function (err, v) {
-                        if (err) return console.error(err);
-                        console.log('Saved CommentVote!');
-                    });
-                    var comment = law.comments.id(req.params.commentId);
-                    if (req.body.vote == 1) {
-                        comment.positive = comment.positive + 1;
-                    } else {
-                        comment.negative = comment.negative + 1;
-                    }
-                    law.comments.id(req.params.commentId).remove();
-                    law.comments.push(comment);
-                    law.save(function (err, law) {
+        if (law) {
+          console.log("En post de comment votes");
+          // Check if comment exists
+          if (law.comments.id(req.params.commentId)) {
+              // Find previous vote from same user
+              CommentVotes.find({"lawId": law._id, "commentId": req.params.commentId,
+                "userId": req.decoded._id}).exec(function (err, votes) {
+                if (err) return next(err);
+                console.log(votes.length);
+                if (!votes.length) {
+                    console.log("No has votado todavia");
+                    Users.findById(req.decoded._id, function (err, user) {
                         if (err) return next(err);
-                        console.log('Updated Comments!');
-                        res.json(law);
+                        console.log(user);
+                        // Create vote
+                        console.log(req.body.vote);
+                        var newCommentVote = new CommentVotes({
+                            "lawId": law._id,
+                            "commentId": req.params.commentId,
+                            "userId": req.decoded._id,
+                             "vote": req.body.vote});
+                        console.log(newCommentVote);
+                        newCommentVote.save(function (err, v) {
+                            if (err) return console.error(err);
+                            console.log('Saved CommentVote!');
+                        });
+                        var comment = law.comments.id(req.params.commentId);
+                        if (req.body.vote == 1) {
+                            comment.positive = comment.positive + 1;
+                        } else {
+                            comment.negative = comment.negative + 1;
+                        }
+                        law.comments.id(req.params.commentId).remove();
+                        law.comments.push(comment);
+                        law.save(function (err, law) {
+                            if (err) return next(err);
+                            console.log('Updated Comments!');
+                            res.status(201).end();
+                        });
                     });
-                });
-            } else {
-                console.log("Ya votaste");
-            }
-        });
+                } else {
+                    console.log("Ya votaste");
+                }
+              });
+          } else {
+              res.status(404).end();
+          }
+        } else {
+          res.status(404).end();
+        }
     });
 })
 
