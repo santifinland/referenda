@@ -65,6 +65,12 @@ angular.module('referendaApp')
         .$promise.then(
             function (response) {
                 $scope.law = response;
+                if (response.headline.length > 102) {
+                    $scope.twitter = "Vota en http://referenda.es la " + response.headline.substring(0, 102) + "...";
+                } else {
+                    $scope.twitter = "Vota en http://referenda.es la " + response.headline.substring(0, 102);
+                }
+                $scope.facebook = encodeURIComponent("http://referenda.es/" + response.slug);
                 $scope.showLaw = true;
                 var today = new Date();
                 if (new Date($scope.law.vote_end) < today) $scope.resultsCongreso = true;
