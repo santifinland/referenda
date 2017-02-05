@@ -15,8 +15,8 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-class='{red: law.official_positive >= law.official_negative,
-                      green: law.official_positive < law.official_negative}'
+                <tr ng-class='{green: law.official_positive >= law.official_negative,
+                      red: law.official_positive < law.official_negative}'
                     ng-repeat="law in laws | orderBy: '-vote_end' | filter:search">
                     <td>{{law.vote_end | date: 'yyyy - MM'}}</td>
                     <td><a ui-sref="app.lawdetails({slug: law.slug})">{{law.headline}}</a></td>
