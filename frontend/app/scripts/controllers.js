@@ -566,4 +566,86 @@ angular.module('referendaApp')
         controller:"RegisterController" });
     };
 }])
+
+.controller('StatsController', ['$scope', 'lawFactory', function($scope, lawFactory){
+
+    $scope.showStats = false;
+
+    $scope.options = {
+        chart: {
+            type: 'discreteBarChart',
+            height: 450,
+            margin : {
+                top: 20,
+                right: 20,
+                bottom: 50,
+                left: 55
+            },
+            x: function(d){return d.label;},
+            y: function(d){return d.value;},
+            showValues: true,
+            valueFormat: function(d){
+                return d3.format('')(d);
+            },
+            duration: 500,
+            xAxis: {
+                axisLabel: 'Grupos parlamentarios'
+            },
+            yAxis: {
+                axisLabel: 'Número de propuestas votadas en pleno',
+                axisLabelDistance: -10
+            }
+        }
+    };
+
+    lawFactory.query({"results": "true"},
+        function (response) {
+            $laws = response;
+            $scope.showStats = true;
+            $pp = {"label": "PP", "value": 0};
+            $psoe = {"label": "PSOE", "value": 0};
+            $podemos = {"label": "Podemos-IU", "value": 0};
+            $ciudadanos = {"label": "Ciudadanos", "value": 0};
+            $erc = {"label": "ERC", "value": 0};
+            $pnv = {"label": "PNV", "value": 0};
+            $cc = {"label": "Coalición Canaria", "value": 0};
+            $nc = {"label": "Nueva Canarias", "value": 0};
+            $compromis = {"label": "Compromis", "value": 0};
+            $fa = {"label": "Foro Asturias", "value": 0};
+            $upn = {"label": "UPN", "value": 0};
+            $bildu = {"label": "Bildu", "value": 0};
+            $gobierno = {"label": "Gobierno", "value": 0};
+            for (var key in $laws) {
+              if ($laws.hasOwnProperty(key)) {
+                if ($laws[key].institution == "pp") $pp.value += 1;
+                if ($laws[key].institution == "psoe") $psoe.value += 1;
+                if ($laws[key].institution == "podemos") $podemos.value += 1;
+                if ($laws[key].institution == "ciudadanos") $ciudadanos.value += 1;
+                if ($laws[key].institution == "erc") $erc.value += 1;
+                if ($laws[key].institution == "pnv") $pnv.value += 1;
+                if ($laws[key].institution == "cc") $cc.value += 1;
+                if ($laws[key].institution == "nc") $nc.value += 1;
+                if ($laws[key].institution == "compromis") $compromis.value += 1;
+                if ($laws[key].institution == "fa") $fa.value += 1;
+                if ($laws[key].institution == "upn") $upn.value += 1;
+                if ($laws[key].institution == "bildu") $bildu.value += 1;
+                if ($laws[key].institution == "gobierno") $gobierno.value += 1;
+                console.log(key + " -> " + $laws[key]);
+              }
+            }
+
+            $scope.data = [
+                {
+                    key: "Cumulative Return",
+                    values: [
+                        $pp,
+                        $psoe]
+                }
+            ]
+        },
+        function (response) {
+            $scope.message = "Error: " + response.status + " " + response.statusText;
+        }
+    );
+}])
 ;
