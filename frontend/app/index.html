@@ -19,6 +19,7 @@
     <link href="../bower_components/ng-dialog/css/ngDialog-theme-plain.min.css" rel="stylesheet">
     <link href="../bower_components/ng-dialog/css/ngDialog-theme-default.min.css" rel="stylesheet">
     <link href="../bower_components/angular-swagger-ui/dist/css/swagger-ui.min.css" rel="stylesheet">
+    <link href="../bower_components/nvd3/build/nv.d3.min.css" rel="stylesheet">
     <link href="styles/bootstrap-social.css" rel="stylesheet">
     <link href="styles/mystyles.css" rel="stylesheet">
     <!-- endbuild -->
@@ -34,9 +35,11 @@
 
 <body>
 
-     <div ui-view="header"></div>
-     <div ui-view="content"></div>
-     <div ui-view="footer"></div>
+    <div id="wrap">
+        <div ui-view="header"></div>
+        <div ui-view="content"></div>
+    </div>
+    <div id="footer" ui-view="footer"></div>
 
     <!-- build:js scripts/main.js -->
     <script src="../bower_components/angular/angular.min.js"></script>
@@ -46,6 +49,9 @@
     <script src="../bower_components/angular-cookies/angular-cookies.min.js"></script>
     <script src="../bower_components/angular-swagger-ui/dist/scripts/swagger-ui.min.js"></script>
     <script src="../bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+    <script src="../bower_components/d3/d3.min.js"></script>
+    <script src="../bower_components/nvd3/build/nv.d3.min.js"></script>
+    <script src="../bower_components/angular-nvd3/dist/angular-nvd3.min.js"></script>
     <script src="scripts/app.js"></script>
     <script src="scripts/controllers.js"></script>
     <script src="scripts/services.js"></script>

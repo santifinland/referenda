@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('referendaApp', ['ui.router','ngResource','ngDialog', 'ngCookies', 'ngSanitize', 'swaggerUi'])
+angular.module('referendaApp', ['ui.router','ngResource','ngDialog', 'ngCookies', 'ngSanitize', 'swaggerUi', 'nvd3'])
 .config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         $stateProvider
 
@@ -77,6 +77,20 @@ angular.module('referendaApp', ['ui.router','ngResource','ngDialog', 'ngCookies'
                     }
                 }
             })
+
+
+            // route for the stats page
+            .state('app.stats', {
+                url: 'stats',
+                views: {
+                    'content@': {
+                        templateUrl : 'views/stats.html',
+                        controller  : 'StatsController'
+                    }
+                }
+            })
+
+
 
             // route for the lawdetail page
             .state('app.lawdetails', {
