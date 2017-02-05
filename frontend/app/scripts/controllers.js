@@ -578,7 +578,7 @@ angular.module('referendaApp')
             margin : {
                 top: 20,
                 right: 20,
-                bottom: 50,
+                bottom: 80,
                 left: 55
             },
             x: function(d){return d.label;},
@@ -589,7 +589,8 @@ angular.module('referendaApp')
             },
             duration: 500,
             xAxis: {
-                axisLabel: 'Grupos parlamentarios'
+                axisLabel: 'Grupos parlamentarios',
+                rotateLabels: -45
             },
             yAxis: {
                 axisLabel: 'Número de propuestas votadas en pleno',
@@ -639,7 +640,18 @@ angular.module('referendaApp')
                     key: "Cumulative Return",
                     values: [
                         $pp,
-                        $psoe]
+                        $psoe,
+                        $podemos,
+                        $ciudadanos,
+                        $erc,
+                        $pnv,
+                        $cc,
+                        $nc,
+                        $compromis,
+                        $fa,
+                        $upn,
+                        $bildu,
+                        $gobierno]
                 }
             ]
         },
