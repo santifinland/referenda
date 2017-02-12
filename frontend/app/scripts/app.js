@@ -1,6 +1,7 @@
 'use strict';
 
-angular.module('referendaApp', ['ui.router','ngResource','ngDialog', 'ngCookies', 'ngSanitize', 'swaggerUi', 'nvd3'])
+angular.module('referendaApp', ['ui.router','ngResource','ngDialog', 'ngCookies', 'ngSanitize', 'swaggerUi', 'nvd3',
+                                'ngAnimate', 'ngTouch', 'ui.bootstrap'])
 .config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         $stateProvider
 

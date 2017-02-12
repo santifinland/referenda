@@ -400,6 +400,7 @@ angular.module('referendaApp')
 
     $scope.showLaws = false;
     $scope.message = "Loading ...";
+    $scope.ppActive = false;
 
     lawFactory.query({"results": "true"},
         function (response) {
@@ -410,6 +411,15 @@ angular.module('referendaApp')
             $scope.message = "Error: " + response.status + " " + response.statusText;
         }
     );
+
+    $scope.filterInstitution = function(institution, active) {
+        TODO Add a list or shomething to filter here
+        if active {
+            $scope.buttonFilter={institution: value};
+        } else {
+            $scope.buttonFilter={institution: value};
+        }
+    }
 }])
 
 .controller('DataProtectionController', ['$scope', function ($scope) {
