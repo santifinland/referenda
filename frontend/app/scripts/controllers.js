@@ -325,6 +325,14 @@ angular.module('referendaApp')
                 $scope.delegation = "party";
             });
     }
+    $scope.submitDelegatePartyPdCat = function () {
+        delegatePartyFactory
+            .save({ party: "pdcat"})
+            .$promise.then(function(res) {
+                $scope.party = res;
+                $scope.delegation = "party";
+            });
+    }
     $scope.submitDelegatePartyNoDelegar = function () {
         delegatePartyFactory
             .save({ party: "nd"})
@@ -615,6 +623,7 @@ angular.module('referendaApp')
             $fa = {"label": "Foro Asturias", "value": 0};
             $upn = {"label": "UPN", "value": 0};
             $bildu = {"label": "Bildu", "value": 0};
+            $pdcat = {"label": "PdCat", "value": 0};
             $gobierno = {"label": "Gobierno", "value": 0};
             for (var key in $laws) {
               if ($laws.hasOwnProperty(key)) {
@@ -630,6 +639,7 @@ angular.module('referendaApp')
                 if ($laws[key].institution == "fa") $fa.value += 1;
                 if ($laws[key].institution == "upn") $upn.value += 1;
                 if ($laws[key].institution == "bildu") $bildu.value += 1;
+                if ($laws[key].institution == "pdcat") $pdcat.value += 1;
                 if ($laws[key].institution == "gobierno") $gobierno.value += 1;
                 console.log(key + " -> " + $laws[key]);
               }
@@ -651,6 +661,7 @@ angular.module('referendaApp')
                         $fa,
                         $upn,
                         $bildu,
+                        $pdcat,
                         $gobierno]
                 }
             ]
