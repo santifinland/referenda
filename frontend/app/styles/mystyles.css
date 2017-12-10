@@ -11,7 +11,7 @@
 .footer {
   margin: 0px auto;
   padding: 0px 0px;
-  background-color: #208376;
+  background-color: #3D989D;
 }
 .jumbotron {
   margin: 0px auto;
@@ -44,9 +44,13 @@
   font-size: 200%;
   color: #ffffff;
 }
+.navbar {
+  border-bottom-width: 0px;
+  height: 85px;
+}
 .navbar-brand {
   margin: 0px auto;
-  padding: 0px 0px;
+  padding: 5px 0px 0px 20px;
 }
 @font-face {
     font-family: "Montserrat-Bold";
@@ -58,11 +62,11 @@
   background-color: #fff;
 }
 .sections .navbar-nav > .active > a {
-  border-bottom: thick solid #208376;
+  border-bottom: thick solid #3D989D;
   color: #000;
 }
 .navbar-inverse {
-  background: #208376;
+  background: #3D989D;
   color: #ffffff;
 }
 .navbar-inverse .navbar-nav > li > a {
