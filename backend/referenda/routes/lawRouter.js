@@ -771,7 +771,13 @@ lawRouter.route('/:slug')
                                                                                 law.ciudadanos = req.body.ciudadanos;
                                                                                 law.erc = req.body.erc;
                                                                                 law.pnv = req.body.pnv;
+                                                                                law.cc = req.body.cc;
+                                                                                law.nc = req.body.nc;
                                                                                 law.compromis = req.body.compromis;
+                                                                                law.fa = req.body.fa;
+                                                                                law.upn = req.body.upn;
+                                                                                law.bildu = req.body.bildu;
+                                                                                law.pdcat = req.body.pdcat;
                                                                                 law.positive = req.body.positive;
                                                                                 law.negative = req.body.negative;
                                                                                 law.abstention = req.body.abstention;
