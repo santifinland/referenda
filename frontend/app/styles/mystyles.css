@@ -46,7 +46,7 @@
 }
 .navbar {
   border-bottom-width: 0px;
-  height: 85px;
+  height: 75px;
 }
 .navbar-brand {
   margin: 0px auto;
@@ -208,7 +208,7 @@ body {
     padding-top: 0px;
     padding-left: 10px;
 }
-.vertical-line > h2 > a {
+.vertical-line > h3 > a {
   color: #000;
 }
 .result-number {
