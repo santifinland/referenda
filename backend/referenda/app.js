@@ -27,17 +27,15 @@ var app = express();
 
 // Secure traffic only
 app.all('*', function(req, res, next){
-    console.log('req start: ',req.secure, req.hostname, req.url, req.socket.localPort, req.socket.remotePort,
-        app.get('port'));
+  console.log('req: ',req.secure, req.hostname, req.url, req.socket.localPort, req.socket.remotePort, app.get('port'));
   if (req.secure) {
     res.setHeader('Access-Control-Allow-Origin', 'https://referenda.es');
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type,x-access-token');
     return next();
   };
-
- console.log('sec port: ', app.get('secPort'));
- console.log('https://'+req.hostname+':'+app.get('secPort')+req.url);
- res.redirect('https://'+req.hostname+':'+app.get('secPort')+req.url);
+  console.log('sec port: ', app.get('secPort'));
+  console.log('https://'+req.hostname+':'+app.get('secPort')+req.url);
+  res.redirect('https://'+req.hostname+':'+app.get('secPort')+req.url);
 });
 
 // view engine setup
