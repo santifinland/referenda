@@ -46,6 +46,32 @@ var register = function register(username, password, admin, cb) {
   steps.apiRequestPost(options, postData, cb);
 }
 
+var delegateParty = function delegateParty(token, party, cb) {
+  var postData = JSON.stringify({party: party});
+  var headers = {'x-access-token': token, 'Content-Type': 'application/json', 'Content-Length': postData.length};
+  var options = {host: 'localhost', port: 3443, path: '/api/users/delegateparty', method: 'POST', headers: headers};
+  steps.apiRequestPost(options, postData, cb);
+}
+
+var delegatedParty = function delegatedParty(token, cb) {
+  var headers = {'x-access-token': token};
+  var options = {host: 'localhost', port: 3443, path: '/api/users/delegateparty/', method: 'GET', headers: headers};
+  steps.apiRequest(options, cb);
+}
+
+var delegateUser = function delegateUser(token, username, cb) {
+  var postData = JSON.stringify({username: username});
+  var headers = {'x-access-token': token, 'Content-Type': 'application/json', 'Content-Length': postData.length};
+  var options = {host: 'localhost', port: 3443, path: '/api/users/delegateuser', method: 'POST', headers: headers};
+  steps.apiRequestPost(options, postData, cb);
+}
+
+var delegatedUser = function delegatedUser(token, cb) {
+  var headers = {'x-access-token': token};
+  var options = {host: 'localhost', port: 3443, path: '/api/users/delegateuser/', method: 'GET', headers: headers};
+  steps.apiRequest(options, cb);
+}
+
 module.exports = {
   deleteAllUsers: deleteAllUsers,
   findUser: findUser,
@@ -53,5 +79,9 @@ module.exports = {
   loginAsAdmin: loginAsAdmin,
   logged: logged,
   logout: logout,
-  register: register
+  register: register,
+  delegateParty: delegateParty,
+  delegatedParty: delegatedParty,
+  delegateUser: delegateUser,
+  delegatedUser: delegatedUser
 };

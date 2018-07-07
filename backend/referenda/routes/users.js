@@ -101,12 +101,10 @@ userRouter.route('/logout')
 
 userRouter.route('/delegateparty')
 .get(Verify.verifyOrdinaryUser, function (req, res, next) {
-    console.log(req.decoded._id);
     User.findById(req.decoded._id)
         .select("delegatedParty")
         .exec(function (err, user) {
         if (err) return next(err);
-        console.log(user);
         Parties.findOne({'name': user.delegatedParty})
             .select("name logo quota -_id")
             .exec(function(err, party) {
@@ -118,7 +116,6 @@ userRouter.route('/delegateparty')
 .post(Verify.verifyOrdinaryUser, function (req, res, next) {
     User.findById(req.decoded._id, function (err, user) {
         if (err) return next(err);
-        console.log(req.body.party);
         Parties.findOne({'name': req.body.party})
             .select("name logo quota -_id")
             .exec(function(err, party) {
@@ -126,10 +123,8 @@ userRouter.route('/delegateparty')
             if (party) {
                 user.delegatedParty = party.name;
                 user.delegatedUser = null;
-                console.log(party.name);
                 user.save(function (err, user) {
                     if (err) return next(err);
-                    console.log('Updated Party!');
                     res.status(200).json(party);
                 });
             } else {
@@ -145,7 +140,6 @@ userRouter.route('/delegateuser')
         .select("delegatedUser")
         .exec(function (err, user) {
         if (err) return next(err);
-        console.log(user.delegatedUser);
         User.findById(user.delegatedUser)
             .exec(function (err, delegatedUser) {
             if (err) return next(err);
@@ -158,11 +152,8 @@ userRouter.route('/delegateuser')
     });
 })
 .post(Verify.verifyOrdinaryUser, function (req, res, next) {
-    console.log(req.body);
     User.findById(req.decoded._id, function (err, user) {
         if (err) return next(err);
-        console.log("body.id");
-        console.log(req.body.id);
         User.findOne({"username": req.body.username})
             .select("delegatedUser")
             .exec(function(err, delegatedUser) {
@@ -170,11 +161,8 @@ userRouter.route('/delegateuser')
             if (delegatedUser) {
                 user.delegatedUser = delegatedUser._id;
                 user.delegatedParty = null;
-                console.log("usernmae");
-                console.log(delegatedUser);
                 user.save(function (err, user) {
                     if (err) return next(err);
-                    console.log('Updated User!');
                     res.status(200).json({"username": req.body.username});
                 });
             } else {
