@@ -2,7 +2,6 @@ const https = require('https');
 
 
 var apiRequest = function apiRequest(options, cb) {
-  console.log(options);
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
   let str = '';
   https.request(options, function(response) {
@@ -19,8 +18,6 @@ var apiRequest = function apiRequest(options, cb) {
 var apiRequestPost = function apiRequestPost(options, postData, cb) {
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
   let str = '';
-  console.log(postData);
-  console.log(options);
   var req = https.request(options, function(response) {
     response.on('data', function (chunk) {
       str += chunk;
