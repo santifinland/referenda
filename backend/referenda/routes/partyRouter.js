@@ -22,6 +22,23 @@ partyRouter.route('/')
         var id = party._id;
         res.status(201).end();
     });
+})
+.delete(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function (req, res, next) {
+  console.log(req);
+  //if (err) {
+    //console.log('Error when authorizing')
+    //return next(err);
+  //}
+  Parties.remove({}, function (err, resp) {
+    if (err) return next(err);
+    if (resp) {
+      console.log('All parties deleted')
+      res.status(204).end();
+    } else {
+      console.log('Error deleting parties')
+      res.status(404).end();
+    }
+  });
 });
 
 partyRouter.route('/:partyName')

@@ -8,6 +8,20 @@ var Parties = require('../models/parties');
 var userRouter = express.Router();
 userRouter.use(bodyParser.json());
 
+userRouter.route('/')
+.delete(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function (req, res, next) {
+  User.remove({}, function (err, resp) {
+    if (err) return next(err);
+    if (resp) {
+      console.log('All users deleted')
+      res.status(204).end();
+    } else {
+      console.log('Error deleting users')
+      res.status(404).end();
+    }
+  });
+});
+
 userRouter.route('/find/:username')
 /* GET users listing. */
 .get(Verify.verifyOrdinaryUser, function(req, res, next) {
@@ -30,18 +44,22 @@ userRouter.route('/logged')
 
 userRouter.route('/register')
 .post(function(req, res) {
-    User.register(new User({ username : req.body.username }),
-        req.body.password, function(err, user) {
-        if (err) {
-            console.log('in register: ', req.body.username);
-            return res.status(500).json({err: err});
-        }
-        user.save(function(err,user) {
-            passport.authenticate('local')(req, res, function () {
-                return res.status(200).json({status: 'Registration Successful!'});
-            });
+  User.register(new User(
+    { username : req.body.username }),
+    // { username : req.body.username, admin: req.body.admin }),
+    req.body.password,
+    function(err, user) {
+      if (err) {
+        console.log('in register: ', req.body.username);
+        return res.status(500).json({err: err});
+      }
+      user.save(function(err,user) {
+        passport.authenticate('local')(req, res, function () {
+          return res.status(200).json({status: 'Registration Successful!'});
         });
-    });
+      });
+    }
+  );
 });
 
 userRouter.route('/login')
