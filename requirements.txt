@@ -5,6 +5,7 @@ dj-database-url==0.2.2
 dj-static==0.0.5
 django-allauth==0.15.0
 django-appconf==0.6
+django-autoslug==1.7.2
 django-avatar==2.0
 django-toolbelt==0.0.1
 gunicorn==18.0
@@ -20,3 +21,4 @@ unittest2==0.5.1
 wsgiref==0.1.2
 django-storages
 boto
+pycrypto

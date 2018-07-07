@@ -1,19 +1,25 @@
+{% load staticfiles %}
 {% load url from future %}
 {% load i18n %}
 {% load i18n avatar_tags %}
 {% load account %}
-<!DOCTYPE html>
-<html lang="en">
+{% load staticfiles %}
+<html>
 
 <head>
     <title>{% block title %}Referenda{% endblock %}</title>
-    <link rel="shortcut icon" type="image/x-icon" href="{{ STATIC_URL }}/img/favicon.ico">
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/layout.css">
-    <link rel="stylesheet" href="{{ STATIC_URL }}foundation/css/foundation.min.css">
-    <script type="text/javascript" src="{{ STATIC_URL }}foundation/js/foundation.min.js"></script>
-    <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}foundation/js/vendor/custom.modernizr.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}foundation/js/vendor/jquery.js"></script>
+    <link rel="stylesheet" href="/static/css/layout.css">
+    <link rel="stylesheet" href="/static/css/cookies.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.4.6/css/foundation.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css">
+    <script type="text/javascript" src="/static/js/cookies.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript"
+            src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation/foundation.min.js"></script>
+    <script type="text/javascript"
+            src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation.abide.min.js"></script>
+    <script type="text/javascript" src="/static/foundation/js/vendor/custom.modernizr.js"></script>
+    <script type="text/javascript" src="/static/foundation/js/vendor/jquery.js"></script>
 
     <style>
       input.required, error {
@@ -26,7 +32,6 @@
 <div class="wrapper">
 
     <div class="row">
-
         <div class="small-8 large-8 columns">
             <h1><a href="/">Referenda</a></h1>
             <h4 class="subheader">{% trans "Direct Democracy" %}</h4>
@@ -39,7 +44,7 @@
                 <div class="row">
                     <div class="small-9 large-9 columns">
                         <h6 style="text-align:right">{% user_display user %} <br>
-                        <a href="/accounts/profile" >{% trans "View my profile" %}</a> </h6>
+                        <a href="/accounts/avatar" >{% trans "View my profile" %}</a> </h6>
                     </div>
                     <div class="small-3 large-3 columns">
                         <a href="{% url 'avatar_change' %}">{% avatar user 50 %}</a>
@@ -50,31 +55,101 @@
                 <!--<h6 class="subheader" style="text-align:right"><a href="{% url 'account_signup' %}">{% trans "Register" %}</a></h6>-->
             {% endif %}
         </div>
-
     </div>
+
+    <div style="background-color: grey">
+        {% block nav %}{% endblock %}
+    </div>
+
+    <!--<div style="background-color: #CCCCCC">
+        {% block location %}
+
+        <div class="row">
+            <div class="small-4 large-4 columns">
+                <dl class="sub-nav" style="margin-top: 4px; margin-bottom: 0px; margin-left: 30%">
+                    {% if "Congreso" in request.get_full_path %}
+                    <dd><a href="/polls/country/Congreso/" style="color: grey"><ins>Congreso</ins></a></dd>
+                {% else %}
+                    <dd><a href="/polls/country/Congreso/" style="color: grey"> Congreso</a></dd>
+                {% endif %}
+                </dl>
+            </div>
+            <div class="small-4 large-4 columns">
+                <dl class="sub-nav" style="margin-top: 4px; margin-bottom: 0px; margin-left: 10%">
+                    {% if region %}
+                        {% if "region" in request.get_full_path %}
+                            <dd><a href="/polls/region/{{ region }}/" style="color: grey"><ins> {{ region }} </ins></a></dd>
+                        {% else %}
+                            <dd><a href="/polls/region/{{ region }}/" style="color: grey"> {{ region }} </a></dd>
+                        {% endif %}
+                    {% else %}
+                        {% if "region" in request.get_full_path %}
+                            <dd><a href="/polls/region/comunidad_de_madrid/" style="color: grey"><ins> Comunidad de Madrid </ins></a></dd>
+                        {% else %}
+                            <dd><a href="/polls/region/comunidad_de_madrid/" style="color: grey"> Comunidad de Madrid </a></dd>
+                        {% endif %}
+                    {% endif %}
+                </dl>
+            </div>
+            <div class="small-4 large-4 columns">
+                <dl class="sub-nav" style="margin-top: 4px; margin-bottom: 0px; margin-left: 10%">
+                    {% if city %}
+                        {% if "city" in request.get_full_path %}
+                          <dd><a href="/polls/city/{{ city }}/" style="color: grey"><ins> {{ city }} </ins></a></dd>
+                        {% else %}
+                            <dd><a href="/polls/city/{{ city }}/" style="color: grey"> {{ city }} </a></dd>
+                        {% endif %}
+                    {% else %}
+                        {% if "city" in request.get_full_path %}
+                            <dd><a href="/polls/city/madrid/" style="color: grey"><ins> Madrid</ins></a></dd>
+                        {% else %}
+                            <dd><a href="/polls/city/madrid/" style="color: grey"> Madrid</a></dd>
+                        {% endif %}
+                    {% endif %}
+                </dl>
+            </div>
+        </div>
+
+        {% endblock %}
+    </div>-->
 
     <div class="row">
         <div class="small-12 large-12 columns">
-            <hr>
             {% block content %}{% endblock %}
         </div>
-    </div">
+    </div>
 
     <div class="push">
-    </div">
+    </div>
 
-</div>
-</div>
 </div>
 
 <div class="footer">
     <div class="row">
         <div class="small-12 large-12 columns">
             <hr>
-            <p>Copyright © Refenda 2014</p>
+            <p> Copyright © Referenda 2015 |
+                <a href="/dataprotection">Protección de datos</a> |
+                <a href="/cookies">Política de cookies</a> |
+                <a href="mailto:admin@referenda.es">Contacto</a> |
+                <a href="http://twitter.com/Referenda_es" <i class="fi-social-twitter"></i></a>
+            </p>
         </div>
-    </div> 
+    </div>
 </div>
+
+<div class="cookiesms" id="cookie1">
+    Esta web utiliza cookies, puedes ver nuestra  <a href="/cookies">política de cookies, aquí</a>
+    Si continuas navegando estás aceptándola
+    <button onclick="controlcookies()">Aceptar</button>
+    <div  class="cookies2" onmouseover="document.getElementById('cookie1').style.bottom = '0px';">Política de cookies + </div>
+</div>
+
+<script type="text/javascript">
+  if (localStorage.controlcookie > 0){
+    document.getElementById('cookie1').style.bottom = '-50px';
+  }
+</script>
 
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

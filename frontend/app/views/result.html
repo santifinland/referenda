@@ -1,0 +1,30 @@
+
+<div class="container">
+    <div class="row row-content">
+
+        <div class="panel panel-default filterable">
+            <div class="panel-heading">
+                <h3 class="panel-title">Buscador de propuestas votadas</h3>
+            </div>
+            <table class="table">
+                <thead>
+                <tr class="filters">
+                    <th><input ng-model="search.vote_end" placeholder="Fecha"></th>
+                    <th><input ng-model="search.headline" placeholder="T&iacute;tulo"></th>
+                    <th><input ng-model="search.institution" placeholder="Impulsor"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-class='{green: law.official_positive >= law.official_negative,
+                      red: law.official_positive < law.official_negative}'
+                    ng-repeat="law in laws | orderBy: '-vote_end' | filter:search">
+                    <td>{{law.vote_end | date: 'yyyy - MM'}}</td>
+                    <td><a ui-sref="app.lawdetails({slug: law.slug})">{{law.headline}}</a></td>
+                    <td>{{law.institution | uppercase}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>

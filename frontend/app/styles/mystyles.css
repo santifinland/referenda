@@ -1,0 +1,388 @@
+.row-header {
+  margin: 0px auto;
+  padding: 0px 0px;
+}
+.row-content {
+  margin: 0px, 0px, 0px, 0px;
+  padding: 0px 0px;
+  border-bottom: 1px ridge;
+  min-height: 400px;
+}
+.footer {
+  margin: 0px auto;
+  padding: 0px 0px;
+  background-color: #3D989D;
+}
+.jumbotron {
+  margin: 0px auto;
+  padding: 70px 30px;
+  background: #7986CB;
+  color: floralwhite;
+}
+.carousel {
+  background: #1a237e;
+}
+.carousel .item {
+  height: 300px;
+}
+.carousel .item img {
+  left: 0;
+  min-height: 300px;
+  position: absolute;
+  top: 0;
+}
+.undertop {
+  min-height: 70px;
+  background: #ffffff;
+  color: #ffffff;
+}
+.sections {
+  padding: 0px;
+  margin: -10px 0px 10px 0px;
+  min-height: 80px;
+  background: #ffffff;
+  font-size: 200%;
+  color: #ffffff;
+}
+.navbar {
+  border-bottom-width: 0px;
+  height: 75px;
+}
+.navbar-brand {
+  margin: 0px auto;
+  padding: 5px 0px 0px 20px;
+}
+@font-face {
+    font-family: "Montserrat-Bold";
+    src: url("../fonts/Montserrat-Regular.ttf") format("truetype");
+}
+.sections .navbar-nav > li > a {
+  font-family: "Montserrat-Bold";
+  color: #666;
+  background-color: #fff;
+}
+.sections .navbar-nav > .active > a {
+  border-bottom: thick solid #3D989D;
+  color: #000;
+}
+.navbar-inverse {
+  background: #3D989D;
+  color: #ffffff;
+}
+.navbar-inverse .navbar-nav > li > a {
+  color: #ddd;
+}
+.navbar-inverse .navbar-nav > .active > a {
+  background: #1a237e;
+  color: #ffffff;
+}
+.navbar-inverse .navbar-nav > .active > a:hover {
+  background: #1a237e;
+  color: #ffffff;
+}
+.navbar-inverse .navbar-nav > .active > a:focus {
+  background: #1a237e;
+  color: #ffffff;
+}
+.navbar-inverse .navbar-nav > .open > a {
+  background: #1a237e;
+  color: #ffffff;
+}
+.navbar-inverse .navbar-nav > .open > a:hover {
+  background: #1a237e;
+  color: #ffffff;
+}
+.navbar-inverse .navbar-nav > .open > a:focus {
+  background: #1a237e;
+  color: #ffffff;
+}
+.navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
+  background-color: #303f9f;
+  color: #eeeeee;
+}
+.navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover {
+  color: #000000;
+}
+.navbar-inverse .navbar-nav .open .dropdown-menu {
+  background-color: #303f9f;
+  color: #eeeeee;
+}
+address {
+  color: #0f0f0f;
+  font-size: 80%;
+  margin: 0px;
+}
+html {
+  height: 100%;
+}
+body {
+  height: 100%;
+  align: center;
+  padding: 50px 0px 0px 0px;
+  z-index: 0;
+}
+#wrap {
+  min-height: 100%;
+  height: auto;
+  /* Negative indent footer by its height */
+  margin: 0 auto -110px;
+  /* Pad bottom by footer height */
+  padding: 0 0 110px;
+}
+#footer {
+  height: 110px;
+}
+.tab-content {
+  border-bottom: 1px solid #dddddd;
+  border-left: 1px solid #dddddd;
+  border-right: 1px solid #dddddd;
+  padding: 10px;
+}
+.affix {
+  top: 100px;
+}
+#carouselButtons {
+  bottom: 0px;
+  position: absolute;
+  right: 0px;
+}
+.btn.sharp {
+  padding: 0px, 0px;
+  margin: 1px;
+  border-radius:0;
+  border: 0 none;
+  width: 110px;
+  font-family: "Montserrat-Bold";
+}
+.btn.sharp.yes {
+  font-size: 160%;
+  background: #145458;
+  color: #ffffff;
+}
+.btn.sharp.no {
+  font-size: 160%;
+  background: #208575;
+  color: #ffffff;
+}
+.btn.sharp.yes.vote {
+  width: 175px;
+  display: block;
+  margin: 0 auto;
+}
+.btn.sharp.no.vote {
+  width: 175px;
+  display: block;
+  margin: 0 auto;
+}
+.btn.sharp.abstention.vote {
+  width: 175px;
+  display: block;
+  margin: 0 auto;
+}
+.btn.sharp.abstention {
+  font-size: 160%;
+  background: #7BA3A0;
+  color: #ffffff;
+}
+.btn.sharp.yes.maxi-font {
+  font-size: 160%;
+  padding: 10px;
+  cursor: default;
+}
+.btn.sharp.no.maxi-font {
+  font-size: 160%;
+  padding: 10px;
+  cursor: default;
+}
+.btn.sharp.abstention.maxi-font {
+  font-size: 160%;
+  padding: 10px;
+  cursor: default;
+}
+.vertical-line {
+    border-left: thick solid #7BA3A0;
+    border-left-width: 10px;
+    height: 80%;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    padding-top: 0px;
+    padding-left: 10px;
+}
+.vertical-line > h3 > a {
+  color: #000;
+}
+.result-number {
+  margin-right: 10px;
+  font-family: "Montserrat-Bold";
+  font-size: 250%;
+  vertical-align: middle;
+}
+.result-number.yes {
+  color: #145458;
+}
+.result-number.no {
+  color: #208575;
+}
+.result-number.abstention {
+  color: #7BA3A0;
+}
+.law-headline {
+  font-family: "Montserrat-Bold";
+  text-decoration: underline;
+  font-size: 150%;
+  color: #000000;
+}
+.law-description {
+    white-space: pre-line;
+    text-align: justify;
+}
+.full-proposal {
+  background: #000;
+  color: #ffffff;
+  font-family: "Montserrat-Bold";
+  vertical-align: middle;
+}
+.full-proposal > a:visited {
+  color: #ffffff;
+}
+.date-end {
+  font-family: "Montserrat-Bold";
+}
+.party-right {
+  padding: 30px;
+  text-align: center;
+  border-right: 1px solid #999;
+  border-bottom: 1px solid #999;
+}
+.no-border {
+  border: 0px;
+  padding: 0px;
+  background-color: #fff;
+}
+.party-left {
+  padding: 30px;
+  text-align: center;
+  border-right: 0px;
+  border-bottom: 1px solid #999;
+}
+.party-mixto {
+  padding: 30px;
+  text-align:center;
+  text-align:center;
+  border-right: 1px solid #999;
+}
+.party-selected {
+  margin-top: 20px;
+}
+.party > button {
+  display: block;
+  margin: auto;
+}
+.delegados {
+  font-family: "Montserrat-Bold";
+  font-size: 150%;
+}
+.funciona {
+  padding: 0px 0px 0px 10px;
+  font-family: "Montserrat-Bold";
+  border-left: thick solid #7BA3A0;
+}
+.funciona > p {
+  font-weight: bold;
+  color: #208575;
+}
+.ul-referenda {
+  padding: 0px 15px;
+}
+a:hover {
+  color: #777;
+  text-decoration: none;
+}
+.login {
+  color: #666;
+}
+hr {
+  border-top-width: 2px;
+  border-top-color: #ddd;
+}
+.comment {
+  text-align: justify;
+  font-size: 14px;
+  margin: 10px 0px 0px 0px;
+}
+.comment-username {
+  font-family: "Montserrat-Bold";
+  font-size: 155%;
+  line-height: 70%;
+  margin: 0px;
+}
+.comment-datetime {
+  font-size: 80%;
+  color: #777;
+  margin: 0px;
+  padding: 0px;
+}
+blockquote {
+  border: none;
+  margin: 0px;
+}
+.acuerdo {
+  color: #195123;
+}
+.no-search {
+  cursor: default;
+}
+.user-delegated {
+  display: block;
+  font-family: "Montserrat-Bold";
+  font-size: 160%;
+  text-align: center;
+}
+.user-delegated > button {
+  text-align: center;
+  position:relative;
+  margin: 0 auto;
+}
+.footer > ul {
+  margin-top: 5px;
+  padding: 5px;
+}
+.footer > ul > p > a {
+  color: #333;
+}
+.cookie-consent {
+  padding: 5px;
+  height: 70px;
+  background-color: #888888;
+  text-align: center;
+}
+.aceptar-cookie {
+  padding: 10px;
+}
+.cookie-policy {
+  color: #fff;
+  text-decoration: underline;
+}
+.results {
+  color: #195123;
+  font-size: 130%;
+}
+.results-black {
+  color: #000;
+  font-size: 130%;
+}
+.justify {
+  text-align: justify;
+}
+.table > tbody > tr > td > a {
+  color: #333;
+}
+.table > tbody > tr > td > .active > a {
+  color: #333;
+}
+.red {
+    background-color: #ffe6e6;
+}
+.green {
+    background-color: #e6ffee;
+}
