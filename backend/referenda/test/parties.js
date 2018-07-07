@@ -17,16 +17,11 @@ feature('Party Router', function() {
 
   scenario('Delete all parties', function() {
     given('There are parties available at Referenda', function() {
-      username = 'admin';
-      password = '1234';
-      res = JSON.parse(userSteps.login(username, password));
-      console.log(res);
-      console.log(res.token);
-      token = res.token;
+      token = JSON.parse(userSteps.loginAsAdmin()).token;
       steps.postParty(token, 'Nuevo partido');
     });
     when('I delete all parties', function() {
-      steps.deleteAllParties(res.token);
+      steps.deleteAllParties(token);
     });
     then('all parties are deleted', function() {
       parties = JSON.parse(steps.getAllParties());
@@ -36,13 +31,8 @@ feature('Party Router', function() {
 
   scenario('Get all available parties', function() {
     given('There are no parties available at Referenda', function() {
-      username = 'admin';
-      password = '1234';
-      res = JSON.parse(userSteps.login(username, password));
-      console.log(res);
-      console.log(res.token);
-      token = res.token;
-      steps.deleteAllParties(res.token);
+      token = JSON.parse(userSteps.loginAsAdmin()).token;
+      steps.deleteAllParties(token);
     });
     when('I retrieve all parties', function() {
       parties = JSON.parse(steps.getAllParties());
@@ -53,13 +43,8 @@ feature('Party Router', function() {
   });
 
   scenario('Create a party', function() {
-    given('I am a Referenda admin', function() {
-      username = 'admin';
-      password = '1234';
-      res = JSON.parse(userSteps.login(username, password));
-      console.log(res);
-      console.log(res.token);
-      token = res.token;
+    given('As a Referenda admin', function() {
+      token = JSON.parse(userSteps.loginAsAdmin()).token;
     });
     when('I create a new party', function() {
       steps.postParty(token, 'Nuevo partido');
@@ -73,12 +58,7 @@ feature('Party Router', function() {
 
   scenario('Get all available parties', function() {
     given('There are parties available at Referenda', function() {
-      username = 'admin';
-      password = '1234';
-      res = JSON.parse(userSteps.login(username, password));
-      console.log(res);
-      console.log(res.token);
-      token = res.token;
+      token = JSON.parse(userSteps.loginAsAdmin()).token;
       steps.postParty(token, 'Segundo');
     });
     when('I retrieve all parties', function() {
