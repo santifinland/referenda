@@ -320,6 +320,18 @@ lawRouter.route('/')
         });
     console.log("ENDPPP")
     });
+})
+.delete(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function (req, res, next) {
+  Laws.remove({}, function (err, resp) {
+    if (err) return next(err);
+    if (resp) {
+      console.log('All laws deleted')
+      res.status(204).end();
+    } else {
+      console.log('Error deleting laws')
+      res.status(404).end();
+    }
+  });
 });
 
 lawRouter.route('/:slug')
