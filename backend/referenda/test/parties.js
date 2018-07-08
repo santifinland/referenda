@@ -4,9 +4,9 @@ const assert = require('assert');
 var steps = require('./party-steps-library');
 var userSteps = require('./user-steps-library');
 
-
 synchronize(steps);
 synchronize(userSteps);
+
 
 feature('Party Router', function() {
 
