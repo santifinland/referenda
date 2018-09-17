@@ -45,8 +45,8 @@ userRouter.route('/logged')
 userRouter.route('/register')
 .post(function(req, res) {
   User.register(new User(
-    { username : req.body.username }),
-    // { username : req.body.username, admin: req.body.admin }),
+    // { username : req.body.username }),
+    { username : req.body.username, admin: req.body.admin }),
     req.body.password,
     function(err, user) {
       if (err) {

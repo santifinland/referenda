@@ -374,6 +374,8 @@ lawRouter.route('/:slug')
         }
     }
     // Count votes per type
+    console.log("****************");
+    console.log(req.body);
     Laws.findOne({"slug": req.params.slug}, function (err, law) {
       if (err) return next(err);
       if (law) {
@@ -381,6 +383,7 @@ lawRouter.route('/:slug')
         Votes.find({"lawId": law._id, "vote": 1}, {'userId':1, '_id':0}, function(err, positives) {
             if (err) return next(err);
             var positivers = [];
+            console.log("Positives " + positives.length);
             for(var i = 0; i < positives.length; i++) {
                 var obj = positives[i];
                 console.log("=========");
@@ -390,6 +393,7 @@ lawRouter.route('/:slug')
             Votes.find({"lawId": law._id, "vote": 2}, {'userId':1, '_id':0}, function(err, negatives) {
                 if (err) return next(err);
                 var negativers = [];
+                console.log("Negatives " + negatives.length);
                 for(var i = 0; i < negatives.length; i++) {
                     var obj = negatives[i];
                     console.log("********");
@@ -399,6 +403,7 @@ lawRouter.route('/:slug')
                 Votes.find({"lawId": law._id, "vote": 3}, {'userId':1, '_id':0}, function(err, abstentiones) {
                     if (err) return next(err);
                     var abstentioners = [];
+                    console.log("Abstentiones " + abstentiones.length);
                     for (var i = 0; i < abstentiones.length; i++) {
                         var obj = abstentiones[i];
                         console.log(obj.userId);
@@ -523,9 +528,13 @@ lawRouter.route('/:slug')
                                                       kk(ncs, ty, function(err, ncsIds) {
                                                         if (err) return next(err);
                                                         delegatedToNcYes = diff(ncsIds, positivers);
+                                                        console.log("NC Sí: " + delegatedToNcYes);
                                                         delegatedToNcNo = diff(delegatedToNcYes, negativers);
+                                                        console.log("NC No: " + delegatedToNcNo);
                                                         delegatedToNcAbs = diff(delegatedToNcNo, abstentioners);
+                                                        console.log("NC Abs: " + delegatedToNcAbs);
                                                         delegatedToNc = delegatedToNcAbs.length;
+                                                        console.log("To NC: " + delegatedToNc);
 
                                                         Users.find({"delegatedParty": "compromis"}, function (err, compromisos) {
                                                           ty = []
@@ -618,184 +627,162 @@ lawRouter.route('/:slug')
                                                                                 console.log(delegatedToErc);
                                                                                 console.log("delegatedToPnv");
                                                                                 console.log(delegatedToPnv);
+                                                                                console.log("delegatedToCc");
+                                                                                console.log(delegatedToCc);
+                                                                                console.log("delegatedToNc");
+                                                                                console.log(delegatedToNc);
                                                                                 console.log("delegatedToCompromis");
                                                                                 console.log(delegatedToCompromis);
+                                                                                console.log("delegatedToFa");
+                                                                                console.log(delegatedToFa);
+                                                                                console.log("delegatedToUpn");
+                                                                                console.log(delegatedToUpn);
+                                                                                console.log("delegatedToBildu");
+                                                                                console.log(delegatedToBildu);
+                                                                                console.log("delegatedToPdCat");
+                                                                                console.log(delegatedToPdCat);
                                                                                 // PP
-                                                                                if (req.body.pp == 1) {
-                                                                                    req.body.positive = req.body.positive + delegatedToPP
-                                                                                    req.body.positiveParties.push("pp");
-                                                                                } else if (req.body.pp == 2) {
-                                                                                    req.body.negative = req.body.negative + delegatedToPP
-                                                                                    req.body.negativeParties.push("pp");
+                                                                                console.log("=============");
+                                                                                console.log(req.body);
+                                                                                if (law.positiveParties.indexOf('pp') >= 0) {
+                                                                                    req.body.positive = req.body.positive + delegatedToPP;
+                                                                                } else if (law.negativeParties.indexOf('pp') >= 0) {
+                                                                                    req.body.negative = req.body.negative + delegatedToPP;
                                                                                 } else {
-                                                                                    req.body.abstention = req.body.abstention + delegatedToPP
-                                                                                    req.body.abstentionParties.push("pp");
+                                                                                    req.body.abstention = req.body.abstention + delegatedToPP;
                                                                                 }
                                                                                 // Psoe
-                                                                                if (req.body.psoe == 1) {
-                                                                                    req.body.positive = req.body.positive + delegatedToPsoe
-                                                                                    req.body.positiveParties.push("psoe");
-                                                                                } else if (req.body.psoe == 2) {
-                                                                                    req.body.negative = req.body.negative + delegatedToPsoe
-                                                                                    req.body.negativeParties.push("psoe");
+                                                                                if (law.positiveParties.indexOf('psoe') >= 0) {
+                                                                                    console.log("Positive psoe");
+                                                                                    req.body.positive = req.body.positive + delegatedToPsoe;
+                                                                                } else if (law.negativeParties.indexOf('psoe') >= 0) {
+                                                                                    console.log("Negative psoe");
+                                                                                    req.body.negative = req.body.negative + delegatedToPsoe;
                                                                                 } else {
-                                                                                    req.body.abstention = req.body.abstention + delegatedToPsoe
-                                                                                    req.body.abstentionParties.push("psoe");
+                                                                                    req.body.abstention = req.body.abstention + delegatedToPsoe;
                                                                                 }
                                                                                 // Podemos
-                                                                                if (req.body.podemos == 1) {
-                                                                                    req.body.positive = req.body.positive + delegatedToPodemos
-                                                                                    req.body.positiveParties.push("podemos");
-                                                                                } else if (req.body.podemos == 2) {
-                                                                                    req.body.negative = req.body.negative + delegatedToPodemos
-                                                                                    req.body.negativeParties.push("podemos");
+                                                                                if (law.positiveParties.indexOf('podemos') >= 0) {
+                                                                                    req.body.positive = req.body.positive + delegatedToPodemos;
+                                                                                } else if (law.negativeParties.indexOf('podemos') >= 0) {
+                                                                                    req.body.negative = req.body.negative + delegatedToPodemos;
                                                                                 } else {
-                                                                                    req.body.abstention = req.body.abstention + delegatedToPodemos
-                                                                                    req.body.abstentionParties.push("podemos");
+                                                                                    req.body.abstention = req.body.abstention + delegatedToPodemos;
                                                                                 }
                                                                                 // Ciudadanos
-                                                                                if (req.body.ciudadanos == 1) {
-                                                                                    req.body.positive = req.body.positive + delegatedToCiudadanos
-                                                                                    req.body.positiveParties.push("ciudadanos");
-                                                                                } else if (req.body.ciudadanos == 2) {
-                                                                                    req.body.negative = req.body.negative + delegatedToCiudadanos
-                                                                                    req.body.negativeParties.push("ciudadanos");
+                                                                                if (law.positiveParties.indexOf('ciudadanos') >= 0) {
+                                                                                    console.log("Positive ciudadanos");
+                                                                                    req.body.positive = req.body.positive + delegatedToCiudadanos;
+                                                                                } else if (law.negativeParties.indexOf('ciudadanos') >= 0) {
+                                                                                    console.log("Negative ciudadanos");
+                                                                                    req.body.negative = req.body.negative + delegatedToCiudadanos;
                                                                                 } else {
-                                                                                    req.body.abstention = req.body.abstention + delegatedToCiudadanos
-                                                                                    req.body.abstentionParties.push("ciudadanos");
+                                                                                    console.log("Abstention ciudadanos");
+                                                                                    req.body.abstention = req.body.abstention + delegatedToCiudadanos;
                                                                                 }
                                                                                 // Erc
-                                                                                if (req.body.erc == 1) {
-                                                                                    req.body.positive = req.body.positive + delegatedToErc
-                                                                                    req.body.positiveParties.push("erc");
-                                                                                } else if (req.body.erc == 2) {
-                                                                                    req.body.negative = req.body.negative + delegatedToErc
-                                                                                    req.body.negativeParties.push("erc");
+                                                                                if (law.positiveParties.indexOf('erc') >= 0) {
+                                                                                    req.body.positive = req.body.positive + delegatedToErc;
+                                                                                } else if (law.negativeParties.indexOf('erc') >= 0) {
+                                                                                    req.body.negative = req.body.negative + delegatedToErc;
                                                                                 } else {
-                                                                                    req.body.abstention = req.body.abstention + delegatedToErc
-                                                                                    req.body.abstentionParties.push("erc");
+                                                                                    req.body.abstention = req.body.abstention + delegatedToErc;
                                                                                 }
                                                                                 // Pnv
-                                                                                if (req.body.pnv == 1) {
-                                                                                    req.body.positive = req.body.positive + delegatedToPnv
-                                                                                    req.body.positiveParties.push("pnv");
-                                                                                } else if (req.body.pnv == 2) {
-                                                                                    req.body.negative = req.body.negative + delegatedToPnv
-                                                                                    req.body.negativeParties.push("pnv");
+                                                                                if (law.positiveParties.indexOf('pnv') >= 0) {
+                                                                                    req.body.positive = req.body.positive + delegatedToPnv;
+                                                                                } else if (law.negativeParties.indexOf('pnv') >= 0) {
+                                                                                    req.body.negative = req.body.negative + delegatedToPnv;
                                                                                 } else {
-                                                                                    req.body.abstention = req.body.abstention + delegatedToPnv
-                                                                                    req.body.abstentionParties.push("pnv");
+                                                                                    req.body.abstention = req.body.abstention + delegatedToPnv;
                                                                                 }
                                                                                 // Compromis
-                                                                                if (req.body.compromis == 1) {
-                                                                                    req.body.positive = req.body.positive + delegatedToCompromis
-                                                                                    req.body.positiveParties.push("compromis");
-                                                                                } else if (req.body.compromis == 2) {
-                                                                                    req.body.negative = req.body.negative + delegatedToCompromis
-                                                                                    req.body.negativeParties.push("compromis");
+                                                                                if (law.positiveParties.indexOf('compromis') >= 0) {
+                                                                                    req.body.positive = req.body.positive + delegatedToCompromis;
+                                                                                } else if (law.negativeParties.indexOf('compromis') >= 0) {
+                                                                                    req.body.negative = req.body.negative + delegatedToCompromis;
                                                                                 } else {
-                                                                                    req.body.abstention = req.body.abstention + delegatedToCompromis
-                                                                                    req.body.abstentionParties.push("compromis");
+                                                                                    req.body.abstention = req.body.abstention + delegatedToCompromis;
                                                                                 }
                                                                                 // Coalicion Canaria
-                                                                                if (req.body.cc == 1) {
-                                                                                    req.body.positive = req.body.positive + delegatedToCc
-                                                                                    req.body.positiveParties.push("cc");
-                                                                                } else if (req.body.cc == 2) {
-                                                                                    req.body.negative = req.body.negative + delegatedToCc
-                                                                                    req.body.negativeParties.push("cc");
+                                                                                if (law.positiveParties.indexOf('cc') >= 0) {
+                                                                                    req.body.positive = req.body.positive + delegatedToCc;
+                                                                                } else if (law.negativeParties.indexOf('cc') >= 0) {
+                                                                                    req.body.negative = req.body.negative + delegatedToCc;
                                                                                 } else {
-                                                                                    req.body.abstention = req.body.abstention + delegatedToCc
-                                                                                    req.body.abstentionParties.push("cc");
+                                                                                    req.body.abstention = req.body.abstention + delegatedToCc;
                                                                                 }
                                                                                 // Nueva canaria
-                                                                                if (req.body.nc == 1) {
-                                                                                    req.body.positive = req.body.positive + delegatedToNc
-                                                                                    req.body.positiveParties.push("nc");
-                                                                                } else if (req.body.nc == 2) {
-                                                                                    req.body.negative = req.body.negative + delegatedToNc
-                                                                                    req.body.negativeParties.push("nc");
+                                                                                if (law.positiveParties.indexOf('nc') >= 0) {
+                                                                                    req.body.positive = req.body.positive + delegatedToNc;
+                                                                                } else if (law.negativeParties.indexOf('nc') >= 0) {
+                                                                                    req.body.negative = req.body.negative + delegatedToNc;
                                                                                 } else {
-                                                                                    req.body.abstention = req.body.abstention + delegatedToNc
-                                                                                    req.body.abstentionParties.push("nc");
+                                                                                    req.body.abstention = req.body.abstention + delegatedToNc;
                                                                                 }
                                                                                 // Foro Asturias
-                                                                                if (req.body.fa == 1) {
-                                                                                    req.body.positive = req.body.positive + delegatedToFa
-                                                                                    req.body.positiveParties.push("fa");
-                                                                                } else if (req.body.fa == 2) {
-                                                                                    req.body.negative = req.body.negative + delegatedToFa
-                                                                                    req.body.negativeParties.push("fa");
+                                                                                if (law.positiveParties.indexOf('fa') >= 0) {
+                                                                                    req.body.positive = req.body.positive + delegatedToFa;
+                                                                                } else if (law.negativeParties.indexOf('fa') >= 0) {
+                                                                                    req.body.negative = req.body.negative + delegatedToFa;
                                                                                 } else {
-                                                                                    req.body.abstention = req.body.abstention + delegatedToFa
-                                                                                    req.body.abstentionParties.push("fa");
+                                                                                    req.body.abstention = req.body.abstention + delegatedToFa;
                                                                                 }
                                                                                 // UPN
-                                                                                if (req.body.upn == 1) {
-                                                                                    req.body.positive = req.body.positive + delegatedToUpn
-                                                                                    req.body.positiveParties.push("upn");
-                                                                                } else if (req.body.upn == 2) {
-                                                                                    req.body.negative = req.body.negative + delegatedToUpn
-                                                                                    req.body.negativeParties.push("upn");
+                                                                                if (law.positiveParties.indexOf('upn') >= 0) {
+                                                                                    req.body.positive = req.body.positive + delegatedToUpn;
+                                                                                } else if (law.negativeParties.indexOf('upn') >= 0) {
+                                                                                    req.body.negative = req.body.negative + delegatedToUpn;
                                                                                 } else {
-                                                                                    req.body.abstention = req.body.abstention + delegatedToUpn
-                                                                                    req.body.abstentionParties.push("upn");
+                                                                                    req.body.abstention = req.body.abstention + delegatedToUpn;
                                                                                 }
                                                                                 // Bildu
-                                                                                if (req.body.bildu == 1) {
-                                                                                    req.body.positive = req.body.positive + delegatedToBildu
-                                                                                    req.body.positiveParties.push("bildu");
-                                                                                } else if (req.body.bildu == 2) {
-                                                                                    req.body.negative = req.body.negative + delegatedToBildu
-                                                                                    req.body.negativeParties.push("bildu");
+                                                                                if (law.positiveParties.indexOf('bildu') >= 0) {
+                                                                                    req.body.positive = req.body.positive + delegatedToBildu;
+                                                                                } else if (law.negativeParties.indexOf('bildu') >= 0) {
+                                                                                    req.body.negative = req.body.negative + delegatedToBildu;
                                                                                 } else {
-                                                                                    req.body.abstention = req.body.abstention + delegatedToBildu
-                                                                                    req.body.abstentionParties.push("bildu");
+                                                                                    req.body.abstention = req.body.abstention + delegatedToBildu;
                                                                                 }
                                                                                 // Bildu
-                                                                                if (req.body.pdcat == 1) {
+                                                                                if (law.positiveParties.indexOf('pdcat') >= 0) {
                                                                                     req.body.positive = req.body.positive + delegatedToPdCat
-                                                                                    req.body.positiveParties.push("pdcat");
-                                                                                } else if (req.body.pdcat == 2) {
+                                                                                } else if (law.negativeParties.indexOf('pdcat') >= 0) {
                                                                                     req.body.negative = req.body.negative + delegatedToPdCat
-                                                                                    req.body.negativeParties.push("pdcat");
                                                                                 } else {
                                                                                     req.body.abstention = req.body.abstention + delegatedToPdCat
-                                                                                    req.body.abstentionParties.push("pdcat");
                                                                                 }
                                                                                 // No Delegar
-                                                                                if (req.body.nd == 1) {
-                                                                                    req.body.positive = req.body.positive + delegatedToNd
-                                                                                    req.body.positiveParties.push("nd");
-                                                                                } else if (req.body.nd == 2) {
-                                                                                    req.body.negative = req.body.negative + delegatedToNd
-                                                                                    req.body.negativeParties.push("nd");
+                                                                                if (law.positiveParties.indexOf('nd') >= 0) {
+                                                                                    req.body.positive = req.body.positive + delegatedToNd;
+                                                                                } else if (law.negativeParties.indexOf('nd') >= 0) {
+                                                                                    req.body.negative = req.body.negative + delegatedToNd;
                                                                                 } else {
-                                                                                    req.body.abstention = req.body.abstention + delegatedToNd
-                                                                                    req.body.abstentionParties.push("nd");
+                                                                                    req.body.abstention = req.body.abstention + delegatedToNd;
                                                                                 }
 
                                                                                 // Update law
+                                                                                console.log(req.body);
                                                                                 console.log('Updating law');
-                                                                                law.pp = req.body.pp;
-                                                                                law.psoe = req.body.psoe;
-                                                                                law.podemos = req.body.podemos;
-                                                                                law.ciudadanos = req.body.ciudadanos;
-                                                                                law.erc = req.body.erc;
-                                                                                law.pnv = req.body.pnv;
-                                                                                law.cc = req.body.cc;
-                                                                                law.nc = req.body.nc;
-                                                                                law.compromis = req.body.compromis;
-                                                                                law.fa = req.body.fa;
-                                                                                law.upn = req.body.upn;
-                                                                                law.bildu = req.body.bildu;
-                                                                                law.pdcat = req.body.pdcat;
+                                                                                //law.pp = req.body.pp;
+                                                                                //law.psoe = req.body.psoe;
+                                                                                //law.podemos = req.body.podemos;
+                                                                                //law.ciudadanos = req.body.ciudadanos;
+                                                                                //law.erc = req.body.erc;
+                                                                                //law.pnv = req.body.pnv;
+                                                                                //law.cc = req.body.cc;
+                                                                                //law.nc = req.body.nc;
+                                                                                //law.compromis = req.body.compromis;
+                                                                                //law.fa = req.body.fa;
+                                                                                //law.upn = req.body.upn;
+                                                                                //law.bildu = req.body.bildu;
+                                                                                //law.pdcat = req.body.pdcat;
                                                                                 law.positive = req.body.positive;
                                                                                 law.negative = req.body.negative;
                                                                                 law.abstention = req.body.abstention;
-                                                                                law.positiveParties = req.body.positiveParties;
-                                                                                law.negativeParties = req.body.negativeParties;
-                                                                                law.abstentionParties = req.body.abstentionParties;
+                                                                                //law.positiveParties = req.body.positiveParties;
+                                                                                //law.negativeParties = req.body.negativeParties;
+                                                                                //law.abstentionParties = req.body.abstentionParties;
                                                                                 console.log(law.positive)
                                                                                 console.log(law.negative)
                                                                                 console.log(law.abstention)
@@ -903,7 +890,6 @@ lawRouter.route('/:slug/comments')
 });
 
 lawRouter.route('/:slug/votes')
-
 .post(Verify.verifyOrdinaryUser, function (req, res, next) {
     kk = function(user, law, callback) {
         console.log("INICIO kk");
@@ -944,6 +930,7 @@ lawRouter.route('/:slug/votes')
     if (req.body.vote < 1 || req.body.vote > 3) {
         res.status(400).json({"Reason": "Vote out of bounds: 1-3"});
     } else {
+      console.log(req.body);
       Laws.findOne({"slug": req.params.slug}, function (err, law) {
         if (err) return next(err);
         var today = new Date();
@@ -961,21 +948,25 @@ lawRouter.route('/:slug/votes')
                 if (!votes.length) {
                     console.log("No previous vote found");
                     // Find delegations to other user: if so, remove delegated vote and add own vote
-                    Users.findById(req.decoded._id, function (err, user) {
+                    Users.findById(req.decoded._id, 'username delegatedUser delegatedParty', function (err, user) {
                         if (err) return next(err);
-                        console.log("User delegation: " + user.delegatedUser);
+                        console.log(user);
+                        //console.log("User delegation: " + user.delegatedUser);
                         if (user.delegatedUser == null) {
                             console.log("No delega a ningun tio");
                             console.log(user);
                             console.log("Party delegation: " + user.delegatedParty)
                             if (law.positiveParties.indexOf(user.delegatedParty) != -1) {
+                                console.log("Delegando a partidos a favor");
                                 law.positive = law.positive - 1;
                             }
                             console.log(law.negativeParties);
                             if (law.negativeParties.indexOf(user.delegatedParty) != -1) {
+                                console.log("Delegando a partidos en contra");
                                 law.negative = law.negative - 1;
                             }
                             if (law.abstentionParties.indexOf(user.delegatedParty) != -1) {
+                                console.log("Delegando a partidos que se abstienen");
                                 law.abstention = law.abstention - 1;
                             }
                             // Create vote
