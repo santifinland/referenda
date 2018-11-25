@@ -9,8 +9,9 @@ local_settings.py
 staticfiles
 media
 backup
-/backend/referenda/node_modules
-/frontend/bower_components
-/frontend/node_modules
-/frontend/dist
-/frontend/app/images
+backend/referenda/node_modules
+backend/referenda/log
+frontend/app/images
+frontend/bower_components
+frontend/dist
+frontend/node_modules
