@@ -289,7 +289,7 @@ feature('Laws', function() {
     {desc: 'abstention party', partyName: 'nd', vote: 2, positive: 0, negative: 1, abstention: 0},
     {desc: 'abstention party', partyName: 'nd', vote: 3, positive: 0, negative: 0, abstention: 1}
   ];
-  scenario.only('Vote an already created law before a Referenda user have delegated votes to a party', dataset, function(variant) {
+  scenario('Vote an already created law before a Referenda user have delegated votes to a party', dataset, function(variant) {
     given('A Referenda law', function() {
       adminToken = JSON.parse(userSteps.loginAsAdmin()).token;
       steps.deleteAllLaws(adminToken);

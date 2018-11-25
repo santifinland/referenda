@@ -12,12 +12,10 @@ var User = new Schema({
     delegatedUser: {
         type: String,
         default: null,
-        select: false
     },
     delegatedParty: {
         type: String,
         default: null,
-        select: false
     }
 });
 
