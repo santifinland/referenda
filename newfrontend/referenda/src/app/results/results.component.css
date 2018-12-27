@@ -1,0 +1,25 @@
+.table > tbody > tr > td > a {
+  color: #333;
+}
+.table > tbody > tr > td > .active > a {
+  color: #333;
+}
+.card {
+  width: 90%;
+}
+.vote_end {
+  width: 20%;
+}
+.headline {
+  width: 60%;
+}
+.institution {
+  width: 20%;
+}
+.red {
+    background-color: #ffe6e6;
+}
+.green {
+    background-color: #e6ffee;
+}
+

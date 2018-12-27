@@ -1,0 +1,210 @@
+<div class="container">
+  <div class="row row-content" *ngIf="law">
+    <div class="col" *ngIf="!law">
+      <h3>{{message}}</h3>
+    </div>
+    <div class="col" *ngIf="law">
+      <br>
+      <div class="row row-content">
+        <div class="col-sm-9">
+          <div class="media">
+            <div class="media-body">
+              <div class="vertical-line">
+                <h2>{{law.headline}}</h2>
+              </div>
+              <p class="law-description">{{law.long_description}}</p>
+              <br>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <br>
+          <button type="submit" class="btn btn-primary sharp yes vote" (click)="submitVote([law.slug], 1)">
+            S&Iacute;
+          </button>
+          <hr>
+          <button type="submit" class="btn btn-primary sharp no vote" (click)="submitVote([law.slug], 2)">
+            NO
+          </button>
+          <hr>
+          <button type="submit" class="btn btn-primary sharp abstention vote" (click)="submitVote([law.slug], 3)">
+            ABSTENCI&Oacute;N
+          </button>
+          <br>
+          <br>
+        </div>
+
+        <div class="col-sm-7">
+        </div>
+        <div class="col-sm-2 center">
+          <span class="fb-share-button" data-layout="button"
+                data-size="small" data-mobile-iframe="true">
+            <a class="fb-xfbml-parse-ignore" target="_blank"
+               href={{facebook}}>
+              <img src="assets/img/facebook.svg">
+            </a>
+          </span>
+          <span class="fb-share-button" data-layout="button" data-size="small">
+            <a class="twitter-share-button"
+               href="https://twitter.com/intent/tweet?text={{law.headline}}">
+              <img src="assets/img/twitter.svg">
+            </a>
+          </span>
+        </div>
+        <div class="col-sm-3">
+        </div>
+
+        <div *ngIf="resultsCongreso" class="col-xs-12 col-sm-12">
+          <hr>
+          <div class="col-xs-12 col-sm-12">
+            <b class="results-black">Resultados</b>&nbsp;<b class="results">Congreso de los Diputados</b>
+            <br>
+            <br>
+          </div>
+          <div class="row">
+            <div class="col-2">
+              <span class="result-number yes">{{law.official_positive}}</span>
+            </div>
+            <div class="col-10">
+              <button type="button" class="btn btn-primary sharp yes maxi-font"
+                      [style.width]="[law.officialPositiveWidth]">S&Iacute;
+              </button>
+              <span class="result-number yes">{{ ( 100 * law.official_positive / (law.official_positive +
+                                      law.official_negative + law.official_abstention)) | number:0 }}%</span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-2">
+              <span class="result-number no">{{law.official_negative}}</span>
+            </div>
+            <div class="col-10">
+              <button type="button" class="btn btn-primary sharp no maxi-font"
+                      [style.width]=[law.officialNegativeWidth]>NO
+              </button>
+              <span class="result-number no">{{ ( 100 * law.official_negative / (law.official_positive +
+                                      law.official_negative + law.official_abstention)) | number:0 }}%</span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-3 col-sm-2">
+              <span class="result-number abstention">{{law.official_abstention}}</span>
+            </div>
+            <div class="col-xs-9 col-sm-10">
+              <button type="button" class="btn btn-primary sharp abstention maxi-font"
+                      [style.width]=[law.officialAbstentionWidth]>ABSTENCI&Oacute;N
+              </button>
+              <span class="result-number abstention">{{ ( 100 * law.official_abstention / (law.official_positive +
+                                      law.official_negative + law.official_abstention)) | number:0 }}%</span>
+              <br>
+              <br>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-12">
+          <hr>
+          <div class="col-xs-12 col-sm-12">
+            <b class="results-black">Resultados</b>&nbsp;<b class="results">Referenda</b>
+            <br>
+            <br>
+          </div>
+          <div class="row">
+            <div class="col-2">
+              <span class="result-number yes">{{law.positive}}</span>
+            </div>
+            <div class="col-10">
+              <button type="button" class="btn btn-primary sharp yes maxi-font"
+                      [style.width]="[law.positiveWidth]">S&Iacute;
+              </button>
+              <span class="result-number yes">
+                {{ ( 100 * law.positive / (law.positive + law.negative + law.abstention)) | number:0 }}%
+              </span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-2">
+              <span class="result-number no">{{law.negative}}</span>
+            </div>
+            <div class="col-10">
+              <button type="button" class="btn btn-primary sharp no maxi-font"
+                      [style.width]=[law.negativeWidth]>NO
+              </button>
+              <span class="result-number no">
+                {{ ( 100 * law.negative / (law.positive + law.negative + law.abstention)) | number:0 }}%
+              </span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-2">
+              <span class="result-number abstention">{{law.abstention}}</span>
+            </div>
+            <div class="col-10">
+              <button type="button" class="btn btn-primary sharp abstention maxi-font"
+                      [style.width]=[law.abstentionWidth]>ABSTENCI&Oacute;N
+              </button>
+              <span class="result-number abstention">
+                {{ ( 100 * law.abstention / (law.positive + law.negative + law.abstention)) | number:0 }}%
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-12">
+          <hr>
+        </div>
+
+        <div class="col-xs-12 col-sm-12">
+          <div class="col-xs-9 col-xs-offset-1">
+            <form [formGroup]="commentForm" (ngSubmit)="comment()">
+              <div class="form-group">
+                <label for="comment">Tu comentario</label>
+                <input type="text" formControlName="comment" class="form-control"
+                       [ngClass]="{ 'is-invalid': submitted && f.comment.errors }" />
+                <div *ngIf="submitted && f.comment.errors" class="invalid-feedback">
+                  <div *ngIf="f.comment.errors.required">Es necesario escribir un comentario</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <button class="btn btn-primary sharp gris">Comentar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <br>
+          <ul class="list-unstyled">
+            <li *ngFor="let comment of law.comments | orderBy: '-positive' ">
+              <div class="row">
+                <div class="col-xs-12 col-sm-2">
+                  <i class="center material-icons user-icon">account_circle</i>
+                </div>
+                <div class="col-xs-12 col-sm-10">
+                  <div class="row">
+                    <div class="col-xs-12 col-sm-11">
+                      <blockquote>
+                        <p class="comment-username">{{comment.postedBy.username}}</p>
+                        <b class="comment-datetime">{{comment.updatedAt | date:'d - MMM - yyyy'}}</b>
+                        <p class="comment ">{{comment.comment}}</p>
+                        <br>
+                      </blockquote>
+                    </div>
+                    <div class="col-xs-12 col-sm-1">
+                      <i class="material-icons" (click)="voteComment([comment._id], 1)">thumb_up</i>
+                      <span class="badge">{{comment.positive}}</span>
+                      <i class="material-icons" (click)="voteComment([comment._id], 2)">thumb_down</i>
+                      <span class="badge">{{comment.negative}}</span>
+                      <br>
+                    </div>
+                  </div>
+                  <hr>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

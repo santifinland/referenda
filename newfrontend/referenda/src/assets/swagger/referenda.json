@@ -1,0 +1,199 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Referenda",
+    "description": "Spanish Pleno del Congreso de los Diputados unnoficial API. Token needed for certain operations. Please ask for it at webmaster@referenda.es\n"
+  },
+  "host": "referenda.es:3443",
+  "basePath": "/api",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/parties": {
+      "get": {
+        "description": "Returns all parties with deputies in the Congress",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "List all parties",
+            "schema": {
+              "title": "Party",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Party"
+              }
+            }
+          }
+        }
+      }
+
+    },
+    "/parties/{partyId}": {
+      "get": {
+        "parameters": [
+          {
+            "name": "partyId",
+            "in": "path",
+            "type": "string",
+            "description": "ID of the party",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sends the party with partyId",
+            "schema": {
+              "$ref": "#/definitions/Party"
+            }
+          }
+        }
+      }
+
+    },
+
+    "/laws": {
+      "get": {
+        "description": "Returns all laws being debated or debated in Congress",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "results",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List all laws",
+            "schema": {
+              "title": "Law",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Law"
+              }
+            }
+          }
+        }
+      }
+    }
+
+  },
+  "definitions": {
+    "Party": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "name": {
+          "description": "Name of the party",
+          "type": "string"
+        },
+        "logo": {
+          "description": "URL of the partys logo",
+          "type": "string"
+        },
+        "quota": {
+          "description": "Partys quota in the Congress",
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "Law": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "law_type": {
+          "description": "type of the law",
+          "type": "string"
+        },
+        "institution": {
+          "description": "institution of party behind the law",
+          "type": "string"
+        },
+        "tier": {
+          "description": "importance of the law. 1 to 3 levels",
+          "type": "string"
+        },
+        "headline": {
+          "description": "short headline of the law",
+          "type": "string"
+        },
+        "slug": {
+          "description": "very short unique headline of the law",
+          "type": "string"
+        },
+        "short_description": {
+          "description": "brief description of the law",
+          "type": "string"
+        },
+        "long_description": {
+          "description": "long description of the law",
+          "type": "string"
+        },
+        "link": {
+          "description": "official link in the Congress online publications",
+          "type": "string"
+        },
+        "pub_date": {
+          "description": "date the law is publicated in referenda.es",
+          "type": "string"
+        },
+        "vote_start": {
+          "description": "date the law can be votedin referenda.es",
+          "type": "string"
+        },
+        "vote_end": {
+          "description": "date the law can no longer be voted in referenda.es",
+          "type": "string"
+        },
+        "positive": {
+          "description": "positive votes received by the law in referenda.es",
+          "type": "integer",
+          "format": "int32"
+        },
+        "negative": {
+          "description": "negative votes received by the law in referenda.es",
+          "type": "integer",
+          "format": "int32"
+        },
+        "abstention": {
+          "description": "abstention votes received by the law in referenda.es",
+          "type": "integer",
+          "format": "int32"
+        },
+        "official_positive": {
+          "description": "positive votes received by the law in the Congress",
+          "type": "integer",
+          "format": "int32"
+        },
+        "official_negative": {
+          "description": "negative votes received by the law in the Congress",
+          "type": "integer",
+          "format": "int32"
+        },
+        "official_abstention": {
+          "description": "abstention votes received by the law in the Congress",
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    }
+  }
+}
