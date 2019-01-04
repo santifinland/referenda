@@ -1,0 +1,24 @@
+svg {
+  border: 0px solid black;
+  overflow: visible;
+}
+.row {
+  padding-top: 15px;
+}
+.stat {
+  text-align: center;
+}
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 2px;
+  fill: red;
+}
+.kk line{
+  stroke: red;
+  fill: red;
+}
+.kk {
+  stroke: red;
+  fill: red;
+}

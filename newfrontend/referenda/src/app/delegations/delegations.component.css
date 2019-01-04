@@ -1,0 +1,73 @@
+img.party-logo {
+  max-width: 90%;
+  max-height: 150px;
+}
+.party-right {
+  padding: 30px;
+  text-align: center;
+  border-right: 1px solid #999;
+  border-bottom: 1px solid #999;
+}
+.no-border {
+  border: 0px;
+  padding: 0px;
+  background-color: #fff;
+}
+.party-left {
+  padding: 30px;
+  text-align: center;
+  border-right: 0px;
+  border-bottom: 1px solid #999;
+}
+.party-mixto {
+  padding: 30px;
+  text-align:center;
+  text-align:center;
+  border-right: 1px solid #999;
+}
+.party-selected {
+  margin-top: 0px;
+}
+.party > button {
+  display: block;
+  margin: auto;
+}
+.delegados {
+  font-family: "Montserrat-Bold";
+  font-size: 150%;
+}
+.funciona {
+  margin: 0px 0px 0px 15px;
+  padding: 0px 0px 0px 15px;
+  font-family: "Montserrat-Bold";
+  border-left: thick solid #7BA3A0;
+}
+.funciona > p {
+  font-weight: bold;
+  color: #208575;
+}
+.material-icons {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+}
+.center {
+  text-align: center;
+  font-family: "Montserrat-Bold";
+  font-size: 200%;
+}
+.user-icon {
+  font-size: 100px;
+}
+.user-delegated {
+  display: block;
+  font-family: "Montserrat-Bold";
+  font-size: 160%;
+  text-align: center;
+}
+.user-delegated > button {
+  text-align: center;
+  position:relative;
+  margin: 0 auto;
+}

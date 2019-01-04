@@ -29,7 +29,7 @@ userRouter.route('/find/:username')
     if (name.length < 4) {
         return res.status(405).json({"Reason": "username pattern too short"});
     } else {
-        User.find({"username": new RegExp('^'+name, "i")}, {"_id": 0}).limit(4).select("username")
+        User.find({"username": new RegExp('^'+name, "i")}, {"_id": 0}).limit(3).select("username")
             .exec(function (err, users) {
             if (err) return next(err);
             res.status(200).json(users);
@@ -83,8 +83,7 @@ userRouter.route('/login')
       var token = Verify.getToken({"username":user.username, "_id":user._id, "admin":user.admin});
 
       res.status(200).json({
-        status: 'Login successful!',
-        success: true,
+        username: user.username,
         token: token
       });
     });
@@ -115,9 +114,10 @@ userRouter.route('/delegateparty')
 })
 .post(Verify.verifyOrdinaryUser, function (req, res, next) {
     User.findById(req.decoded._id, function (err, user) {
-        if (err) return next(err);
+      if (err) return next(err);
+      if (user) {
         Parties.findOne({'name': req.body.party})
-            .select("name logo quota -_id")
+            .select("name -_id")
             .exec(function(err, party) {
             if (err) return next(err);
             if (party) {
@@ -131,6 +131,9 @@ userRouter.route('/delegateparty')
                 res.status(400).json({status: 'Party not found'});
             }
         });
+      } else {
+        res.status(401).json({status: 'Invalid credentials'});
+      }
     });
 });
 

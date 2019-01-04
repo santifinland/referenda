@@ -1,0 +1,40 @@
+<div class="container">
+  <br>
+  <div class="row" *ngFor="let law of laws">
+    <div class="col-xs-12 col-sm-7">
+      <div class="media">
+        <div class="media-body">
+              <div class="vertical-line">
+                <h3><a routerLink="/law/{{law.slug}}">{{law.headline}}</a></h3>
+              </div>
+              <p class="law-description">{{law.short_description}}</p>
+              <a class="btn btn-primary sharp gris" routerLink="/law/{{law.slug}}">Votar</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-5">
+      <br>
+      <div class="col-xs-12 col-sm-12" style="padding: 0px;">
+        <button type="button" class="btn btn-primary sharp yes maxi-font law-home"
+                [style.width]=[law.positiveWidth]>S&Iacute;</button>
+        <span class="result-number yes">{{ ( 100 * law.positive / (law.positive +
+                              law.negative + law.abstention)) | number:0 }}%</span>
+      </div>
+      <div class="col-xs-12 col-sm-12" style="padding: 0px;">
+        <button type="button" class="btn btn-primary sharp no maxi-font"
+                [style.width]=[law.negativeWidth]>NO</button>
+        <span class="result-number no">{{ ( 100 * law.negative / (law.positive +
+                              law.negative + law.abstention)) | number:0 }}%</span>
+      </div>
+      <div class="col-xs-12 col-sm-12" style="padding: 0px;">
+        <button type="button" class="btn btn-primary sharp abstention maxi-font"
+                [style.width]=[law.abstentionWidth]>ABSTENCI&Oacute;N</button>
+        <span class="result-number abstention">{{ ( 100 * law.abstention / (law.positive +
+                              law.negative + law.abstention)) | number:0 }}%</span>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-12">
+      <hr>
+    </div>
+  </div>
+</div>

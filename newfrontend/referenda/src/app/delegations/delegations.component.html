@@ -1,0 +1,199 @@
+<div class="container">
+
+  <div *ngIf="!currentUser" class="row">
+    <h3>Inicia sesi&oacute;n para delegar tu voto</h3>
+    <br>
+    <div class="row">
+      <div class="col-6 funciona">
+        <p>As&iacute; es como funciona</p>
+        <span>Solo si no votas en una determinada propuesta,
+              tu voto ser&aacute; el seleccionado por el usuario o partido al que delegas tu voto.
+        </span>
+        <br><br>
+        <span>Puedes cambiar de usuario y de partido cuando quieras, o no delegar tu voto a nadie.
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="currentUser" class="row align-items-start">
+    <div class="col-7 ">
+      <h3 *ngIf="delegation != 'none'">Actualmente tienes tus votos delegados a:</h3>
+      <h3 *ngIf="delegation == 'none'">Todav&iacute;a no has delegado tu voto a nadie:</h3>
+      <br>
+    </div>
+    <div class="col-6 funciona">
+      <p>As&iacute; es como funciona</p>
+      <span>Solo si no votas en una determinada propuesta,
+            tu voto ser&aacute; el seleccionado por el usuario o partido al que delegas tu voto.
+      </span>
+      <br><br>
+      <span>Puedes cambiar de usuario y de partido cuando quieras, o no delegar tu voto a nadie.
+      </span>
+    </div>
+    <div class="col-5">
+      <div *ngIf="delegation == 'party'" class="party-selected">
+        <img class="party-logo" src="{{delegatedPartyValue.logo}}">
+      </div>
+      <div *ngIf="delegation == 'user'" class="center">
+        <i class="material-icons user-icon">account_box</i>
+        <h3> {{delegatedUserValue.username}}</h3>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+  <div class="row">
+    <div class="col-5">
+      <h3>Delega tu voto en otro usuario:</h3>
+
+      <form [formGroup]="findUsersForm" (ngSubmit)="findUsers()">
+        <div class="form-group">
+          <div class="input-group mb-3">
+            <input type="text" formControlName="username" class="form-control"
+                   [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
+                   placeholder="Nombre de usuario (al menos 4 caracteres)"/>
+            <div class="input-group-append">
+              <button class="form-control btn btn-outline-secondary" type="submit">
+                <span><i class="material-icons"> search </i></span>
+              </button>
+            </div>
+            <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+              <div *ngIf="f.username.errors.required">
+                <span>Es necesario un nombre de usuario con al menos 4 caracteres</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-xs-12 col-5">
+      <form>
+        <div class="form-row" >
+          <div class="col party-mixto" *ngFor="let user of foundUsers">
+            <span class="user-delegated"> {{user.username}} </span>
+            <button (click)="delegateUser(user.username)" type="submit" class="btn btn-primary center-block">
+              Delegar
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <hr>
+      <br>
+      <h3>Selecciona el partido al que delegas tu voto:</h3>
+      <br>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class=" col-sm-1 party">
+    </div>
+    <div class=" col-sm-3 party-right">
+      <button (click)="delegateParty('pp')" class="no-border" type="submit">
+        <img src="assets/img/pp.svg" height="80" width="100"/>
+      </button>
+    </div>
+    <div class=" col-sm-3 party-right">
+      <button (click)="delegateParty('psoe')" class="no-border" type="submit">
+        <img src="assets/img/psoe.svg" height="80" width="100"/>
+      </button>
+    </div>
+    <div class=" col-sm-3 party-left">
+      <button (click)="delegateParty('podemos')" class="no-border" type="submit">
+        <img src="assets/img/podemos.svg" height="80" width="100"/>
+      </button>
+    </div>
+    <div class=" col-sm-2 party">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class=" col-sm-1 party">
+    </div>
+    <div class=" col-sm-3 party-right">
+      <button (click)="delegateParty('ciudadanos')" class="no-border" type="submit">
+        <img src="assets/img/ciudadanos.png" height="80" width="250"/>
+      </button>
+    </div>
+    <div class=" col-sm-3 party-right">
+      <button (click)="delegateParty('erc')" class="no-border" type="submit">
+        <img src="assets/img/erc.png" height="80" width="200"/>
+      </button>
+    </div>
+    <div class=" col-sm-3 party-left">
+      <button (click)="delegateParty('pnv')" class="no-border" type="submit">
+        <img src="assets/img/pnv.png" height="80" width="100"/>
+      </button>
+    </div>
+    <div class=" col-sm-2 party">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class=" col-sm-1 party">
+    </div>
+    <div class=" col-sm-3 party-right">
+      <button (click)="delegateParty('cc')" class="no-border" type="submit">
+        <img src="assets/img/cc.png" height="80" width="100"/>
+      </button>
+    </div>
+    <div class=" col-sm-3 party-right">
+      <button (click)="delegateParty('nc')" class="no-border" type="submit">
+        <img src="assets/img/nc.png" height="80" width="100"/>
+      </button>
+    </div>
+    <div class=" col-sm-3 party-left">
+      <button (click)="delegateParty('compromis')" class="no-border" type="submit">
+        <img src="assets/img/compromis.png" height="80" width="300"/>
+      </button>
+    </div>
+    <div class=" col-sm-2 party">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class=" col-sm-1 party">
+    </div>
+    <div class=" col-sm-3 party-right">
+      <button (click)="delegateParty('fa')" class="no-border" type="submit">
+        <img src="assets/img/fa.jpg" height="80" width="100"/>
+      </button>
+    </div>
+    <div class=" col-sm-3 party-right">
+      <button (click)="delegateParty('upn')" class="no-border" type="submit">
+        <img src="assets/img/upn.png" height="80" width="100"/>
+      </button>
+    </div>
+    <div class=" col-sm-3 party-left">
+      <button (click)="delegateParty('bildu')" class="no-border" type="submit">
+        <img src="assets/img/bildu.png" height="80" width="300"/>
+      </button>
+    </div>
+    <div class=" col-sm-2 party">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class=" col-sm-4 party-mixto">
+      <button (click)="delegateParty('pdcat')" class="no-border" type="submit">
+        <img src="assets/img/pdcat.svg" height="80" width="300"/>
+      </button>
+    </div>
+    <div class=" col-sm-3 party-mixto">
+      <h3>
+        <button (click)="delegateParty('nd')" class="no-border" type="submit">
+          No delegar
+        </button>
+      </h3>
+    </div>
+    <div class=" col-sm-4 party">
+    </div>
+  </div>
+
+</div>

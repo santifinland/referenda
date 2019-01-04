@@ -1,0 +1,135 @@
+.vertical-line {
+    border-left: thick solid #7BA3A0;
+    border-left-width: 10px;
+    height: 80%;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    padding-top: 0px;
+    padding-left: 10px;
+}
+.vertical-line > h3 > a {
+  color: #000;
+}
+.law-headline {
+  font-family: "Montserrat-Bold";
+  text-decoration: underline;
+  font-size: 150%;
+  color: #000000;
+}
+.law-description {
+    white-space: pre-line;
+    text-align: justify;
+}
+.btn.sharp {
+  padding: 0px, 0px;
+  margin: 1px;
+  border-radius:0;
+  border: 0 none;
+  width: 110px;
+  font-family: "Montserrat-Bold";
+}
+.btn.sharp.yes {
+  font-size: 160%;
+  background: #145458;
+  color: #ffffff;
+}
+.btn.sharp.no {
+  font-size: 160%;
+  background: #208575;
+  color: #ffffff;
+}
+.btn.sharp.yes.vote {
+  width: 175px;
+  display: block;
+  margin: 0 auto;
+  font-size: 140%;
+}
+.btn.sharp.no.vote {
+  width: 175px;
+  display: block;
+  margin: 0 auto;
+  font-size: 140%;
+}
+.btn.sharp.abstention.vote {
+  width: 175px;
+  display: block;
+  margin: 0 auto;
+  font-size: 140%;
+}
+.btn.sharp.abstention {
+  font-size: 160%;
+  background: #7BA3A0;
+  color: #ffffff;
+}
+.results {
+  color: #195123;
+  font-size: 130%;
+}
+.results-black {
+  color: #000;
+  font-size: 130%;
+}
+.result-number {
+  margin-right: 10px;
+  font-family: "Montserrat-Bold";
+  font-size: 250%;
+  vertical-align: middle;
+}
+.result-number.yes {
+  color: #145458;
+}
+.result-number.no {
+  color: #208575;
+}
+.result-number.abstention {
+  color: #7BA3A0;
+}
+.center {
+  text-align: center;
+}
+.comment {
+  text-align: justify;
+  font-size: 14px;
+  margin: 10px 0px 0px 0px;
+}
+.comment-username {
+  font-family: "Montserrat-Bold";
+  font-size: 155%;
+  line-height: 70%;
+  margin: 0px;
+}
+.comment-datetime {
+  font-size: 80%;
+  color: #777;
+  margin: 0px;
+  padding: 0px;
+}
+blockquote {
+  border: none;
+  margin: 0px;
+}
+i.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: auto;
+  height: auto;
+  margin-bottom: 5%;
+  margin-top: 0%;
+  padding-top: 0%;
+  min-width: 70px;
+  min-height: 70px;
+}
+.material-icons {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+}
+.user-icon {
+  font-size: 70px;
+}
+.btn.sharp.gris {
+  background: #8A8B90;
+  color: #ffffff;
+}

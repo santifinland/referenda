@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="row row-content">
+    <div class="col-xl-3 stat">
+      <ul class="nav nav-pills nav-stacked stat">
+        <button type="button" class="btn btn-primary" (click)="stat('xPartido')">
+          Propuestas votadas por partido
+        </button>
+      </ul>
+      <br>
+    </div>
+    <div *ngIf="xPartido" class="col-xl-9 stat">
+      <svg>
+        <rect></rect>
+        <rect></rect>
+        <rect></rect>
+        <rect></rect>
+        <rect></rect>
+        <rect></rect>
+        <rect></rect>
+        <rect></rect>
+        <rect></rect>
+        <rect></rect>
+        <rect></rect>
+        <rect></rect>
+        <rect></rect>
+        <rect></rect>
+      </svg>
+      <br>
+      <br>
+      <br>
+      <br>
+      <p class="explanation">
+        Número de propuestas presentadas por cada partido político con representación en el Congreso de los Diputados
+      </p>
+      <br>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,89 @@
+.vertical-line {
+    border-left: thick solid #7BA3A0;
+    border-left-width: 10px;
+    height: 80%;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    padding-top: 0px;
+    padding-left: 10px;
+}
+.vertical-line > h3 > a {
+  color: #000;
+}
+.law-description {
+    white-space: pre-line;
+    text-align: justify;
+}
+.btn.sharp {
+  padding: 0px, 0px;
+  margin: 1px;
+  border-radius:0;
+  border: 0 none;
+  width: 110px;
+  font-family: "Montserrat-Bold";
+}
+.btn.sharp.yes {
+  font-size: 160%;
+  background: #145458;
+  color: #ffffff;
+}
+.btn.sharp.gris {
+  font-size: 160%;
+  background: #8A8B90;
+  color: #ffffff;
+}
+.btn.sharp.no {
+  font-size: 160%;
+  background: #208575;
+  color: #ffffff;
+}
+.btn.sharp.yes.vote {
+  width: 175px;
+  display: block;
+  margin: 0 auto;
+}
+.btn.sharp.no.vote {
+  width: 175px;
+  display: block;
+  margin: 0 auto;
+}
+.btn.sharp.abstention.vote {
+  width: 175px;
+  display: block;
+  margin: 0 auto;
+}
+.btn.sharp.abstention {
+  font-size: 160%;
+  background: #7BA3A0;
+  color: #ffffff;
+}
+.btn.sharp.yes.maxi-font {
+  font-size: 160%;
+  padding: 10px;
+  cursor: default;
+}
+.btn.sharp.no.maxi-font {
+  font-size: 160%;
+  padding: 10px;
+  cursor: default;
+}
+.btn.sharp.abstention.maxi-font {
+  font-size: 160%;
+  padding: 10px;
+  cursor: default;
+}
+.result-number {
+  margin-right: 10px;
+  font-family: "Montserrat-Bold";
+  font-size: 250%;
+  vertical-align: middle;
+}
+.result-number.yes {
+  color: #145458;
+}
+.result-number.no {
+  color: #208575;
+}
+.result-number.abstention {
+  color: #7BA3A0;
+}
