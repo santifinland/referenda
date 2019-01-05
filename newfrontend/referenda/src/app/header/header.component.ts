@@ -23,6 +23,8 @@ export class HeaderComponent implements OnInit {
   currentUser: User;
   currentUserSubscription: Subscription;
 
+  section: string;
+
   constructor(
       private alertService: AlertService,
       private authenticationService: AuthenticationService,

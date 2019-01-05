@@ -11,20 +11,23 @@ var Votes = require('../models/votes');
 var Parties = require('../models/parties');
 
 var findVote = function findVote(law, user, callback) {
+  console.log(law._id);
+  console.log(user._id);
   Votes.findOne({"lawId": law._id, "userId": user._id}, function(err, singleVote) {
     if (err) callback(err, null);
     // If direct vote found
     if (singleVote) {
-      console.log("Encontrado voto directo: " + singleVote.vote);
+      console.log("Encontrado voto directo:");
+      console.log(singleVote.vote);
       return callback(null, singleVote.vote);
     // If no direct vote found
     } else {
       console.log("No encontrado voto directo");
       // Check if user has delegated to a party
-      console.log("Delegated party: " + user.username);
+      console.log("Username: " + user.username);
       console.log("Delegated party: " + user.delegatedParty);
       console.log("Delegated user: " + user.delegatedUser);
-      if (user.delegatedParty != null) {
+      if ((user.delegatedParty != null) && (user.delegatedParty != 'nd')) {
         console.log("El usuario ha delagado en un partido");
         // User has a party delegations. Checking type
         if (law.positiveParties.indexOf(user.delegatedParty) >= 0) return callback(null, 1);
@@ -395,7 +398,6 @@ lawRouter.route('/:slug/votes')
                   if (err) return next(err);
                   console.log('Remove last Vote');
                   // Create vote
-                  console.log(req.params.vote);
                   var newVote = new Votes({"lawId": law._id, "userId": req.decoded._id, "vote": req.body.vote});
                   console.log(newVote);
                   newVote.save(function (err, v) {

@@ -21,11 +21,11 @@ export class ResultsComponent implements OnInit {
   constructor(private lawService: LawService) { }
 
   ngOnInit() {
-    this.getLaws();
+    this.getResults();
   }
 
-  getLaws(): void {
-    this.lawService.getLaws()
+  getResults(): void {
+    this.lawService.getResults()
       .subscribe(laws => {
         this.laws = laws;
         this.laws.map(law => {

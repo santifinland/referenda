@@ -18,19 +18,19 @@
         <button type="button" class="btn btn-primary sharp yes maxi-font law-home"
                 [style.width]=[law.positiveWidth]>S&Iacute;</button>
         <span class="result-number yes">{{ ( 100 * law.positive / (law.positive +
-                              law.negative + law.abstention)) | number:0 }}%</span>
+                              law.negative + law.abstention)) | number:'1.0-0' }}%</span>
       </div>
       <div class="col-xs-12 col-sm-12" style="padding: 0px;">
         <button type="button" class="btn btn-primary sharp no maxi-font"
                 [style.width]=[law.negativeWidth]>NO</button>
         <span class="result-number no">{{ ( 100 * law.negative / (law.positive +
-                              law.negative + law.abstention)) | number:0 }}%</span>
+                              law.negative + law.abstention)) | number:'1.0-0' }}%</span>
       </div>
       <div class="col-xs-12 col-sm-12" style="padding: 0px;">
         <button type="button" class="btn btn-primary sharp abstention maxi-font"
                 [style.width]=[law.abstentionWidth]>ABSTENCI&Oacute;N</button>
         <span class="result-number abstention">{{ ( 100 * law.abstention / (law.positive +
-                              law.negative + law.abstention)) | number:0 }}%</span>
+                              law.negative + law.abstention)) | number:'1.0-0' }}%</span>
       </div>
     </div>
     <div class="col-xs-12 col-sm-12">

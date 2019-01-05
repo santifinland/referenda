@@ -8,7 +8,7 @@
 }
 @font-face {
     font-family: "Montserrat-Bold";
-    src: url("../../assets/fonts/Montserrat-Regular.ttf") format("truetype");
+    src: url("/assets/fonts/Montserrat-Regular.ttf") format("truetype");
 }
 .montserrat {
   font-family: "Montserrat-Bold";
