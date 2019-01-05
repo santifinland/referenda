@@ -70,7 +70,7 @@
                       [style.width]="[law.officialPositiveWidth]">S&Iacute;
               </button>
               <span class="result-number yes">{{ ( 100 * law.official_positive / (law.official_positive +
-                                      law.official_negative + law.official_abstention)) | number:0 }}%</span>
+                                      law.official_negative + law.official_abstention)) | number:'1.0-0' }}%</span>
             </div>
           </div>
           <div class="row">
@@ -82,7 +82,7 @@
                       [style.width]=[law.officialNegativeWidth]>NO
               </button>
               <span class="result-number no">{{ ( 100 * law.official_negative / (law.official_positive +
-                                      law.official_negative + law.official_abstention)) | number:0 }}%</span>
+                                      law.official_negative + law.official_abstention)) | number:'1.0-0' }}%</span>
             </div>
           </div>
           <div class="row">
@@ -94,7 +94,7 @@
                       [style.width]=[law.officialAbstentionWidth]>ABSTENCI&Oacute;N
               </button>
               <span class="result-number abstention">{{ ( 100 * law.official_abstention / (law.official_positive +
-                                      law.official_negative + law.official_abstention)) | number:0 }}%</span>
+                                      law.official_negative + law.official_abstention)) | number:'1.0-0' }}%</span>
               <br>
               <br>
             </div>
@@ -117,7 +117,7 @@
                       [style.width]="[law.positiveWidth]">S&Iacute;
               </button>
               <span class="result-number yes">
-                {{ ( 100 * law.positive / (law.positive + law.negative + law.abstention)) | number:0 }}%
+                {{ ( 100 * law.positive / (law.positive + law.negative + law.abstention)) | number:'1.0-0' }}%
               </span>
             </div>
           </div>
@@ -130,7 +130,7 @@
                       [style.width]=[law.negativeWidth]>NO
               </button>
               <span class="result-number no">
-                {{ ( 100 * law.negative / (law.positive + law.negative + law.abstention)) | number:0 }}%
+                {{ ( 100 * law.negative / (law.positive + law.negative + law.abstention)) | number:'1.0-0' }}%
               </span>
             </div>
           </div>
@@ -143,7 +143,7 @@
                       [style.width]=[law.abstentionWidth]>ABSTENCI&Oacute;N
               </button>
               <span class="result-number abstention">
-                {{ ( 100 * law.abstention / (law.positive + law.negative + law.abstention)) | number:0 }}%
+                {{ ( 100 * law.abstention / (law.positive + law.negative + law.abstention)) | number:'1.0-0' }}%
               </span>
             </div>
           </div>

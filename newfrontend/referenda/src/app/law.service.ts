@@ -37,6 +37,13 @@ export class LawService {
       );
   }
 
+  getResults(): Observable<Law[]> {
+    return this.http.get<Law[]>(this.lawsUrl + "?results=true")
+      .pipe(
+        catchError(this.handleError('getResults', []))
+      );
+  }
+
   getLaw(slug: string): Observable<Law> {
     return this.http.get<Law>(this.lawsUrl + "/" + slug)
       .pipe(
