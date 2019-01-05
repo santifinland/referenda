@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { first } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+
+import { AuthService } from "angularx-social-login";
+import { FacebookLoginProvider, GoogleLoginProvider, LinkedInLoginProvider } from "angularx-social-login";
+import { first } from 'rxjs/operators';
+import { SocialUser } from "angularx-social-login";
 import { Subscription } from 'rxjs';
 
 import { AlertService, AuthenticationService, UserService } from '../_services';
@@ -25,8 +29,12 @@ export class HeaderComponent implements OnInit {
 
   section: string;
 
+  private user: SocialUser;
+  private loggedIn: boolean;
+
   constructor(
       private alertService: AlertService,
+      private authService: AuthService,
       private authenticationService: AuthenticationService,
       private formBuilder: FormBuilder,
       private modalService: ModalService,
@@ -47,6 +55,10 @@ export class HeaderComponent implements OnInit {
       username: ['', [Validators.required, Validators.minLength(4)]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       gdpr: ['', Validators.required]
+    });
+    this.authService.authState.subscribe((user) => {
+      this.user = user;
+      this.loggedIn = (user != null);
     });
   }
 
@@ -113,5 +125,17 @@ export class HeaderComponent implements OnInit {
     this.authenticationService.logout();
     this.currentUserSubscription.unsubscribe();
     location.reload(true);
+  }
+
+  signInWithGoogle(): void {
+    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+  }
+
+  signInWithFB(): void {
+    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+  }
+
+  signOut(): void {
+    this.authService.signOut();
   }
 }
