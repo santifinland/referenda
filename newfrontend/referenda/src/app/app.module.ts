@@ -15,10 +15,13 @@ import { CookiesComponent } from './cookies/cookies.component';
 import { D3Service } from 'd3-ng2-service';
 import { DelegationsComponent } from './delegations/delegations.component';
 import { FooterComponent } from './footer/footer.component';
+import { GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-login";
 import { HeaderComponent } from './header/header.component';
 import { LawsComponent } from './laws/laws.component';
 import { LawDetailComponent } from './law-detail/law-detail.component';
 import { ResultsComponent } from './results/results.component';
+import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
+
 
 import { StatsComponent } from './stats/stats.component';
 import { AlertComponent } from './_components';
@@ -48,6 +51,21 @@ const cookieConfig:NgcCookieConsentConfig = {
   theme: 'edgeless',
   type: 'opt-out'
 };
+
+let config = new AuthServiceConfig([
+  {
+    id: GoogleLoginProvider.PROVIDER_ID,
+    provider: new GoogleLoginProvider("928349623718-lfcmf80du5n1r2agv00hecdtoqmtpd60.apps.googleusercontent.com")
+  },
+  {
+    id: FacebookLoginProvider.PROVIDER_ID,
+    provider: new FacebookLoginProvider("Facebook-App-Id")
+  }
+]);
+
+export function provideConfig() {
+  return config;
+}
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -90,13 +108,15 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     }),
     ReactiveFormsModule,
-    NgcCookieConsentModule.forRoot(cookieConfig)
+    NgcCookieConsentModule.forRoot(cookieConfig),
+    SocialLoginModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     D3Service,
-    ModalService
+    ModalService,
+    { provide: AuthServiceConfig, useFactory: provideConfig }
   ],
   bootstrap: [AppComponent]
 })
