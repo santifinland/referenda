@@ -27,7 +27,7 @@ export class StatsComponent implements OnInit {
   }
 
   getLaws(): void {
-    this.lawService.getLaws()
+    this.lawService.getResults()
       .subscribe(laws => {
         const results = this.buildData(laws);
         this.draw(results);
