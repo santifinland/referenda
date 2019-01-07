@@ -49,6 +49,12 @@ export class UserService {
     return this.http.post(`${this.usersUrl}/register`, user);
   }
 
+  googleRegister(user: any): Observable<string> {
+    const uri = this.usersUrl + "/googleregister"
+    const body = {"id": user.idToken, "token": user.authToken}
+    return this.http.post<string>(uri, body);
+  }
+
  /**
    * Handle Http operation that failed.
    * Let the app continue.

@@ -1,5 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+var https = require('https');
 var passport = require('passport');
 var User = require('../models/user');
 var Verify    = require('./verify');
@@ -64,30 +65,100 @@ userRouter.route('/register')
 
 userRouter.route('/login')
 .post(function(req, res, next) {
-  passport.authenticate('local', function(err, user, info) {
-    if (err) {
-      return next(err);
-    }
-    if (!user) {
-      return res.status(401).json({
-        err: info
-      });
-    }
-    req.logIn(user, function(err) {
+  if (req.body.username.indexOf("@") > -1) {
+    res.status(401).end();
+  } else {
+    passport.authenticate('local', function(err, user, info) {
       if (err) {
-        return res.status(500).json({
-          err: 'Could not log in user'
+        return next(err);
+      }
+      if (!user) {
+        return res.status(401).json({
+          err: info
         });
       }
+      req.logIn(user, function(err) {
+        if (err) {
+          return res.status(500).json({
+            err: 'Could not log in user'
+          });
+        }
 
-      var token = Verify.getToken({"username":user.username, "_id":user._id, "admin":user.admin});
+        var token = Verify.getToken({"username":user.username, "_id":user._id, "admin":user.admin});
 
-      res.status(200).json({
-        username: user.username,
-        token: token
+        res.status(200).json({
+          username: user.username,
+          token: token
+        });
       });
+    })(req,res,next);
+  }
+});
+
+userRouter.route('/googleregister')
+.post(function(req, res, next) {
+  // Extrater el nombre de usuario y el mail del token preguntando a google
+  https.get('https://www.googleapis.com/oauth2/v3/tokeninfo?access_token=' + req.body.token, (resp) => {
+    let data = '';
+    // The whole response has been received. Print out the result.
+    resp.on('data', (chunk) => {
+      data += chunk;
     });
-  })(req,res,next);
+    resp.on('end', () => {
+      // TODO: Verificar que el token es correcto
+      User.findOne({"username": JSON.parse(data).email})
+        .exec(function(err, user) {
+          if (err) return next(err);
+          if (user) {
+            // Logar al usuario mediante la creación de un jwt
+            req.logIn(user, function(err) {
+              if (err) {
+                return res.status(500).json({
+                  err: 'Could not log in user'
+                });
+              }
+              var token = Verify.getToken({"username":user.username, "_id":user._id, "admin":user.admin});
+              res.status(200).json({
+                username: user.username,
+                token: token
+              });
+            });
+          } else {
+            User.register(new User(
+              { username : JSON.parse(data).email }),
+              "Google01!",
+              function(err, user) {
+                if (err) {
+                  return res.status(500).json({err: err});
+                }
+                user.save(function(err, user) {
+                  if (err) {
+                  } else {
+                    req.logIn(user, function(err) {
+                      if (err) {
+                        return res.status(500).json({
+                          err: 'Could not log in user'
+                        });
+                      }
+                      var token = Verify.getToken({"username":user.username, "_id":user._id, "admin":user.admin});
+                      res.status(200).json({
+                        username: user.username,
+                        token: token
+                      });
+                    });
+                  }
+                });
+              }
+            );
+          }
+        });
+    });
+  }).on("error", (err) => {
+    console.log("Error: " + err.message);
+  });
+  // Mirar si el usuario ya existe
+  // Si no existe, crearlo
+  // Logar al usuario mediante la creación de un jwt
 });
 
 userRouter.route('/logout')

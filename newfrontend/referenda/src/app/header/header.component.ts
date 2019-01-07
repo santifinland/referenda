@@ -29,8 +29,8 @@ export class HeaderComponent implements OnInit {
 
   section: string;
 
-  private user: SocialUser;
-  private loggedIn: boolean;
+  private socialUser: SocialUser;
+  private socialUserLoggedIn: boolean;
 
   constructor(
       private alertService: AlertService,
@@ -57,8 +57,16 @@ export class HeaderComponent implements OnInit {
       gdpr: ['', Validators.required]
     });
     this.authService.authState.subscribe((user) => {
-      this.user = user;
-      this.loggedIn = (user != null);
+      this.socialUser = user;
+      this.socialUserLoggedIn = (user != null);
+      this.userService.googleRegister(user)
+        .subscribe(
+          (data: any) => {
+            const referendaUser: User = {username: data.username, token: data.token}
+            this.authenticationService.loginWithToken(referendaUser);
+          },
+          err => console.log(err)
+        );
     });
   }
 
@@ -124,18 +132,15 @@ export class HeaderComponent implements OnInit {
   logout() {
     this.authenticationService.logout();
     this.currentUserSubscription.unsubscribe();
+    if (this.socialUser) {
+      this.socialUserLoggedIn = false;
+      this.socialUser = null;
+      this.authService.signOut();
+    }
     location.reload(true);
   }
 
   signInWithGoogle(): void {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
-  }
-
-  signInWithFB(): void {
-    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
-  }
-
-  signOut(): void {
-    this.authService.signOut();
   }
 }
