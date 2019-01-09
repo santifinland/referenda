@@ -38,7 +38,7 @@ import { DevelopersComponent } from './developers/developers.component';
 
 const cookieConfig:NgcCookieConsentConfig = {
   cookie: {
-    domain: 'localhost' // or 'your.domain.com' // it is mandatory to set a domain, for cookies to work properly (see https://goo.gl/S2Hy2A)
+    domain: 'referenda.es' // or 'your.domain.com' // it is mandatory to set a domain, for cookies to work properly (see https://goo.gl/S2Hy2A)
   },
   palette: {
     popup: {
