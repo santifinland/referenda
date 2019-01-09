@@ -3,34 +3,33 @@ import { FilterPipeModule } from 'ngx-filter-pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgcCookieConsentModule, NgcCookieConsentConfig } from 'ngx-cookieconsent';
 import { NgModule } from '@angular/core';
 import { OrderModule } from 'ngx-order-pipe';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { CookiesComponent } from './cookies/cookies.component';
 import { D3Service } from 'd3-ng2-service';
-import { DelegationsComponent } from './delegations/delegations.component';
-import { FooterComponent } from './footer/footer.component';
 import { GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-login";
-import { HeaderComponent } from './header/header.component';
-import { LawsComponent } from './laws/laws.component';
-import { LawDetailComponent } from './law-detail/law-detail.component';
-import { ResultsComponent } from './results/results.component';
+import { NgcCookieConsentModule, NgcCookieConsentConfig } from 'ngx-cookieconsent';
 import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
 
-
-import { StatsComponent } from './stats/stats.component';
 import { AlertComponent } from './_components';
+import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
+import { CookiesComponent } from './cookies/cookies.component';
+import { DelegationsComponent } from './delegations/delegations.component';
+import { FooterComponent } from './footer/footer.component';
+import { HeaderComponent } from './header/header.component';
+import { LawDetailComponent } from './law-detail/law-detail.component';
+import { LawsComponent } from './laws/laws.component';
 import { ModalComponent } from './_directives';
 import { ModalService } from './_services';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { HomeComponent } from './home';
 import { LoginComponent } from './login';
 import { RegisterComponent } from './register';
+import { ResultsComponent } from './results/results.component';
+import { StatsComponent } from './stats/stats.component';
 import { GdprComponent } from './gdpr/gdpr.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { DevelopersComponent } from './developers/developers.component';
@@ -40,16 +39,16 @@ const cookieConfig:NgcCookieConsentConfig = {
   cookie: {
     domain: 'referenda.es' // or 'your.domain.com' // it is mandatory to set a domain, for cookies to work properly (see https://goo.gl/S2Hy2A)
   },
+  theme: 'block',
   palette: {
     popup: {
-      background: '#000'
+      background: '#3D989D'
     },
     button: {
       background: '#f1d600'
     }
   },
-  theme: 'edgeless',
-  type: 'opt-out'
+  type: 'info'
 };
 
 let config = new AuthServiceConfig([
