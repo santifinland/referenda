@@ -64,6 +64,7 @@ export class HeaderComponent implements OnInit {
           (data: any) => {
             const referendaUser: User = {username: data.username, token: data.token}
             this.authenticationService.loginWithToken(referendaUser);
+            this.closeModal('login');
           },
           err => console.log(err)
         );
