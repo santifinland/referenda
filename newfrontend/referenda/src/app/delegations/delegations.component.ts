@@ -60,6 +60,9 @@ export class DelegationsComponent implements OnInit {
           if (data) {
             this.delegatedPartyValue = data;
             this.delegation = "party";
+            if (data.name == 'nd') {
+              this.delegation = "none";
+            }
           }
         },
         err => {}
