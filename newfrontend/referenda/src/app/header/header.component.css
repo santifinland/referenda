@@ -161,3 +161,9 @@ img.center {
   margin-left: 8%;
   margin-right: 0%;
 }
+.facebook {
+  background-color: #4267B2;
+}
+.facebook-img {
+  max-width: 45px;
+}
