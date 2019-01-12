@@ -1,3 +1,6 @@
+table {
+  table-layout: fixed;
+}
 .table > tbody > tr > td > a {
   color: #333;
 }
@@ -5,7 +8,7 @@
   color: #333;
 }
 .card {
-  width: 90%;
+  width: 100%;
 }
 .vote_end {
   width: 20%;
