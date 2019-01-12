@@ -33,6 +33,7 @@ import { StatsComponent } from './stats/stats.component';
 import { GdprComponent } from './gdpr/gdpr.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { DevelopersComponent } from './developers/developers.component';
+import { WINDOW_PROVIDERS } from "./_services/window.service";
 
 
 const cookieConfig:NgcCookieConsentConfig = {
@@ -115,7 +116,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     D3Service,
     ModalService,
-    { provide: AuthServiceConfig, useFactory: provideConfig }
+    { provide: AuthServiceConfig, useFactory: provideConfig },
+    WINDOW_PROVIDERS
   ],
   bootstrap: [AppComponent]
 })

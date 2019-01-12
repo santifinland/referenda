@@ -37,18 +37,13 @@
         <div class="col-sm-7">
         </div>
         <div class="col-sm-2 center">
-          <span class="fb-share-button" data-layout="button"
-                data-size="small" data-mobile-iframe="true">
-            <a class="fb-xfbml-parse-ignore" target="_blank"
-               href={{facebook}}>
+          <span>
+            <a href="https://www.facebook.com/dialog/share?app_id=297519443717240&display=popup&href={{location}}&redirect_uri=https%3A%2F%2Freferenda.es">
               <img src="assets/img/facebook.svg">
             </a>
           </span>
-          <span class="fb-share-button" data-layout="button" data-size="small">
-            <a class="twitter-share-button"
-               href="https://twitter.com/intent/tweet?text={{law.headline}}">
-              <img src="assets/img/twitter.svg">
-            </a>
+          <span>
+            <img src="assets/img/twitter.svg" (click)="shareTwitter()">
           </span>
         </div>
         <div class="col-sm-3">
