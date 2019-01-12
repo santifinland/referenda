@@ -57,7 +57,7 @@ export class UserService {
 
   facebookRegister(user: any): Observable<string> {
     const uri = this.usersUrl + "/facebookregister"
-    const body = {"id": user.idToken, "token": user.authToken}
+    const body = {"token": user.authToken, "email": user.email, "username": user.name}
     return this.http.post<string>(uri, body);
   }
 

@@ -75,7 +75,7 @@ export class HeaderComponent implements OnInit {
         this.userService.facebookRegister(user)
           .subscribe(
             (data: any) => {
-              const referendaUser: User = {username: data.username, token: data.token}
+              const referendaUser: User = {token: data.token, email: data.email, username: data.name}
               this.authenticationService.loginWithToken(referendaUser);
               this.closeModal('login');
             },
