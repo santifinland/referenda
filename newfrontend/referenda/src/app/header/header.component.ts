@@ -31,6 +31,7 @@ export class HeaderComponent implements OnInit {
 
   private socialUser: SocialUser;
   private socialUserLoggedIn: boolean;
+  private socialProvider: string;
 
   constructor(
       private alertService: AlertService,
@@ -59,15 +60,28 @@ export class HeaderComponent implements OnInit {
     this.authService.authState.subscribe((user) => {
       this.socialUser = user;
       this.socialUserLoggedIn = (user != null);
-      this.userService.googleRegister(user)
-        .subscribe(
-          (data: any) => {
-            const referendaUser: User = {username: data.username, token: data.token}
-            this.authenticationService.loginWithToken(referendaUser);
-            this.closeModal('login');
-          },
-          err => console.log(err)
-        );
+      if (this.socialProvider == "Google") {
+        this.userService.googleRegister(user)
+          .subscribe(
+            (data: any) => {
+              const referendaUser: User = {username: data.username, token: data.token}
+              this.authenticationService.loginWithToken(referendaUser);
+              this.closeModal('login');
+            },
+            err => console.log(err)
+          );
+      }
+      if (this.socialProvider == "Facebook") {
+        this.userService.facebookRegister(user)
+          .subscribe(
+            (data: any) => {
+              const referendaUser: User = {username: data.username, token: data.token}
+              this.authenticationService.loginWithToken(referendaUser);
+              this.closeModal('login');
+            },
+            err => console.log(err)
+          );
+      }
     });
   }
 
@@ -142,10 +156,12 @@ export class HeaderComponent implements OnInit {
   }
 
   signInWithGoogle(): void {
+    this.socialProvider = "Google";
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
   }
 
   signInWithFB(): void {
+    this.socialProvider = "Facebook";
     this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
   }
 }

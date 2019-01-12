@@ -11,6 +11,7 @@ media
 backup
 backend/referenda/node_modules
 backend/referenda/log
+backend/referenda/config.js
 frontend/app/images
 frontend/bower_components
 frontend/dist

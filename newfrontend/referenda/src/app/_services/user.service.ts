@@ -55,6 +55,12 @@ export class UserService {
     return this.http.post<string>(uri, body);
   }
 
+  facebookRegister(user: any): Observable<string> {
+    const uri = this.usersUrl + "/facebookregister"
+    const body = {"id": user.idToken, "token": user.authToken}
+    return this.http.post<string>(uri, body);
+  }
+
  /**
    * Handle Http operation that failed.
    * Let the app continue.
