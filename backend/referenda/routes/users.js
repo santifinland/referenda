@@ -174,7 +174,7 @@ userRouter.route('/facebookregister')
     resp.on('end', () => {
       // TODO: Verificar que el token es correcto
       if (JSON.parse(data).is_valid == false) return next(err);
-      User.findOne({"username": JSON.parse(data).email})
+      User.findOne({"username": req.body.email})
         .exec(function(err, user) {
           if (err) return next(err);
           if (user) {
@@ -193,7 +193,7 @@ userRouter.route('/facebookregister')
             });
           } else {
             User.register(new User(
-              { username : JSON.parse(data).email }),
+              { username : req.body.email }),
               "Facebook01!",
               function(err, user) {
                 if (err) {

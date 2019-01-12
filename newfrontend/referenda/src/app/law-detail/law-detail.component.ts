@@ -1,5 +1,6 @@
 import { ActivatedRoute } from "@angular/router";
 import { Component, OnInit, Input } from '@angular/core';
+import { Inject } from '@angular/core';
 
 import { first } from 'rxjs/operators';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -8,6 +9,8 @@ import { Law } from '../law';
 import { LawService } from '../law.service';
 import { ModalService } from '../_services';
 import { VoteResponse } from '../vote.response';
+import { WINDOW } from "../_services/window.service";
+
 
 @Component({
   selector: 'app-law-detail',
@@ -29,12 +32,16 @@ export class LawDetailComponent implements OnInit {
   commentForm: FormGroup;
   submitted = false;
 
+  location: string;
+
   constructor(
       private lawService: LawService,
       private formBuilder: FormBuilder,
       private modalService: ModalService,
-      private route: ActivatedRoute) {
+      private route: ActivatedRoute,
+      @Inject(WINDOW) private window: Window) {
     this.route.params.subscribe( params => this.getLaw(params['slug']));
+    this.location = encodeURIComponent(this.window.location.href);
   }
 
   ngOnInit() {
@@ -104,5 +111,14 @@ export class LawDetailComponent implements OnInit {
         err => this.modalService.open('login')
       );
   }
+
+  shareTwitter(): void {
+    const width = (window.screen.width/3);
+    const height = (window.screen.height/3);
+    window.open('https://twitter.com/intent/tweet?text=' + this.law.headline +
+                '. Vota en https://referenda.es.&hashtags=DemocraciaDirecta',
+                'twitter', 'width=600, height=300, top=' + height + ', left=' + width + ';');
+  }
+
 }
 
