@@ -5,6 +5,7 @@ var passport = require('passport');
 var User = require('../models/user');
 var Verify    = require('./verify');
 var Parties = require('../models/parties');
+var config = require('../config.js');
 
 var userRouter = express.Router();
 userRouter.use(bodyParser.json());
@@ -127,6 +128,73 @@ userRouter.route('/googleregister')
             User.register(new User(
               { username : JSON.parse(data).email }),
               "Google01!",
+              function(err, user) {
+                if (err) {
+                  return res.status(500).json({err: err});
+                }
+                user.save(function(err, user) {
+                  if (err) {
+                  } else {
+                    req.logIn(user, function(err) {
+                      if (err) {
+                        return res.status(500).json({
+                          err: 'Could not log in user'
+                        });
+                      }
+                      var token = Verify.getToken({"username":user.username, "_id":user._id, "admin":user.admin});
+                      res.status(200).json({
+                        username: user.username,
+                        token: token
+                      });
+                    });
+                  }
+                });
+              }
+            );
+          }
+        });
+    });
+  }).on("error", (err) => {
+    console.log("Error: " + err.message);
+  });
+  // Mirar si el usuario ya existe
+  // Si no existe, crearlo
+  // Logar al usuario mediante la creación de un jwt
+});
+
+userRouter.route('/facebookregister')
+.post(function(req, res, next) {
+  // Extrater el nombre de usuario y el mail del token preguntando a facebook
+  https.get('https://graph.facebook.com/debug_token?input_token=' + req.body.token + '&access_token=' + config.facebookAppToken, (resp) => {
+    let data = '';
+    // The whole response has been received. Print out the result.
+    resp.on('data', (chunk) => {
+      data += chunk;
+    });
+    resp.on('end', () => {
+      // TODO: Verificar que el token es correcto
+      if (JSON.parse(data).is_valid == false) return next(err);
+      User.findOne({"username": JSON.parse(data).email})
+        .exec(function(err, user) {
+          if (err) return next(err);
+          if (user) {
+            // Logar al usuario mediante la creación de un jwt
+            req.logIn(user, function(err) {
+              if (err) {
+                return res.status(500).json({
+                  err: 'Could not log in user'
+                });
+              }
+              var token = Verify.getToken({"username":user.username, "_id":user._id, "admin":user.admin});
+              res.status(200).json({
+                username: user.username,
+                token: token
+              });
+            });
+          } else {
+            User.register(new User(
+              { username : JSON.parse(data).email }),
+              "Facebook01!",
               function(err, user) {
                 if (err) {
                   return res.status(500).json({err: err});
