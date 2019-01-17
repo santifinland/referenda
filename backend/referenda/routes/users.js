@@ -47,7 +47,7 @@ userRouter.route('/logged')
 userRouter.route('/register')
 .post(function(req, res) {
   User.register(new User(
-    { username : req.body.username }),
+    { username: req.body.username, mail: "", origin: "referenda" }),
     // { username : req.body.username, admin: req.body.admin }),
     req.body.password,
     function(err, user) {
@@ -78,6 +78,12 @@ userRouter.route('/login')
           err: info
         });
       }
+      if (user.provider.indexOf("google") > -1) {
+        res.status(401).end();
+      }
+      if (user.provider.indexOf("facebook") > -1) {
+        res.status(401).end();
+      }
       req.logIn(user, function(err) {
         if (err) {
           return res.status(500).json({
@@ -98,6 +104,7 @@ userRouter.route('/login')
 
 userRouter.route('/googleregister')
 .post(function(req, res, next) {
+  console.log(req.body);
   // Extrater el nombre de usuario y el mail del token preguntando a google
   https.get('https://www.googleapis.com/oauth2/v3/tokeninfo?access_token=' + req.body.token, (resp) => {
     let data = '';
@@ -106,8 +113,10 @@ userRouter.route('/googleregister')
       data += chunk;
     });
     resp.on('end', () => {
+      console.log(data);
+      console.log(JSON.parse(data));
       // TODO: Verificar que el token es correcto
-      User.findOne({"username": JSON.parse(data).email})
+      User.findOne({"mail": JSON.parse(data).email})
         .exec(function(err, user) {
           if (err) return next(err);
           if (user) {
@@ -126,7 +135,7 @@ userRouter.route('/googleregister')
             });
           } else {
             User.register(new User(
-              { username : JSON.parse(data).email }),
+              { username: req.body.username, mail: JSON.parse(data).email, origin: "google" }),
               "Google01!",
               function(err, user) {
                 if (err) {
@@ -174,7 +183,7 @@ userRouter.route('/facebookregister')
     resp.on('end', () => {
       // TODO: Verificar que el token es correcto
       if (JSON.parse(data).is_valid == false) return next(err);
-      User.findOne({"username": req.body.email})
+      User.findOne({"mail": req.body.email})
         .exec(function(err, user) {
           if (err) return next(err);
           if (user) {
@@ -193,7 +202,7 @@ userRouter.route('/facebookregister')
             });
           } else {
             User.register(new User(
-              { username : req.body.email }),
+              { username: req.body.username, mail: req.body.email, origin: "facebook" }),
               "Facebook01!",
               function(err, user) {
                 if (err) {
