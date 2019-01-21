@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 import { Law } from '../law';
 import { LawService } from '../law.service';
@@ -13,10 +14,11 @@ export class LawsComponent implements OnInit {
 
   laws: Law[];
 
-  constructor(private lawService: LawService) { }
+  constructor(private lawService: LawService, private titleService: Title) { }
 
   ngOnInit() {
     this.getLaws();
+    this.titleService.setTitle( "Referenda. Democracia directa" );
   }
 
   getLaws(): void {

@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -117,6 +117,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     D3Service,
     ModalService,
     { provide: AuthServiceConfig, useFactory: provideConfig },
+    Title,
     WINDOW_PROVIDERS
   ],
   bootstrap: [AppComponent]

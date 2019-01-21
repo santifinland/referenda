@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { Title } from '@angular/platform-browser';
 
 import { AuthenticationService } from '../_services';
 import { ModalService } from '../_services';
@@ -31,6 +32,7 @@ export class DelegationsComponent implements OnInit {
       private authenticationService: AuthenticationService,
       private formBuilder: FormBuilder,
       private modalService: ModalService,
+      private titleService: Title,
       private userService: UserService) {
     this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
       this.currentUser = user;
@@ -40,6 +42,7 @@ export class DelegationsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.titleService.setTitle("Referenda. Delega tu voto");
     this.findUsersForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.minLength(4)]]
     });
