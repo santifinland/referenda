@@ -1,6 +1,7 @@
 import { ActivatedRoute } from "@angular/router";
 import { Component, OnInit, Input } from '@angular/core';
 import { Inject } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 import { first } from 'rxjs/operators';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -39,6 +40,7 @@ export class LawDetailComponent implements OnInit {
       private formBuilder: FormBuilder,
       private modalService: ModalService,
       private route: ActivatedRoute,
+      private titleService: Title,
       @Inject(WINDOW) private window: Window) {
     this.route.params.subscribe( params => this.getLaw(params['slug']));
     this.location = encodeURIComponent(this.window.location.href);
@@ -55,6 +57,7 @@ export class LawDetailComponent implements OnInit {
   getLaw(slug): void {
     this.lawService.getLaw(slug)
       .subscribe(law => {
+        this.titleService.setTitle( "Referenda. " + law.headline );
         law.positiveWidth   = (50 * law.positive   / (law.positive + law.negative + law.abstention)) + "%";
         law.negativeWidth   = (50 * law.negative   / (law.positive + law.negative + law.abstention)) + "%";
         law.abstentionWidth = (50 * law.abstention / (law.positive + law.negative + law.abstention)) + "%";
