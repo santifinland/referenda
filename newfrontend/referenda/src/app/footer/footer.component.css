@@ -1,10 +1,7 @@
 .footer {
-  padding-top: 10px;
+  padding-top: 7px;
+  padding-bottom: 3px;
   background-color: #3D989D;
-}
-.footer > ul {
-  margin-top: 5px;
-  padding: 5px;
 }
 .footer > ul > p > a {
   color: #333;

@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 import { Axis, D3Service, D3, Selection, ScaleLinear } from 'd3-ng2-service';
 
@@ -21,7 +22,7 @@ export class StatsComponent implements OnInit {
 
   xPartido: boolean = true;
 
-  constructor(element: ElementRef, d3Service: D3Service, private lawService: LawService) {
+  constructor(element: ElementRef, d3Service: D3Service, private lawService: LawService, private titleService: Title) {
     this.d3 = d3Service.getD3();
     this.parentNativeElement = element.nativeElement;
   }
@@ -35,6 +36,7 @@ export class StatsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.titleService.setTitle("Referenda. Estadísticas");
     this.getLaws();
   }
 
