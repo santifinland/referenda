@@ -78,10 +78,10 @@ userRouter.route('/login')
           err: info
         });
       }
-      if (user.provider.indexOf("google") > -1) {
+      if (user.origin.indexOf("google") > -1) {
         res.status(401).end();
       }
-      if (user.provider.indexOf("facebook") > -1) {
+      if (user.origin.indexOf("facebook") > -1) {
         res.status(401).end();
       }
       req.logIn(user, function(err) {
