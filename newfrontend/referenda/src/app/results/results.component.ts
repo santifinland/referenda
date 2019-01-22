@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { OrderModule } from 'ngx-order-pipe';
@@ -18,9 +19,10 @@ export class ResultsComponent implements OnInit {
 
   lawFilter: any = { $or: [{ vote_end: '' }, { headline: '' }, { institution: '' }] }
 
-  constructor(private lawService: LawService) { }
+  constructor(private lawService: LawService, private titleService: Title) { }
 
   ngOnInit() {
+    this.titleService.setTitle("Referenda. Resultados de votaciones");
     this.getResults();
   }
 
