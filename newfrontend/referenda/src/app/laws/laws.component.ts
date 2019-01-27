@@ -24,7 +24,7 @@ export class LawsComponent implements OnInit {
   getLaws(): void {
     this.lawService.getLaws()
       .subscribe(laws => {
-        this.laws = laws;
+        this.laws = laws.filter(law => law.tier == 1);
         this.laws.map(law => {
           law.positiveWidth   = (50 * law.positive   / (law.positive + law.negative + law.abstention)) + "%";
           law.negativeWidth   = (50 * law.negative   / (law.positive + law.negative + law.abstention)) + "%";

@@ -3,6 +3,7 @@ import { Comment } from './comment';
 export class Law {
   law_type: string;
   institution: string;
+  tier: number;
   headline: string;
   slug: string;
   short_description: string;
