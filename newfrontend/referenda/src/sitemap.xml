@@ -4,35 +4,35 @@
 
   <url>
     <loc>https://referenda.es/</loc>
-    <lastmod>2019-01-22</lastmod>
+    <lastmod>2019-01-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://referenda.es/laws</loc>
-    <lastmod>2019-01-22</lastmod>
+    <loc>https://referenda.es/leyes</loc>
+    <lastmod>2019-01-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://referenda.es/results</loc>
-    <lastmod>2019-01-22</lastmod>
+    <loc>https://referenda.es/resultados</loc>
+    <lastmod>2019-01-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://referenda.es/delegate</loc>
-    <lastmod>2019-01-22</lastmod>
+    <loc>https://referenda.es/delegar</loc>
+    <lastmod>2019-01-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://referenda.es/stats</loc>
-    <lastmod>2019-01-22</lastmod>
+    <loc>https://referenda.es/estadisticas</loc>
+    <lastmod>2019-01-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -68,189 +68,189 @@
 
 
   <url>
-    <loc>https://referenda.es/law/proposicion-de-ley-sobre-la-suspension-de-la-implantacion-de-la-lomce</loc>
+    <loc>https://referenda.es/ley/proposicion-de-ley-sobre-la-suspension-de-la-implantacion-de-la-lomce</loc>
     <lastmod>2019-01-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
-    <loc>https://referenda.es/law/proposicion-de-ley-sobre-fijacion-de-la-cuantia-del-salario-minimo-interprofesional</loc>
+    <loc>https://referenda.es/ley/proposicion-de-ley-sobre-fijacion-de-la-cuantia-del-salario-minimo-interprofesional</loc>
     <lastmod>2019-01-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
-    <loc>https://referenda.es/law/proposicion-de-ley-para-el-registro-del-horario-de-entrada-y-salida-de-cada-trabajador</loc>
+    <loc>https://referenda.es/ley/proposicion-de-ley-para-el-registro-del-horario-de-entrada-y-salida-de-cada-trabajador</loc>
     <lastmod>2019-01-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
-    <loc>https://referenda.es/law/mocion-de-censura-al-gobierno-presidido-por-don-mariano-rajoy-brey-que-incluye-como-candidato-a-la-presidencia-del-gobierno-a-don-pedro-sanchez-perez-castejon</loc>
+    <loc>https://referenda.es/ley/mocion-de-censura-al-gobierno-presidido-por-don-mariano-rajoy-brey-que-incluye-como-candidato-a-la-presidencia-del-gobierno-a-don-pedro-sanchez-perez-castejon</loc>
     <lastmod>2019-01-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
-    <loc>https://referenda.es/law/proposicion-no-de-ley-por-la-que-se-insta-al-gobierno-a-la-puesta-en-practica-de-un-plan-contra-la-explotacion-laboral</loc>
+    <loc>https://referenda.es/ley/proposicion-no-de-ley-por-la-que-se-insta-al-gobierno-a-la-puesta-en-practica-de-un-plan-contra-la-explotacion-laboral</loc>
     <lastmod>2019-01-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
-    <loc>https://referenda.es/law/proposicion-no-de-ley-sobre-el-impulso-en-la-agenda-internacional-de-la-relevancia-y-la-memoria-de-las-victimas-del-terrorismo</loc>
+    <loc>https://referenda.es/ley/proposicion-no-de-ley-sobre-el-impulso-en-la-agenda-internacional-de-la-relevancia-y-la-memoria-de-las-victimas-del-terrorismo</loc>
     <lastmod>2019-01-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
-    <loc>https://referenda.es/law/real-decreto-ley-de-medidas-urgentes-para-la-adaptacion-del-derecho-espanol-a-la-normativa-de-la-union-europea-en-materia-del-mercado-de-valores</loc>
+    <loc>https://referenda.es/ley/real-decreto-ley-de-medidas-urgentes-para-la-adaptacion-del-derecho-espanol-a-la-normativa-de-la-union-europea-en-materia-del-mercado-de-valores</loc>
     <lastmod>2019-01-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
-    <loc>https://referenda.es/law/real-decreto-ley-por-el-que-se-prorrogan-y-aprueban-diversas-medidas-tributarias-y-otras-medidas-urgentes-en-materia-social</loc>
+    <loc>https://referenda.es/ley/real-decreto-ley-por-el-que-se-prorrogan-y-aprueban-diversas-medidas-tributarias-y-otras-medidas-urgentes-en-materia-social</loc>
     <lastmod>2019-01-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
-    <loc>https://referenda.es/law/proposicion-de-ley-de-derechos-y-garantias-de-la-dignidad-de-la-persona-ante-el-proceso-final-de-su-vida</loc>
+    <loc>https://referenda.es/ley/proposicion-de-ley-de-derechos-y-garantias-de-la-dignidad-de-la-persona-ante-el-proceso-final-de-su-vida</loc>
     <lastmod>2019-01-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
-    <loc>https://referenda.es/law/proposicion-de-ley-por-la-que-se-modifica-la-ley-de-la-radio-y-la-television-de-titularidad-estatal</loc>
+    <loc>https://referenda.es/ley/proposicion-de-ley-por-la-que-se-modifica-la-ley-de-la-radio-y-la-television-de-titularidad-estatal</loc>
     <lastmod>2019-01-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
-    <loc>https://referenda.es/law/proposicion-no-de-ley-relativa-a-potenciar-la-contratacion-indefinida</loc>
+    <loc>https://referenda.es/ley/proposicion-no-de-ley-relativa-a-potenciar-la-contratacion-indefinida</loc>
     <lastmod>2019-01-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
-    <loc>https://referenda.es/law/proposicion-no-de-ley-relativa-a-la-elaboracion-de-un-plan-industrial-para-navantia-s-a</loc>
+    <loc>https://referenda.es/ley/proposicion-no-de-ley-relativa-a-la-elaboracion-de-un-plan-industrial-para-navantia-s-a</loc>
     <lastmod>2019-01-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
-    <loc>https://referenda.es/law/proposicion-de-ley-organica-sobre-la-eutanasia</loc>
+    <loc>https://referenda.es/ley/proposicion-de-ley-organica-sobre-la-eutanasia</loc>
     <lastmod>2019-01-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
-    <loc>https://referenda.es/law/proposicion-de-ley-organica-de-reforma-de-la-ley-organica-de-proteccion-de-la-seguridad-ciudadana</loc>
+    <loc>https://referenda.es/ley/proposicion-de-ley-organica-de-reforma-de-la-ley-organica-de-proteccion-de-la-seguridad-ciudadana</loc>
     <lastmod>2019-01-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
-    <loc>https://referenda.es/law/proposicion-de-ley-organica-sobre-proteccion-de-la-seguridad-ciudadana-y-derogacion-de-la-ley-organica-4-2015-de-30-de-marzo-de-proteccion-de-la-seguridad-ciudadana-122-000050</loc>
+    <loc>https://referenda.es/ley/proposicion-de-ley-organica-sobre-proteccion-de-la-seguridad-ciudadana-y-derogacion-de-la-ley-organica-4-2015-de-30-de-marzo-de-proteccion-de-la-seguridad-ciudadana-122-000050</loc>
     <lastmod>2019-01-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
-    <loc>https://referenda.es/law/real-decreto-ley-por-el-que-se-modifica-el-regimen-de-los-trabajadores-para-la-prestacion-del-servicio-portuario-de-manipulacion-de-mercancias</loc>
+    <loc>https://referenda.es/ley/real-decreto-ley-por-el-que-se-modifica-el-regimen-de-los-trabajadores-para-la-prestacion-del-servicio-portuario-de-manipulacion-de-mercancias</loc>
     <lastmod>2019-01-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
-    <loc>https://referenda.es/law/proposicion-no-de-ley-relativa-a-elaborar-un-protocolo-especifico-para-los-supuestos-de-sustraccion-internacional-de-menores</loc>
+    <loc>https://referenda.es/ley/proposicion-no-de-ley-relativa-a-elaborar-un-protocolo-especifico-para-los-supuestos-de-sustraccion-internacional-de-menores</loc>
     <lastmod>2019-01-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
-    <loc>https://referenda.es/law/proposicion-no-de-ley-relativa-a-la-derogacion-de-la-ley-reguladora-del-factor-de-sostenibilidad-y-del-indice-de-revalorizacion-del-sistema-de-pensiones-de-la-seguridad-social</loc>
+    <loc>https://referenda.es/ley/proposicion-no-de-ley-relativa-a-la-derogacion-de-la-ley-reguladora-del-factor-de-sostenibilidad-y-del-indice-de-revalorizacion-del-sistema-de-pensiones-de-la-seguridad-social</loc>
     <lastmod>2019-01-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
-    <loc>https://referenda.es/law/proposicion-de-reforma-del-reglamento-del-congreso-de-los-diputados-para-la-regulacion-de-los-grupos-de-interes</loc>
+    <loc>https://referenda.es/ley/proposicion-de-reforma-del-reglamento-del-congreso-de-los-diputados-para-la-regulacion-de-los-grupos-de-interes</loc>
     <lastmod>2019-01-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
-    <loc>https://referenda.es/law/proposicion-de-ley-de-modificacion-de-la-ley-de-enjuiciamiento-civil-para-garantizar-la-posesion-de-viviendas-titularidad-de-propietarios-personas-fisicas</loc>
+    <loc>https://referenda.es/ley/proposicion-de-ley-de-modificacion-de-la-ley-de-enjuiciamiento-civil-para-garantizar-la-posesion-de-viviendas-titularidad-de-propietarios-personas-fisicas</loc>
     <lastmod>2019-01-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
-    <loc>https://referenda.es/law/proyecto-de-ley-sobre-procedimientos-de-contratacion-en-los-sectores-del-agua-la-energia-los-transportes-y-los-servicios-postales</loc>
+    <loc>https://referenda.es/ley/proyecto-de-ley-sobre-procedimientos-de-contratacion-en-los-sectores-del-agua-la-energia-los-transportes-y-los-servicios-postales</loc>
     <lastmod>2019-01-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
-    <loc>https://referenda.es/law/proyecto-de-ley-sobre-precursores-de-explosivos</loc>
+    <loc>https://referenda.es/ley/proyecto-de-ley-sobre-precursores-de-explosivos</loc>
     <lastmod>2019-01-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
-    <loc>https://referenda.es/law/real-decreto-ley-por-el-que-se-modifica-la-ley-organica-de-proteccion-de-la-salud-del-deportista-y-lucha-contra-el-dopaje</loc>
+    <loc>https://referenda.es/ley/real-decreto-ley-por-el-que-se-modifica-la-ley-organica-de-proteccion-de-la-salud-del-deportista-y-lucha-contra-el-dopaje</loc>
     <lastmod>2019-01-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
-    <loc>https://referenda.es/law/proposicion-no-de-ley-relativa-a-manifestar-la-necesidad-de-no-discriminar-el-consumo-de-los-productos-de-las-empresas-catalanas</loc>
+    <loc>https://referenda.es/ley/proposicion-no-de-ley-relativa-a-manifestar-la-necesidad-de-no-discriminar-el-consumo-de-los-productos-de-las-empresas-catalanas</loc>
     <lastmod>2019-01-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
-    <loc>https://referenda.es/law/proposicion-no-de-ley-sobre-la-no-consideracion-de-unidad-de-convivencia-en-determinadas-situaciones</loc>
+    <loc>https://referenda.es/ley/proposicion-no-de-ley-sobre-la-no-consideracion-de-unidad-de-convivencia-en-determinadas-situaciones</loc>
     <lastmod>2019-01-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
-    <loc>https://referenda.es/law/proposicion-de-ley-relativa-a-la-modificacion-de-los-criterios-de-aplicacion-de-la-regla-de-gasto</loc>
+    <loc>https://referenda.es/ley/proposicion-de-ley-relativa-a-la-modificacion-de-los-criterios-de-aplicacion-de-la-regla-de-gasto</loc>
     <lastmod>2019-01-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
-    <loc>https://referenda.es/law/proposicion-de-ley-relativa-a-la-modificacion-de-los-criterios-de-aplicacion-de-la-regla-de-gasto</loc>
+    <loc>https://referenda.es/ley/proposicion-de-ley-relativa-a-la-modificacion-de-los-criterios-de-aplicacion-de-la-regla-de-gasto</loc>
     <lastmod>2019-01-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
