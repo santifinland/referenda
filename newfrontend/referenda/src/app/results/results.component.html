@@ -19,7 +19,7 @@
             [ngClass]='{green: law.official_positive >= law.official_negative,
                       red: law.official_positive < law.official_negative}'>
           <td class="vote_end">{{law.vote_end | date: 'yyyy - MM'}}</td>
-          <td class="headline"><a routerLink="/law/{{law.slug}}">{{law.headline}}</a></td>
+          <td class="headline"><a routerLink="/ley/{{law.slug}}">{{law.headline}}</a></td>
           <td class="institution">{{law.institution | uppercase}}</td>
         </tr>
         </tbody>

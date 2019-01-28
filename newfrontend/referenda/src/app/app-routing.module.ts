@@ -19,13 +19,13 @@ const routes: Routes = [
   { path: '', component: LawsComponent },
   { path: 'aboutus', component: AboutusComponent },
   { path: 'cookies', component: CookiesComponent },
-  { path: 'delegate', component: DelegationsComponent },
+  { path: 'delegar', component: DelegationsComponent },
   { path: 'developers', component: DevelopersComponent },
   { path: 'gdpr', component: GdprComponent },
-  { path: 'laws', component: LawsComponent },
-  { path: 'law/:slug', component: LawDetailComponent },
-  { path: 'results', component: ResultsComponent },
-  { path: 'stats', component: StatsComponent }
+  { path: 'leyes', component: LawsComponent },
+  { path: 'ley/:slug', component: LawDetailComponent },
+  { path: 'resultados', component: ResultsComponent },
+  { path: 'estadisticas', component: StatsComponent }
 ];
 
 @NgModule({
