@@ -5,6 +5,12 @@
 *.log
 *.pot
 *.pyc
+*.key
+*.cer
+*.crt
+*.csr
+*.pem
+*.srl
 local_settings.py
 staticfiles
 media
