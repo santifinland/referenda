@@ -49,35 +49,35 @@ export class StatsComponent implements OnInit {
   buildData(laws: Law[]) {
     var pp = {"label": "PP", "id": 1, "value": 0, "color": "#00a3df"};
     var psoe = {"label": "PSOE", "id": 2, "value": 0, "color": "#ee1d1d"};
-    var podemos = {"label": "Podemos-IU", "id": 3, "value": 0, "color": "#683064"};
     var ciudadanos = {"label": "Ciudadanos", "id": 4, "value": 0, "color": "#f36b25"};
+    var podemos = {"label": "Podemos-IU", "id": 3, "value": 0, "color": "#683064"};
+    var vox = {"label": "VOX", "id": 8, "value": 0, "color": "#81c03b"};
     var erc = {"label": "ERC", "id": 5, "value": 0, "color": "#feb832"};
     var pnv = {"label": "PNV", "id": 6, "value": 0, "color": "#409552"};
     var cc = {"label": "Coalición Canaria", "id": 7, "value": 0, "color": "#ffed00"};
-    var nc = {"label": "Nueva Canarias", "id": 8, "value": 0, "color": "#81c03b"};
     var compromis = {"label": "Compromis", "id": 9, "value": 0, "color": "#d74c27"};
-    var fa = {"label": "Foro Asturias", "id": 10, "value": 0, "color": "#16375e"};
+    var prc = {"label": "Partido Regionalista de Cantabria", "id": 10, "value": 0, "color": "#16375e"};
     var upn = {"label": "UPN", "id": 11, "value": 0, "color": "#0065a7"};
     var bildu = {"label": "Bildu", "id": 12, "value": 0, "color": "#b0d136"};
-    var pdcat = {"label": "PdCat", "id": 13, "value": 0, "color": "#02428b"};
+    var jpc = {"label": "Junts per Catalunya", "id": 13, "value": 0, "color": "#02428b"};
     var gobierno = {"label": "Gobierno", "id": 14, "value": 0, "color": "#000"};
     laws.forEach( (law) => {
       if (law.institution == "pp") pp.value += 1;
       if (law.institution == "psoe") psoe.value += 1;
-      if (law.institution == "podemos") podemos.value += 1;
       if (law.institution == "ciudadanos") ciudadanos.value += 1;
+      if (law.institution == "podemos") podemos.value += 1;
+      if (law.institution == "vox") vox.value += 1;
       if (law.institution == "erc") erc.value += 1;
       if (law.institution == "pnv") pnv.value += 1;
       if (law.institution == "cc") cc.value += 1;
-      if (law.institution == "nc") nc.value += 1;
       if (law.institution == "compromis") compromis.value += 1;
-      if (law.institution == "fa") fa.value += 1;
+      if (law.institution == "prc") prc.value += 1;
       if (law.institution == "upn") upn.value += 1;
       if (law.institution == "bildu") bildu.value += 1;
-      if (law.institution == "pdcat") pdcat.value += 1;
+      if (law.institution == "jpc") jpc.value += 1;
       if (law.institution == "gobierno") gobierno.value += 1;
     });
-    return [pp, psoe, podemos, ciudadanos, erc, pnv, cc, nc, compromis, fa, upn, bildu, pdcat, gobierno]
+    return [pp, psoe, podemos, ciudadanos, erc, pnv, cc, vox, compromis, prc, upn, bildu, jpc, gobierno]
   }
 
   draw(results: any[]) {

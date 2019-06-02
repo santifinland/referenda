@@ -36,13 +36,13 @@ feature('Laws', function() {
     erc: 1,
     pnv: 1,
     cc: 2,
-    nc: 1,
+    vox: 1,
     nd: 3,
     compromis: 1,
-    fa: 1,
+    prc: 1,
     upn: 2,
     bildu: 1,
-    pdcat: 2
+    jpc: 2
   }
   var slug = "ley-de-test"
 
@@ -65,9 +65,9 @@ feature('Laws', function() {
     partySteps.postParty(adminToken, 'erc');
     partySteps.postParty(adminToken, 'pnv');
     partySteps.postParty(adminToken, 'cc');
-    partySteps.postParty(adminToken, 'nc');
+    partySteps.postParty(adminToken, 'vox');
     partySteps.postParty(adminToken, 'compromis');
-    partySteps.postParty(adminToken, 'fa');
+    partySteps.postParty(adminToken, 'prc');
     partySteps.postParty(adminToken, 'upn');
     partySteps.postParty(adminToken, 'bildu');
     partySteps.postParty(adminToken, 'nd');
@@ -89,7 +89,7 @@ feature('Laws', function() {
   });
 
   var dataset = [
-    {desc: 'seconding party',  partyName: 'nc',         positive: 1, negative: 0, abstention: 0},
+    {desc: 'seconding party',  partyName: 'vox',         positive: 1, negative: 0, abstention: 0},
     {desc: 'against party',    partyName: 'ciudadanos', positive: 0, negative: 1, abstention: 0},
     {desc: 'abstention party', partyName: 'nd',         positive: 0, negative: 0, abstention: 1}
   ];
@@ -117,14 +117,14 @@ feature('Laws', function() {
   });
 
   var dataset = [
-    {desc: 'equal1',      party1: 'nc',  party2: 'pp',  positive: 1, negative: 1, abstention: 0},
-    {desc: 'equal2',      party1: 'pp',  party2: 'nc',  positive: 1, negative: 1, abstention: 0},
-    {desc: 'seconding1',  party1: 'fa',  party2: 'fa',  positive: 2, negative: 0, abstention: 0},
+    {desc: 'equal1',      party1: 'vox',  party2: 'pp',  positive: 1, negative: 1, abstention: 0},
+    {desc: 'equal2',      party1: 'pp',  party2: 'vox',  positive: 1, negative: 1, abstention: 0},
+    {desc: 'seconding1',  party1: 'prc',  party2: 'prc',  positive: 2, negative: 0, abstention: 0},
     {desc: 'seconding2',  party1: 'erc', party2: 'pnv', positive: 2, negative: 0, abstention: 0},
     {desc: 'against1',    party1: 'pp',  party2: 'cc',  positive: 0, negative: 2, abstention: 0},
     {desc: 'against2',    party1: 'upn', party2: 'cc',  positive: 0, negative: 2, abstention: 0},
     {desc: 'abstention1', party1: 'nd',  party2: 'cc',  positive: 0, negative: 1, abstention: 1},
-    {desc: 'abstention2', party1: 'fa',  party2: 'nd',  positive: 1, negative: 0, abstention: 1}
+    {desc: 'abstention2', party1: 'prc',  party2: 'nd',  positive: 1, negative: 0, abstention: 1}
   ];
   scenario('Create a law when multiple Referenda users have delegated votes to parties', dataset, function(variant) {
     given('Multiple Referenda users with votes delegated to parties with different positions for that law', function() {
@@ -157,7 +157,7 @@ feature('Laws', function() {
   });
 
   var dataset = [
-    {desc: 'seconding party',  partyName: 'nc',         positive: 1, negative: 0, abstention: 0},
+    {desc: 'seconding party',  partyName: 'vox',         positive: 1, negative: 0, abstention: 0},
     {desc: 'against party',    partyName: 'ciudadanos', positive: 0, negative: 1, abstention: 0},
     {desc: 'abstention party', partyName: 'nd',         positive: 0, negative: 0, abstention: 1}
   ];
@@ -279,9 +279,9 @@ feature('Laws', function() {
     });
 
   var dataset = [
-    {desc: 'seconding party',  partyName: 'nc',   vote: 1, positive: 1, negative: 0, abstention: 0},
-    {desc: 'seconding party',  partyName: 'nc',   vote: 2, positive: 0, negative: 1, abstention: 0},
-    {desc: 'seconding party',  partyName: 'nc',   vote: 3, positive: 0, negative: 0, abstention: 1},
+    {desc: 'seconding party',  partyName: 'vox',   vote: 1, positive: 1, negative: 0, abstention: 0},
+    {desc: 'seconding party',  partyName: 'vox',   vote: 2, positive: 0, negative: 1, abstention: 0},
+    {desc: 'seconding party',  partyName: 'vox',   vote: 3, positive: 0, negative: 0, abstention: 1},
     {desc: 'against party',    partyName: 'psoe', vote: 1, positive: 1, negative: 0, abstention: 0},
     {desc: 'against party',    partyName: 'psoe', vote: 2, positive: 0, negative: 1, abstention: 0},
     {desc: 'against party',    partyName: 'psoe', vote: 3, positive: 0, negative: 0, abstention: 1},
@@ -321,9 +321,9 @@ feature('Laws', function() {
   });
 
   var dataset = [
-    {desc: 'seconding party',  partyName: 'nc',   vote: 1, positive: 1, negative: 0, abstention: 0},
-    {desc: 'seconding party',  partyName: 'nc',   vote: 2, positive: 0, negative: 1, abstention: 0},
-    {desc: 'seconding party',  partyName: 'nc',   vote: 3, positive: 0, negative: 0, abstention: 1},
+    {desc: 'seconding party',  partyName: 'vox',   vote: 1, positive: 1, negative: 0, abstention: 0},
+    {desc: 'seconding party',  partyName: 'vox',   vote: 2, positive: 0, negative: 1, abstention: 0},
+    {desc: 'seconding party',  partyName: 'vox',   vote: 3, positive: 0, negative: 0, abstention: 1},
     {desc: 'against party',    partyName: 'psoe', vote: 1, positive: 1, negative: 0, abstention: 0},
     {desc: 'against party',    partyName: 'psoe', vote: 2, positive: 0, negative: 1, abstention: 0},
     {desc: 'against party',    partyName: 'psoe', vote: 3, positive: 0, negative: 0, abstention: 1},
