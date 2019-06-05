@@ -95,18 +95,18 @@
     <div class=" col-sm-1 party">
     </div>
     <div class=" col-sm-3 party-right">
-      <button (click)="delegateParty('pp')" class="no-border" type="submit">
-        <img src="assets/img/pp.svg" height="80" width="100"/>
+      <button (click)="delegateParty('psoe')" class="no-border" type="submit">
+        <img src="assets/img/psoe.svg" height="90" width="100"/>
       </button>
     </div>
     <div class=" col-sm-3 party-right">
-      <button (click)="delegateParty('psoe')" class="no-border" type="submit">
-        <img src="assets/img/psoe.svg" height="80" width="100"/>
+      <button (click)="delegateParty('pp')" class="no-border" type="submit">
+        <img src="assets/img/pp.svg" height="90" width="100"/>
       </button>
     </div>
     <div class=" col-sm-3 party-left">
-      <button (click)="delegateParty('podemos')" class="no-border" type="submit">
-        <img src="assets/img/podemos.svg" height="80" width="100"/>
+      <button (click)="delegateParty('ciudadanos')" class="no-border" type="submit">
+        <img src="assets/img/ciudadanos.svg" height="80" width="250"/>
       </button>
     </div>
     <div class=" col-sm-2 party">
@@ -117,18 +117,40 @@
     <div class=" col-sm-1 party">
     </div>
     <div class=" col-sm-3 party-right">
-      <button (click)="delegateParty('ciudadanos')" class="no-border" type="submit">
-        <img src="assets/img/ciudadanos.png" height="80" width="250"/>
+      <button (click)="delegateParty('podemos')" class="no-border" type="submit">
+        <img src="assets/img/podemos.svg" height="80" width="200"/>
       </button>
     </div>
     <div class=" col-sm-3 party-right">
-      <button (click)="delegateParty('erc')" class="no-border" type="submit">
-        <img src="assets/img/erc.png" height="80" width="200"/>
+      <button (click)="delegateParty('vox')" class="no-border" type="submit">
+        <img src="assets/img/vox.svg" height="80" width="150"/>
       </button>
     </div>
     <div class=" col-sm-3 party-left">
+      <button (click)="delegateParty('erc')" class="no-border" type="submit">
+        <img src="assets/img/erc.svg" height="80" width="250"/>
+      </button>
+    </div>
+    <div class=" col-sm-2 party">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class=" col-sm-1 party">
+    </div>
+    <div class=" col-sm-3 party-right">
+      <button (click)="delegateParty('jpc')" class="no-border" type="submit">
+        <img src="assets/img/jpc.svg" height="80" width="100"/>
+      </button>
+    </div>
+    <div class=" col-sm-3 party-right">
       <button (click)="delegateParty('pnv')" class="no-border" type="submit">
-        <img src="assets/img/pnv.png" height="80" width="100"/>
+        <img src="assets/img/pnv.svg" height="90" width="150"/>
+      </button>
+    </div>
+    <div class=" col-sm-3 party-left">
+      <button (click)="delegateParty('bildu')" class="no-border" type="submit">
+        <img src="assets/img/bildu.png" height="80" width="250"/>
       </button>
     </div>
     <div class=" col-sm-2 party">
@@ -140,17 +162,17 @@
     </div>
     <div class=" col-sm-3 party-right">
       <button (click)="delegateParty('cc')" class="no-border" type="submit">
-        <img src="assets/img/cc.png" height="80" width="100"/>
+        <img src="assets/img/cc.svg" height="90" width="150"/>
       </button>
     </div>
     <div class=" col-sm-3 party-right">
-      <button (click)="delegateParty('nc')" class="no-border" type="submit">
-        <img src="assets/img/nc.png" height="80" width="100"/>
+      <button (click)="delegateParty('upn')" class="no-border" type="submit">
+        <img src="assets/img/upn.png" height="90" width="200"/>
       </button>
     </div>
     <div class=" col-sm-3 party-left">
       <button (click)="delegateParty('compromis')" class="no-border" type="submit">
-        <img src="assets/img/compromis.png" height="80" width="300"/>
+        <img src="assets/img/compromis.svg" height="80" width="250"/>
       </button>
     </div>
     <div class=" col-sm-2 party">
@@ -161,38 +183,20 @@
     <div class=" col-sm-1 party">
     </div>
     <div class=" col-sm-3 party-right">
-      <button (click)="delegateParty('fa')" class="no-border" type="submit">
-        <img src="assets/img/fa.jpg" height="80" width="100"/>
+      <button (click)="delegateParty('prc')" class="no-border" type="submit">
+        <img src="assets/img/prc.svg" height="80" width="200"/>
       </button>
     </div>
     <div class=" col-sm-3 party-right">
-      <button (click)="delegateParty('upn')" class="no-border" type="submit">
-        <img src="assets/img/upn.png" height="80" width="100"/>
-      </button>
-    </div>
-    <div class=" col-sm-3 party-left">
-      <button (click)="delegateParty('bildu')" class="no-border" type="submit">
-        <img src="assets/img/bildu.png" height="80" width="300"/>
-      </button>
-    </div>
-    <div class=" col-sm-2 party">
-    </div>
-  </div>
-
-  <div class="row">
-    <div class=" col-sm-4 party-mixto">
-      <button (click)="delegateParty('pdcat')" class="no-border" type="submit">
-        <img src="assets/img/pdcat.svg" height="80" width="300"/>
-      </button>
-    </div>
-    <div class=" col-sm-3 party-mixto">
       <h3>
         <button (click)="delegateParty('nd')" class="no-border" type="submit">
           No delegar
         </button>
       </h3>
     </div>
-    <div class=" col-sm-4 party">
+    <div class=" col-sm-3 party-left">
+    </div>
+    <div class=" col-sm-2 party">
     </div>
   </div>
 

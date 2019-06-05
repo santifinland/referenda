@@ -156,21 +156,21 @@ lawRouter.route('/')
   } else {
       req.body.abstentionParties.push("cc");
   }
-  // Nueva canaria
-  if (req.body.nc == 1) {
-      req.body.positiveParties.push("nc");
-  } else if (req.body.nc == 2) {
-      req.body.negativeParties.push("nc");
+  // Vox
+  if (req.body.vox == 1) {
+      req.body.positiveParties.push("vox");
+  } else if (req.body.vox == 2) {
+      req.body.negativeParties.push("vox");
   } else {
-      req.body.abstentionParties.push("nc");
+      req.body.abstentionParties.push("vox");
   }
   // Foro Asturias
-  if (req.body.fa == 1) {
-      req.body.positiveParties.push("fa");
-  } else if (req.body.fa == 2) {
-      req.body.negativeParties.push("fa");
+  if (req.body.prc == 1) {
+      req.body.positiveParties.push("prc");
+  } else if (req.body.prc == 2) {
+      req.body.negativeParties.push("prc");
   } else {
-      req.body.abstentionParties.push("fa");
+      req.body.abstentionParties.push("prc");
   }
   // UPN
   if (req.body.upn == 1) {
@@ -189,12 +189,12 @@ lawRouter.route('/')
       req.body.abstentionParties.push("bildu");
   }
   // PdCat
-  if (req.body.pdcat == 1) {
-      req.body.positiveParties.push("pdcat");
-  } else if (req.body.pdcat == 2) {
-      req.body.negativeParties.push("pdcat");
+  if (req.body.jpc == 1) {
+      req.body.positiveParties.push("jpc");
+  } else if (req.body.jpc == 2) {
+      req.body.negativeParties.push("jpc");
   } else {
-      req.body.abstentionParties.push("pdcat");
+      req.body.abstentionParties.push("jpc");
   }
   // No Delegar
   if (req.body.nd == 1) {

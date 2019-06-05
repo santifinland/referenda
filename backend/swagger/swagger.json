@@ -1073,8 +1073,8 @@
                     "type": "integer",
                     "format": "int32"
                 },
-                "nc": {
-                    "description": "nc position for this law. 1 yes, 2 no, 3 abstention",
+                "vox": {
+                    "description": "vox position for this law. 1 yes, 2 no, 3 abstention",
                     "type": "integer",
                     "format": "int32"
                 },
@@ -1083,8 +1083,8 @@
                     "type": "integer",
                     "format": "int32"
                 },
-                "fa": {
-                    "description": "fa position for this law. 1 yes, 2 no, 3 abstention",
+                "prc": {
+                    "description": "prc position for this law. 1 yes, 2 no, 3 abstention",
                     "type": "integer",
                     "format": "int32"
                 },
