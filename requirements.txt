@@ -8,7 +8,7 @@ django-appconf==0.6
 django-autoslug==1.7.2
 django-avatar==2.0
 django-toolbelt==0.0.1
-gunicorn==18.0
+gunicorn==19.5.0
 oauthlib==0.6.0
 psycopg2==2.5.1
 python-gettext==2.1
