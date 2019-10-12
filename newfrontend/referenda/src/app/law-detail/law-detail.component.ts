@@ -1,4 +1,4 @@
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit, Input } from '@angular/core';
 import { Inject } from '@angular/core';
 import { Title } from '@angular/platform-browser';
@@ -6,11 +6,11 @@ import { Title } from '@angular/platform-browser';
 import { first } from 'rxjs/operators';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { Law } from '../law';
+import { Law } from '../_models/law';
 import { LawService } from '../law.service';
 import { ModalService } from '../_services';
-import { VoteResponse } from '../vote.response';
-import { WINDOW } from "../_services/window.service";
+import { VoteResponse } from '../_models/vote.response';
+import { WINDOW } from '../_services/window.service';
 
 
 @Component({
@@ -24,11 +24,11 @@ export class LawDetailComponent implements OnInit {
   facebook: string;
   twitter: string;
 
-  resultsCongreso: boolean = false;
+  resultsCongreso = false;
 
-  message: String = "Cargando...";
-  private facebookPrefix = "https://www.facebook.com/sharer/sharer.php?u="
-  private facebookSuffix = "%2F&amp;src=sdkpreparse"
+  message: String = 'Cargando...';
+  private facebookPrefix = 'https://www.facebook.com/sharer/sharer.php?u=';
+  private facebookSuffix = '%2F&amp;src=sdkpreparse';
 
   commentForm: FormGroup;
   submitted = false;
@@ -57,17 +57,17 @@ export class LawDetailComponent implements OnInit {
   getLaw(slug): void {
     this.lawService.getLaw(slug)
       .subscribe(law => {
-        this.titleService.setTitle( "Referenda. " + law.headline );
-        law.positiveWidth   = (50 * law.positive   / (law.positive + law.negative + law.abstention)) + "%";
-        law.negativeWidth   = (50 * law.negative   / (law.positive + law.negative + law.abstention)) + "%";
-        law.abstentionWidth = (50 * law.abstention / (law.positive + law.negative + law.abstention)) + "%";
-        var official_total = law.official_positive + law.official_negative + law.official_abstention;
+        this.titleService.setTitle( 'Referenda. ' + law.headline );
+        law.positiveWidth   = (50 * law.positive   / (law.positive + law.negative + law.abstention)) + '%';
+        law.negativeWidth   = (50 * law.negative   / (law.positive + law.negative + law.abstention)) + '%';
+        law.abstentionWidth = (50 * law.abstention / (law.positive + law.negative + law.abstention)) + '%';
+        const official_total = law.official_positive + law.official_negative + law.official_abstention;
         if (official_total > 0) {
           this.resultsCongreso = true;
         }
-        law.officialPositiveWidth   = (50 * law.official_positive   / official_total) + "%";
-        law.officialNegativeWidth   = (50 * law.official_negative   / official_total) + "%";
-        law.officialAbstentionWidth = (50 * law.official_abstention / official_total) + "%";
+        law.officialPositiveWidth   = (50 * law.official_positive   / official_total) + '%';
+        law.officialNegativeWidth   = (50 * law.official_negative   / official_total) + '%';
+        law.officialAbstentionWidth = (50 * law.official_abstention / official_total) + '%';
         this.law = law;
         this.facebook = this.facebookPrefix + law.headline + this.facebookSuffix;
       });
@@ -116,8 +116,8 @@ export class LawDetailComponent implements OnInit {
   }
 
   shareTwitter(): void {
-    const width = (window.screen.width/3);
-    const height = (window.screen.height/3);
+    const width = (window.screen.width / 3);
+    const height = (window.screen.height / 3);
     window.open('https://twitter.com/intent/tweet?text=' + this.law.headline +
                 '. Vota en https://referenda.es.&hashtags=DemocraciaDirecta',
                 'twitter', 'width=600, height=300, top=' + height + ', left=' + width + ';');

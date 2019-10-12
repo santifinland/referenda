@@ -3,7 +3,7 @@ import { Title } from '@angular/platform-browser';
 
 import { Axis, D3Service, D3, Selection, ScaleLinear } from 'd3-ng2-service';
 
-import { Law } from '../law';
+import { Law } from '../_models/law';
 import { LawService } from '../law.service';
 
 

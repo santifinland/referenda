@@ -13,6 +13,7 @@
               <div class="vertical-line">
                 <h1>{{law.headline}}</h1>
               </div>
+              <br>
               <p class="law-description">{{law.long_description}}</p>
               <br>
             </div>
@@ -143,6 +144,41 @@
               </span>
             </div>
           </div>
+        </div>
+
+        <ul class="list-group list-group-horizontal">
+            <li class="list-group-item">Cras justo odio</li>
+            <li class="list-group-item">Dapibus ac facilisis in</li>
+            <li class="list-group-item">Morbi leo risus</li>
+        </ul>
+
+        <div class="col-xs-12 col-sm-12">
+          <hr>
+          <h5>A favor:</h5>
+
+          <ul class="list-group list-group-horizontal">
+            <li class="list-group-item" *ngFor="let party of law.positiveParties">
+            {{party}}
+            </li>
+          </ul>
+                <div class="col-sm-12">
+                  <h5>En contra</h5>
+                  <ul class="list-group list-group-horizontal" *ngFor="let party of law.negativeParties">
+                    <li class="list-group-item"><img class="mini-logo" src="assets/img/{{party}}.svg"></li>
+                  </ul>
+                  <div *ngFor="let party of law.negativeParties">
+                    <img class="mini-logo" src="assets/img/{{party}}.svg">
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <h5>Abstención</h5>
+                  <ul class="list-group list-group-horizontal" *ngFor="let party of law.abstentionParties">
+                    <li class="list-group-item"><img class="mini-logo" src="assets/img/{{party}}.svg"></li>
+                  </ul>
+                  <div *ngFor="let party of law.abstentionParties">
+                    <img class="mini-logo" src="assets/img/{{party}}.svg">
+                  </div>
+                </div>
         </div>
 
         <div class="col-xs-12 col-sm-12">

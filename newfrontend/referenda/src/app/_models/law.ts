@@ -1,4 +1,5 @@
 import { Comment } from './comment';
+import { Party } from './party';
 
 export class Law {
   law_type: string;
@@ -25,5 +26,8 @@ export class Law {
   officialPositiveWidth: string;
   officialNegativeWidth: string;
   officialAbstentionWidth: string;
+  positiveParties: Party[];
+  negativeParties: Party[];
+  abstentionParties: Party[];
   comments: Comment[];
 }

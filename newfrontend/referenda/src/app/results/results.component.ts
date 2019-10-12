@@ -4,7 +4,7 @@ import { Title } from '@angular/platform-browser';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { OrderModule } from 'ngx-order-pipe';
 
-import { Law } from '../law';
+import { Law } from '../_models/law';
 import { LawService } from '../law.service';
 
 
