@@ -1,25 +1,22 @@
-import { catchError, map, tap } from 'rxjs/operators';
-import { HttpClient, HttpHeaders} from '@angular/common/http';
+import { catchError} from 'rxjs/operators';
+import { HttpClient} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Subscription } from 'rxjs';
 
 import { AuthenticationService } from './_services';
-import { Law } from './law';
+import { environment } from '../environments/environment';
+import { Law } from './_models/law';
 import { User } from './_models';
-import { Vote } from './vote';
-import { VoteResponse } from './vote.response';
-
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
+import { VoteResponse } from './_models/vote.response';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class LawService {
 
-  private lawsUrl = 'https://referenda.es:3443/api/laws';
+  private lawsUrl = environment.baseUrl + '/laws';
 
   currentUser: User;
   currentUserSubscription: Subscription;
@@ -38,35 +35,35 @@ export class LawService {
   }
 
   getResults(): Observable<Law[]> {
-    return this.http.get<Law[]>(this.lawsUrl + "?results=true")
+    return this.http.get<Law[]>(this.lawsUrl + '?results=true')
       .pipe(
         catchError(this.handleError('getResults', []))
       );
   }
 
   getLaw(slug: string): Observable<Law> {
-    return this.http.get<Law>(this.lawsUrl + "/" + slug)
+    return this.http.get<Law>(this.lawsUrl + '/' + slug)
       .pipe(
         catchError(this.handleError<Law>('getLaw slug=${slug}'))
       );
   }
 
   submitVote(slug: string, vote: number): Observable<VoteResponse> {
-    const uri = this.lawsUrl + "/" + slug + "/votes"
-    const body = {"vote": vote}
-    return this.http.post<VoteResponse>(uri, body)
+    const uri = this.lawsUrl + '/' + slug + '/votes';
+    const body = {'vote': vote};
+    return this.http.post<VoteResponse>(uri, body);
   }
 
   comment(slug: string, c: string): Observable<any> {
-    const uri = this.lawsUrl + "/" + slug + "/comments"
-    const body = {"comment": c}
-    return this.http.post(uri, body)
+    const uri = this.lawsUrl + '/' + slug + '/comments';
+    const body = {'comment': c};
+    return this.http.post(uri, body);
   }
 
   voteComment(slug: string, commentId: string, vote: number): Observable<any> {
-    const uri = this.lawsUrl + "/" + slug + "/comments/" + commentId + "/votes"
-    const body = {"vote": vote}
-    return this.http.post(uri, body)
+    const uri = this.lawsUrl + '/' + slug + '/comments/' + commentId + '/votes';
+    const body = {'vote': vote};
+    return this.http.post(uri, body);
   }
 
   /**

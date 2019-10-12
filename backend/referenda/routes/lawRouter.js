@@ -249,6 +249,7 @@ lawRouter.route('/:slug')
     Laws.findOne({"slug": req.params.slug})
         .select('law_type institution tier headline slug short_description long_description link pub_date vote_start ' +
                  'vote_end positive negative abstention official_positive official_negative official_abstention ' +
+                 'positiveParties negativeParties abstentionParties' +
                  'comments -_id')
         .populate('comments.postedBy', '-admin -_id -__v -delegatedUser -delegatedParty')
         .exec(function (err, law) {

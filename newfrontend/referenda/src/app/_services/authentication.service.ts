@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { environment } from '../../environments/environment';
 import { User } from '../_models';
 
 @Injectable({ providedIn: 'root' })
@@ -20,7 +21,7 @@ export class AuthenticationService {
         return this.currentUserSubject.value;
     }
 
-    apiUrl = 'https://referenda.es:3443/api'
+    apiUrl = environment.baseUrl
 
     login(username: string, password: string) {
         return this.http.post<any>(`${this.apiUrl}/users/login`, { username, password })

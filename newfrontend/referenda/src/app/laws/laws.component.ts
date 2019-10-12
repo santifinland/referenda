@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
-import { Law } from '../law';
+import { Law } from '../_models/law';
 import { LawService } from '../law.service';
 
 
