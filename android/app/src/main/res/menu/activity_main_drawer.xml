@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+                android:id="@+id/laws"
+                android:icon="@drawable/ic_account_balance_black_24dp"
+                android:title="@string/menu_polls"/>
+        <item
+                android:id="@+id/results"
+                android:icon="@drawable/ic_pie_chart_black_24dp"
+                android:title="@string/menu_results"/>
+        <item
+                android:id="@+id/delegate"
+                android:icon="@drawable/ic_contact_mail_black_24dp"
+                android:title="@string/menu_delegate"/>
+        <item
+                android:id="@+id/stats"
+                android:icon="@drawable/ic_poll_black_24dp"
+                android:title="@string/menu_stats"/>
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                    android:id="@+id/nav_share"
+                    android:icon="@drawable/ic_menu_share"
+                    android:title="@string/menu_share"/>
+        </menu>
+    </item>
+
+</menu>
