@@ -137,3 +137,6 @@ i.center {
   height: 25px;
   margin: 7px;
 }
+.info > a {
+  color: #000;
+}
