@@ -1,23 +1,22 @@
 package com.e.referenda
 
 import android.os.Bundle
+import android.net.Uri
 import androidx.core.view.GravityCompat
 import androidx.appcompat.app.ActionBarDrawerToggle
 import android.view.MenuItem
 import androidx.drawerlayout.widget.DrawerLayout
-import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
 import android.widget.Toast
-import androidx.core.app.ComponentActivity
-import androidx.core.app.ComponentActivity.ExtraData
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import androidx.fragment.app.Fragment
+import com.google.android.material.navigation.NavigationView
 
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(),
+    Laws.OnFragmentInteractionListener,
+    Results.OnFragmentInteractionListener,
+    NavigationView.OnNavigationItemSelectedListener {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,15 +61,29 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
+    override fun onFragmentInteraction(uri: Uri) {
+        //you can leave it empty
+    }
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+
         when (item.itemId) {
             R.id.laws -> {
                 Toast.makeText(getApplicationContext(), "Camera is clicked", Toast.LENGTH_SHORT).show()
-                setContentView(R.layout.app_bar_main)
+                val fragment = Laws()
+                fragmentTransaction.replace(R.id.flContent, fragment)
+                fragmentTransaction.addToBackStack(null)
+                fragmentTransaction.commit()
+                //fragmentTransaction.add(R.id.flContent, fragment)
             }
             R.id.results -> {
-                setContentView(R.layout.results)
+                val fragment = Results()
+                fragmentTransaction.replace(R.id.flContent, fragment)
+                fragmentTransaction.addToBackStack(null)
+                fragmentTransaction.commit()
             }
             R.id.delegate -> {
             }
