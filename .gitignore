@@ -15,6 +15,14 @@ local_settings.py
 staticfiles
 media
 backup
+backend/referenda/bin/private.key
+backend/referenda/bin/referenda.es.cer
+backend/referenda/bin/referenda.es.crt
+backend/referenda/bin/referenda.es.csr
+backend/referenda/bin/referenda.es.key
+backend/referenda/bin/rootCA.key
+backend/referenda/bin/rootCA.pem
+backend/referenda/bin/rootCA.srl
 backend/referenda/node_modules
 backend/referenda/log
 backend/referenda/config.js
@@ -22,3 +30,4 @@ frontend/app/images
 frontend/bower_components
 frontend/dist
 frontend/node_modules
+
