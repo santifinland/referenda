@@ -1,5 +1,6 @@
 package com.e.referenda
 
+import android.content.Context
 import android.os.Bundle
 import android.net.Uri
 import androidx.core.view.GravityCompat
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
 import android.widget.Toast
+import com.google.android.gms.net.CronetProviderInstaller
 import com.google.android.material.navigation.NavigationView
 
 
@@ -24,6 +26,7 @@ class MainActivity : AppCompatActivity(),
         setContentView(R.layout.activity_main)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
+        CronetProviderInstaller.installProvider(this)
 
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)

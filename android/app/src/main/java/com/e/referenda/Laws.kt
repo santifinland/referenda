@@ -7,6 +7,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.gms.net.CronetProviderInstaller
+import org.chromium.net.CronetEngine
+import org.chromium.net.UrlRequest
+import java.util.concurrent.Executor
+import java.util.concurrent.Executors
+
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,6 +33,8 @@ class Laws : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private var listener: OnFragmentInteractionListener? = null
+    private var law: String? = "iniclamente..."
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +45,8 @@ class Laws : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
@@ -52,6 +62,18 @@ class Laws : Fragment() {
         super.onAttach(context)
         if (context is OnFragmentInteractionListener) {
             listener = context
+            val myBuilder = CronetEngine.Builder(context)
+            val cronetEngine: CronetEngine = myBuilder.build()
+            val executor: Executor = Executors.newSingleThreadExecutor()
+            val requestBuilder = cronetEngine.newUrlRequestBuilder(
+                "https://www.elmundo.es",
+                ReferendaRequestCallback(),
+                executor
+            )
+            val request: UrlRequest = requestBuilder.build()
+            request.start()
+
+
         } else {
             throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
         }
