@@ -49,13 +49,6 @@ var lawSchema = new Schema({
         default:false
       },
       comments: [commentSchema],
-      pp: Number,
-      psoe: Number,
-      podemos: Number,
-      ciudadanos: Number,
-      erc: Number,
-      pnv: Number,
-      mixto: Number,
       positiveParties: [String],
       negativeParties: [String],
       abstentionParties: [String]

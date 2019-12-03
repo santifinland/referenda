@@ -140,13 +140,13 @@ lawRouter.route('/')
   } else {
       req.body.abstentionParties.push("pnv");
   }
-  // Compromis
-  if (req.body.compromis == 1) {
-      req.body.positiveParties.push("compromis");
-  } else if (req.body.compromis == 2) {
-      req.body.negativeParties.push("compromis");
+  // Mas pais
+  if (req.body.mp == 1) {
+      req.body.positiveParties.push("mp");
+  } else if (req.body.mp == 2) {
+      req.body.negativeParties.push("mp");
   } else {
-      req.body.abstentionParties.push("compromis");
+      req.body.abstentionParties.push("mp");
   }
   // Coalicion Canaria
   if (req.body.cc == 1) {
@@ -164,7 +164,7 @@ lawRouter.route('/')
   } else {
       req.body.abstentionParties.push("vox");
   }
-  // Foro Asturias
+  // Partido Regionalista Cantabro
   if (req.body.prc == 1) {
       req.body.positiveParties.push("prc");
   } else if (req.body.prc == 2) {
@@ -172,7 +172,7 @@ lawRouter.route('/')
   } else {
       req.body.abstentionParties.push("prc");
   }
-  // UPN
+  // Navarra suma
   if (req.body.upn == 1) {
       req.body.positiveParties.push("upn");
   } else if (req.body.upn == 2) {
@@ -188,13 +188,37 @@ lawRouter.route('/')
   } else {
       req.body.abstentionParties.push("bildu");
   }
-  // PdCat
+  // Junts per cat
   if (req.body.jpc == 1) {
       req.body.positiveParties.push("jpc");
   } else if (req.body.jpc == 2) {
       req.body.negativeParties.push("jpc");
   } else {
       req.body.abstentionParties.push("jpc");
+  }
+  // Teruel Existe
+  if (req.body.te == 1) {
+      req.body.positiveParties.push("te");
+  } else if (req.body.te == 2) {
+      req.body.negativeParties.push("te");
+  } else {
+      req.body.abstentionParties.push("te");
+  }
+  // CUP
+  if (req.body.cup == 1) {
+      req.body.positiveParties.push("cup");
+  } else if (req.body.cup == 2) {
+      req.body.negativeParties.push("cup");
+  } else {
+      req.body.abstentionParties.push("cup");
+  }
+  // BNG
+  if (req.body.bng == 1) {
+      req.body.positiveParties.push("bng");
+  } else if (req.body.bng == 2) {
+      req.body.negativeParties.push("bng");
+  } else {
+      req.body.abstentionParties.push("bng");
   }
   // No Delegar
   if (req.body.nd == 1) {
