@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
-import { FilterPipeModule } from 'ngx-filter-pipe';
-import { OrderModule } from 'ngx-order-pipe';
-
 import { Law } from '../_models/law';
 import { LawService } from '../law.service';
 
@@ -22,7 +19,7 @@ export class ResultsComponent implements OnInit {
   constructor(private lawService: LawService, private titleService: Title) { }
 
   ngOnInit() {
-    this.titleService.setTitle("Referenda. Resultados de votaciones");
+    this.titleService.setTitle('Referenda. Resultados de votaciones');
     this.getResults();
   }
 
@@ -31,9 +28,9 @@ export class ResultsComponent implements OnInit {
       .subscribe(laws => {
         this.laws = laws;
         this.laws.map(law => {
-          law.positiveWidth   = (50 * law.positive   / (law.positive + law.negative + law.abstention)) + "%";
-          law.negativeWidth   = (50 * law.negative   / (law.positive + law.negative + law.abstention)) + "%";
-          law.abstentionWidth = (50 * law.abstention / (law.positive + law.negative + law.abstention)) + "%";
+          law.positiveWidth   = (50 * law.positive   / (law.positive + law.negative + law.abstention)) + '%';
+          law.negativeWidth   = (50 * law.negative   / (law.positive + law.negative + law.abstention)) + '%';
+          law.abstentionWidth = (50 * law.abstention / (law.positive + law.negative + law.abstention)) + '%';
         });
       });
   }

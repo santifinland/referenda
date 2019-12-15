@@ -70,6 +70,7 @@ userRouter.route('/login')
     res.status(401).end();
   } else {
     passport.authenticate('local', function(err, user, info) {
+      console.log("UUUUUSSER");
       if (err) {
         return next(err);
       }
@@ -78,12 +79,13 @@ userRouter.route('/login')
           err: info
         });
       }
-      if (user.origin.indexOf("google") > -1) {
-        res.status(401).end();
-      }
-      if (user.origin.indexOf("facebook") > -1) {
-        res.status(401).end();
-      }
+      //if (user.origin.indexOf("google") > -1) {
+        //res.status(401).end();
+      //}
+      //if (user.origin.indexOf("facebook") > -1) {
+        //res.status(401).end();
+      //}
+      console.log(user);
       req.logIn(user, function(err) {
         if (err) {
           return res.status(500).json({

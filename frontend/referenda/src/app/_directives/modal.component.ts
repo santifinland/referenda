@@ -4,7 +4,7 @@ import { ModalService } from '../_services';
 
 @Component({
     selector: 'jw-modal',
-    template: 
+    template:
         `<div class="jw-modal">
             <div class="jw-modal-body">
                 <ng-content></ng-content>
@@ -22,7 +22,7 @@ export class ModalComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        let modal = this;
+        const modal = this;
 
         // ensure id attribute exists
         if (!this.id) {
