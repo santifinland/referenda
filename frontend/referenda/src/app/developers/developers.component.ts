@@ -14,7 +14,7 @@ export class DevelopersComponent implements OnInit {
   constructor(private el: ElementRef, private titleService: Title) { }
 
   ngOnInit() {
-    this.titleService.setTitle("Referenda. APIs y Recursos para Desarrolladores");
+    this.titleService.setTitle('Referenda. APIs y Recursos para Desarrolladores');
     const ui = SwaggerUI({
       url: 'assets/swagger/referenda.json',
       domNode: this.el.nativeElement.querySelector('.swagger-container'),

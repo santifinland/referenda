@@ -20,7 +20,7 @@ export class DelegationsComponent implements OnInit {
   currentUser: User;
   currentUserSubscription: Subscription;
 
-  delegation: string = "none";
+  delegation: string = 'none';
   delegatedPartyValue: Party;
   delegatedUserValue: User;
 
@@ -62,9 +62,9 @@ export class DelegationsComponent implements OnInit {
         (data: any) => {
           if (data) {
             this.delegatedPartyValue = data;
-            this.delegation = "party";
+            this.delegation = 'party';
             if (data.name == 'nd') {
-              this.delegation = "none";
+              this.delegation = 'none';
             }
           }
         },

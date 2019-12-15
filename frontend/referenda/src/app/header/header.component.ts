@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { AuthService } from "angularx-social-login";
-import { FacebookLoginProvider, GoogleLoginProvider, LinkedInLoginProvider } from "angularx-social-login";
+import { AuthService } from 'angularx-social-login';
+import { FacebookLoginProvider, GoogleLoginProvider, LinkedInLoginProvider } from 'angularx-social-login';
 import { first } from 'rxjs/operators';
-import { SocialUser } from "angularx-social-login";
+import { SocialUser } from 'angularx-social-login';
 import { Subscription } from 'rxjs';
 
 import { AlertService, AuthenticationService, UserService } from '../_services';
@@ -60,22 +60,22 @@ export class HeaderComponent implements OnInit {
     this.authService.authState.subscribe((user) => {
       this.socialUser = user;
       this.socialUserLoggedIn = (user != null);
-      if (this.socialProvider == "Google") {
+      if (this.socialProvider === 'Google') {
         this.userService.googleRegister(user)
           .subscribe(
             (data: any) => {
-              const referendaUser: User = {username: data.username, token: data.token}
+              const referendaUser: User = {username: data.username, token: data.token};
               this.authenticationService.loginWithToken(referendaUser);
               this.closeModal('login');
             },
             err => console.log(err)
           );
       }
-      if (this.socialProvider == "Facebook") {
+      if (this.socialProvider === 'Facebook') {
         this.userService.facebookRegister(user)
           .subscribe(
             (data: any) => {
-              const referendaUser: User = {username: data.username, token: data.token}
+              const referendaUser: User = {username: data.username, token: data.token};
               this.authenticationService.loginWithToken(referendaUser);
               this.closeModal('login');
             },
@@ -156,12 +156,12 @@ export class HeaderComponent implements OnInit {
   }
 
   signInWithGoogle(): void {
-    this.socialProvider = "Google";
+    this.socialProvider = 'Google';
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
   }
 
   signInWithFB(): void {
-    this.socialProvider = "Facebook";
+    this.socialProvider = 'Facebook';
     this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
   }
 }

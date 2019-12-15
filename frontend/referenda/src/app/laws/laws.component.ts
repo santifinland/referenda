@@ -18,17 +18,17 @@ export class LawsComponent implements OnInit {
 
   ngOnInit() {
     this.getLaws();
-    this.titleService.setTitle( "Referenda. Democracia directa" );
+    this.titleService.setTitle( 'Referenda. Democracia directa' );
   }
 
   getLaws(): void {
     this.lawService.getLaws()
       .subscribe(laws => {
-        this.laws = laws.filter(law => law.tier == 1);
+        this.laws = laws.filter(law => law.tier === 1);
         this.laws.map(law => {
-          law.positiveWidth   = (50 * law.positive   / (law.positive + law.negative + law.abstention)) + "%";
-          law.negativeWidth   = (50 * law.negative   / (law.positive + law.negative + law.abstention)) + "%";
-          law.abstentionWidth = (50 * law.abstention / (law.positive + law.negative + law.abstention)) + "%";
+          law.positiveWidth   = (50 * law.positive   / (law.positive + law.negative + law.abstention)) + '%';
+          law.negativeWidth   = (50 * law.negative   / (law.positive + law.negative + law.abstention)) + '%';
+          law.abstentionWidth = (50 * law.abstention / (law.positive + law.negative + law.abstention)) + '%';
         });
       });
   }
