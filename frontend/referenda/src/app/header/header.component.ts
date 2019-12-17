@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { AuthService } from 'angularx-social-login';
-import { FacebookLoginProvider, GoogleLoginProvider, LinkedInLoginProvider } from 'angularx-social-login';
+import { FacebookLoginProvider, GoogleLoginProvider} from 'angularx-social-login';
 import { first } from 'rxjs/operators';
 import { SocialUser } from 'angularx-social-login';
 import { Subscription } from 'rxjs';
