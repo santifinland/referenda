@@ -118,16 +118,20 @@
     </button>
     <div class="collapse navbar-collapse montserrat" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li [ngClass]="{active: section==='votaciones'}" (click)="section='votaciones';">
+        <li data-toggle="collapse" data-target=".navbar-collapse.show" [ngClass]="{active: section==='votaciones'}"
+            (click)="section='votaciones';">
           <a class="nav-link" routerLink="/leyes"> &nbsp;VOTACIONES&nbsp; </a>
         </li>
-        <li [ngClass]="{active: section==='resultados'}" (click)="section='resultados';">
+        <li data-toggle="collapse" data-target=".navbar-collapse.show" [ngClass]="{active: section==='resultados'}"
+            (click)="section='resultados';">
           <a class="nav-link" routerLink="/resultados"> &nbsp;RESULTADOS&nbsp; </a>
         </li>
-        <li [ngClass]="{active: section==='delegar'}" (click)="section='delegar';">
+        <li data-toggle="collapse" data-target=".navbar-collapse.show" [ngClass]="{active: section==='delegar'}"
+            (click)="section='delegar';">
           <a class="nav-link" routerLink="/delegar"> &nbsp;DELEGAR VOTOS&nbsp; </a>
         </li>
-        <li [ngClass]="{active: section==='estadisticas'}" (click)="section='estadisticas';">
+        <li data-toggle="collapse" data-target=".navbar-collapse.show" [ngClass]="{active: section==='estadisticas'}"
+            (click)="section='estadisticas';">
           <a class="nav-link" routerLink="/estadisticas"> &nbsp;ESTAD&Iacute;STICAS </a>
         </li>
       </ul>

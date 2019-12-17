@@ -15,6 +15,16 @@
   font-size: 1.9em;
   text-align: center;
 }
+
+/* Extra Small Devices, Phones */
+@media only screen and (max-width : 480px) {
+  .montserrat {
+    border: 1px;
+    font-family: "Montserrat-Bold";
+    font-size: 0.9em;
+    text-align: left;
+  }
+}
 .montserrat .small { font-size:14px;}
 .montserrat .normal { font-size:16px;}
 .montserrat .large { font-size:20px;}
