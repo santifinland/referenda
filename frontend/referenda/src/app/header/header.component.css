@@ -18,6 +18,9 @@
 
 /* Extra Small Devices, Phones */
 @media only screen and (max-width : 480px) {
+  .login-modal {
+    min-width: 90%;
+  }
   .montserrat {
     border: 1px;
     font-family: "Montserrat-Bold";
@@ -100,7 +103,7 @@
 /* MODAL STYLES
 -------------------------------*/
 jw-modal {
-  min-width: 30%;
+  min-width: 40%;
   /* modals are hidden by default */
   display: none;
   /* modal container fixed across whole screen */

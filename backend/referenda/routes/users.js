@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var https = require('https');
 var passport = require('passport');
 var User = require('../models/user');
+var validator = require("email-validator");
 var Verify    = require('./verify');
 var Parties = require('../models/parties');
 var config = require('../config.js');
@@ -46,22 +47,41 @@ userRouter.route('/logged')
 
 userRouter.route('/register')
 .post(function(req, res) {
-  User.register(new User(
-    { username: req.body.username, mail: "", origin: "referenda" }),
-    // { username : req.body.username, admin: req.body.admin }),
-    req.body.password,
-    function(err, user) {
+  console.log("Recibido un registro");
+  console.log(req.body);
+  if (validator.validate(req.body.email)) {
+    User.find({"mail": req.body.email}).exec(function (err, user) {
       if (err) {
-        console.log('in register: ', req.body.username);
         return res.status(500).json({err: err});
       }
-      user.save(function(err,user) {
-        passport.authenticate('local')(req, res, function () {
-          return res.status(200).json({status: 'Registration Successful!'});
-        });
-      });
-    }
-  );
+      if (user.length > 0) {
+        console.log("Mail ya usado");
+        console.log(user);
+        return res.status(200).json({err: 'Registration Successful!'});
+      }
+      if (user.length == 0) {
+        console.log("Mail libre");
+        User.register(new User(
+          { username: req.body.username, mail: req.body.email, origin: "referenda" }),
+          // { username : req.body.username, admin: req.body.admin }),
+          req.body.password,
+          function(err, user) {
+            if (err) {
+              console.log('in register: ', req.body.username);
+              return res.status(500).json({err: err});
+            }
+            user.save(function(err,user) {
+              passport.authenticate('local')(req, res, function () {
+                return res.status(200).json({status: 'Registration Successful!'});
+              });
+            });
+          }
+        );
+      }
+    });
+  } else {
+    return res.status(400).json({err: 'Invalid email'});
+  }
 });
 
 userRouter.route('/login')

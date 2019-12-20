@@ -54,6 +54,7 @@ export class HeaderComponent implements OnInit {
     });
     this.registerForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.minLength(4)]],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       gdpr: ['', Validators.required]
     });
@@ -85,7 +86,7 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  get f() { return this.loginForm.controls; }
+  get lf() { return this.loginForm.controls; }
   get rf() { return this.registerForm.controls; }
 
   onLogin() {
@@ -97,7 +98,7 @@ export class HeaderComponent implements OnInit {
     }
 
     this.loading = true;
-    this.authenticationService.login(this.f.username.value, this.f.password.value)
+    this.authenticationService.login(this.lf.username.value, this.lf.password.value)
       .pipe(first())
       .subscribe(
         data => {
@@ -127,8 +128,10 @@ export class HeaderComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          this.alertService.success('Registration successful', true);
-          this.router.navigate(['/']);
+          this.alertService.success('Registro correcto.', true);
+          this.closeModal('register');
+          this.router.navigate(['/delegar']);
+          this.loading = false;
         },
         error => {
           this.alertService.error(error);
@@ -137,10 +140,14 @@ export class HeaderComponent implements OnInit {
   }
 
   openModal(id: string) {
+    console.log("openning");
+    console.log(id)
     this.modalService.open(id);
   }
 
   closeModal(id: string) {
+    console.log("closing");
+    console.log(id);
     this.modalService.close(id);
   }
 
