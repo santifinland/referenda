@@ -21,11 +21,13 @@ const routes: Routes = [
   { path: 'cookies', component: CookiesComponent },
   { path: 'delegar', component: DelegationsComponent },
   { path: 'developers', component: DevelopersComponent },
+  { path: 'estadisticas', component: StatsComponent },
   { path: 'gdpr', component: GdprComponent },
   { path: 'leyes', component: LawsComponent },
   { path: 'ley/:slug', component: LawDetailComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
   { path: 'resultados', component: ResultsComponent },
-  { path: 'estadisticas', component: StatsComponent }
 ];
 
 @NgModule({
