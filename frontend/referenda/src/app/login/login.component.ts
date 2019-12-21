@@ -1,60 +1,88 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { first } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { AlertService, AuthenticationService } from '../_services';
+import { AuthService } from 'angularx-social-login';
+import { FacebookLoginProvider, GoogleLoginProvider} from 'angularx-social-login';
+import { first } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
-@Component({templateUrl: 'login.component.html'})
+import {AlertService, AuthenticationService, UserService} from '../_services';
+import { User } from '../_models';
+
+
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
+})
 export class LoginComponent implements OnInit {
-    loginForm: FormGroup;
-    loading = false;
-    submitted = false;
-    returnUrl: string;
 
-    constructor(
-        private alertService: AlertService,
-        private authenticationService: AuthenticationService,
-        private formBuilder: FormBuilder,
-        private route: ActivatedRoute,
-        private router: Router
-    ) {
-        // redirect to home if already logged in
-        if (this.authenticationService.currentUserValue) {
-            this.router.navigate(['/']);
-        }
+  loginForm: FormGroup;
+  loading = false;
+  submitted = false;
+  returnUrl: string;
+
+  currentUser: User;
+  currentUserSubscription: Subscription;
+
+  private socialProvider: string;
+
+  constructor(
+      private alertService: AlertService,
+      private authenticationService: AuthenticationService,
+      private authService: AuthService,
+      private formBuilder: FormBuilder,
+      private route: ActivatedRoute,
+      private router: Router) {
+    // redirect to home if already logged in
+    if (this.authenticationService.currentUserValue) {
+      this.router.navigate(['/']);
+    }
+  }
+
+  ngOnInit() {
+    this.loginForm = this.formBuilder.group({
+        username: ['', Validators.required],
+        password: ['', Validators.required]
+    });
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+  }
+
+  get lf() { return this.loginForm.controls; }
+
+  onLogin() {
+    this.submitted = true;
+
+    if (this.loginForm.invalid) {
+      return;
     }
 
-    ngOnInit() {
-        this.loginForm = this.formBuilder.group({
+    this.loading = true;
+    this.authenticationService.login(this.lf.username.value, this.lf.password.value)
+      .pipe(first())
+      .subscribe(
+        data => {
+          this.router.navigate([this.returnUrl]);
+        },
+        error => {
+          this.submitted = false;
+          this.loading = false;
+          this.loginForm = this.formBuilder.group({
             username: ['', Validators.required],
             password: ['', Validators.required]
+          });
+          return true;
         });
-        // get return url from route parameters or default to '/'
-        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-    }
+  }
 
-    // convenience getter for easy access to form fields
-    get f() { return this.loginForm.controls; }
+  signInWithGoogle(): void {
+    this.socialProvider = 'Google';
+    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+  }
 
-    onSubmit() {
-        this.submitted = true;
-
-        // stop here if form is invalid
-        if (this.loginForm.invalid) {
-            return;
-        }
-
-        this.loading = true;
-        this.authenticationService.login(this.f.username.value, this.f.password.value)
-            .pipe(first())
-            .subscribe(
-                data => {
-                    this.router.navigate([this.returnUrl]);
-                },
-                error => {
-                    this.alertService.error(error);
-                    this.loading = false;
-                });
-    }
+  signInWithFB(): void {
+    this.socialProvider = 'Facebook';
+    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+  }
 }

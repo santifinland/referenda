@@ -1,12 +1,10 @@
 import { AuthenticationService } from './_services';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { NgcCookieConsentModule,
-         NgcCookieConsentService,
-         NgcCookieConsentConfig,
+import { NgcCookieConsentService,
          NgcInitializeEvent,
          NgcStatusChangeEvent,
          NgcNoCookieLawEvent} from 'ngx-cookieconsent';
-import { Subscription }   from 'rxjs/Subscription';
+import { Subscription } from 'rxjs/Subscription';
 import { TranslateService } from '@ngx-translate/core';
 import { User } from './_models';
 
@@ -20,7 +18,6 @@ export class AppComponent implements OnInit, OnDestroy {
   title = 'referenda';
   currentUser: User;
 
-  //keep refs to subscriptions to be able to unsubscribe later
   private popupOpenSubscription: Subscription;
   private popupCloseSubscription: Subscription;
   private initializeSubscription: Subscription;
@@ -31,7 +28,7 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
       private authenticationService: AuthenticationService,
       private ccService: NgcCookieConsentService,
-      private translateService:TranslateService) {
+      private translateService: TranslateService) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
   }
 
@@ -58,7 +55,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.ccService.getConfig().content.link = data['cookie.link'];
         this.ccService.getConfig().content.href = data['cookie.href'];
 
-        this.ccService.destroy();//remove previous cookie bar (with default messages)
+        this.ccService.destroy(); //remove previous cookie bar (with default messages)
         this.ccService.init(this.ccService.getConfig()); // update config with translated messages
       });
 

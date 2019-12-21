@@ -9,9 +9,9 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { D3Service } from 'd3-ng2-service';
-import { GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-login";
+import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
 import { NgcCookieConsentModule, NgcCookieConsentConfig } from 'ngx-cookieconsent';
-import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
+import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
 
 import { AlertComponent } from './_components';
 import { AppComponent } from './app.component';
@@ -27,18 +27,20 @@ import { ModalService } from './_services';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { HomeComponent } from './home';
 import { LoginComponent } from './login';
+import { PasswordComponent } from './password/password.component';
 import { RegisterComponent } from './register';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ResultsComponent } from './results/results.component';
 import { StatsComponent } from './stats/stats.component';
 import { GdprComponent } from './gdpr/gdpr.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { DevelopersComponent } from './developers/developers.component';
-import { WINDOW_PROVIDERS } from "./_services/window.service";
+import { WINDOW_PROVIDERS } from './_services/window.service';
 
 
-const cookieConfig:NgcCookieConsentConfig = {
+const cookieConfig: NgcCookieConsentConfig = {
   cookie: {
-    domain: 'referenda.es' // or 'your.domain.com' // it is mandatory to set a domain, for cookies to work properly (see https://goo.gl/S2Hy2A)
+    domain: 'referenda.es' // it is mandatory to set a domain, for cookies to work properly (see https://goo.gl/S2Hy2A)
   },
   theme: 'block',
   palette: {
@@ -52,14 +54,14 @@ const cookieConfig:NgcCookieConsentConfig = {
   type: 'info'
 };
 
-let config = new AuthServiceConfig([
+const config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
-    provider: new GoogleLoginProvider("928349623718-lfcmf80du5n1r2agv00hecdtoqmtpd60.apps.googleusercontent.com")
+    provider: new GoogleLoginProvider('928349623718-lfcmf80du5n1r2agv00hecdtoqmtpd60.apps.googleusercontent.com')
   },
   {
     id: FacebookLoginProvider.PROVIDER_ID,
-    provider: new FacebookLoginProvider("297519443717240")
+    provider: new FacebookLoginProvider('297519443717240')
   }
 ]);
 
@@ -87,7 +89,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     ModalComponent,
     HomeComponent,
     LoginComponent,
+    PasswordComponent,
     RegisterComponent,
+    ResetPasswordComponent,
     GdprComponent,
     AboutusComponent,
     DevelopersComponent,
