@@ -7,108 +7,16 @@
     <div class="flex-row ml-md-auto">
       <div class="col">
         <span *ngIf="currentUser"><i class="material-icons">account_circle</i>{{currentUser.username}}</span>
-        <span *ngIf="!currentUser"><a class="login" (click)="openModal('login')"> Iniciar Sesi&oacute;n</a></span>
+        <span *ngIf="!currentUser"><a class="login-link" routerLink="/login">Iniciar Sesi&oacute;n</a></span>
         <i class="material-icons">more_vert</i>
         <span *ngIf="currentUser" (click)="logout()">Salir</span>
-        <span *ngIf="!currentUser"><a (click)="openModal('register')">Registrarse</a></span>
+        <span *ngIf="!currentUser"><a class="login-link" routerLink="/register">Registrarse</a></span>
       </div>
     </div>
   </div>
 </div>
 
-<jw-modal id="login">
-  <div class="jumbotron">
-    <span class="close" (click)="closeModal('login')">&times;</span>
-    <img class="center" height=120 width=120 src="assets/img/RoundR.webp">
-    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
-      <div class="form-group">
-        <label for="username">Nombre de usuario</label>
-        <input type="text" formControlName="username" class="form-control"
-               [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
-        <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-          <div *ngIf="f.username.errors.required">Es necesario el nombre de usuario</div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="password">Contrase&#241;a</label>
-        <input type="password" formControlName="password" class="form-control"
-               [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
-        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-          <div *ngIf="f.password.errors.required">Es necesaria la contrase&#241;a</div>
-        </div>
-      </div>
-      <div class="form-group">
-        <button [disabled]="loading" class="btn btn-primary">Iniciar sesi&oacute;n</button>
-        <img *ngIf="loading" class="pl-3" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-        <a (click)="closeModal('login'); openModal('register')" class="btn btn-link">Registrarse</a>
-      </div>
-    </form>
-    <hr>
-    <button type="button" class="btn btn-outline-secondary btn-block" (click)="signInWithGoogle()">
-      <img src="assets/img/btn_google_light_normal_ios.svg"/>
-      Inicia sesi&oacute;n con Google
-    </button>
-    <button type="button" class="btn btn-outline-secondary btn-block facebook" (click)="signInWithFB()">
-      <img class="facebook-img" src="assets/img/facebook_login.svg"/>
-      Inicia sesi&oacute;n con Facebook
-    </button>
-  </div>
-</jw-modal>
-
-
-<jw-modal id="register">
-  <div class="jumbotron">
-    <span class="close" (click)="closeModal('register')">&times;</span>
-    <img class="center" height=120 width=120 src="assets/img/RoundR.webp">
-    <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
-      <div class="form-group">
-        <label for="username">Nombre de usuario</label>
-        <input type="text" formControlName="username" class="form-control"
-               [ngClass]="{ 'is-invalid': submitted && rf.username.errors }" />
-        <div *ngIf="submitted && rf.username.errors" class="invalid-feedback">
-          <div *ngIf="rf.username.errors.required">Es necesario un nombre de usuario</div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="password">Contrase&#241;a</label>
-        <input type="password" formControlName="password" class="form-control"
-               [ngClass]="{ 'is-invalid': submitted && rf.password.errors }" />
-        <div *ngIf="submitted && rf.password.errors" class="invalid-feedback">
-          <div *ngIf="rf.password.errors.required">Es necesaria una contrase&#241;a</div>
-          <div *ngIf="rf.password.errors.minlength">La contrase&#241;a debe tener al menos 6 caracteres</div>
-        </div>
-      </div>
-      <div class="form-group">
-        <input type="checkbox" formControlName="gdpr" class="form-control form-check-input"
-               [ngClass]="{ 'is-invalid': submitted && rf.gdpr.errors }" />
-        <label class="form-check-label" for="gdpr">
-          He le&iacute;do y acepto la
-          <br>
-          <a routerLink="/gdpr">
-            pol&iacute;tica de privacidad
-            y protecci&oacute;n de datos
-          </a>
-        </label>
-        <div *ngIf="submitted && rf.gdpr.errors" class="invalid-feedback">
-          <div *ngIf="rf.gdpr.errors.required">
-            Es necesario leer y aceptar la
-            <br>
-            pol&iacute;tica de privacidad y protecci&oacute;n de datos
-          </div>
-        </div>
-      </div>
-      <br>
-      <div class="form-group">
-        <button [disabled]="loading" class="btn btn-primary">Registrarse</button>
-        <img *ngIf="loading" class="pl-3" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-        <a (click)="closeModal('register')" class="btn btn-link">Cancelar</a>
-      </div>
-    </form>
-  </div>
-</jw-modal>
-
-<nav class="undertop">
-</nav>
+<nav class="undertop"></nav>
 
 <nav class="navbar navbar-expand-lg navbar-light">
   <div class="container sections">
