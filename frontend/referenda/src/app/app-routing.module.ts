@@ -2,12 +2,10 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AboutusComponent } from './aboutus/aboutus.component';
-import { AuthGuard } from './_guards';
 import { CookiesComponent } from './cookies/cookies.component';
 import { DelegationsComponent } from './delegations/delegations.component';
 import { DevelopersComponent } from './developers/developers.component';
 import { GdprComponent } from './gdpr/gdpr.component';
-import { HomeComponent } from './home';
 import { LawDetailComponent } from './law-detail/law-detail.component';
 import { LawsComponent } from './laws/laws.component';
 import { LoginComponent } from './login';

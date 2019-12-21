@@ -59,7 +59,7 @@ userRouter.route('/register')
         console.log(user);
         return res.status(200).json({err: 'Registration Successful!'});
       }
-      if (user.length == 0) {
+      if (user.length === 0) {
         console.log("Mail libre");
         User.register(new User(
           { username: req.body.username, mail: req.body.email, origin: "referenda" }),

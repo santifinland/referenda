@@ -1,7 +1,7 @@
 @media only screen and (min-width : 480px) {
   .vertical-line {
     border-left: thick solid #7BA3A0;
-    padding-top: 7px;
+    padding-top: 17px;
   }
   .hr-visible {
     border: 0px;
@@ -12,11 +12,10 @@
     border: 1px solid;
   }
 }
-.register {
-  color: #000;
+.regiterForm {
+  padding-top: 10px;
 }
-.remember {
-  color: #888;
+.gdpr {
   font-size: 12px;
 }
 .facebook {
@@ -25,3 +24,4 @@
 .facebook-img {
   max-width: 45px;
 }
+
