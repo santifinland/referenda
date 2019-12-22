@@ -31,6 +31,7 @@ app.all('*', function(req, res, next){
   if (req.secure) {
     res.setHeader('Access-Control-Allow-Origin', 'https://referenda.es');
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type,x-access-token');
+    res.setHeader('Set-Cookie', 'HttpOnly;Secure;SameSite=Strict');
     return next();
   };
   console.log('sec port: ', app.get('secPort'));
