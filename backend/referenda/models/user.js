@@ -1,9 +1,9 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const passportLocalMongoose = require('passport-local-mongoose');
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+var passportLocalMongoose = require('passport-local-mongoose');
 
 
-const User = new Schema({
+var User = new Schema({
     username: String,
     mail: String,
     password: String,
@@ -26,7 +26,7 @@ User.methods.getName = function() {
     return (this.username);
 };
 
-const options = {"errorMessages": {
+var options = {"errorMessages": {
     "MissingPasswordError": 'No has proporcionado ninguna contraseña.',
     "AttemptTooSoonError": 'Cuenta actualmente bloqueada. Por favor, prueba más tarde.',
     "TooManyAttemptsError": 'Cuenta bloqueada debido a demasiados intentos de inicio de sesión.',
@@ -35,7 +35,7 @@ const options = {"errorMessages": {
     "IncorrectUsernameError": 'Contraseña o nombre de usuario incorrectos.',
     "MissingUsernameError": 'No has proporcionado nombre de usuario.',
     "UserExistsError": 'Un usuario ya está registrado con el mismo nombre.'}
-};
+}
 
 User.plugin(passportLocalMongoose, options);
 
