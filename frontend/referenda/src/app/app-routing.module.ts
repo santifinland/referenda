@@ -9,7 +9,9 @@ import { GdprComponent } from './gdpr/gdpr.component';
 import { LawDetailComponent } from './law-detail/law-detail.component';
 import { LawsComponent } from './laws/laws.component';
 import { LoginComponent } from './login';
+import { PasswordComponent } from './password/password.component';
 import { RegisterComponent } from './register';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ResultsComponent } from './results/results.component';
 import { StatsComponent } from './stats/stats.component';
 
@@ -24,7 +26,9 @@ const routes: Routes = [
   { path: 'leyes', component: LawsComponent },
   { path: 'ley/:slug', component: LawDetailComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'password', component: PasswordComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'resultados', component: ResultsComponent },
 ];
 

@@ -27,7 +27,9 @@ import { ModalService } from './_services';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { HomeComponent } from './home';
 import { LoginComponent } from './login';
+import { PasswordComponent } from './password/password.component';
 import { RegisterComponent } from './register';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ResultsComponent } from './results/results.component';
 import { StatsComponent } from './stats/stats.component';
 import { GdprComponent } from './gdpr/gdpr.component';
@@ -87,7 +89,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     ModalComponent,
     HomeComponent,
     LoginComponent,
+    PasswordComponent,
     RegisterComponent,
+    ResetPasswordComponent,
     GdprComponent,
     AboutusComponent,
     DevelopersComponent,

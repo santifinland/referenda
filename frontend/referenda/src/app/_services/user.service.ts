@@ -62,6 +62,16 @@ export class UserService {
     return this.http.post<string>(uri, body);
   }
 
+  rememberPassword(email: string) {
+    return this.http.post(`${this.usersUrl}/password`, email);
+  }
+
+  setPassword(password: any) {
+    const uri = this.usersUrl + '/set-password';
+    const body = {'token': password.token, 'password': password.password};
+    return this.http.post<string>(uri, body);
+  }
+
  /**
    * Handle Http operation that failed.
    * Let the app continue.

@@ -1,12 +1,16 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var https = require('https');
-var passport = require('passport');
-var User = require('../models/user');
-var validator = require("email-validator");
-var Verify    = require('./verify');
-var Parties = require('../models/parties');
-var config = require('../config.js');
+const express = require('express');
+const bodyParser = require('body-parser');
+const https = require('https');
+const jwt = require('jsonwebtoken');
+const passport = require('passport');
+
+const User = require('../models/user');
+const validator = require("email-validator");
+const Verify = require('./verify');
+const Parties = require('../models/parties');
+const config = require('../config.js');
+const Password = require('./password.js');
+
 
 var userRouter = express.Router();
 userRouter.use(bodyParser.json());
@@ -28,7 +32,7 @@ userRouter.route('/')
 userRouter.route('/find/:username')
 /* GET users listing. */
 .get(Verify.verifyOrdinaryUser, function(req, res, next) {
-    name = req.params.username.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+    let name = req.params.username.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
     if (name.length < 4) {
         return res.status(405).json({"Reason": "username pattern too short"});
     } else {
@@ -122,6 +126,64 @@ userRouter.route('/login')
       });
     })(req,res,next);
   }
+});
+
+userRouter.route('/password')
+.post(function(req, res) {
+  if (validator.validate(req.body.email)) {
+    User.find({"mail": req.body.email}).exec(function (err, user) {
+      if (err) {
+        return res.status(500).json({err: err});
+      }
+      if (user.length > 0) {
+        console.log("Mail encontrado");
+        console.log(user[0]);
+        Password.sendMail(user[0]);
+        return res.status(200).json({err: 'Correo enviado!'});
+      }
+      if (user.length === 0) {
+        console.log("Mail no encontrado");
+        return res.status(200).json({err: 'Correo enviado!'});
+      }
+    });
+  } else {
+    return res.status(400).json({err: 'Invalid email'});
+  }
+});
+
+userRouter.route('/set-password')
+.post(Verify.verifyOrdinaryUser, function(req, res) {
+  console.log("tooooooooooooooken");
+  let token = req.body.token;
+  console.log(token);
+  let password = req.body.password;
+  console.log(password);
+  console.log(req.decoded);
+  console.log(req.decoded.username);
+  User.findOne({"username": req.decoded.username}).exec(function (err, user) {
+    if (err) {
+      return res.status(500).json({err: err});
+    }
+    if (user) {
+      console.log(user);
+      user.setPassword(password, function (err, user) {
+        if (err) {
+          return res.status(500).json({err: err});
+        }
+        if (user) {
+          user.save(function(err, user) {
+            if (err) {
+              console.log(err);
+            } else {
+              console.log("password cambiada");
+              console.log(user);
+              return res.status(201).end();
+            }
+          });
+        }
+      });
+    }
+  });
 });
 
 userRouter.route('/googleregister')
