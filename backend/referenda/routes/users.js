@@ -137,9 +137,13 @@ userRouter.route('/password')
       }
       if (user.length > 0) {
         console.log("Mail encontrado");
-        console.log(user[0]);
-        Password.sendMail(user[0]);
-        return res.status(200).json({err: 'Correo enviado!'});
+        if (user[0].origin === 'referenda') {
+          console.log(user[0]);
+          Password.sendMail(user[0]);
+          return res.status(200).json({err: 'Correo enviado!'});
+        } else {
+          return res.status(200).json({err: 'Correo enviado!'});
+        }
       }
       if (user.length === 0) {
         console.log("Mail no encontrado");
