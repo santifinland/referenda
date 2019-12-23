@@ -2,7 +2,7 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { AuthService } from 'angularx-social-login';
+import { AuthService, SocialUser } from 'angularx-social-login';
 import { FacebookLoginProvider, GoogleLoginProvider} from 'angularx-social-login';
 import { first } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
@@ -26,19 +26,21 @@ export class LoginComponent implements OnInit {
   currentUser: User;
   currentUserSubscription: Subscription;
 
+  private socialUser: SocialUser;
+  private socialUserLoggedIn: boolean;
   private socialProvider: string;
 
   constructor(
       private alertService: AlertService,
-      private authenticationService: AuthenticationService,
       private authService: AuthService,
+      private authenticationService: AuthenticationService,
       private formBuilder: FormBuilder,
       private route: ActivatedRoute,
-      private router: Router) {
-    // redirect to home if already logged in
-    if (this.authenticationService.currentUserValue) {
-      this.router.navigate(['/']);
-    }
+      private router: Router,
+      private userService: UserService) {
+    this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
+      this.currentUser = user;
+    });
   }
 
   ngOnInit() {
@@ -47,6 +49,30 @@ export class LoginComponent implements OnInit {
         password: ['', Validators.required]
     });
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.authService.authState.subscribe((user) => {
+      this.socialUser = user;
+      this.socialUserLoggedIn = (user != null);
+      if (this.socialProvider === 'Google') {
+        this.userService.googleRegister(user)
+          .subscribe(
+            (data: any) => {
+              const referendaUser: User = {username: data.username, token: data.token};
+              this.authenticationService.loginWithToken(referendaUser);
+            },
+            err => console.log(err)
+          );
+      }
+      if (this.socialProvider === 'Facebook') {
+        this.userService.facebookRegister(user)
+          .subscribe(
+            (data: any) => {
+              const referendaUser: User = {username: data.username, token: data.token};
+              this.authenticationService.loginWithToken(referendaUser);
+            },
+            err => console.log(err)
+          );
+      }
+    });
   }
 
   get lf() { return this.loginForm.controls; }

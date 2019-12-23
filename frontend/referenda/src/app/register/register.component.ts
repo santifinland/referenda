@@ -1,10 +1,11 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
 import { AlertService, UserService, AuthenticationService } from '../_services';
-import {AuthService, FacebookLoginProvider, GoogleLoginProvider} from 'angularx-social-login';
+import { AuthService, FacebookLoginProvider, GoogleLoginProvider, SocialUser } from 'angularx-social-login';
+import { User} from '../_models';
 
 
 @Component({
@@ -18,6 +19,8 @@ export class RegisterComponent implements OnInit {
   loading = false;
   submitted = false;
 
+  private socialUser: SocialUser;
+  private socialUserLoggedIn: boolean;
   private socialProvider: string;
 
   constructor(
@@ -39,6 +42,30 @@ export class RegisterComponent implements OnInit {
       username: ['', [Validators.required, Validators.minLength(4)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
+    });
+    this.authService.authState.subscribe((user) => {
+      this.socialUser = user;
+      this.socialUserLoggedIn = (user != null);
+      if (this.socialProvider === 'Google') {
+        this.userService.googleRegister(user)
+          .subscribe(
+            (data: any) => {
+              const referendaUser: User = {username: data.username, token: data.token};
+              this.authenticationService.loginWithToken(referendaUser);
+            },
+            err => console.log(err)
+          );
+      }
+      if (this.socialProvider === 'Facebook') {
+        this.userService.facebookRegister(user)
+          .subscribe(
+            (data: any) => {
+              const referendaUser: User = {username: data.username, token: data.token};
+              this.authenticationService.loginWithToken(referendaUser);
+            },
+            err => console.log(err)
+          );
+      }
     });
   }
 
