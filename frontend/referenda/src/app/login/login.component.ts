@@ -7,7 +7,7 @@ import { FacebookLoginProvider, GoogleLoginProvider} from 'angularx-social-login
 import { first } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 
-import {AlertService, AuthenticationService, UserService} from '../_services';
+import { AlertService, AuthenticationService, UserService } from '../_services';
 import { User } from '../_models';
 
 

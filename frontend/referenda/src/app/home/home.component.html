@@ -1,9 +1,31 @@
-﻿<h1>Hi {{currentUser.username}}!</h1>
-<p>You're logged in with Angular 7!!</p>
-<h3>All registered users:</h3>
-<ul>
-    <li *ngFor="let user of users">
-        {{user.username}}
-        - <a (click)="deleteUser(user.id)" class="text-danger">Delete</a>
-    </li>
-</ul>
+﻿<div class="container">
+  <div class="row row-content">
+    <div class="col">
+      <br>
+      <h3>{{currentUser.username}}</h3>
+      <hr>
+    </div>
+  </div>
+  <div class="row row-content">
+    <div class="col">
+      <p><b>Nombre de usuario: </b>{{currentUser.username}}</p>
+      <br>
+      <br>
+      <button type="button" class="btn btn-primary" routerLink="/profile">Editar mis datos</button>
+    </div>
+  </div>
+  <div class="col-sm-12">
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+  </div>
+</div>

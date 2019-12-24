@@ -101,3 +101,14 @@ a.login-link:hover {
   justify-content: center;
   vertical-align: middle;
 }
+.home {
+  vertical-align: top;
+  padding-right: 5px;
+}
+a.home {
+  color: #fff;
+}
+a.home:hover {
+  color: #f1d600;
+  text-decoration: none;
+}

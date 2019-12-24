@@ -72,6 +72,12 @@ export class UserService {
     return this.http.post<string>(uri, body);
   }
 
+  changeUsername(username: string) {
+    const uri = this.usersUrl + '/username';
+    const body = {'username': username};
+    return this.http.post<string>(uri, body);
+  }
+
  /**
    * Handle Http operation that failed.
    * Let the app continue.
