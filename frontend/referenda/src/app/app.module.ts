@@ -25,9 +25,10 @@ import { LawsComponent } from './laws/laws.component';
 import { ModalComponent } from './_directives';
 import { ModalService } from './_services';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
-import { HomeComponent } from './home';
+import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login';
 import { PasswordComponent } from './password/password.component';
+import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ResultsComponent } from './results/results.component';
@@ -90,6 +91,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     HomeComponent,
     LoginComponent,
     PasswordComponent,
+    ProfileComponent,
     RegisterComponent,
     ResetPasswordComponent,
     GdprComponent,

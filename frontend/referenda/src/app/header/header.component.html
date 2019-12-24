@@ -6,7 +6,11 @@
     </div>
     <div class="flex-row ml-md-auto">
       <div class="col">
-        <span *ngIf="currentUser"><i class="material-icons">account_circle</i>{{currentUser.username}}</span>
+        <span *ngIf="currentUser">
+          <a class="home" routerLink="/home">
+            <i class="material-icons home">account_circle</i>{{currentUser.username}}
+          </a>
+        </span>
         <span *ngIf="!currentUser"><a class="login-link" routerLink="/login">Iniciar Sesi&oacute;n</a></span>
         <i class="material-icons">more_vert</i>
         <span *ngIf="currentUser" (click)="logout()">Salir</span>

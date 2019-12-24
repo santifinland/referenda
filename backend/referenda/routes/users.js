@@ -53,6 +53,9 @@ userRouter.route('/register')
 .post(function(req, res) {
   console.log("Recibido un registro");
   console.log(req.body);
+  if ((req.body.username.length < 4) || (req.body.username.length > 15)) {
+    return res.status(400).json({err: "Username too long"});
+  }
   if (validator.validate(req.body.email)) {
     User.find({"mail": req.body.email}).exec(function (err, user) {
       if (err) {
@@ -126,6 +129,46 @@ userRouter.route('/login')
       });
     })(req,res,next);
   }
+});
+
+userRouter.route('/username')
+.get(Verify.verifyOrdinaryUser, function (req, res, next) {
+  User.findById(req.decoded._id, function (err, user) {
+    if (err) return next(err);
+    res.status(200).json({username: user.username});
+  });
+})
+.post(Verify.verifyOrdinaryUser, function (req, res, next) {
+  if ((req.body.username.length < 4) || (req.body.username.length > 15)) {
+    return res.status(400).json({err: "Username too long"});
+  }
+  User.findById(req.decoded._id, function (err, user) {
+    if (err) return next(err);
+    if (user) {
+      console.log(user);
+      console.log(req.body.username);
+      User.find({"username": req.body.username}).exec(function (err, usernameUsers) {
+        if (err) {
+          return res.status(500).json({err: err});
+        }
+        if (usernameUsers.length > 0) {
+          console.log(usernameUsers);
+          console.log("Username already in use");
+          res.status(400).json({status: 'Impossible to change username'});
+        } else {
+          console.log("Changing username");
+          user.username = req.body.username;
+          user.save(function (err, user) {
+            if (err) return next(err);
+            console.log('Updated User!');
+            res.status(201).json({status: 'Username changed'});
+          });
+        }
+      });
+    } else {
+      res.status(401).json({status: 'Invalid credentials'});
+    }
+  });
 });
 
 userRouter.route('/password')
