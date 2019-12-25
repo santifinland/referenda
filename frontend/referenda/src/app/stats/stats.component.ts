@@ -14,13 +14,12 @@ import { LawService } from '../law.service';
 })
 export class StatsComponent implements OnInit {
 
-  laws: Law[];
-
   private d3: D3;
   private d3Svg: Selection<SVGSVGElement, any, null, undefined>;
   private parentNativeElement: any;
 
   xPartido = true;
+  presentadasXPartido = false;
 
   constructor(
       element: ElementRef,
@@ -33,6 +32,14 @@ export class StatsComponent implements OnInit {
   }
 
   getLaws(): void {
+    this.lawService.getLaws()
+      .subscribe(laws => {
+        const results = this.buildData(laws);
+        this.draw(results);
+      });
+  }
+
+  getResults(): void {
     this.lawService.getResults()
       .subscribe(laws => {
         const results = this.buildData(laws);
@@ -49,7 +56,14 @@ export class StatsComponent implements OnInit {
 
   stat(selectedStat): void {
     if (selectedStat === 'xPartido') {
+      this.getResults();
       this.xPartido = true;
+      this.presentadasXPartido = false;
+    }
+    if (selectedStat === 'presentadasXPartido') {
+      this.getLaws();
+      this.presentadasXPartido = true;
+      this.xPartido = false;
     }
   }
 
