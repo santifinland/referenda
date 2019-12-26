@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
 import SwaggerUI from 'swagger-ui';
@@ -11,7 +11,7 @@ import SwaggerUI from 'swagger-ui';
 })
 export class DevelopersComponent implements OnInit {
 
-  constructor(private el: ElementRef, private titleService: Title) { }
+  constructor(private titleService: Title) { }
 
   ngOnInit() {
     const title = 'Referenda. APIs y Recursos para Desarrolladores';
@@ -19,7 +19,7 @@ export class DevelopersComponent implements OnInit {
     document.querySelector('meta[name="description"]').setAttribute('content', title);
     const ui = SwaggerUI({
       url: 'assets/swagger/referenda.json',
-      domNode: this.el.nativeElement.querySelector('.swagger-container'),
+      dom_id: '#swagger-container',
       deepLinking: true
     });
   }
