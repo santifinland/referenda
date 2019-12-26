@@ -16,7 +16,7 @@ export class FooterComponent implements OnInit {
 
   onClick(event) {
     event.preventDefault();
-    switch(event.toElement.pathname) {
+    switch (event.toElement.pathname) {
       case '/aboutus':
         this.router.navigate(['/aboutus']);
         break;

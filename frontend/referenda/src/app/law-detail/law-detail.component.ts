@@ -4,7 +4,7 @@ import { Inject } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
 import { first } from 'rxjs/operators';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Law } from '../_models/law';
 import { LawService } from '../law.service';
@@ -124,6 +124,4 @@ export class LawDetailComponent implements OnInit {
                 '. Vota en https://referenda.es.&hashtags=DemocraciaDirecta',
                 'twitter', 'width=600, height=300, top=' + height + ', left=' + width + ';');
   }
-
 }
-

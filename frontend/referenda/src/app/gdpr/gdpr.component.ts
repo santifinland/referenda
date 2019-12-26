@@ -15,5 +15,4 @@ export class GdprComponent implements OnInit {
     this.titleService.setTitle(title);
     document.querySelector('meta[name="description"]').setAttribute('content', title);
   }
-
 }
