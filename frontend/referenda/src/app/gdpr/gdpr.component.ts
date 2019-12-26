@@ -11,7 +11,9 @@ export class GdprComponent implements OnInit {
   constructor(private titleService: Title) { }
 
   ngOnInit() {
-    this.titleService.setTitle('Referenda. Protección de Datos');
+    const title = 'Referenda. Protección de Datos';
+    this.titleService.setTitle(title);
+    document.querySelector('meta[name="description"]').setAttribute('content', title);
   }
 
 }

@@ -11,6 +11,8 @@ export class CookiesComponent implements OnInit {
   constructor(private titleService: Title) { }
 
   ngOnInit() {
-    this.titleService.setTitle('Referenda. Política de Cookies');
+    const title = 'Referenda. Política de Cookies';
+    this.titleService.setTitle(title);
+    document.querySelector('meta[name="description"]').setAttribute('content', title);
   }
 }

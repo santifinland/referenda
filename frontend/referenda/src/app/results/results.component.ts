@@ -19,7 +19,9 @@ export class ResultsComponent implements OnInit {
   constructor(private lawService: LawService, private titleService: Title) { }
 
   ngOnInit() {
-    this.titleService.setTitle('Referenda. Resultados de votaciones');
+    const title = 'Referenda. Resultados de votaciones';
+    this.titleService.setTitle(title);
+    document.querySelector('meta[name="description"]').setAttribute('content', title);
     this.getResults();
   }
 
