@@ -21,8 +21,8 @@ img.party-logo {
 }
 .party-mixto {
   padding: 30px;
-  text-align:center;
-  text-align:center;
+  text-align: center;
+  text-align: center;
   border-right: 1px solid #999;
 }
 .party-selected {
@@ -39,7 +39,7 @@ img.party-logo {
 .funciona {
   margin: 0px 0px 0px 15px;
   padding: 0px 0px 0px 15px;
-  font-family: "Montserrat-Bold";
+  text-align: justify;
   border-left: thick solid #7BA3A0;
 }
 .funciona > p {

@@ -1,7 +1,7 @@
 <div class="container">
-
-  <div *ngIf="!currentUser" class="row">
-    <h3>Inicia sesi&oacute;n para delegar tu voto</h3>
+  <br>
+  <div *ngIf="!currentUser" class="col-xs-12 col-sm-9">
+    <h1>Inicia sesi&oacute;n para delegar tu voto</h1>
     <br>
     <div class="row">
       <div class="col-6 funciona">
@@ -45,7 +45,7 @@
   <hr>
   <div class="row">
     <div class="col-5">
-      <h3>Delega tu voto en otro usuario:</h3>
+      <h2>Delega tu voto en otro usuario:</h2>
 
       <form [formGroup]="findUsersForm" (ngSubmit)="findUsers()">
         <div class="form-group">
@@ -86,7 +86,7 @@
     <div class="col">
       <hr>
       <br>
-      <h3>Selecciona el partido al que delegas tu voto:</h3>
+      <h2>Selecciona el partido al que delegas tu voto:</h2>
       <br>
     </div>
   </div>
