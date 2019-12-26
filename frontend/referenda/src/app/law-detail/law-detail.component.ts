@@ -1,7 +1,9 @@
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, PLATFORM_ID} from '@angular/core';
 import { Inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { isPlatformBrowser } from '@angular/common';
 
 import { first } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -40,10 +42,12 @@ export class LawDetailComponent implements OnInit {
       private formBuilder: FormBuilder,
       private modalService: ModalService,
       private route: ActivatedRoute,
+      private router: Router,
       private titleService: Title,
+      @Inject(PLATFORM_ID) private platformId: Object,
       @Inject(WINDOW) private window: Window) {
     this.route.params.subscribe( params => this.getLaw(params['slug']));
-    this.location = encodeURIComponent(this.window.location.href);
+    this.location = 'https://referenda.es' +  this.router.url;
   }
 
   ngOnInit() {
@@ -118,10 +122,12 @@ export class LawDetailComponent implements OnInit {
   }
 
   shareTwitter(): void {
-    const width = (window.screen.width / 3);
-    const height = (window.screen.height / 3);
-    window.open('https://twitter.com/intent/tweet?text=' + this.law.headline +
-                '. Vota en https://referenda.es.&hashtags=DemocraciaDirecta',
-                'twitter', 'width=600, height=300, top=' + height + ', left=' + width + ';');
+    if (isPlatformBrowser(this.platformId)) {
+      const width = (window.screen.width / 3);
+      const height = (window.screen.height / 3);
+      window.open('https://twitter.com/intent/tweet?text=' + this.law.headline +
+                  '. Vota en https://referenda.es.&hashtags=DemocraciaDirecta',
+                  'twitter', 'width=600, height=300, top=' + height + ', left=' + width + ';');
+    }
   }
 }
