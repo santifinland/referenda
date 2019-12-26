@@ -36,7 +36,9 @@ export class StatsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.titleService.setTitle('Referenda. Estadísticas');
+    const title = 'Referenda. Estadísticas sobre votaciones en el Congreso de los diputados';
+    this.titleService.setTitle(title);
+    document.querySelector('meta[name="description"]').setAttribute('content', title);
     this.getLaws();
   }
 

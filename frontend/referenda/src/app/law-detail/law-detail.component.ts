@@ -57,7 +57,9 @@ export class LawDetailComponent implements OnInit {
   getLaw(slug): void {
     this.lawService.getLaw(slug)
       .subscribe(law => {
-        this.titleService.setTitle( 'Referenda. ' + law.headline );
+        const title = 'Referenda. ' + law.headline;
+        this.titleService.setTitle(title);
+        document.querySelector('meta[name="description"]').setAttribute('content', title);
         law.positiveWidth   = (50 * law.positive   / (law.positive + law.negative + law.abstention)) + '%';
         law.negativeWidth   = (50 * law.negative   / (law.positive + law.negative + law.abstention)) + '%';
         law.abstentionWidth = (50 * law.abstention / (law.positive + law.negative + law.abstention)) + '%';
