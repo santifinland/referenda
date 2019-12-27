@@ -17,7 +17,6 @@ import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
 import { AlertComponent } from './_components';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { CookiesComponent } from './cookies/cookies.component';
 import { DelegationsComponent } from './delegations/delegations.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
@@ -33,8 +32,6 @@ import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ResultsComponent } from './results/results.component';
-import { GdprComponent } from './gdpr/gdpr.component';
-import { AboutusComponent } from './aboutus/aboutus.component';
 import { WINDOW_PROVIDERS } from './_services/window.service';
 
 
@@ -81,7 +78,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     LawDetailComponent,
     FooterComponent,
     HeaderComponent,
-    CookiesComponent,
     ResultsComponent,
     DelegationsComponent,
     AlertComponent,
@@ -92,8 +88,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     ProfileComponent,
     RegisterComponent,
     ResetPasswordComponent,
-    GdprComponent,
-    AboutusComponent,
   ],
   imports: [
     AppRoutingModule,
