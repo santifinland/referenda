@@ -1,6 +1,5 @@
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit, PLATFORM_ID} from '@angular/core';
-import { Inject } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID} from '@angular/core';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { isPlatformBrowser } from '@angular/common';

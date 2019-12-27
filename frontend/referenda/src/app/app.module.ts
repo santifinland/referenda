@@ -35,7 +35,6 @@ import { ResultsComponent } from './results/results.component';
 import { StatsComponent } from './stats/stats.component';
 import { GdprComponent } from './gdpr/gdpr.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
-import { DevelopersComponent } from './developers/developers.component';
 import { WINDOW_PROVIDERS } from './_services/window.service';
 
 
@@ -96,7 +95,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     ResetPasswordComponent,
     GdprComponent,
     AboutusComponent,
-    DevelopersComponent,
   ],
   imports: [
     AppRoutingModule,
