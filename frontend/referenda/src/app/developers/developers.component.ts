@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Title } from '@angular/platform-browser';
 
 import SwaggerUI from 'swagger-ui';
@@ -11,16 +12,20 @@ import SwaggerUI from 'swagger-ui';
 })
 export class DevelopersComponent implements OnInit {
 
-  constructor(private titleService: Title) { }
+  constructor(
+      private titleService: Title,
+      @Inject(PLATFORM_ID) private platformId: Object) { }
 
   ngOnInit() {
     const title = 'Referenda. APIs y Recursos para Desarrolladores';
     this.titleService.setTitle(title);
     document.querySelector('meta[name="description"]').setAttribute('content', title);
-    const ui = SwaggerUI({
-      url: 'assets/swagger/referenda.json',
-      dom_id: '#swagger-container',
-      deepLinking: true
-    });
+    if (isPlatformBrowser(this.platformId)) {
+      const ui = SwaggerUI({
+        url: 'assets/swagger/referenda.json',
+        dom_id: '#swagger-container',
+        deepLinking: true
+      });
+    }
   }
 }

@@ -4,7 +4,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { CookiesComponent } from './cookies/cookies.component';
 import { DelegationsComponent } from './delegations/delegations.component';
-import { DevelopersComponent } from './developers/developers.component';
 import { GdprComponent } from './gdpr/gdpr.component';
 import { HomeComponent } from './home/home.component';
 import { LawDetailComponent } from './law-detail/law-detail.component';
@@ -22,7 +21,8 @@ const routes: Routes = [
   { path: 'aboutus', component: AboutusComponent },
   { path: 'cookies', component: CookiesComponent },
   { path: 'delegar', component: DelegationsComponent },
-  { path: 'developers', component: DevelopersComponent },
+  { path: 'developers',
+    loadChildren: () => import('./developers/developers.module').then(mod => mod.DevelopersModule)},
   { path: 'estadisticas', component: StatsComponent },
   { path: 'gdpr', component: GdprComponent },
   { path: 'home', component: HomeComponent },
@@ -34,6 +34,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'resultados', component: ResultsComponent },
+  { path: 'developers', loadChildren: () => import('./developers/developers.module').then(m => m.DevelopersModule) },
 ];
 
 @NgModule({
