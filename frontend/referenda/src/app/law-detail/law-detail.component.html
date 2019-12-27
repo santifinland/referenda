@@ -174,7 +174,7 @@
             <form [formGroup]="commentForm" (ngSubmit)="comment()">
               <div class="form-group">
                 <label for="comment">Tu comentario</label>
-                <input type="text" formControlName="comment" class="form-control"
+                <input type="text" formControlName="comment" class="form-control" id="comment"
                        [ngClass]="{ 'is-invalid': submitted && f.comment.errors }" />
                 <div *ngIf="submitted && f.comment.errors" class="invalid-feedback">
                   <div *ngIf="f.comment.errors.required">Es necesario escribir un comentario</div>
@@ -220,7 +220,7 @@
           </ul>
         </div>
 
-      </div >
+      </div>
     </div>
   </div>
 </div>

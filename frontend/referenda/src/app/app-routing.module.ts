@@ -33,8 +33,7 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
-  { path: 'resultados', component: ResultsComponent },
-  { path: 'developers', loadChildren: () => import('./developers/developers.module').then(m => m.DevelopersModule) },
+  { path: 'resultados', component: ResultsComponent }
 ];
 
 @NgModule({
