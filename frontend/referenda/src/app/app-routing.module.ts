@@ -14,16 +14,14 @@ import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ResultsComponent } from './results/results.component';
-import { StatsComponent } from './stats/stats.component';
 
 const routes: Routes = [
   { path: '', component: LawsComponent },
   { path: 'aboutus', component: AboutusComponent },
   { path: 'cookies', component: CookiesComponent },
   { path: 'delegar', component: DelegationsComponent },
-  { path: 'developers',
-    loadChildren: () => import('./developers/developers.module').then(mod => mod.DevelopersModule)},
-  { path: 'estadisticas', component: StatsComponent },
+  { path: 'developers', loadChildren: () => import('./developers/developers.module').then(m => m.DevelopersModule) },
+  { path: 'estadisticas',loadChildren: () => import('./stats/stats.module').then(m => m.StatsModule) },
   { path: 'gdpr', component: GdprComponent },
   { path: 'home', component: HomeComponent },
   { path: 'leyes', component: LawsComponent },
