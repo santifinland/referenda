@@ -1,11 +1,13 @@
-import { AuthenticationService } from './_services';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, Inject, Injector, OnInit, OnDestroy, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { NgcCookieConsentService,
          NgcInitializeEvent,
          NgcStatusChangeEvent,
          NgcNoCookieLawEvent} from 'ngx-cookieconsent';
 import { Subscription } from 'rxjs/Subscription';
 import { TranslateService } from '@ngx-translate/core';
+
+import { AuthenticationService } from './_services';
 import { User } from './_models';
 
 
@@ -15,8 +17,10 @@ import { User } from './_models';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, OnDestroy {
+
   title = 'referenda';
   currentUser: User;
+  ccService = null;
 
   private popupOpenSubscription: Subscription;
   private popupCloseSubscription: Subscription;
@@ -27,79 +31,88 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(
       private authenticationService: AuthenticationService,
-      private ccService: NgcCookieConsentService,
-      private translateService: TranslateService) {
+      private translateService: TranslateService,
+      @Inject(PLATFORM_ID) private readonly platformId: Object,
+      private readonly injector: Injector) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
   }
 
   ngOnInit() {
 
-    // Support for translated cookies messages
-    this.translateService.addLangs(['en', 'es']);
-    this.translateService.setDefaultLang('en');
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    } else {
 
-    const browserLang = this.translateService.getBrowserLang();
-    this.translateService.use(browserLang.match(/en|es/) ? browserLang : 'en');
+      this.ccService = this.injector.get(NgcCookieConsentService);
 
-    this.translateService//
-      .get(['cookie.header', 'cookie.message', 'cookie.dismiss', 'cookie.allow', 'cookie.deny', 'cookie.link', 'cookie.href'])
-      .subscribe(data => {
+      console.log("NOOOOOOOOOOOOOOOOOO ISSSS server");
+      // Support for translated cookies messages
+      this.translateService.addLangs(['en', 'es']);
+      this.translateService.setDefaultLang('en');
 
-        this.ccService.getConfig().content = this.ccService.getConfig().content || {} ;
-        // Override default messages with the translated ones
-        this.ccService.getConfig().content.header = data['cookie.header'];
-        this.ccService.getConfig().content.message = data['cookie.message'];
-        this.ccService.getConfig().content.dismiss = data['cookie.dismiss'];
-        this.ccService.getConfig().content.allow = data['cookie.allow'];
-        this.ccService.getConfig().content.deny = data['cookie.deny'];
-        this.ccService.getConfig().content.link = data['cookie.link'];
-        this.ccService.getConfig().content.href = data['cookie.href'];
+      const browserLang = this.translateService.getBrowserLang();
+      this.translateService.use(browserLang.match(/en|es/) ? browserLang : 'en');
 
-        this.ccService.destroy(); //remove previous cookie bar (with default messages)
-        this.ccService.init(this.ccService.getConfig()); // update config with translated messages
-      });
+      this.translateService//
+        .get(['cookie.header', 'cookie.message', 'cookie.dismiss', 'cookie.allow', 'cookie.deny', 'cookie.link', 'cookie.href'])
+        .subscribe(data => {
 
-    // subscribe to cookieconsent observables to react to main events
-    this.popupOpenSubscription = this.ccService.popupOpen$.subscribe(
-      () => {
-        // you can use this.ccService.getConfig() to do stuff...
-      });
+          this.ccService.getConfig().content = this.ccService.getConfig().content || {} ;
+          // Override default messages with the translated ones
+          this.ccService.getConfig().content.header = data['cookie.header'];
+          this.ccService.getConfig().content.message = data['cookie.message'];
+          this.ccService.getConfig().content.dismiss = data['cookie.dismiss'];
+          this.ccService.getConfig().content.allow = data['cookie.allow'];
+          this.ccService.getConfig().content.deny = data['cookie.deny'];
+          this.ccService.getConfig().content.link = data['cookie.link'];
+          this.ccService.getConfig().content.href = data['cookie.href'];
 
-    this.popupCloseSubscription = this.ccService.popupClose$.subscribe(
-      () => {
-        // you can use this.ccService.getConfig() to do stuff...
-      });
+          this.ccService.destroy(); //remove previous cookie bar (with default messages)
+          this.ccService.init(this.ccService.getConfig()); // update config with translated messages
+        });
 
-    this.initializeSubscription = this.ccService.initialize$.subscribe(
-      (event: NgcInitializeEvent) => {
-        // you can use this.ccService.getConfig() to do stuff...
-      });
+      // subscribe to cookieconsent observables to react to main events
+      this.popupOpenSubscription = this.ccService.popupOpen$.subscribe(
+        () => {
+          // you can use this.ccService.getConfig() to do stuff...
+        });
 
-    this.statusChangeSubscription = this.ccService.statusChange$.subscribe(
-      (event: NgcStatusChangeEvent) => {
-        // you can use this.ccService.getConfig() to do stuff...
-      });
+      this.popupCloseSubscription = this.ccService.popupClose$.subscribe(
+        () => {
+          // you can use this.ccService.getConfig() to do stuff...
+        });
 
-    this.revokeChoiceSubscription = this.ccService.revokeChoice$.subscribe(
-      () => {
-        // you can use this.ccService.getConfig() to do stuff...
-      });
+      this.initializeSubscription = this.ccService.initialize$.subscribe(
+        (event: NgcInitializeEvent) => {
+          // you can use this.ccService.getConfig() to do stuff...
+        });
 
-    this.noCookieLawSubscription = this.ccService.noCookieLaw$.subscribe(
-      (event: NgcNoCookieLawEvent) => {
-        // you can use this.ccService.getConfig() to do stuff...
-      });
+      this.statusChangeSubscription = this.ccService.statusChange$.subscribe(
+        (event: NgcStatusChangeEvent) => {
+          // you can use this.ccService.getConfig() to do stuff...
+        });
 
+      this.revokeChoiceSubscription = this.ccService.revokeChoice$.subscribe(
+        () => {
+          // you can use this.ccService.getConfig() to do stuff...
+        });
 
+      this.noCookieLawSubscription = this.ccService.noCookieLaw$.subscribe(
+        (event: NgcNoCookieLawEvent) => {
+          // you can use this.ccService.getConfig() to do stuff...
+        });
+    }
   }
 
   ngOnDestroy() {
     // unsubscribe to cookieconsent observables to prevent memory leaks
-    this.popupOpenSubscription.unsubscribe();
-    this.popupCloseSubscription.unsubscribe();
-    this.initializeSubscription.unsubscribe();
-    this.statusChangeSubscription.unsubscribe();
-    this.revokeChoiceSubscription.unsubscribe();
-    this.noCookieLawSubscription.unsubscribe();
+    if (isPlatformBrowser(this.platformId)) {
+      this.popupOpenSubscription.unsubscribe();
+      this.popupCloseSubscription.unsubscribe();
+      this.initializeSubscription.unsubscribe();
+      this.statusChangeSubscription.unsubscribe();
+      this.revokeChoiceSubscription.unsubscribe();
+      this.noCookieLawSubscription.unsubscribe();
+    }
   }
 }
