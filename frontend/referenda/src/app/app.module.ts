@@ -1,3 +1,4 @@
+import { APP_BASE_HREF } from '@angular/common';
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -116,6 +117,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     SocialLoginModule
   ],
   providers: [
+    { provide: APP_BASE_HREF, useValue: '/' },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     D3Service,
