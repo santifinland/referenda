@@ -33,7 +33,6 @@ import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ResultsComponent } from './results/results.component';
-import { StatsComponent } from './stats/stats.component';
 import { GdprComponent } from './gdpr/gdpr.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { WINDOW_PROVIDERS } from './_services/window.service';
@@ -85,7 +84,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     CookiesComponent,
     ResultsComponent,
     DelegationsComponent,
-    StatsComponent,
     AlertComponent,
     ModalComponent,
     HomeComponent,
