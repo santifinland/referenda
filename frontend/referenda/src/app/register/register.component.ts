@@ -6,6 +6,7 @@ import { first } from 'rxjs/operators';
 import { AlertService, UserService, AuthenticationService } from '../_services';
 import { AuthService, FacebookLoginProvider, GoogleLoginProvider, SocialUser } from 'angularx-social-login';
 import { User} from '../_models';
+import {Title} from "@angular/platform-browser";
 
 
 @Component({
@@ -30,6 +31,7 @@ export class RegisterComponent implements OnInit {
       private formBuilder: FormBuilder,
       private route: ActivatedRoute,
       private router: Router,
+      private titleService: Title,
       private userService: UserService,
   ) {
     if (this.authenticationService.currentUserValue) {
@@ -38,6 +40,9 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
+    const title = 'Regístrate en Referenda';
+    this.titleService.setTitle(title);
+    document.querySelector('meta[name="description"]').setAttribute('content', title);
     this.registerForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.minLength(4)]],
       email: ['', [Validators.required, Validators.email]],

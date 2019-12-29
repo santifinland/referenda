@@ -18,7 +18,9 @@ export class LawsComponent implements OnInit {
 
   ngOnInit() {
     this.getLaws();
-    this.titleService.setTitle( 'Referenda. Democracia directa' );
+    const title = 'Referenda | Democracia directa';
+    this.titleService.setTitle(title);
+    document.querySelector('meta[name="description"]').setAttribute('content', title);
   }
 
   getLaws(): void {
