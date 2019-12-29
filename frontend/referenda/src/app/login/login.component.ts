@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs';
 
 import { AlertService, AuthenticationService, UserService } from '../_services';
 import { User } from '../_models';
+import {Title} from "@angular/platform-browser";
 
 
 @Component({
@@ -37,6 +38,7 @@ export class LoginComponent implements OnInit {
       private formBuilder: FormBuilder,
       private route: ActivatedRoute,
       private router: Router,
+      private titleService: Title,
       private userService: UserService) {
     this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
       this.currentUser = user;
@@ -44,6 +46,9 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    const title = 'Inicia sesión en Referenda';
+    this.titleService.setTitle(title);
+    document.querySelector('meta[name="description"]').setAttribute('content', title);
     this.loginForm = this.formBuilder.group({
         username: ['', Validators.required],
         password: ['', Validators.required]

@@ -2,6 +2,7 @@
 
 import { ModalService } from '../_services';
 
+
 @Component({
     selector: 'jw-modal',
     template:
@@ -15,7 +16,7 @@ import { ModalService } from '../_services';
 
 export class ModalComponent implements OnInit, OnDestroy {
     @Input() id: string;
-    private element: any;
+    private readonly element: any;
 
     constructor(private modalService: ModalService, private el: ElementRef) {
         this.element = el.nativeElement;

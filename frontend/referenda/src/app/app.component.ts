@@ -45,7 +45,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
       this.ccService = this.injector.get(NgcCookieConsentService);
 
-      console.log("NOOOOOOOOOOOOOOOOOO ISSSS server");
       // Support for translated cookies messages
       this.translateService.addLangs(['en', 'es']);
       this.translateService.setDefaultLang('en');
@@ -67,7 +66,7 @@ export class AppComponent implements OnInit, OnDestroy {
           this.ccService.getConfig().content.link = data['cookie.link'];
           this.ccService.getConfig().content.href = data['cookie.href'];
 
-          this.ccService.destroy(); //remove previous cookie bar (with default messages)
+          this.ccService.destroy(); // Remove previous cookie bar (with default messages)
           this.ccService.init(this.ccService.getConfig()); // update config with translated messages
         });
 

@@ -60,7 +60,7 @@ export class LawDetailComponent implements OnInit {
   getLaw(slug): void {
     this.lawService.getLaw(slug)
       .subscribe(law => {
-        const title = 'Referenda. ' + law.headline;
+        const title = law.headline;
         this.titleService.setTitle(title);
         document.querySelector('meta[name="description"]').setAttribute('content', title);
         law.positiveWidth   = (50 * law.positive   / (law.positive + law.negative + law.abstention)) + '%';

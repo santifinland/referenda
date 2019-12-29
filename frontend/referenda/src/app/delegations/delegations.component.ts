@@ -42,7 +42,7 @@ export class DelegationsComponent implements OnInit {
   }
 
   ngOnInit() {
-    const title = 'Referenda. Delega tu voto';
+    const title = 'Delegación de voto';
     this.titleService.setTitle(title);
     document.querySelector('meta[name="description"]').setAttribute('content', title);
     this.findUsersForm = this.formBuilder.group({
