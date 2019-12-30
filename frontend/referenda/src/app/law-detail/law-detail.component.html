@@ -190,7 +190,7 @@
         <div class="col-12">
           <br>
           <ul class="list-unstyled">
-            <li *ngFor="let comment of law.comments | orderBy: '-positive' ">
+            <li *ngFor="let comment of sortComments()">
               <div class="row">
                 <div class="col-xs-12 col-sm-2">
                   <i class="center material-icons user-icon">account_circle</i>
