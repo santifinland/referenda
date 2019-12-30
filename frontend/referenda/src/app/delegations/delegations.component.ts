@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { Title } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 
 import { AuthenticationService } from '../_services';
 import { ModalService } from '../_services';
@@ -31,6 +31,7 @@ export class DelegationsComponent implements OnInit {
   constructor(
       private authenticationService: AuthenticationService,
       private formBuilder: FormBuilder,
+      private metaTagService: Meta,
       private modalService: ModalService,
       private titleService: Title,
       private userService: UserService) {
@@ -42,9 +43,9 @@ export class DelegationsComponent implements OnInit {
   }
 
   ngOnInit() {
-    const title = 'Delegación de voto';
+    const title = 'Delegación de voto en partido político o usuario';
     this.titleService.setTitle(title);
-    document.querySelector('meta[name="description"]').setAttribute('content', title);
+    this.metaTagService.updateTag({ name: 'description', content: title });
     this.findUsersForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.minLength(4)]]
     });

@@ -1,7 +1,7 @@
 import { ActivatedRoute } from '@angular/router';
 import { Component, Inject, OnInit, PLATFORM_ID} from '@angular/core';
 import { Router } from '@angular/router';
-import { Title } from '@angular/platform-browser';
+import { Meta, Title} from '@angular/platform-browser';
 import { isPlatformBrowser } from '@angular/common';
 
 import { first } from 'rxjs/operators';
@@ -39,6 +39,7 @@ export class LawDetailComponent implements OnInit {
   constructor(
       private lawService: LawService,
       private formBuilder: FormBuilder,
+      private metaTagService: Meta,
       private modalService: ModalService,
       private route: ActivatedRoute,
       private router: Router,
@@ -62,7 +63,7 @@ export class LawDetailComponent implements OnInit {
       .subscribe(law => {
         const title = law.headline;
         this.titleService.setTitle(title);
-        document.querySelector('meta[name="description"]').setAttribute('content', title);
+        this.metaTagService.updateTag({ name: 'description', content: title });
         law.positiveWidth   = (50 * law.positive   / (law.positive + law.negative + law.abstention)) + '%';
         law.negativeWidth   = (50 * law.negative   / (law.positive + law.negative + law.abstention)) + '%';
         law.abstentionWidth = (50 * law.abstention / (law.positive + law.negative + law.abstention)) + '%';

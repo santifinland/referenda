@@ -12,14 +12,15 @@ import { RegisterComponent } from './register';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ResultsComponent } from './results/results.component';
 
+
 const routes: Routes = [
   { path: '', component: LawsComponent },
-  { path: 'aboutus',loadChildren: () => import('./aboutus/aboutus.module').then(m => m.AboutusModule) },
-  { path: 'cookies',loadChildren: () => import('./cookies/cookies.module').then(m => m.CookiesModule) },
+  { path: 'aboutus', loadChildren: () => import('./aboutus/aboutus.module').then(m => m.AboutusModule) },
+  { path: 'cookies', loadChildren: () => import('./cookies/cookies.module').then(m => m.CookiesModule) },
   { path: 'delegar', component: DelegationsComponent },
   { path: 'developers', loadChildren: () => import('./developers/developers.module').then(m => m.DevelopersModule) },
-  { path: 'estadisticas',loadChildren: () => import('./stats/stats.module').then(m => m.StatsModule) },
-  { path: 'gdpr',loadChildren: () => import('./gdpr/gdpr.module').then(m => m.GdprModule) },
+  { path: 'estadisticas', loadChildren: () => import('./stats/stats.module').then(m => m.StatsModule) },
+  { path: 'gdpr', loadChildren: () => import('./gdpr/gdpr.module').then(m => m.GdprModule) },
   { path: 'home', component: HomeComponent },
   { path: 'leyes', component: LawsComponent },
   { path: 'ley/:slug', component: LawDetailComponent },

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { Meta, Title } from '@angular/platform-browser';
 
 import { Law } from '../_models/law';
 import { LawService } from '../law.service';
@@ -14,13 +15,22 @@ export class LawsComponent implements OnInit {
 
   laws: Law[];
 
-  constructor(private lawService: LawService, private titleService: Title) { }
+  constructor(
+      private lawService: LawService,
+      private metaTagService: Meta,
+      private router: Router,
+      private titleService: Title) { }
 
   ngOnInit() {
     this.getLaws();
-    const title = 'Referenda | Democracia directa';
+    let title: string;
+    if (this.router.url === '/') {
+      title = 'Democracia directa';
+    }  else {
+      title = 'Leyes debatidas en el Congreso de los Diputados de España';
+    }
     this.titleService.setTitle(title);
-    document.querySelector('meta[name="description"]').setAttribute('content', title);
+    this.metaTagService.updateTag({name: 'description', content: title});
   }
 
   getLaws(): void {

@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { Title } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 
 import SwaggerUI from 'swagger-ui';
 
@@ -13,13 +13,14 @@ import SwaggerUI from 'swagger-ui';
 export class DevelopersComponent implements OnInit {
 
   constructor(
+      private metaTagService: Meta,
       private titleService: Title,
       @Inject(PLATFORM_ID) private platformId: Object) { }
 
   ngOnInit() {
     const title = 'Referenda. APIs y Recursos para Desarrolladores';
     this.titleService.setTitle(title);
-    document.querySelector('meta[name="description"]').setAttribute('content', title);
+    this.metaTagService.updateTag({ name: 'description', content: title });
     if (isPlatformBrowser(this.platformId)) {
       const ui = SwaggerUI({
         url: 'assets/swagger/referenda.json',

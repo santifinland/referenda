@@ -11,7 +11,7 @@ export class AboutusComponent implements OnInit {
   constructor(private titleService: Title) { }
 
   ngOnInit() {
-    const title = 'Referenda. Democracia Directa';
+    const title = 'Referenda. Democracia directa y delegación de voto';
     this.titleService.setTitle(title);
     document.querySelector('meta[name="description"]').setAttribute('content', title);
   }
