@@ -1,3 +1,6 @@
+h1 {
+  text-align: center;
+}
 @media only screen and (min-width : 480px) {
   .vertical-line {
     border-left: thick solid #7BA3A0;

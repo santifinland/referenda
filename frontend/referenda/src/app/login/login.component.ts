@@ -1,6 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Meta, Title } from '@angular/platform-browser';
 
 import { AuthService, SocialUser } from 'angularx-social-login';
 import { FacebookLoginProvider, GoogleLoginProvider} from 'angularx-social-login';
@@ -9,7 +10,6 @@ import { Subscription } from 'rxjs';
 
 import { AlertService, AuthenticationService, UserService } from '../_services';
 import { User } from '../_models';
-import {Title} from "@angular/platform-browser";
 
 
 @Component({
@@ -36,6 +36,7 @@ export class LoginComponent implements OnInit {
       private authService: AuthService,
       private authenticationService: AuthenticationService,
       private formBuilder: FormBuilder,
+      private metaTagService: Meta,
       private route: ActivatedRoute,
       private router: Router,
       private titleService: Title,
@@ -48,7 +49,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     const title = 'Inicia sesión en Referenda';
     this.titleService.setTitle(title);
-    document.querySelector('meta[name="description"]').setAttribute('content', title);
+    this.metaTagService.updateTag({ name: 'description', content: title });
     this.loginForm = this.formBuilder.group({
         username: ['', Validators.required],
         password: ['', Validators.required]

@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 
 import { D3Service, D3, Selection} from 'd3-ng2-service';
 
@@ -22,7 +22,12 @@ export class StatsComponent implements OnInit {
 
   xPartido = true;
 
-  constructor(element: ElementRef, d3Service: D3Service, private lawService: LawService, private titleService: Title) {
+  constructor(
+      element: ElementRef,
+      d3Service: D3Service,
+      private lawService: LawService,
+      private metaTagService: Meta,
+      private titleService: Title) {
     this.d3 = d3Service.getD3();
     this.parentNativeElement = element.nativeElement;
   }
@@ -36,9 +41,9 @@ export class StatsComponent implements OnInit {
   }
 
   ngOnInit() {
-    const title = 'Estadísticas sobre votaciones en el Congreso de los diputados';
+    const title = 'Estadísticas de votaciones en el Congreso de los Diputados';
     this.titleService.setTitle(title);
-    document.querySelector('meta[name="description"]').setAttribute('content', title);
+    this.metaTagService.updateTag({ name: 'description', content: title });
     this.getLaws();
   }
 

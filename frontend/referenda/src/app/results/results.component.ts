@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 
 import { Law } from '../_models/law';
 import { LawService } from '../law.service';
@@ -16,12 +16,15 @@ export class ResultsComponent implements OnInit {
 
   lawFilter: any = { $or: [{ vote_end: '' }, { headline: '' }, { institution: '' }] }
 
-  constructor(private lawService: LawService, private titleService: Title) { }
+  constructor(
+      private lawService: LawService,
+      private metaTagService: Meta,
+      private titleService: Title) { }
 
   ngOnInit() {
     const title = 'Resultados de votaciones Congreso de los Diputados';
     this.titleService.setTitle(title);
-    document.querySelector('meta[name="description"]').setAttribute('content', title);
+    this.metaTagService.updateTag({ name: 'description', content: title });
     this.getResults();
   }
 

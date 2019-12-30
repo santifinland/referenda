@@ -2,11 +2,11 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
+import { Meta, Title } from '@angular/platform-browser';
 
 import { AlertService, UserService, AuthenticationService } from '../_services';
 import { AuthService, FacebookLoginProvider, GoogleLoginProvider, SocialUser } from 'angularx-social-login';
 import { User} from '../_models';
-import {Title} from "@angular/platform-browser";
 
 
 @Component({
@@ -29,6 +29,7 @@ export class RegisterComponent implements OnInit {
       private authService: AuthService,
       private authenticationService: AuthenticationService,
       private formBuilder: FormBuilder,
+      private metaTagService: Meta,
       private route: ActivatedRoute,
       private router: Router,
       private titleService: Title,
@@ -40,9 +41,9 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
-    const title = 'Regístrate en Referenda';
+    const title = 'Regístrate en Referenda y empieza a votar';
     this.titleService.setTitle(title);
-    document.querySelector('meta[name="description"]').setAttribute('content', title);
+    this.metaTagService.updateTag({ name: 'description', content: title });
     this.registerForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.minLength(4)]],
       email: ['', [Validators.required, Validators.email]],
