@@ -9,7 +9,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Law } from '../_models/law';
 import { LawService } from '../law.service';
-import { ModalService } from '../_services';
 import { VoteResponse } from '../_models/vote.response';
 import { WINDOW } from '../_services/window.service';
 
@@ -40,7 +39,6 @@ export class LawDetailComponent implements OnInit {
       private lawService: LawService,
       private formBuilder: FormBuilder,
       private metaTagService: Meta,
-      private modalService: ModalService,
       private route: ActivatedRoute,
       private router: Router,
       private titleService: Title,
@@ -52,7 +50,7 @@ export class LawDetailComponent implements OnInit {
 
   ngOnInit() {
     this.commentForm = this.formBuilder.group({
-      comment: ['', [Validators.required, Validators.minLength(1)]]
+      comment: ['', Validators.required]
     });
   }
 
@@ -83,7 +81,7 @@ export class LawDetailComponent implements OnInit {
     this.lawService.submitVote(slug, vote)
       .subscribe(
         (data: VoteResponse) => { this.getLaw(slug); },
-        err => this.modalService.open('login')
+        err => this.router.navigateByUrl('login?returnUrl=' + encodeURI(this.router.url))
       );
   }
 
@@ -99,12 +97,16 @@ export class LawDetailComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
+          this.commentForm = this.formBuilder.group({
+            comment: ['', Validators.required]
+          });
           this.getLaw(this.law.slug);
+          return true;
         },
         error => {
           this.submitted = false;
           if (this.f.comment.value.length > 0) {
-            this.modalService.open('login');
+            this.router.navigateByUrl('login?returnUrl=' + encodeURI(this.router.url));
           }
           this.commentForm = this.formBuilder.group({
             comment: ['', Validators.required]
@@ -113,11 +115,16 @@ export class LawDetailComponent implements OnInit {
         });
   }
 
+  sortComments() {
+    return this.law.comments.sort((a, b) =>
+      a.positive > b.positive ? -1 : a.positive === b.positive ? 0 : 1);
+  }
+
   voteComment(commentId: string, vote: number): void {
     this.lawService.voteComment(this.law.slug, commentId, vote)
       .subscribe(
         (data: any) => { this.getLaw(this.law.slug); },
-        err => this.modalService.open('login')
+        err => this.router.navigateByUrl('login?returnUrl=' + encodeURI(this.router.url))
       );
   }
 
