@@ -33,7 +33,7 @@
     </div>
     <div class="col-5">
       <div *ngIf="delegation == 'party'" class="party-selected">
-        <img class="party-logo" src="{{delegatedPartyValue.logo}}">
+        <img class="lazyload party-logo" src="{{delegatedPartyValue.logo}}">
       </div>
       <div *ngIf="delegation == 'user'" class="center">
         <i class="material-icons user-icon">account_box</i>
@@ -96,17 +96,17 @@
     </div>
     <div class=" col-sm-3 party-right">
       <button (click)="delegateParty('psoe')" class="no-border" type="submit">
-        <img src="assets/img/psoe.svg" height="90" width="100" alt="Logotipo del PSOE" />
+        <img class="lazyload" src="assets/img/psoe.svg" height="90" width="100" alt="Logotipo del PSOE" />
       </button>
     </div>
     <div class=" col-sm-3 party-right">
       <button (click)="delegateParty('pp')" class="no-border" type="submit">
-        <img src="assets/img/pp.svg" height="90" width="100" alt="Logotipo del Partido Popular"/>
+        <img class="lazyload" src="assets/img/pp.svg" height="90" width="100" alt="Logotipo del Partido Popular"/>
       </button>
     </div>
     <div class=" col-sm-3 party-left">
       <button (click)="delegateParty('vox')" class="no-border" type="submit">
-        <img src="assets/img/vox.svg" height="80" width="150" alt="Logotipo de Vox"/>
+        <img class="lazyload" src="assets/img/vox.svg" height="80" width="150" alt="Logotipo de Vox"/>
       </button>
     </div>
     <div class=" col-sm-2 party">
@@ -118,17 +118,17 @@
     </div>
     <div class=" col-sm-3 party-right">
       <button (click)="delegateParty('podemos')" class="no-border" type="submit">
-        <img src="assets/img/podemos.svg" height="80" width="200" alt="Logotipo de Podemos"/>
+        <img class="lazyload" src="assets/img/podemos.svg" height="80" width="200" alt="Logotipo de Podemos"/>
       </button>
     </div>
     <div class=" col-sm-3 party-right">
       <button (click)="delegateParty('ciudadanos')" class="no-border" type="submit">
-        <img src="assets/img/ciudadanos.svg" height="80" width="250" alt="Logotipo de Ciudadanos"/>
+        <img class="lazyload" src="assets/img/ciudadanos.svg" height="80" width="250" alt="Logotipo de Ciudadanos"/>
       </button>
     </div>
     <div class=" col-sm-3 party-left">
       <button (click)="delegateParty('erc')" class="no-border" type="submit">
-        <img src="assets/img/erc.svg" height="80" width="250" alt="Logotipo de ERC"/>
+        <img class="lazyload" src="assets/img/erc.svg" height="80" width="250" alt="Logotipo de ERC"/>
       </button>
     </div>
     <div class=" col-sm-2 party">
@@ -140,17 +140,17 @@
     </div>
     <div class=" col-sm-3 party-right">
       <button (click)="delegateParty('jpc')" class="no-border" type="submit">
-        <img src="assets/img/jpc.svg" height="80" width="100" alt="Logotipo de Junts Per Catalunya"/>
+        <img class="lazyload" src="assets/img/jpc.svg" height="80" width="100" alt="Logotipo de Junts Per Catalunya"/>
       </button>
     </div>
     <div class=" col-sm-3 party-right">
       <button (click)="delegateParty('pnv')" class="no-border" type="submit">
-        <img src="assets/img/pnv.svg" height="90" width="150" alt="Logotipo del Partido Nacionalista Vasco"/>
+        <img class="lazyload" src="assets/img/pnv.svg" height="90" width="150" alt="Logotipo del Partido Nacionalista Vasco"/>
       </button>
     </div>
     <div class=" col-sm-3 party-left">
       <button (click)="delegateParty('bildu')" class="no-border" type="submit">
-        <img src="assets/img/bildu.svg" height="80" width="250" alt="Logotipo de Bildu"/>
+        <img class="lazyload" src="assets/img/bildu.svg" height="80" width="250" alt="Logotipo de Bildu"/>
       </button>
     </div>
     <div class=" col-sm-2 party">
@@ -162,17 +162,17 @@
     </div>
     <div class=" col-sm-3 party-right">
       <button (click)="delegateParty('mp')" class="no-border" type="submit">
-        <img src="assets/img/mp.svg" height="80" width="250" alt="Logotipo de Más País"/>
+        <img class="lazyload" src="assets/img/mp.svg" height="80" width="250" alt="Logotipo de Más País"/>
       </button>
     </div>
     <div class=" col-sm-3 party-right">
       <button (click)="delegateParty('cup')" class="no-border" type="submit">
-        <img src="assets/img/cup.svg" height="90" width="200" alt="Logotipo de Candidatura de Unidad Popular (CUP)"/>
+        <img class="lazyload" src="assets/img/cup.svg" height="90" width="200" alt="Logotipo de Candidatura de Unidad Popular (CUP)"/>
       </button>
     </div>
     <div class=" col-sm-3 party-left">
       <button (click)="delegateParty('cc')" class="no-border" type="submit">
-        <img src="assets/img/cc.svg" height="90" width="150" alt="Logotipo de Coalición Canaria"/>
+        <img class="lazyload" src="assets/img/cc.svg" height="90" width="150" alt="Logotipo de Coalición Canaria"/>
       </button>
     </div>
     <div class=" col-sm-2 party">
@@ -184,17 +184,17 @@
     </div>
     <div class=" col-sm-3 party-right">
       <button (click)="delegateParty('upn')" class="no-border" type="submit">
-        <img src="assets/img/upn.svg" height="90" width="200" alt="Logotipo de Navarra Suma"/>
+        <img class="lazyload" src="assets/img/upn.svg" height="90" width="200" alt="Logotipo de Navarra Suma"/>
       </button>
     </div>
     <div class=" col-sm-3 party-right">
       <button (click)="delegateParty('bng')" class="no-border" type="submit">
-        <img src="assets/img/bng.svg" height="80" width="200" alt="Logotipo de Bloque Nacionalista Gallego"/>
+        <img class="lazyload" src="assets/img/bng.svg" height="80" width="200" alt="Logotipo de Bloque Nacionalista Gallego"/>
       </button>
     </div>
     <div class=" col-sm-3 party-left">
       <button (click)="delegateParty('prc')" class="no-border" type="submit">
-        <img src="assets/img/prc.svg" height="80" width="200" alt="Logotipo de Partido Regionalista Cántabro"/>
+        <img class="lazyload" src="assets/img/prc.svg" height="80" width="200" alt="Logotipo de Partido Regionalista Cántabro"/>
       </button>
     </div>
     <div class=" col-sm-2 party">
@@ -206,7 +206,7 @@
     </div>
     <div class=" col-sm-3 party-right">
       <button (click)="delegateParty('te')" class="no-border" type="submit">
-        <img src="assets/img/te.png" height="90" width="200" alt="Logotipo de Teruel Existe"/>
+        <img class="lazyload" src="assets/img/te.png" height="90" width="200" alt="Logotipo de Teruel Existe"/>
       </button>
     </div>
     <div class=" col-sm-3 party-right">
