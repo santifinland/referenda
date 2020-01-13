@@ -18,8 +18,8 @@ export class StatsComponent implements OnInit {
   private d3Svg: Selection<SVGSVGElement, any, null, undefined>;
   private parentNativeElement: any;
 
-  xPartido = true;
-  presentadasXPartido = false;
+  results = true;
+  submitted = false;
 
   constructor(
       element: ElementRef,
@@ -55,15 +55,15 @@ export class StatsComponent implements OnInit {
   }
 
   stat(selectedStat): void {
-    if (selectedStat === 'xPartido') {
+    if (selectedStat === 'results') {
       this.getResults();
-      this.xPartido = true;
-      this.presentadasXPartido = false;
+      this.results = true;
+      this.submitted = false;
     }
-    if (selectedStat === 'presentadasXPartido') {
+    if (selectedStat === 'submitted') {
       this.getLaws();
-      this.presentadasXPartido = true;
-      this.xPartido = false;
+      this.submitted = true;
+      this.results = false;
     }
   }
 
@@ -118,6 +118,7 @@ export class StatsComponent implements OnInit {
     if (this.parentNativeElement !== null) {
       d3ParentElement = d3.select(this.parentNativeElement);
       d3Svg = this.d3Svg = d3ParentElement.select<SVGSVGElement>('svg');
+      d3Svg.selectAll('g').remove();
       d3G = d3Svg.append<SVGGElement>('g');
 
       d3Svg

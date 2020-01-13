@@ -11,16 +11,16 @@
   <div class="row row-content">
     <div class="col-xl-3 stat">
       <ul class="list-group">
-        <button type="button" class="list-group-item list-group-item-action active" (click)="stat('presentadasXPartido')">
+        <button type="button" class="list-group-item list-group-item-action active" (click)="stat('submitted')">
           Propuestas presentadas
         </button>
-        <button type="button" class="list-group-item list-group-item-action active" (click)="stat('xPartido')">
+        <button type="button" class="list-group-item list-group-item-action active" (click)="stat('results')">
           Propuestas votadas
         </button>
       </ul>
       <br>
     </div>
-    <div *ngIf="xPartido" class="col-xl-9 stat">
+    <div *ngIf="results" class="col-xl-9 stat">
       <svg>
         <rect></rect>
         <rect></rect>
@@ -50,7 +50,7 @@
       </p>
       <br>
     </div>
-    <div *ngIf="presentadasXPartido" class="col-xl-9 stat">
+    <div *ngIf="submitted" class="col-xl-9 stat">
       <svg>
         <rect></rect>
         <rect></rect>
