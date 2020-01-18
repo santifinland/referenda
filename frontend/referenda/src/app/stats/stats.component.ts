@@ -18,8 +18,10 @@ export class StatsComponent implements OnInit {
   private d3Svg: Selection<SVGSVGElement, any, null, undefined>;
   private parentNativeElement: any;
 
-  results = true;
-  submitted = false;
+  ccaaLawsShown: Boolean = false;
+  ccaaResultsShown: Boolean = false;
+  partyLawsShown: boolean = true;
+  partyResultsShown: boolean = false;
 
   constructor(
       element: ElementRef,
@@ -31,39 +33,75 @@ export class StatsComponent implements OnInit {
     this.parentNativeElement = element.nativeElement;
   }
 
-  getLaws(): void {
+  getPartyLaws(): void {
     this.lawService.getLaws()
       .subscribe(laws => {
-        const results = this.buildData(laws);
-        this.draw(results);
+        const data = this.buildData(laws);
+        this.draw(data);
+        partyLaws.scrollIntoView({alignToTop: true, behavior: "smooth"});
       });
   }
 
-  getResults(): void {
+  getCCAALaws(): void {
+    this.lawService.getLaws()
+      .subscribe(laws => {
+        const data = this.buildCCAAData(laws);
+        this.draw(data);
+        ccaaLaws.scrollIntoView({alignToTop: true, behavior: "smooth"});
+      });
+  }
+
+  getPartyResults(): void {
     this.lawService.getResults()
       .subscribe(laws => {
-        const results = this.buildData(laws);
-        this.draw(results);
+        const data = this.buildData(laws);
+        this.draw(data);
+        partyResults.scrollIntoView({alignToTop: true, behavior: "smooth"});
+      });
+  }
+
+  getCCAAResults(): void {
+    this.lawService.getResults()
+      .subscribe(laws => {
+        const data = this.buildCCAAData(laws);
+        this.draw(data);
+        ccaaResults.scrollIntoView({alignToTop: true, behavior: "smooth"});
       });
   }
 
   ngOnInit() {
+    this.getPartyLaws();
     const title = 'Estadísticas de votaciones en el Congreso de los Diputados';
     this.titleService.setTitle(title);
     this.metaTagService.updateTag({ name: 'description', content: title });
-    this.getLaws();
   }
 
   stat(selectedStat): void {
-    if (selectedStat === 'results') {
-      this.getResults();
-      this.results = true;
-      this.submitted = false;
-    }
-    if (selectedStat === 'submitted') {
-      this.getLaws();
-      this.submitted = true;
-      this.results = false;
+    if (selectedStat === 'partyLaws') {
+      this.getPartyLaws();
+      this.ccaaLawsShown = false;
+      this.ccaaResultsShown = false;
+      this.partyLawsShown = true;
+      this.partyResultsShown = false;
+    } else if (selectedStat === 'partyResults') {
+      this.getPartyResults();
+      this.ccaaLawsShown = false;
+      this.ccaaResultsShown = false;
+      this.partyLawsShown = false;
+      this.partyResultsShown = true;
+    } else if (selectedStat === 'ccaaLaws') {
+      this.getCCAALaws();
+      this.ccaaLawsShown = true;
+      this.ccaaResultsShown = false;
+      this.partyLawsShown = false;
+      this.partyResultsShown = false;
+    } else if (selectedStat === 'ccaaResults') {
+      this.getCCAAResults();
+      this.ccaaLawsShown = false;
+      this.ccaaResultsShown = true;
+      this.partyLawsShown = false;
+      this.partyResultsShown = false;
+    } else {
     }
   }
 
@@ -72,18 +110,18 @@ export class StatsComponent implements OnInit {
     const pp = {'label': 'PP', 'id': 2, 'value': 0, 'color': '#00a3df'};
     const vox = {'label': 'VOX', 'id': 3, 'value': 0, 'color': '#81c03b'};
     const podemos = {'label': 'Podemos-IU', 'id': 4, 'value': 0, 'color': '#683064'};
-    const erc = {'label': 'ERC', 'id': 5, 'value': 0, 'color': '#feb832'};
     const ciudadanos = {'label': 'Ciudadanos', 'id': 6, 'value': 0, 'color': '#f36b25'};
+    const erc = {'label': 'ERC', 'id': 5, 'value': 0, 'color': '#feb832'};
     const jpc = {'label': 'Junts per Catalunya', 'id': 7, 'value': 0, 'color': '#02428b'};
     const pnv = {'label': 'PNV', 'id': 8, 'value': 0, 'color': '#409552'};
     const bildu = {'label': 'Bildu', 'id': 9, 'value': 0, 'color': '#b0d136'};
-    const mp = {'label': 'Compromis', 'id': 10, 'value': 0, 'color': '#d74c27'};
+    const mp = {'label': 'Más País', 'id': 10, 'value': 0, 'color': '#0ff'};
     const cup = {'label': 'CUP', 'id': 11, 'value': 0, 'color': '#ffeea7'};
     const cc = {'label': 'Coalición Canaria', 'id': 12, 'value': 0, 'color': '#ffed00'};
-    const upn = {'label': 'UPN', 'id': 13, 'value': 0, 'color': '#0065a7'};
-    const bng = {'label': 'Bloque Nacionalista Gallego', 'id': 14, 'value': 0, 'color': '#16375e'};
-    const prc = {'label': 'Partido Regionalista de Cantabria', 'id': 15, 'value': 0, 'color': '#16375e'};
-    const te = {'label': 'Teruel Existe', 'id': 16, 'value': 0, 'color': '#16375e'};
+    const upn = {'label': 'Navarra Suma', 'id': 13, 'value': 0, 'color': '#0065a7'};
+    const bng = {'label': 'Bloque Nacionalista Galego', 'id': 14, 'value': 0, 'color': '#76b3dd'};
+    const prc = {'label': 'Partido Regionalista de Cantabria', 'id': 15, 'value': 0, 'color': '#bfcd16'};
+    const te = {'label': 'Teruel Existe', 'id': 16, 'value': 0, 'color': '#007f54'};
     const gobierno = {'label': 'Gobierno', 'id': 17, 'value': 0, 'color': '#000'};
     laws.forEach( (law) => {
       if (law.institution === 'psoe') { psoe.value += 1; }
@@ -105,6 +143,51 @@ export class StatsComponent implements OnInit {
       if (law.institution === 'gobierno') { gobierno.value += 1; }
     });
     return [psoe, pp, vox, podemos, erc, ciudadanos, jpc, pnv, bildu, mp, cup, cc, upn, bng, prc, te, gobierno];
+  }
+
+  buildCCAAData(laws: Law[]) {
+    const andalucia = {'label': 'Andalucía', 'id': 1, 'value': 0, 'color': '#006433'};
+    const aragon = {'label': 'Aragón', 'id': 2, 'value': 0, 'color': '#d51418'};
+    const asturias = {'label': 'Principado de Asturias', 'id': 3, 'value': 0, 'color': '#e15eed'};
+    const baleares = {'label': 'Illes Balears', 'id': 4, 'value': 0, 'color': '#40104c'};
+    const canarias = {'label': 'Canarias', 'id': 6, 'value': 0, 'color': '#ffcd00'};
+    const cantabria = {'label': 'Cantabria', 'id': 5, 'value': 0, 'color': '#da121a'};
+    const castillalamancha = {'label': 'Castilla-La Mancha', 'id': 7, 'value': 0, 'color': '#a11c1b'};
+    const castillayleon = {'label': 'Castilla y León', 'id': 8, 'value': 0, 'color': '#722d64'};
+    const catalunya = {'label': 'Catalunya', 'id': 9, 'value': 0, 'color': '#db0a13'};
+    const extremadura = {'label': 'Extremadura', 'id': 10, 'value': 0, 'color': '#00aa39'};
+    const galicia = {'label': 'Galicia', 'id': 11, 'value': 0, 'color': '#0098ca'};
+    const rioja = {'label': 'La Rioja', 'id': 12, 'value': 0, 'color': '#67bb2b'};
+    const madrid = {'label': 'Comunidad de Madrid', 'id': 13, 'value': 0, 'color': '#bc0a1c'};
+    const murcia = {'label': 'Región de Murcia', 'id': 14, 'value': 0, 'color': '#9a1f2e'};
+    const navarra = {'label': 'Comunidad Foral de Navarra', 'id': 15, 'value': 0, 'color': '#d41219'};
+    const paisvasco = {'label': 'País Vasco', 'id': 16, 'value': 0, 'color': '#009c46'};
+    const valencia = {'label': 'Comunidad Valenciana', 'id': 17, 'value': 0, 'color': '#fbd70f'};
+    const ceuta = {'label': 'Ceuta', 'id': 17, 'value': 0, 'color': '#000'};
+    const melilla = {'label': 'Melilla', 'id': 17, 'value': 0, 'color': '#4c86c9'};
+    laws.forEach( (law) => {
+      if (law.institution === 'Comunidad Autónoma de Andalucía') { andalucia.value += 1; }
+      if (law.institution === 'Comunidad Autónoma de Aragón') { aragon.value += 1; }
+      if (law.institution === 'Comunidad Autónoma del Principado de Asturias') { asturias.value += 1; }
+      if (law.institution === 'Comunidad Autónoma de las Illes Balears') { baleares.value += 1; }
+      if (law.institution === 'Comunidad Autónoma de Canarias') { canarias.value += 1; }
+      if (law.institution === 'Comunidad Autónoma de Cantabria') { cantabria.value += 1; }
+      if (law.institution === 'Comunidad Autónoma de Castilla-La Mancha') { castillalamancha.value += 1; }
+      if (law.institution === 'Comunidad Autónoma de Castilla y León') { castillayleon.value += 1; }
+      if (law.institution === 'Comunidad Autónoma de Cataluña') { catalunya.value += 1; }
+      if (law.institution === 'Comunidad Autónoma de Extremadura') { extremadura.value += 1; }
+      if (law.institution === 'Comunidad Autónoma de Galicia') { galicia.value += 1; }
+      if (law.institution === 'Comunidad Autónoma de La Rioja') { rioja.value += 1; }
+      if (law.institution === 'Comunidad Autónoma de Madrid') { madrid.value += 1; }
+      if (law.institution === 'Comunidad Autónoma de la Región de Murcia') { murcia.value += 1; }
+      if (law.institution === 'Comunidad Autónoma de Navarra') { navarra.value += 1; }
+      if (law.institution === 'Comunidad Autónoma del País Vasco') { paisvasco.value += 1; }
+      if (law.institution === 'Comunidad Autónoma de Valencia') { valencia.value += 1; }
+      if (law.institution === 'Ciudad Autónoma de Ceuta') { ceuta.value += 1; }
+      if (law.institution === 'Ciudad Autónoma de Melilla') { melilla.value += 1; }
+    });
+    return [andalucia, aragon, asturias, baleares, canarias, cantabria, castillalamancha, castillayleon, catalunya,
+            extremadura, galicia, rioja, madrid, murcia, navarra, paisvasco, valencia, ceuta, melilla];
   }
 
   draw(results: any[]) {
