@@ -11,16 +11,29 @@
   <div class="row row-content">
     <div class="col-xl-3 stat">
       <ul class="list-group">
-        <button type="button" class="list-group-item list-group-item-action active" (click)="stat('submitted')">
+        <h5>Partidos</h5>
+        <p>Propuestas de leyes presentadas por los diferentes partidos políticos</p>
+        <button type="button" class="list-group-item list-group-item-action active" (click)="stat('partyLaws')">
           Propuestas presentadas
         </button>
-        <button type="button" class="list-group-item list-group-item-action active" (click)="stat('results')">
+        <button type="button" class="list-group-item list-group-item-action active" (click)="stat('partyResults')">
+          Propuestas votadas
+        </button>
+      </ul>
+      <ul class="list-group">
+        <br>
+        <h5>Comunidades Aut&oacute;nomas</h5>
+        <p>Propuestas de leyes presentadas por Comunidades Aut&oacute;nomas</p>
+        <button type="button" class="list-group-item list-group-item-action active" (click)="stat('ccaaLaws')">
+          Propuestas presentadas
+        </button>
+        <button type="button" class="list-group-item list-group-item-action active" (click)="stat('ccaaResults')">
           Propuestas votadas
         </button>
       </ul>
       <br>
     </div>
-    <div *ngIf="results" class="col-xl-9 stat">
+    <div id="partyResults" *ngIf="partyResultsShown" class="col-xl-9 stat">
       <svg>
         <rect></rect>
         <rect></rect>
@@ -50,7 +63,7 @@
       </p>
       <br>
     </div>
-    <div *ngIf="submitted" class="col-xl-9 stat">
+    <div id="partyLaws" *ngIf="partyLawsShown" class="col-xl-9 stat">
       <svg>
         <rect></rect>
         <rect></rect>
@@ -77,6 +90,70 @@
         <br>
         <br>
         Número de propuestas presentadas por cada partido político con representación en el Congreso de los Diputados
+      </p>
+      <br>
+    </div>
+    <div id="ccaaLaws" *ngIf="ccaaLawsShown" class="col-xl-9 stat">
+      <svg>
+        <rect></rect>
+        <rect></rect>
+        <rect></rect>
+        <rect></rect>
+        <rect></rect>
+        <rect></rect>
+        <rect></rect>
+        <rect></rect>
+        <rect></rect>
+        <rect></rect>
+        <rect></rect>
+        <rect></rect>
+        <rect></rect>
+        <rect></rect>
+        <rect></rect>
+        <rect></rect>
+        <rect></rect>
+        <rect></rect>
+        <rect></rect>
+      </svg>
+      <p class="explanation">
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        Número de propuestas presentadas por cada comunidad autónoma en el Congreso de los Diputados
+      </p>
+      <br>
+    </div>
+    <div id="ccaaResults" *ngIf="ccaaResultsShown" class="col-xl-9 stat">
+      <svg>
+        <rect></rect>
+        <rect></rect>
+        <rect></rect>
+        <rect></rect>
+        <rect></rect>
+        <rect></rect>
+        <rect></rect>
+        <rect></rect>
+        <rect></rect>
+        <rect></rect>
+        <rect></rect>
+        <rect></rect>
+        <rect></rect>
+        <rect></rect>
+        <rect></rect>
+        <rect></rect>
+        <rect></rect>
+        <rect></rect>
+        <rect></rect>
+      </svg>
+      <p class="explanation">
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        Número de propuestas votadas por cada comunidad autónoma en el Congreso de los Diputados
       </p>
       <br>
     </div>
