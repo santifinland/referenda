@@ -38,7 +38,7 @@ export class StatsComponent implements OnInit {
       .subscribe(laws => {
         const data = this.buildData(laws);
         this.draw(data);
-        partyLaws.scrollIntoView({alignToTop: true, behavior: "smooth"});
+        document.getElementById('partyLaws').scrollIntoView({behavior: "smooth"});
       });
   }
 
@@ -47,7 +47,7 @@ export class StatsComponent implements OnInit {
       .subscribe(laws => {
         const data = this.buildCCAAData(laws);
         this.draw(data);
-        ccaaLaws.scrollIntoView({alignToTop: true, behavior: "smooth"});
+        document.getElementById('ccaaLaws').scrollIntoView({behavior: "smooth"});
       });
   }
 
@@ -56,7 +56,7 @@ export class StatsComponent implements OnInit {
       .subscribe(laws => {
         const data = this.buildData(laws);
         this.draw(data);
-        partyResults.scrollIntoView({alignToTop: true, behavior: "smooth"});
+        document.getElementById('partyResults').scrollIntoView({behavior: "smooth"});
       });
   }
 
@@ -65,7 +65,7 @@ export class StatsComponent implements OnInit {
       .subscribe(laws => {
         const data = this.buildCCAAData(laws);
         this.draw(data);
-        ccaaResults.scrollIntoView({alignToTop: true, behavior: "smooth"});
+        document.getElementById('ccaaResults').scrollIntoView({behavior: "smooth"});
       });
   }
 
@@ -74,6 +74,7 @@ export class StatsComponent implements OnInit {
     const title = 'Estadísticas de votaciones en el Congreso de los Diputados';
     this.titleService.setTitle(title);
     this.metaTagService.updateTag({ name: 'description', content: title });
+    window.scroll(0,0);
   }
 
   stat(selectedStat): void {
