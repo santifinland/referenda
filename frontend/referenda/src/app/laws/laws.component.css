@@ -87,3 +87,8 @@
 .result-number.abstention {
   color: #7BA3A0;
 }
+.featured {
+  vertical-align: bottom;
+  padding-top: 5px;
+  color: #208575;
+}
