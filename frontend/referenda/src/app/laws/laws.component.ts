@@ -29,19 +29,23 @@ export class LawsComponent implements OnInit {
     }  else {
       title = 'Leyes debatidas en el Congreso de los Diputados de España';
     }
-    this.titleService.setTitle(title);
-    this.metaTagService.updateTag({name: 'description', content: title});
   }
 
   getLaws(): void {
     this.lawService.getLaws()
       .subscribe(laws => {
-        this.laws = laws.filter(law => law.tier === 1);
-        this.laws.map(law => {
-          law.positiveWidth   = (50 * law.positive   / (law.positive + law.negative + law.abstention)) + '%';
-          law.negativeWidth   = (50 * law.negative   / (law.positive + law.negative + law.abstention)) + '%';
-          law.abstentionWidth = (50 * law.abstention / (law.positive + law.negative + law.abstention)) + '%';
+        const tierLaws = laws.filter(law => law.tier === 1);
+        tierLaws.map(law => {
+          law.positiveWidth   = (15 + 40 * law.positive   / (law.positive + law.negative + law.abstention)) + '%';
+          law.negativeWidth   = (15 + 40 * law.negative   / (law.positive + law.negative + law.abstention)) + '%';
+          law.abstentionWidth = (15 + 40 * law.abstention / (law.positive + law.negative + law.abstention)) + '%';
         });
+        this.laws = this.sortLaws(tierLaws);
       });
+  }
+
+  sortLaws(laws: Law[]) {
+    return laws.sort((a, b) =>
+      a.featured > b.featured ? -1 : a.featured === b.featured ? 0 : 1);
   }
 }

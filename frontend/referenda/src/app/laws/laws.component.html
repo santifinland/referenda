@@ -1,37 +1,50 @@
 <div class="container">
   <br>
-  <div class="col-xs-12 col-sm-9">
-    <h1>Democracia directa y delegaci&oacute;n de voto. ¿Cómo funciona Referenda?</h1>
-    <hr>
-    <p align="justify"> Nuestro objetivo es acercar la pol&iacute;tica a la ciudadan&iacute;a.
-        Queremos formar una opinión pública responsable fomentando el conocimiento
-        sobre nuestras leyes, su proceso de creación y sus legisladores.</p>
-    <p align="justify"> Para conseguirlo utilizamos la <b>Democracia Directa</b>,
-        que <b>permite a cualquier ciudadano indicar si está o no de acuerdo con una determinada ley</b>.
-      Y lo hacemos ofreciendo la posibilidad de votar las <b>mismas leyes</b> y propuestas que se debaten
-      a la vez en el <b>Congreso de los Diputados</b>.</p>
-    <p align="justify"> <b>Apostamos por la delegación de voto</b> en una organización o en un individuo permitiendo a
-        nuestros usuarios delegar sus votos en expertos y personas influyentes cuando se discuta sobre
-        ciertos temas. Esta delegación es transitiva, pudiéndose formar grandes cadenas que
-        canalizan los votos.</p>
-    <hr>
+  <div class="row justify-content-md-center">
+    <div class="col-xs-12 col-sm-12">
+      <h1>Democracia directa y delegaci&oacute;n de voto.</h1>
+      <h2>¿Cómo funciona Referenda?</h2>
+      <hr>
+      <p align="justify"> Nuestro objetivo es acercar la pol&iacute;tica a la ciudadan&iacute;a.
+          Queremos formar una opinión pública responsable fomentando el conocimiento
+          sobre nuestras leyes, su proceso de creación y sus legisladores.</p>
+      <p align="justify"> Para conseguirlo utilizamos la <b>Democracia Directa</b>,
+          que <b>permite a cualquier ciudadano indicar si está o no de acuerdo con una determinada ley</b>.
+        Y lo hacemos ofreciendo la posibilidad de votar las <b>mismas leyes</b> y propuestas que se debaten
+        a la vez en el <b>Congreso de los Diputados</b>.</p>
+      <p align="justify"> <b>Apostamos por la delegación de voto</b> en una organización o en un individuo permitiendo a
+          nuestros usuarios delegar sus votos en expertos y personas influyentes cuando se discuta sobre
+          ciertos temas. Esta delegación es transitiva, pudiéndose formar grandes cadenas que
+          canalizan los votos.</p>
+      <p align="justify"> A continuación listamos las leys <b> que se están debatiendo ahora </b> en el
+        Congreso de los diputados para que puedas indicar tu voto. A favor, en contra o abstención</p>
+      <hr>
+    </div>
   </div>
   <div class="row" *ngFor="let law of laws">
-    <div class="col-xs-12 col-sm-7">
+    <div class="col-xs-12 col-sm-7" [ngStyle]="{'background-color': law.featured === true ? '#eee': 'white'}">
       <div class="media">
         <div class="media-body">
           <div class="vertical-line">
             <h2><a routerLink="/ley/{{law.slug}}">{{law.headline}}</a></h2>
           </div>
           <p class="law-description">{{law.short_description}}</p>
-          <a class="btn btn-primary sharp gris" routerLink="/ley/{{law.slug}}">Votar</a>
+          <div class="row">
+            <div class="col-xs-12 col-sm-3">
+              <a class="btn btn-primary sharp gris" routerLink="/ley/{{law.slug}}">Votar</a>
+            </div>
+            <div class="col-xs-12 col-sm-9 featured" *ngIf="law.featured">
+              <i class="material-icons featured">calendar_today</i>
+              &nbsp;¡A debate esta semana en el Congreso de los Diputados!
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <div class="col-xs-12 col-sm-5">
+    <div class="col-xs-12 col-sm-5" [ngStyle]="{'background-color': law.featured === true ? '#eee': 'white'}">
       <br>
       <div class="col-xs-12 col-sm-12" style="padding: 0px;">
-        <button type="button" class="btn btn-primary sharp yes maxi-font law-home"
+        <button type="button" class="btn btn-primary sharp yes maxi-font"
                 [style.width]=[law.positiveWidth]>S&Iacute;</button>
         <span class="result-number yes">{{ ( 100 * law.positive / (law.positive +
                               law.negative + law.abstention)) | number:'1.0-0' }}%</span>
@@ -44,7 +57,7 @@
       </div>
       <div class="col-xs-12 col-sm-12" style="padding: 0px;">
         <button type="button" class="btn btn-primary sharp abstention maxi-font"
-                [style.width]=[law.abstentionWidth]>ABSTENCI&Oacute;N</button>
+                [style.width]=[law.abstentionWidth]>ABS</button>
         <span class="result-number abstention">{{ ( 100 * law.abstention / (law.positive +
                               law.negative + law.abstention)) | number:'1.0-0' }}%</span>
       </div>
