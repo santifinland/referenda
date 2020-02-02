@@ -14,6 +14,7 @@ import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-logi
 import { NgcCookieConsentModule, NgcCookieConsentConfig } from 'ngx-cookieconsent';
 import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
 
+import { AdminLawComponent } from './admin-law/admin-law.component';
 import { AlertComponent } from './_components';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -74,6 +75,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
+    AdminLawComponent,
     LawsComponent,
     LawDetailComponent,
     FooterComponent,

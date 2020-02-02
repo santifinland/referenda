@@ -1,0 +1,138 @@
+<div class="container">
+  <br>
+  <div *ngIf="!currentUser" class="col-xs-12 col-sm-9">
+    <h2>Inicia sesi&oacute;n para administrar Referenda</h2>
+    <br>
+  </div>
+
+  <div *ngIf="currentUser" class="row align-items-start">
+    <h2>Administraci&oacute;n de Referenda</h2>
+    <div class="col-12">
+      <form>
+        <div class="form-group">
+          <label for="lawType">Law type</label>
+          <select class="form-control" id="lawType">
+            <option>Proposición de Ley</option>
+            <option>Proposición de Ley Orgánica</option>
+            <option>Proposición no de Ley</option>
+            <option>Real Decreto-Ley</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="institution">Institution</label>
+          <select class="form-control" id="institution">
+            <option>gobierno</option>
+            <option>psoe</option>
+            <option>pp</option>
+            <option>vox</option>
+            <option>podemos</option>
+            <option>ciudadanos</option>
+            <option>erc</option>
+            <option>jpc</option>
+            <option>pnv</option>
+            <option>bildu</option>
+            <option>mp</option>
+            <option>cup</option>
+            <option>cc</option>
+            <option>upn</option>
+            <option>bng</option>
+            <option>prc</option>
+            <option>te</option>
+            <option>Comunidad Autónoma de Andalucía</option>
+            <option>Comunidad Autónoma de Aragón</option>
+            <option>Comunidad Autónoma del Principado de Asturias</option>
+            <option>Comunidad Autónoma de las Illes Balears</option>
+            <option>Comunidad Autónoma de Canarias</option>
+            <option>Comunidad Autónoma de Cantabria</option>
+            <option>Comunidad Autónoma de Castilla-La Mancha</option>
+            <option>Comunidad Autónoma de Castilla y León</option>
+            <option>Comunidad Autónoma de Cataluña</option>
+            <option>Comunidad Autónoma de Extremadura</option>
+            <option>Comunidad Autónoma de Galicia</option>
+            <option>Comunidad Autónoma de La Rioja</option>
+            <option>Comunidad Autónoma de Madrid</option>
+            <option>Comunidad Autónoma de la Región de Murcia</option>
+            <option>Comunidad Autónoma de Navarra</option>
+            <option>Comunidad Autónoma del País Vasco</option>
+            <option>Comunidad Autónoma de Valencia</option>
+            <option>Ciudad Autónoma de Ceuta</option>
+            <option>Ciudad Autónoma de Melilla</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="tier">Tier</label>
+          <select class="form-control" id="tier">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="headline">Headline</label>
+          <input type="text" class="form-control" id="headline">
+        </div>
+        <div class="form-group">
+          <label for="shortDescription">Short Description</label>
+          <textarea class="form-control" id="shortDescription" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="longDescription">Long Description</label>
+          <textarea class="form-control" id="longDescription" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="link">Link</label>
+          <input type="text" class="form-control" id="link">
+        </div>
+        <div class="form-group">
+          <label for="pubDate">Publication date</label>
+          <input type="text" class="form-control" id="pubDate">
+        </div>
+        <div class="form-group">
+          <label for="voteStart">Vote start date</label>
+          <input type="text" class="form-control" id="voteStart">
+        </div>
+        <div class="form-group">
+          <label for="voteEnd">Vote end date</label>
+          <input type="text" class="form-control" id="voteEnd" placeholder="2020-01-15T00:00:00Z">
+        </div>
+        <div class="row">
+          <legend class="col-form-label col-sm-2 pt-0">Psoe</legend>
+          <div class="col-sm-10">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="psoe" id="psoe1" value="1">
+              <label class="form-check-label" for="psoe1">Yes</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="psoe" id="psoe2" value="2">
+              <label class="form-check-label" for="psoe2">No</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="psoe" id="psoe3" value="3">
+              <label class="form-check-label" for="psoe3">Abstention</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <legend class="col-form-label col-sm-2 pt-0">PP</legend>
+          <div class="col-sm-10">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="pp" id="pp1" value="1">
+              <label class="form-check-label" for="pp1">Yes</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="pp" id="pp2" value="2">
+              <label class="form-check-label" for="pp2">No</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="pp" id="pp3" value="3">
+              <label class="form-check-label" for="pp3">Abstention</label>
+            </div>
+          </div>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <br>
+      </form>
+    </div>
+  </div>
+</div>
