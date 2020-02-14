@@ -85,7 +85,7 @@ lawRouter.route('/')
     Laws.find(req.query)
         .select('law_type institution tier area headline slug short_description long_description link pub_date ' +
                  'vote_start vote_end positive negative abstention official_positive official_negative ' +
-                 'official_abstention featured -_id')
+                 'official_abstention featured  positiveParties negativeParties abstentionParties -_id')
         .exec(function (err, law) {
         if (err) next(err);
         res.json(law);

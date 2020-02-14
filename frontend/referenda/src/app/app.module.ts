@@ -32,6 +32,7 @@ import { ModalService } from './_services';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login';
+import { PartiesComponent } from './parties/parties.component';
 import { PasswordComponent } from './password/password.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register';
@@ -93,6 +94,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ModalComponent,
     HomeComponent,
     LoginComponent,
+    PartiesComponent,
     PasswordComponent,
     ProfileComponent,
     RegisterComponent,
