@@ -37,7 +37,7 @@
 
         <div class="col-sm-7 info">
           <b>Propuesta presentada por:</b>
-          <img class="mini-logo" src="assets/img/{{law.institution}}.svg">
+          <img class="mini-logo" src="assets/img/{{law.institution}}.svg" alt="{{law.institution}}">
           <br>
           <br>
           <a href="{{law.link}}"><b>+ M&aacute;s informaci&oacute;n</b></a>
@@ -45,11 +45,11 @@
         <div class="col-sm-2 center">
           <span>
             <a href="https://www.facebook.com/dialog/share?app_id=297519443717240&display=popup&href={{location}}&redirect_uri=https%3A%2F%2Freferenda.es">
-              <img src="assets/img/facebook.svg">
+              <img src="assets/img/facebook.svg" alt="Facebook">
             </a>
           </span>
           <span>
-            <img src="assets/img/twitter.svg" (click)="shareTwitter()">
+            <img src="assets/img/twitter.svg" alt="Twitter" (click)="shareTwitter()">
           </span>
         </div>
         <div class="col-sm-3">
@@ -59,17 +59,20 @@
         <div class="col-xs-4 col-sm-3 center blockquote">
           <hr>
           <h5>A favor:</h5>
-          <img class="mini-logo" *ngFor="let party of law.positiveParties" src="assets/img/{{party}}.svg">
+          <img class="mini-logo" *ngFor="let party of law.positiveParties" src="assets/img/{{party}}.svg"
+               alt="{{party}}">
         </div>
         <div class="col-xs-4 col-sm-3 center blockquote">
           <hr>
           <h5>En contra</h5>
-          <img class="mini-logo" *ngFor="let party of law.negativeParties" src="assets/img/{{party}}.svg">
+          <img class="mini-logo" *ngFor="let party of law.negativeParties" src="assets/img/{{party}}.svg"
+               alt="{{party}}">
         </div>
         <div class="col-xs-4 col-sm-3 center blockquote">
           <hr>
           <h5>Abstención</h5>
-          <img class="mini-logo" *ngFor="let party of law.abstentionParties" src="assets/img/{{party}}.svg">
+          <img class="mini-logo" *ngFor="let party of law.abstentionParties" src="assets/img/{{party}}.svg"
+               alt="{{party}}">
         </div>
 
         <div *ngIf="resultsCongreso" class="col-xs-12 col-sm-12">
