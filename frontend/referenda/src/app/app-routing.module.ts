@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AdminLawComponent } from './admin-law/admin-law.component';
+import { CreateLawComponent } from './create-law/create-law.component';
 import { DelegationsComponent } from './delegations/delegations.component';
 import { HomeComponent } from './home/home.component';
 import { LawDetailComponent } from './law-detail/law-detail.component';
@@ -17,7 +18,8 @@ import { ResultsComponent } from './results/results.component';
 const routes: Routes = [
   { path: '', component: LawsComponent },
   { path: 'aboutus', loadChildren: () => import('./aboutus/aboutus.module').then(m => m.AboutusModule) },
-  { path: 'admin-law', component: AdminLawComponent },
+  { path: 'admin-law', component: CreateLawComponent },
+  { path: 'admin-law/:slug', component: AdminLawComponent },
   { path: 'cookies', loadChildren: () => import('./cookies/cookies.module').then(m => m.CookiesModule) },
   { path: 'delegar', component: DelegationsComponent },
   { path: 'developers', loadChildren: () => import('./developers/developers.module').then(m => m.DevelopersModule) },

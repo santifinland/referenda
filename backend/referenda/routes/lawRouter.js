@@ -75,6 +75,9 @@ lawRouter.route('/')
     if (req.query.results) {
         req.query.vote_end = {$lt: today};
         delete req.query.results;
+    } else if (req.query.all) {
+        req.query.vote_start = {$lt: today};
+        delete req.query.all;
     } else {
         req.query.vote_start = {$lt: today};
         req.query.vote_end = {$gte: today};
@@ -272,7 +275,7 @@ lawRouter.route('/')
 lawRouter.route('/:slug')
 .get(function (req, res, next) {
     Laws.findOne({"slug": req.params.slug})
-        .select('law_type institution tier headline slug short_description long_description link pub_date vote_start ' +
+        .select('law_type institution tier featured headline slug short_description long_description link pub_date vote_start ' +
                  'vote_end positive negative abstention official_positive official_negative official_abstention ' +
                  'positiveParties negativeParties abstentionParties ' +
                  'comments -_id')
@@ -289,6 +292,23 @@ lawRouter.route('/:slug')
 .put(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function (req, res, next) {
   Laws.findOne({"slug": req.params.slug}, function (err, law) {
     if (err) return next(err);
+    law.law_type = req.body.law_type;
+    law.institution = req.body.institution;
+    law.tier = req.body.tier;
+    law.headline = req.body.headline;
+    law.slug = req.body.slug;
+    law.short_description = req.body.short_description;
+    law.long_description = req.body.long_description;
+    law.link = req.body.link;
+    law.pub_date = req.body.pub_date;
+    law.vote_start = req.body.vote_start;
+    law.vote_end = req.body.vote_end;
+    law.positiveParties = req.body.positiveParties;
+    law.negativeParties = req.body.negativeParties;
+    law.abstentionParties = req.body.abstentionParties;
+    law.official_positive = req.body.official_positive;
+    law.official_negative = req.body.official_negative;
+    law.official_abstention = req.body.official_abstention;
     Users.find({}, function(err, users) {
       if (err) return next(err);
       updateVotes(law, users, 0, 0, 0, function(err, positiveVotes, negativeVotes, abstentionVotes) {

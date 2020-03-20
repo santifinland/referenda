@@ -34,7 +34,7 @@ export class StatsComponent implements OnInit {
   }
 
   getPartyLaws(): void {
-    this.lawService.getLaws()
+    this.lawService.getAllLaws()
       .subscribe(laws => {
         const data = this.buildData(laws);
         this.draw(data);
@@ -43,7 +43,7 @@ export class StatsComponent implements OnInit {
   }
 
   getCCAALaws(): void {
-    this.lawService.getLaws()
+    this.lawService.getAllLaws()
       .subscribe(laws => {
         const data = this.buildCCAAData(laws);
         this.draw(data);

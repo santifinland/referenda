@@ -32,6 +32,7 @@
     "@nguniversal/module-map-ngfactory-loader": "v8.2.6",
     "@ngx-translate/core": "^11.0.1",
     "@ngx-translate/http-loader": "^4.0.0",
+    "angular-froala-wysiwyg": "^3.1.0",
     "angularx-social-login": "^2.2.1",
     "bootstrap": "^4.4.1",
     "buffer": "^5.4.3",
