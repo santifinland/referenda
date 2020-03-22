@@ -9,11 +9,11 @@ import { OrderModule } from 'ngx-order-pipe';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
+import { AngularEditorModule } from '@kolkov/angular-editor';
 import { D3Service } from 'd3-ng2-service';
 import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
 import { NgcCookieConsentModule, NgcCookieConsentConfig } from 'ngx-cookieconsent';
 import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
-//import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 
 import { AdminLawComponent } from './admin-law/admin-law.component';
 import { CreateLawComponent } from './create-law/create-law.component';
@@ -95,12 +95,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     ResetPasswordComponent,
   ],
   imports: [
+    AngularEditorModule,
     AppRoutingModule,
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     FilterPipeModule,
     FormsModule,
-    //FroalaEditorModule.forRoot(),
-    //FroalaViewModule.forRoot(),
     HttpClientModule,
     NgbModule,
     OrderModule,
