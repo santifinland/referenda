@@ -27,9 +27,7 @@
             "styles": [
               "src/styles.scss",
               "./node_modules/cookieconsent/build/cookieconsent.min.css",
-              "./node_modules/swagger-ui/dist/swagger-ui.css",
-              "./node_modules/froala-editor/css/froala_editor.pkgd.min.css",
-              "./node_modules/froala-editor/css/froala_style.min.css"
+              "./node_modules/swagger-ui/dist/swagger-ui.css"
             ],
             "scripts": [
               "./node_modules/jquery/dist/jquery.min.js",
