@@ -14,7 +14,9 @@
                 <h1>{{law.headline}}</h1>
               </div>
               <br>
-              <div [innerHTML]="law.long_description"></div>
+              <p class="law-description" [innerHTML]="law.long_description"></p>
+              <button type="button" class="btn btn-secondary">Leer m&aacute;s</button>
+              <hr>
             </div>
           </div>
         </div>
@@ -34,6 +36,7 @@
           <br>
           <br>
         </div>
+
 
         <div class="col-sm-7 info">
           <b>Propuesta presentada por:</b>
