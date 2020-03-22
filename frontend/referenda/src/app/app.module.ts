@@ -13,7 +13,10 @@ import { D3Service } from 'd3-ng2-service';
 import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
 import { NgcCookieConsentModule, NgcCookieConsentConfig } from 'ngx-cookieconsent';
 import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 
+import { AdminLawComponent } from './admin-law/admin-law.component';
+import { CreateLawComponent } from './create-law/create-law.component';
 import { AlertComponent } from './_components';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -74,6 +77,8 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
+    AdminLawComponent,
+    CreateLawComponent,
     LawsComponent,
     LawDetailComponent,
     FooterComponent,
@@ -94,6 +99,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     FilterPipeModule,
     FormsModule,
+    FroalaEditorModule.forRoot(),
+    FroalaViewModule.forRoot(),
     HttpClientModule,
     NgbModule,
     OrderModule,

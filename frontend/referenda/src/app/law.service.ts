@@ -34,6 +34,25 @@ export class LawService {
       );
   }
 
+  getAllLaws(): Observable<Law[]> {
+    return this.http.get<Law[]>(this.lawsUrl + '?all=true')
+      .pipe(
+        catchError(this.handleError('getLaws', []))
+      );
+  }
+
+  postLaw(law: Law): Observable<any>{
+    const uri = this.lawsUrl;
+    const body = law;
+    return this.http.post<VoteResponse>(uri, body);
+  }
+
+  putLaw(law: Law): Observable<any>{
+    const uri = this.lawsUrl + '/' + law.slug;
+    const body = law;
+    return this.http.put<VoteResponse>(uri, body);
+  }
+
   getResults(): Observable<Law[]> {
     return this.http.get<Law[]>(this.lawsUrl + '?results=true')
       .pipe(

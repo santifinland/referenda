@@ -1,0 +1,431 @@
+<div class="container">
+  <br>
+  <div *ngIf="!currentUser" class="col-xs-12 col-sm-9">
+    <h2>Inicia sesi&oacute;n para administrar Referenda</h2>
+    <br>
+  </div>
+
+  <div *ngIf="currentUser" class="row align-items-start">
+    <h2>Administraci&oacute;n de Referenda</h2>
+    <div class="col-12">
+      <form class="lawForm" [formGroup]="lawForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="law_type">Law type</label>
+          <select class="form-control" id="law_type" formControlName="law_type"
+                  [ngClass]="{ 'is-invalid': submitted && lf.law_type.errors }">
+            <option>Proposición de Ley</option>
+            <option>Proposición de Ley Orgánica</option>
+            <option>Proposición no de Ley</option>
+            <option>Real Decreto-Ley</option>
+          </select>
+          <div *ngIf="submitted && lf.law_type.errors" class="invalid-feedback">
+            <div *ngIf="lf.law_type.errors.required">Es necesario un tipo de ley</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="institution">Institution</label>
+          <select class="form-control" id="institution" formControlName="institution"
+                  [ngClass]="{ 'is-invalid': submitted && lf.institution.errors }">
+            <option>gobierno</option>
+            <option>psoe</option>
+            <option>pp</option>
+            <option>vox</option>
+            <option>podemos</option>
+            <option>ciudadanos</option>
+            <option>erc</option>
+            <option>jpc</option>
+            <option>pnv</option>
+            <option>bildu</option>
+            <option>mp</option>
+            <option>cup</option>
+            <option>cc</option>
+            <option>upn</option>
+            <option>bng</option>
+            <option>prc</option>
+            <option>te</option>
+            <option>Comunidad Autónoma de Andalucía</option>
+            <option>Comunidad Autónoma de Aragón</option>
+            <option>Comunidad Autónoma del Principado de Asturias</option>
+            <option>Comunidad Autónoma de las Illes Balears</option>
+            <option>Comunidad Autónoma de Canarias</option>
+            <option>Comunidad Autónoma de Cantabria</option>
+            <option>Comunidad Autónoma de Castilla-La Mancha</option>
+            <option>Comunidad Autónoma de Castilla y León</option>
+            <option>Comunidad Autónoma de Cataluña</option>
+            <option>Comunidad Autónoma de Extremadura</option>
+            <option>Comunidad Autónoma de Galicia</option>
+            <option>Comunidad Autónoma de La Rioja</option>
+            <option>Comunidad Autónoma de Madrid</option>
+            <option>Comunidad Autónoma de la Región de Murcia</option>
+            <option>Comunidad Autónoma de Navarra</option>
+            <option>Comunidad Autónoma del País Vasco</option>
+            <option>Comunidad Autónoma de Valencia</option>
+            <option>Ciudad Autónoma de Ceuta</option>
+            <option>Ciudad Autónoma de Melilla</option>
+          </select>
+          <div *ngIf="submitted && lf.institution.errors" class="invalid-feedback">
+            <div *ngIf="lf.institution.errors.required">Es necesaria una institución</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="tier">Tier</label>
+          <select class="form-control" id="tier" formControlName="tier"
+                  [ngClass]="{ 'is-invalid': submitted && lf.tier.errors }">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+          </select>
+          <div *ngIf="submitted && lf.tier.errors" class="invalid-feedback">
+            <div *ngIf="lf.tier.errors.required">Es necesaria una categoría</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="featured">Featured</label>
+          <select class="form-control" id="featured" formControlName="featured"
+                  [ngClass]="{ 'is-invalid': submitted && lf.featured.errors }">
+            <option>True</option>
+            <option>False</option>
+          </select>
+          <div *ngIf="submitted && lf.featured.errors" class="invalid-feedback">
+            <div *ngIf="lf.featured.errors.required">Es necesaria una prioridad</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="headline">Headline</label>
+          <input type="text" class="form-control" id="headline" formControlName="headline"
+                 [ngClass]="{ 'is-invalid': submitted && lf.headline.errors }">
+          <div *ngIf="submitted && lf.headline.errors" class="invalid-feedback">
+            <div *ngIf="lf.headline.errors.required">Es necesario un titular</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="short_description">Short Description</label>
+          <textarea class="form-control" id="short_description" rows="3" formControlName="short_description"
+                    [ngClass]="{ 'is-invalid': submitted && lf.short_description.errors }"></textarea>
+          <div *ngIf="submitted && lf.short_description.errors" class="invalid-feedback">
+            <div *ngIf="lf.short_description.errors.required">Es necesaria una descripción corta</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="long_description">Long Description</label>
+          <textarea [froalaEditor] class="form-control" id="long_description" rows="3" formControlName="long_description"
+                    [ngClass]="{ 'is-invalid': submitted && lf.long_description.errors }"></textarea>
+          <div *ngIf="submitted && lf.long_description.errors" class="invalid-feedback">
+            <div *ngIf="lf.long_description.errors.required">Es necesaria una descripción larga</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="link">Link</label>
+          <input type="text" class="form-control" id="link" formControlName="link"
+                 [ngClass]="{ 'is-invalid': submitted && lf.link.errors }">
+          <div *ngIf="submitted && lf.link.errors" class="invalid-feedback">
+            <div *ngIf="lf.link.errors.required">Es necesario un enlace oficial</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="pub_date">Publication date</label>
+          <input type="text" class="form-control" id="pub_date" placeholder="2020-01-15T00:00:00Z"
+                 formControlName="pub_date" [ngClass]="{ 'is-invalid': submitted && lf.pub_date.errors }">
+          <div *ngIf="submitted && lf.pub_date.errors" class="invalid-feedback">
+            <div *ngIf="lf.pub_date.errors.required">Es necesaria una fecha de publicación</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="vote_start">Vote start date</label>
+          <input type="text" class="form-control" id="vote_start" value="2020-01-15T00:00:00Z"
+                 formControlName="vote_start" [ngClass]="{ 'is-invalid': submitted && lf.vote_start.errors }">
+          <div *ngIf="submitted && lf.vote_start.errors" class="invalid-feedback">
+            <div *ngIf="lf.vote_start.errors.required">Es necesaria una fecha de inicio del voto</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="vote_end">Vote end date</label>
+          <input type="text" class="form-control" id="vote_end" value="2020-01-15T00:00:00Z"
+                 formControlName="vote_end" [ngClass]="{ 'is-invalid': submitted && lf.vote_end.errors }">
+          <div *ngIf="submitted && lf.vote_end.errors" class="invalid-feedback">
+            <div *ngIf="lf.vote_end.errors.required">Es necesaria una fecha de final del voto</div>
+          </div>
+        </div>
+        <div class="row">
+          <legend class="col-form-label col-sm-2 pt-0">Psoe</legend>
+          <div class="col-sm-10">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="psoe" id="psoe1" value=1
+                     formControlName="psoe" [ngClass]="{ 'is-invalid': submitted && lf.psoe.errors }">
+              <label class="form-check-label" for="psoe1">Yes</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="psoe" id="psoe2" value=2>
+              <label class="form-check-label" for="psoe2">No</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="psoe" id="psoe3" value=3>
+              <label class="form-check-label" for="psoe3">Abstention</label>
+            </div>
+            <div *ngIf="submitted && lf.psoe.errors" class="invalid-feedback">
+              <div *ngIf="lf.psoe.errors.required">Es necesaria la posición del psoe</div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <legend class="col-form-label col-sm-2 pt-0">PP</legend>
+          <div class="col-sm-10">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="pp" id="pp1" value=1>
+              <label class="form-check-label" for="pp1">Yes</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="pp" id="pp2" value=2>
+              <label class="form-check-label" for="pp2">No</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="pp" id="pp3" value=3>
+              <label class="form-check-label" for="pp3">Abstention</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <legend class="col-form-label col-sm-2 pt-0">Vox</legend>
+          <div class="col-sm-10">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="vox" id="vox1" value=1>
+              <label class="form-check-label" for="vox1">Yes</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="vox" id="vox2" value=2>
+              <label class="form-check-label" for="vox2">No</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="vox" id="vox3" value=3>
+              <label class="form-check-label" for="vox3">Abstention</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <legend class="col-form-label col-sm-2 pt-0">Podemos</legend>
+          <div class="col-sm-10">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="podemos" id="podemos1" value=1>
+              <label class="form-check-label" for="podemos1">Yes</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="podemos" id="podemos2" value=2>
+              <label class="form-check-label" for="podemos2">No</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="podemos" id="podemos3" value=3>
+              <label class="form-check-label" for="podemos3">Abstention</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <legend class="col-form-label col-sm-2 pt-0">Ciudadanos</legend>
+          <div class="col-sm-10">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="ciudadanos" id="ciudadanos1" value=1>
+              <label class="form-check-label" for="ciudadanos1">Yes</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="ciudadanos" id="ciudadanos2" value=2>
+              <label class="form-check-label" for="ciudadanos2">No</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="ciudadanos" id="ciudadanos3" value=3>
+              <label class="form-check-label" for="ciudadanos3">Abstention</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <legend class="col-form-label col-sm-2 pt-0">Erc</legend>
+          <div class="col-sm-10">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="erc" id="erc1" value=1>
+              <label class="form-check-label" for="erc1">Yes</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="erc" id="erc2" value=2>
+              <label class="form-check-label" for="erc2">No</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="erc" id="erc3" value=3>
+              <label class="form-check-label" for="erc3">Abstention</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <legend class="col-form-label col-sm-2 pt-0">JPC</legend>
+          <div class="col-sm-10">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="jpc" id="jpc1" value=1>
+              <label class="form-check-label" for="jpc1">Yes</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="jpc" id="jpc2" value=2>
+              <label class="form-check-label" for="jpc2">No</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="jpc" id="jpc3" value=3>
+              <label class="form-check-label" for="jpc3">Abstention</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <legend class="col-form-label col-sm-2 pt-0">PNV</legend>
+          <div class="col-sm-10">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="pnv" id="pnv1" value=1>
+              <label class="form-check-label" for="pnv1">Yes</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="pnv" id="pnv2" value=2>
+              <label class="form-check-label" for="pnv2">No</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="pnv" id="pnv3" value=3>
+              <label class="form-check-label" for="pnv3">Abstention</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <legend class="col-form-label col-sm-2 pt-0">Bildu</legend>
+          <div class="col-sm-10">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="bildu" id="bildu1" value=1>
+              <label class="form-check-label" for="bildu1">Yes</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="bildu" id="bildu2" value=2>
+              <label class="form-check-label" for="bildu2">No</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="bildu" id="bildu3" value=3>
+              <label class="form-check-label" for="bildu3">Abstention</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <legend class="col-form-label col-sm-2 pt-0">MP</legend>
+          <div class="col-sm-10">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="mp" id="mp1" value=1>
+              <label class="form-check-label" for="mp1">Yes</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="mp" id="mp2" value=2>
+              <label class="form-check-label" for="mp2">No</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="mp" id="mp3" value=3>
+              <label class="form-check-label" for="mp3">Abstention</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <legend class="col-form-label col-sm-2 pt-0">CUP</legend>
+          <div class="col-sm-10">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="cup" id="cup1" value=1>
+              <label class="form-check-label" for="cup1">Yes</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="cup" id="cup2" value=2>
+              <label class="form-check-label" for="cup2">No</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="cup" id="cup3" value=3>
+              <label class="form-check-label" for="cup3">Abstention</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <legend class="col-form-label col-sm-2 pt-0">CC</legend>
+          <div class="col-sm-10">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="cc" id="cc1" value=1>
+              <label class="form-check-label" for="cc1">Yes</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="cc" id="cc2" value=2>
+              <label class="form-check-label" for="cc2">No</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="cc" id="cc3" value=3>
+              <label class="form-check-label" for="cc3">Abstention</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <legend class="col-form-label col-sm-2 pt-0">UPN</legend>
+          <div class="col-sm-10">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="upn" id="upn1" value=1>
+              <label class="form-check-label" for="upn1">Yes</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="upn" id="upn2" value=2>
+              <label class="form-check-label" for="upn2">No</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="upn" id="upn3" value=3>
+              <label class="form-check-label" for="upn3">Abstention</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <legend class="col-form-label col-sm-2 pt-0">BNG</legend>
+          <div class="col-sm-10">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="bng" id="bng1" value=1>
+              <label class="form-check-label" for="bng1">Yes</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="bng" id="bng2" value=2>
+              <label class="form-check-label" for="bng2">No</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="bng" id="bng3" value=3>
+              <label class="form-check-label" for="bng3">Abstention</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <legend class="col-form-label col-sm-2 pt-0">PRC</legend>
+          <div class="col-sm-10">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="prc" id="prc1" value=1>
+              <label class="form-check-label" for="prc1">Yes</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="prc" id="prc2" value=2>
+              <label class="form-check-label" for="prc2">No</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="prc" id="prc3" value=3>
+              <label class="form-check-label" for="prc3">Abstention</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <legend class="col-form-label col-sm-2 pt-0">TE</legend>
+          <div class="col-sm-10">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="te" id="te1" value=1>
+              <label class="form-check-label" for="te1">Yes</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="te" id="te2" value=2>
+              <label class="form-check-label" for="te2">No</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="te" id="te3" value=3>
+              <label class="form-check-label" for="te3">Abstention</label>
+            </div>
+          </div>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <br>
+      </form>
+    </div>
+  </div>
+</div>
