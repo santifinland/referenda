@@ -107,9 +107,8 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="long_description">Long Description</label>
-          <textarea class="form-control" id="long_description" rows="3" formControlName="long_description"
-                    [ngClass]="{ 'is-invalid': submitted && lf.long_description.errors }"></textarea>
+          <angular-editor [config]="editorConfig" id="long_description" formControlName="long_description"
+                    [ngClass]="{ 'is-invalid': submitted && lf.long_description.errors }"></angular-editor>
           <div *ngIf="submitted && lf.long_description.errors" class="invalid-feedback">
             <div *ngIf="lf.long_description.errors.required">Es necesaria una descripción larga</div>
           </div>
