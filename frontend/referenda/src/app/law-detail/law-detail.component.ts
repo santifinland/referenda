@@ -3,9 +3,10 @@ import { Component, Inject, OnInit, PLATFORM_ID} from '@angular/core';
 import { Router } from '@angular/router';
 import { Meta, Title} from '@angular/platform-browser';
 import { isPlatformBrowser } from '@angular/common';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 import { first } from 'rxjs/operators';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Law } from '../_models/law';
 import { LawService } from '../law.service';
@@ -32,6 +33,13 @@ export class LawDetailComponent implements OnInit {
 
   commentForm: FormGroup;
   submitted = false;
+
+  currentState = true;
+  readMore = 'Leer más';
+  toggle() {
+    this.currentState = !this.currentState;
+    this.readMore = (this.currentState == true) ? 'Leer más' : 'Leer menos';
+  }
 
   location: string;
 

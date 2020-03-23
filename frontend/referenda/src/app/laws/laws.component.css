@@ -10,6 +10,10 @@
 .vertical-line > h2 > a {
   color: #000;
 }
+.law-headline {
+  font-size: 85%;
+  color: #000000;
+}
 .law-description {
     white-space: pre-line;
     text-align: justify;
