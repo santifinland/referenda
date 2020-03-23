@@ -11,10 +11,19 @@
   color: #000;
 }
 .law-headline {
-  font-family: "Montserrat-Bold";
-  text-decoration: underline;
-  font-size: 150%;
+  font-size: 170%;
   color: #000000;
+}
+.law-long-description {
+  white-space: pre-line;
+  text-align: justify;
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+  max-height:100%;
+  overflow:hidden;
+  text-overflow: ellipsis;
+  content: "";
+  position:relative;
 }
 .law-description {
   white-space: pre-line;

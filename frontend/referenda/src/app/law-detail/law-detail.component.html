@@ -11,12 +11,33 @@
           <div class="media">
             <div class="media-body">
               <div class="vertical-line">
-                <h1>{{law.headline}}</h1>
+                <h1 class="law-headline">{{law.headline}}</h1>
               </div>
               <br>
-              <p class="law-description" [innerHTML]="law.long_description"></p>
-              <button type="button" class="btn btn-secondary">Leer m&aacute;s</button>
-              <hr>
+              <p [className]="currentState ? 'law-description' : 'law-long-description'"
+                 [innerHTML]="law.long_description"></p>
+              <button type="button" class="btn btn-outline-secondary btn-sm btn-block" (click)="toggle()">{{readMore}}</button>
+
+              <div class="row row-content">
+                <div class="col-xs-4 col-sm-4 center blockquote">
+                  <hr>
+                  <h5>A favor:</h5>
+                  <img class="mini-logo" *ngFor="let party of law.positiveParties" src="assets/img/{{party}}.svg"
+                       alt="{{party}}">
+                </div>
+                <div class="col-xs-4 col-sm-4 center blockquote">
+                  <hr>
+                  <h5>En contra</h5>
+                  <img class="mini-logo" *ngFor="let party of law.negativeParties" src="assets/img/{{party}}.svg"
+                       alt="{{party}}">
+                </div>
+                <div class="col-xs-4 col-sm-4 center blockquote">
+                  <hr>
+                  <h5>Abstención</h5>
+                  <img class="mini-logo" *ngFor="let party of law.abstentionParties" src="assets/img/{{party}}.svg"
+                       alt="{{party}}">
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -35,47 +56,22 @@
           </button>
           <br>
           <br>
-        </div>
-
-
-        <div class="col-sm-7 info">
-          <b>Propuesta presentada por:</b>
-          <img class="mini-logo" src="assets/img/{{law.institution}}.svg" alt="{{law.institution}}">
-          <br>
-          <br>
-          <a href="{{law.link}}"><b>+ M&aacute;s informaci&oacute;n</b></a>
-        </div>
-        <div class="col-sm-2 center">
-          <span>
-            <a href="https://www.facebook.com/dialog/share?app_id=297519443717240&display=popup&href={{location}}&redirect_uri=https%3A%2F%2Freferenda.es">
-              <img src="assets/img/facebook.svg" alt="Facebook">
-            </a>
-          </span>
-          <span>
+          <div class="center info">
+            <b>Propuesta presentada por:</b>
+            <img class="mini-logo" src="assets/img/{{law.institution}}.svg" alt="{{law.institution}}">
+            <hr>
+            <a href="{{law.link}}"><b>+ M&aacute;s informaci&oacute;n</b></a>
+          </div>
+          <div class="center">
+            <span>
+              <a href="https://www.facebook.com/dialog/share?app_id=297519443717240&display=popup&href={{location}}&redirect_uri=https%3A%2F%2Freferenda.es">
+                <img src="assets/img/facebook.svg" alt="Facebook">
+              </a>
+            </span>
+            <span>
             <img src="assets/img/twitter.svg" alt="Twitter" (click)="shareTwitter()">
           </span>
-        </div>
-        <div class="col-sm-3">
-        </div>
-        <br>
-
-        <div class="col-xs-4 col-sm-3 center blockquote">
-          <hr>
-          <h5>A favor:</h5>
-          <img class="mini-logo" *ngFor="let party of law.positiveParties" src="assets/img/{{party}}.svg"
-               alt="{{party}}">
-        </div>
-        <div class="col-xs-4 col-sm-3 center blockquote">
-          <hr>
-          <h5>En contra</h5>
-          <img class="mini-logo" *ngFor="let party of law.negativeParties" src="assets/img/{{party}}.svg"
-               alt="{{party}}">
-        </div>
-        <div class="col-xs-4 col-sm-3 center blockquote">
-          <hr>
-          <h5>Abstención</h5>
-          <img class="mini-logo" *ngFor="let party of law.abstentionParties" src="assets/img/{{party}}.svg"
-               alt="{{party}}">
+          </div>
         </div>
 
         <div *ngIf="resultsCongreso" class="col-xs-12 col-sm-12">

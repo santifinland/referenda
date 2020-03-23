@@ -1,5 +1,6 @@
 import { APP_BASE_HREF } from '@angular/common';
 import { BrowserModule, Title } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -98,6 +99,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AngularEditorModule,
     AppRoutingModule,
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    BrowserAnimationsModule,
     FilterPipeModule,
     FormsModule,
     HttpClientModule,
