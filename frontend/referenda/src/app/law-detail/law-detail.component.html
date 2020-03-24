@@ -16,8 +16,9 @@
               <br>
               <p [className]="currentState ? 'law-description' : 'law-long-description'"
                  [innerHTML]="law.long_description"></p>
-              <button type="button" class="btn btn-outline-secondary btn-sm btn-block" (click)="toggle()">{{readMore}}</button>
-
+              <div class="center">
+                <button type="button" class="btn btn-outline-secondary btn-sm" (click)="toggle()">{{readMore}}</button>
+              </div>
               <div class="row row-content">
                 <div class="col-xs-4 col-sm-4 center blockquote">
                   <hr>
@@ -61,6 +62,7 @@
             <img class="mini-logo" src="assets/img/{{law.institution}}.svg" alt="{{law.institution}}">
             <hr>
             <a href="{{law.link}}"><b>+ M&aacute;s informaci&oacute;n</b></a>
+            <hr>
           </div>
           <div class="center">
             <span>
