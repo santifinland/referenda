@@ -39,6 +39,9 @@ export class LawDetailComponent implements OnInit {
   toggle() {
     this.currentState = !this.currentState;
     this.readMore = (this.currentState == true) ? 'Leer más' : 'Leer menos';
+    if (this.currentState == true) {
+      document.getElementById('nav').scrollIntoView({behavior: "smooth"});
+    }
   }
 
   location: string;
