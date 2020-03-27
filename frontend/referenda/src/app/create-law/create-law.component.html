@@ -108,7 +108,7 @@
           </div>
         </div>
         <div class="form-group">
-          <angular-editor [config]="editorConfig" class="form-control" id="long_description" formControlName="long_description"
+          <angular-editor [config]="editorConfig" id="long_description" formControlName="long_description"
                     [ngClass]="{ 'is-invalid': submitted && lf.long_description.errors }"></angular-editor>
           <div *ngIf="submitted && lf.long_description.errors" class="invalid-feedback">
             <div *ngIf="lf.long_description.errors.required">Es necesaria una descripción larga</div>
@@ -150,280 +150,196 @@
             <div *ngIf="lf.vote_end.errors.required">Es necesaria una fecha de final del voto</div>
           </div>
         </div>
-        <div class="row">
-          <legend class="col-form-label col-sm-2 pt-0">Psoe</legend>
-          <div class="col-sm-10">
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="psoe" id="psoe1" value=1
-                     formControlName="psoe" [ngClass]="{ 'is-invalid': submitted && lf.psoe.errors }">
-              <label class="form-check-label" for="psoe1">Yes</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="psoe" id="psoe2" value=2>
-              <label class="form-check-label" for="psoe2">No</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="psoe" id="psoe3" value=3>
-              <label class="form-check-label" for="psoe3">Abstention</label>
-            </div>
-            <div *ngIf="submitted && lf.psoe.errors" class="invalid-feedback">
-              <div *ngIf="lf.psoe.errors.required">Es necesaria la posición del psoe</div>
-            </div>
+        <div class="form-group">
+          <label for="psoe">Psoe</label>
+          <select class="form-control" id="psoe" formControlName="psoe"
+                  [ngClass]="{ 'is-invalid': submitted && lf.psoe.errors }">
+            <option>Yes</option>
+            <option>No</option>
+            <option>Abstention</option>
+          </select>
+          <div *ngIf="submitted && lf.psoe.errors" class="invalid-feedback">
+            <div *ngIf="lf.psoe.errors.required">Es necesario un voto</div>
           </div>
         </div>
-        <div class="row">
-          <legend class="col-form-label col-sm-2 pt-0">PP</legend>
-          <div class="col-sm-10">
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="pp" id="pp1" value=1>
-              <label class="form-check-label" for="pp1">Yes</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="pp" id="pp2" value=2>
-              <label class="form-check-label" for="pp2">No</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="pp" id="pp3" value=3>
-              <label class="form-check-label" for="pp3">Abstention</label>
-            </div>
+        <div class="form-group">
+          <label for="pp">PP</label>
+          <select class="form-control" id="pp" formControlName="pp"
+                  [ngClass]="{ 'is-invalid': submitted && lf.pp.errors }">
+            <option>Yes</option>
+            <option>No</option>
+            <option>Abstention</option>
+          </select>
+          <div *ngIf="submitted && lf.pp.errors" class="invalid-feedback">
+            <div *ngIf="lf.pp.errors.required">Es necesario un voto</div>
           </div>
         </div>
-        <div class="row">
-          <legend class="col-form-label col-sm-2 pt-0">Vox</legend>
-          <div class="col-sm-10">
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="vox" id="vox1" value=1>
-              <label class="form-check-label" for="vox1">Yes</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="vox" id="vox2" value=2>
-              <label class="form-check-label" for="vox2">No</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="vox" id="vox3" value=3>
-              <label class="form-check-label" for="vox3">Abstention</label>
-            </div>
+        <div class="form-group">
+          <label for="vox">Vox</label>
+          <select class="form-control" id="vox" formControlName="vox"
+                  [ngClass]="{ 'is-invalid': submitted && lf.vox.errors }">
+            <option>Yes</option>
+            <option>No</option>
+            <option>Abstention</option>
+          </select>
+          <div *ngIf="submitted && lf.vox.errors" class="invalid-feedback">
+            <div *ngIf="lf.vox.errors.required">Es necesario un voto</div>
           </div>
         </div>
-        <div class="row">
-          <legend class="col-form-label col-sm-2 pt-0">Podemos</legend>
-          <div class="col-sm-10">
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="podemos" id="podemos1" value=1>
-              <label class="form-check-label" for="podemos1">Yes</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="podemos" id="podemos2" value=2>
-              <label class="form-check-label" for="podemos2">No</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="podemos" id="podemos3" value=3>
-              <label class="form-check-label" for="podemos3">Abstention</label>
-            </div>
+        <div class="form-group">
+          <label for="podemos">Podemos</label>
+          <select class="form-control" id="podemos" formControlName="podemos"
+                  [ngClass]="{ 'is-invalid': submitted && lf.podemos.errors }">
+            <option>Yes</option>
+            <option>No</option>
+            <option>Abstention</option>
+          </select>
+          <div *ngIf="submitted && lf.podemos.errors" class="invalid-feedback">
+            <div *ngIf="lf.podemos.errors.required">Es necesario un voto</div>
           </div>
         </div>
-        <div class="row">
-          <legend class="col-form-label col-sm-2 pt-0">Ciudadanos</legend>
-          <div class="col-sm-10">
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="ciudadanos" id="ciudadanos1" value=1>
-              <label class="form-check-label" for="ciudadanos1">Yes</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="ciudadanos" id="ciudadanos2" value=2>
-              <label class="form-check-label" for="ciudadanos2">No</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="ciudadanos" id="ciudadanos3" value=3>
-              <label class="form-check-label" for="ciudadanos3">Abstention</label>
-            </div>
+        <div class="form-group">
+          <label for="ciudadanos">Ciudadanos</label>
+          <select class="form-control" id="ciudadanos" formControlName="ciudadanos"
+                  [ngClass]="{ 'is-invalid': submitted && lf.ciudadanos.errors }">
+            <option>Yes</option>
+            <option>No</option>
+            <option>Abstention</option>
+          </select>
+          <div *ngIf="submitted && lf.ciudadanos.errors" class="invalid-feedback">
+            <div *ngIf="lf.ciudadanos.errors.required">Es necesario un voto</div>
           </div>
         </div>
-        <div class="row">
-          <legend class="col-form-label col-sm-2 pt-0">Erc</legend>
-          <div class="col-sm-10">
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="erc" id="erc1" value=1>
-              <label class="form-check-label" for="erc1">Yes</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="erc" id="erc2" value=2>
-              <label class="form-check-label" for="erc2">No</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="erc" id="erc3" value=3>
-              <label class="form-check-label" for="erc3">Abstention</label>
-            </div>
+        <div class="form-group">
+          <label for="erc">Erc</label>
+          <select class="form-control" id="erc" formControlName="erc"
+                  [ngClass]="{ 'is-invalid': submitted && lf.erc.errors }">
+            <option>Yes</option>
+            <option>No</option>
+            <option>Abstention</option>
+          </select>
+          <div *ngIf="submitted && lf.erc.errors" class="invalid-feedback">
+            <div *ngIf="lf.erc.errors.required">Es necesario un voto</div>
           </div>
         </div>
-        <div class="row">
-          <legend class="col-form-label col-sm-2 pt-0">JPC</legend>
-          <div class="col-sm-10">
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="jpc" id="jpc1" value=1>
-              <label class="form-check-label" for="jpc1">Yes</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="jpc" id="jpc2" value=2>
-              <label class="form-check-label" for="jpc2">No</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="jpc" id="jpc3" value=3>
-              <label class="form-check-label" for="jpc3">Abstention</label>
-            </div>
+        <div class="form-group">
+          <label for="jpc">Jpc</label>
+          <select class="form-control" id="jpc" formControlName="jpc"
+                  [ngClass]="{ 'is-invalid': submitted && lf.jpc.errors }">
+            <option>Yes</option>
+            <option>No</option>
+            <option>Abstention</option>
+          </select>
+          <div *ngIf="submitted && lf.jpc.errors" class="invalid-feedback">
+            <div *ngIf="lf.jpc.errors.required">Es necesario un voto</div>
           </div>
         </div>
-        <div class="row">
-          <legend class="col-form-label col-sm-2 pt-0">PNV</legend>
-          <div class="col-sm-10">
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="pnv" id="pnv1" value=1>
-              <label class="form-check-label" for="pnv1">Yes</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="pnv" id="pnv2" value=2>
-              <label class="form-check-label" for="pnv2">No</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="pnv" id="pnv3" value=3>
-              <label class="form-check-label" for="pnv3">Abstention</label>
-            </div>
+        <div class="form-group">
+          <label for="pnv">Pnv</label>
+          <select class="form-control" id="pnv" formControlName="pnv"
+                  [ngClass]="{ 'is-invalid': submitted && lf.pnv.errors }">
+            <option>Yes</option>
+            <option>No</option>
+            <option>Abstention</option>
+          </select>
+          <div *ngIf="submitted && lf.pnv.errors" class="invalid-feedback">
+            <div *ngIf="lf.pnv.errors.required">Es necesario un voto</div>
           </div>
         </div>
-        <div class="row">
-          <legend class="col-form-label col-sm-2 pt-0">Bildu</legend>
-          <div class="col-sm-10">
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="bildu" id="bildu1" value=1>
-              <label class="form-check-label" for="bildu1">Yes</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="bildu" id="bildu2" value=2>
-              <label class="form-check-label" for="bildu2">No</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="bildu" id="bildu3" value=3>
-              <label class="form-check-label" for="bildu3">Abstention</label>
-            </div>
+        <div class="form-group">
+          <label for="bildu">Bildu</label>
+          <select class="form-control" id="bildu" formControlName="bildu"
+                  [ngClass]="{ 'is-invalid': submitted && lf.bildu.errors }">
+            <option>Yes</option>
+            <option>No</option>
+            <option>Abstention</option>
+          </select>
+          <div *ngIf="submitted && lf.bildu.errors" class="invalid-feedback">
+            <div *ngIf="lf.bildu.errors.required">Es necesario un voto</div>
           </div>
         </div>
-        <div class="row">
-          <legend class="col-form-label col-sm-2 pt-0">MP</legend>
-          <div class="col-sm-10">
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="mp" id="mp1" value=1>
-              <label class="form-check-label" for="mp1">Yes</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="mp" id="mp2" value=2>
-              <label class="form-check-label" for="mp2">No</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="mp" id="mp3" value=3>
-              <label class="form-check-label" for="mp3">Abstention</label>
-            </div>
+        <div class="form-group">
+          <label for="mp">Mp</label>
+          <select class="form-control" id="mp" formControlName="mp"
+                  [ngClass]="{ 'is-invalid': submitted && lf.mp.errors }">
+            <option>Yes</option>
+            <option>No</option>
+            <option>Abstention</option>
+          </select>
+          <div *ngIf="submitted && lf.mp.errors" class="invalid-feedback">
+            <div *ngIf="lf.mp.errors.required">Es necesario un voto</div>
           </div>
         </div>
-        <div class="row">
-          <legend class="col-form-label col-sm-2 pt-0">CUP</legend>
-          <div class="col-sm-10">
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="cup" id="cup1" value=1>
-              <label class="form-check-label" for="cup1">Yes</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="cup" id="cup2" value=2>
-              <label class="form-check-label" for="cup2">No</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="cup" id="cup3" value=3>
-              <label class="form-check-label" for="cup3">Abstention</label>
-            </div>
+        <div class="form-group">
+          <label for="cup">Cup</label>
+          <select class="form-control" id="cup" formControlName="cup"
+                  [ngClass]="{ 'is-invalid': submitted && lf.cup.errors }">
+            <option>Yes</option>
+            <option>No</option>
+            <option>Abstention</option>
+          </select>
+          <div *ngIf="submitted && lf.cup.errors" class="invalid-feedback">
+            <div *ngIf="lf.cup.errors.required">Es necesario un voto</div>
           </div>
         </div>
-        <div class="row">
-          <legend class="col-form-label col-sm-2 pt-0">CC</legend>
-          <div class="col-sm-10">
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="cc" id="cc1" value=1>
-              <label class="form-check-label" for="cc1">Yes</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="cc" id="cc2" value=2>
-              <label class="form-check-label" for="cc2">No</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="cc" id="cc3" value=3>
-              <label class="form-check-label" for="cc3">Abstention</label>
-            </div>
+        <div class="form-group">
+          <label for="cc">CC</label>
+          <select class="form-control" id="cc" formControlName="cc"
+                  [ngClass]="{ 'is-invalid': submitted && lf.cc.errors }">
+            <option>Yes</option>
+            <option>No</option>
+            <option>Abstention</option>
+          </select>
+          <div *ngIf="submitted && lf.cc.errors" class="invalid-feedback">
+            <div *ngIf="lf.cc.errors.required">Es necesario un voto</div>
           </div>
         </div>
-        <div class="row">
-          <legend class="col-form-label col-sm-2 pt-0">UPN</legend>
-          <div class="col-sm-10">
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="upn" id="upn1" value=1>
-              <label class="form-check-label" for="upn1">Yes</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="upn" id="upn2" value=2>
-              <label class="form-check-label" for="upn2">No</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="upn" id="upn3" value=3>
-              <label class="form-check-label" for="upn3">Abstention</label>
-            </div>
+        <div class="form-group">
+          <label for="upn">Upn</label>
+          <select class="form-control" id="upn" formControlName="upn"
+                  [ngClass]="{ 'is-invalid': submitted && lf.upn.errors }">
+            <option>Yes</option>
+            <option>No</option>
+            <option>Abstention</option>
+          </select>
+          <div *ngIf="submitted && lf.upn.errors" class="invalid-feedback">
+            <div *ngIf="lf.upn.errors.required">Es necesario un voto</div>
           </div>
         </div>
-        <div class="row">
-          <legend class="col-form-label col-sm-2 pt-0">BNG</legend>
-          <div class="col-sm-10">
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="bng" id="bng1" value=1>
-              <label class="form-check-label" for="bng1">Yes</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="bng" id="bng2" value=2>
-              <label class="form-check-label" for="bng2">No</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="bng" id="bng3" value=3>
-              <label class="form-check-label" for="bng3">Abstention</label>
-            </div>
+        <div class="form-group">
+          <label for="bng">Bng</label>
+          <select class="form-control" id="bng" formControlName="bng"
+                  [ngClass]="{ 'is-invalid': submitted && lf.bng.errors }">
+            <option>Yes</option>
+            <option>No</option>
+            <option>Abstention</option>
+          </select>
+          <div *ngIf="submitted && lf.bng.errors" class="invalid-feedback">
+            <div *ngIf="lf.bng.errors.required">Es necesario un voto</div>
           </div>
         </div>
-        <div class="row">
-          <legend class="col-form-label col-sm-2 pt-0">PRC</legend>
-          <div class="col-sm-10">
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="prc" id="prc1" value=1>
-              <label class="form-check-label" for="prc1">Yes</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="prc" id="prc2" value=2>
-              <label class="form-check-label" for="prc2">No</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="prc" id="prc3" value=3>
-              <label class="form-check-label" for="prc3">Abstention</label>
-            </div>
+        <div class="form-group">
+          <label for="prc">Prc</label>
+          <select class="form-control" id="prc" formControlName="prc"
+                  [ngClass]="{ 'is-invalid': submitted && lf.prc.errors }">
+            <option>Yes</option>
+            <option>No</option>
+            <option>Abstention</option>
+          </select>
+          <div *ngIf="submitted && lf.prc.errors" class="invalid-feedback">
+            <div *ngIf="lf.prc.errors.required">Es necesario un voto</div>
           </div>
         </div>
-        <div class="row">
-          <legend class="col-form-label col-sm-2 pt-0">TE</legend>
-          <div class="col-sm-10">
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="te" id="te1" value=1>
-              <label class="form-check-label" for="te1">Yes</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="te" id="te2" value=2>
-              <label class="form-check-label" for="te2">No</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="te" id="te3" value=3>
-              <label class="form-check-label" for="te3">Abstention</label>
-            </div>
+        <div class="form-group">
+          <label for="te">Te</label>
+          <select class="form-control" id="te" formControlName="te"
+                  [ngClass]="{ 'is-invalid': submitted && lf.te.errors }">
+            <option>Yes</option>
+            <option>No</option>
+            <option>Abstention</option>
+          </select>
+          <div *ngIf="submitted && lf.te.errors" class="invalid-feedback">
+            <div *ngIf="lf.te.errors.required">Es necesario un voto</div>
           </div>
         </div>
         <br>
