@@ -2,30 +2,49 @@
   <div class="row row-content">
     <div class="col">
       <br>
-      <h3>{{currentUser.username}}</h3>
+      <h3>Perfil de usuario</h3>
       <hr>
     </div>
   </div>
   <div class="row row-content">
     <div class="col">
-      <p><b>Nombre de usuario: </b>{{currentUser.username}}</p>
+      <div class="card border-secondary mb-3">
+        <div class="card-header">Datos básicos</div>
+        <div class="card-body text-secondary">
+          <h5 class="card-title">Nombre de usuario</h5>
+          <p class="card-text">{{currentUser.username}}</p>
+          <a routerLink="/profile" class="btn btn-outline-secondary">Modificar</a>
+        </div>
+      </div>
+      <div class="card border-secondary mb-3">
+        <div class="card-header">Delegación de voto</div>
+        <div class="card-body text-secondary">
+          <h5 class="card-title">Delegación a partido político </h5>
+          <div *ngIf="delegation == 'party'">
+            <img class="party-logo" src="{{delegatedPartyValue.logo}}">
+          </div>
+          <div *ngIf="delegation != 'party'">
+            <p class="card-text">Ninguna</p>
+          </div>
+        </div>
+        <div class="card-body text-secondary">
+          <h5 class="card-title">Delegación a usuario</h5>
+          <div *ngIf="delegation == 'user'">
+            <p class="card-text">{{delegatedUserValue.username}}</p>
+          </div>
+          <div *ngIf="delegation != 'user'">
+            <p class="card-text">Ninguna</p>
+          </div>
+          <br>
+          <a routerLink="/delegar" class="btn btn-outline-secondary">Modificar</a>
+        </div>
+      </div>
       <br>
       <br>
-      <button type="button" class="btn btn-primary" routerLink="/profile">Editar mis datos</button>
+      <br>
+      <br>
+      <br>
+      <br>
     </div>
-  </div>
-  <div class="col-sm-12">
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
   </div>
 </div>
