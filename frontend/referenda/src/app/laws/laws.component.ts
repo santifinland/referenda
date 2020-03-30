@@ -15,6 +15,8 @@ export class LawsComponent implements OnInit {
 
   laws: Law[];
 
+  lawFilter: any = { $or: [{ headline: '' }] }
+
   constructor(
       private lawService: LawService,
       private metaTagService: Meta,

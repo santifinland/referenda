@@ -21,7 +21,11 @@
       <hr>
     </div>
   </div>
-  <div class="row" *ngFor="let law of laws">
+  <ul class="nav nav-justified">
+    <input class="form-control mr-sm-2" [(ngModel)]="lawFilter.headline" placeholder="T&iacute;tulo">
+  </ul>
+  <hr>
+  <div class="row" *ngFor="let law of laws | filterBy: lawFilter">
     <div class="col-xs-12 col-sm-7" [ngStyle]="{'background-color': law.featured === true ? '#eee': 'white'}">
       <div class="media">
         <div class="media-body">
