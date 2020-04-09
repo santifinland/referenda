@@ -83,9 +83,9 @@ lawRouter.route('/')
         req.query.vote_end = {$gte: today};
     }
     Laws.find(req.query)
-        .select('law_type institution tier headline slug short_description long_description link pub_date vote_start ' +
-                 'vote_end positive negative abstention official_positive official_negative official_abstention ' +
-                 'featured -_id')
+        .select('law_type institution tier area headline slug short_description long_description link pub_date ' +
+                 'vote_start vote_end positive negative abstention official_positive official_negative ' +
+                 'official_abstention featured -_id')
         .exec(function (err, law) {
         if (err) next(err);
         res.json(law);
@@ -275,9 +275,9 @@ lawRouter.route('/')
 lawRouter.route('/:slug')
 .get(function (req, res, next) {
     Laws.findOne({"slug": req.params.slug})
-        .select('law_type institution tier featured headline slug short_description long_description link pub_date vote_start ' +
-                 'vote_end positive negative abstention official_positive official_negative official_abstention ' +
-                 'positiveParties negativeParties abstentionParties ' +
+        .select('law_type institution tier area featured headline slug short_description long_description ' +
+                 'link pub_date vote_start vote_end positive negative abstention official_positive official_negative ' +
+                 'official_abstention positiveParties negativeParties abstentionParties ' +
                  'comments -_id')
         .populate('comments.postedBy', '-admin -_id -__v -delegatedUser -delegatedParty')
         .exec(function (err, law) {
@@ -295,6 +295,7 @@ lawRouter.route('/:slug')
     law.law_type = req.body.law_type;
     law.institution = req.body.institution;
     law.tier = req.body.tier;
+    law.area = req.body.area;
     law.headline = req.body.headline;
     law.slug = req.body.slug;
     law.short_description = req.body.short_description;

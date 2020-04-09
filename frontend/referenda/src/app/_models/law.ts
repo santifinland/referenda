@@ -5,6 +5,7 @@ export class Law {
   law_type: string;
   institution: string;
   tier: number;
+  area: string[];
   headline: string;
   slug: string;
   short_description: string;

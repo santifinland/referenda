@@ -30,6 +30,7 @@ var lawSchema = new Schema({
       law_type: String,
       institution: String,
       tier: Number,
+      area: [String],
       headline: String,
       slug: String,
       short_description: String,

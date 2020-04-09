@@ -15,7 +15,7 @@ export class LawsComponent implements OnInit {
 
   laws: Law[];
 
-  lawFilter: any = { $or: [{ headline: '' }] }
+  lawFilter: any = { $or: [{ headline: '', area: '' }] }
 
   constructor(
       private lawService: LawService,
@@ -49,5 +49,9 @@ export class LawsComponent implements OnInit {
   sortLaws(laws: Law[]) {
     return laws.sort((a, b) =>
       a.featured > b.featured ? -1 : a.featured === b.featured ? 0 : 1);
+  }
+
+  filter(area: string) {
+    this.lawFilter.area = (area == 'all') ? '' : area;
   }
 }
