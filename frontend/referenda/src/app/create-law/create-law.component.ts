@@ -83,6 +83,16 @@ export class CreateLawComponent implements OnInit {
       law_type: ['', [Validators.required]],
       institution: ['', [Validators.required]],
       tier: [1, [Validators.required]],
+      educacion: [0, []],
+      sanidad: [0, []],
+      economia: [0, []],
+      justicia: [0, []],
+      exteriores: [0, []],
+      defensa: [0, []],
+      interior: [0, []],
+      agricultura: [0, []],
+      infraestructura: [0, []],
+      cultura: [0, []],
       featured: ['', [Validators.required]],
       headline: ['', [Validators.required]],
       short_description: ['', [Validators.required]],
@@ -124,6 +134,7 @@ export class CreateLawComponent implements OnInit {
 
     let law = this.lawForm.value
     law.tier = parseInt(law.tier)
+	  law.area = [];
     law.featured = law.featured == 'True' ? true : false;
     law.positive = 0
     law.negative = 0
@@ -131,6 +142,37 @@ export class CreateLawComponent implements OnInit {
     law.official_positive = 0
     law.official_negative = 0
     law.official_abstention = 0
+
+    if (law.educacion == 'Yes') {
+      law.area.push("educacion");
+    }
+    if (law.sanidad == 'Yes') {
+      law.area.push("sanidad");
+    }
+    if (law.economia == 'Yes') {
+      law.area.push("economia");
+    }
+    if (law.justicia == 'Yes') {
+      law.area.push("justicia");
+    }
+    if (law.exteriores == 'Yes') {
+      law.area.push("exteriores");
+    }
+    if (law.defensa == 'Yes') {
+      law.area.push("defensa");
+    }
+    if (law.interior == 'Yes') {
+      law.area.push("interior");
+    }
+    if (law.agricultura == 'Yes') {
+      law.area.push("agricultura");
+    }
+    if (law.infraestructura == 'Yes') {
+      law.area.push("infraestructura");
+    }
+    if (law.cultura == 'Yes') {
+      law.area.push("cultura");
+    }
 
     // PP
     if (law.pp == 'Yes') {
@@ -260,12 +302,6 @@ export class CreateLawComponent implements OnInit {
     } else {
       law.bng = 3
     }
-
-
-
-
-
-
 
     law.psoe = parseInt(law.psoe)
     law.pp = parseInt(law.pp)

@@ -81,6 +81,116 @@
           </div>
         </div>
         <div class="form-group">
+          <label for="educacion">Educacion</label>
+          <select class="form-control" id="educacion" formControlName="educacion"
+                  [ngClass]="{ 'is-invalid': submitted && lf.educacion.errors }">
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+          <div *ngIf="submitted && lf.educacion.errors" class="invalid-feedback">
+            <div *ngIf="lf.educacion.errors.required">Es necesaria una area</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="sanidad">Sanidad</label>
+          <select class="form-control" id="sanidad" formControlName="sanidad"
+                  [ngClass]="{ 'is-invalid': submitted && lf.sanidad.errors }">
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+          <div *ngIf="submitted && lf.sanidad.errors" class="invalid-feedback">
+            <div *ngIf="lf.sanidad.errors.required">Es necesaria una area</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="economia">Economia</label>
+          <select class="form-control" id="economia" formControlName="economia"
+                  [ngClass]="{ 'is-invalid': submitted && lf.economia.errors }">
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+          <div *ngIf="submitted && lf.economia.errors" class="invalid-feedback">
+            <div *ngIf="lf.economia.errors.required">Es necesaria una area</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="justicia">Justicia</label>
+          <select class="form-control" id="justicia" formControlName="justicia"
+                  [ngClass]="{ 'is-invalid': submitted && lf.justicia.errors }">
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+          <div *ngIf="submitted && lf.justicia.errors" class="invalid-feedback">
+            <div *ngIf="lf.justicia.errors.required">Es necesaria una area</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="exteriores">Exteriores</label>
+          <select class="form-control" id="exteriores" formControlName="exteriores"
+                  [ngClass]="{ 'is-invalid': submitted && lf.exteriores.errors }">
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+          <div *ngIf="submitted && lf.exteriores.errors" class="invalid-feedback">
+            <div *ngIf="lf.exteriores.errors.required">Es necesaria una area</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="defensa">Defensa</label>
+          <select class="form-control" id="defensa" formControlName="defensa"
+                  [ngClass]="{ 'is-invalid': submitted && lf.defensa.errors }">
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+          <div *ngIf="submitted && lf.defensa.errors" class="invalid-feedback">
+            <div *ngIf="lf.defensa.errors.required">Es necesaria una area</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="interior">Interior</label>
+          <select class="form-control" id="interior" formControlName="interior"
+                  [ngClass]="{ 'is-invalid': submitted && lf.interior.errors }">
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+          <div *ngIf="submitted && lf.interior.errors" class="invalid-feedback">
+            <div *ngIf="lf.interior.errors.required">Es necesaria una area</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="agricultura">Agricultura</label>
+          <select class="form-control" id="agricultura" formControlName="agricultura"
+                  [ngClass]="{ 'is-invalid': submitted && lf.agricultura.errors }">
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+          <div *ngIf="submitted && lf.agricultura.errors" class="invalid-feedback">
+            <div *ngIf="lf.agricultura.errors.required">Es necesaria una area</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="infraestructura">Infraestructura</label>
+          <select class="form-control" id="infraestructura" formControlName="infraestructura"
+                  [ngClass]="{ 'is-invalid': submitted && lf.infraestructura.errors }">
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+          <div *ngIf="submitted && lf.infraestructura.errors" class="invalid-feedback">
+            <div *ngIf="lf.infraestructura.errors.required">Es necesaria una area</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="cultura">Cultura</label>
+          <select class="form-control" id="cultura" formControlName="cultura"
+                  [ngClass]="{ 'is-invalid': submitted && lf.cultura.errors }">
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+          <div *ngIf="submitted && lf.cultura.errors" class="invalid-feedback">
+            <div *ngIf="lf.cultura.errors.required">Es necesaria una area</div>
+          </div>
+        </div>
+        <div class="form-group">
           <label for="featured">Featured</label>
           <select class="form-control" id="featured" formControlName="featured"
                   [ngClass]="{ 'is-invalid': submitted && lf.featured.errors }">

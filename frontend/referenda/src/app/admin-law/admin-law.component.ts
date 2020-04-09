@@ -88,6 +88,16 @@ export class AdminLawComponent implements OnInit {
       law_type: ['', [Validators.required]],
       institution: ['', [Validators.required]],
       tier: [1, [Validators.required]],
+      educacion: [0, []],
+      sanidad: [0, []],
+      economia: [0, []],
+      justicia: [0, []],
+      exteriores: [0, []],
+      defensa: [0, []],
+      interior: [0, []],
+      agricultura: [0, []],
+      infraestructura: [0, []],
+      cultura: [0, []],
       featured: ['', [Validators.required]],
       headline: ['', [Validators.required]],
       short_description: ['', [Validators.required]],
@@ -129,6 +139,16 @@ export class AdminLawComponent implements OnInit {
         this.lawForm.controls.law_type.setValue(law.law_type);
         this.lawForm.controls.institution.setValue(law.institution);
         this.lawForm.controls.tier.setValue(law.tier);
+        this.lawForm.controls.educacion.setValue((this.law.area.includes('educacion')) ? 'Yes' : 'No');
+        this.lawForm.controls.sanidad.setValue((this.law.area.includes('sanidad')) ? 'Yes' : 'No');
+        this.lawForm.controls.economia.setValue((this.law.area.includes('economia')) ? 'Yes' : 'No');
+        this.lawForm.controls.justicia.setValue((this.law.area.includes('justicia')) ? 'Yes' : 'No');
+        this.lawForm.controls.exteriores.setValue((this.law.area.includes('exteriores')) ? 'Yes' : 'No');
+        this.lawForm.controls.defensa.setValue((this.law.area.includes('defensa')) ? 'Yes' : 'No');
+        this.lawForm.controls.interior.setValue((this.law.area.includes('interior')) ? 'Yes' : 'No');
+        this.lawForm.controls.agricultura.setValue((this.law.area.includes('agricultura')) ? 'Yes' : 'No');
+        this.lawForm.controls.infraestructura.setValue((this.law.area.includes('infraestructura')) ? 'Yes' : 'No');
+        this.lawForm.controls.cultura.setValue((this.law.area.includes('cultura')) ? 'Yes' : 'No');
         this.lawForm.controls.featured.setValue(law.featured);
         this.lawForm.controls.headline.setValue(law.headline);
         this.lawForm.controls.short_description.setValue(law.short_description);
@@ -194,6 +214,7 @@ export class AdminLawComponent implements OnInit {
     console.log(law);
     law.slug = this.law.slug;
     law.tier = parseInt(law.tier);
+	  law.area = [];
     law.featured = law.featured == 'true' ? true : false;
     console.log(law.featured);
     law.official_positive = parseInt(law.official_positive);
@@ -202,6 +223,37 @@ export class AdminLawComponent implements OnInit {
 	  law.positiveParties = [];
 	  law.negativeParties = [];
 	  law.abstentionParties = [];
+
+    if (law.educacion == 'Yes') {
+      law.area.push("educacion");
+    }
+    if (law.sanidad == 'Yes') {
+      law.area.push("sanidad");
+    }
+    if (law.economia == 'Yes') {
+      law.area.push("economia");
+    }
+    if (law.justicia == 'Yes') {
+      law.area.push("justicia");
+    }
+    if (law.exteriores == 'Yes') {
+      law.area.push("exteriores");
+    }
+    if (law.defensa == 'Yes') {
+      law.area.push("defensa");
+    }
+    if (law.interior == 'Yes') {
+      law.area.push("interior");
+    }
+    if (law.agricultura == 'Yes') {
+      law.area.push("agricultura");
+    }
+    if (law.infraestructura == 'Yes') {
+      law.area.push("infraestructura");
+    }
+    if (law.cultura == 'Yes') {
+      law.area.push("cultura");
+    }
 
 	  // PP
     if (law.pp == 'Yes') {
