@@ -32,11 +32,6 @@ export class ResultsComponent implements OnInit {
     this.lawService.getResults()
       .subscribe(laws => {
         this.laws = laws;
-        this.laws.map(law => {
-          law.positiveWidth   = (50 * law.positive   / (law.positive + law.negative + law.abstention)) + '%';
-          law.negativeWidth   = (50 * law.negative   / (law.positive + law.negative + law.abstention)) + '%';
-          law.abstentionWidth = (50 * law.abstention / (law.positive + law.negative + law.abstention)) + '%';
-        });
       });
   }
 }

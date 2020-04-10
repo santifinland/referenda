@@ -1,23 +1,8 @@
-table {
-  table-layout: fixed;
-}
 .table > tbody > tr > td > a {
   color: #333;
 }
 .table > tbody > tr > td > .active > a {
   color: #333;
-}
-.card {
-  width: 100%;
-}
-.vote_end {
-  width: 20%;
-}
-.headline {
-  width: 60%;
-}
-.institution {
-  width: 20%;
 }
 .red {
     background-color: #ffe6e6;
@@ -25,4 +10,3 @@ table {
 .green {
     background-color: #e6ffee;
 }
-
