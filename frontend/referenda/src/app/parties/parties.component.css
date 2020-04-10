@@ -1,9 +1,14 @@
 .mini-logo {
-  max-height: 45px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-height: 60px;
+  max-width: 100px;
   overflow: hidden;
 }
 .maxi-logo {
   max-height: 100px;
+  max-width: 200px;
   padding: 2px;
   overflow: hidden;
 }
@@ -21,4 +26,7 @@
 }
 .green {
     background-color: #e6ffee;
+}
+.search {
+  margin-bottom: 10px;
 }

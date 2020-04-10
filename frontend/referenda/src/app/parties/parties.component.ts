@@ -16,9 +16,11 @@ import { PartyService } from '../_services/party.service';
 export class PartiesComponent implements OnInit {
 
   laws: Law[];
+  results: Law[];
   parties: Party[];
 
   selectedParty: Party;
+  selectedPartyLaws: Law[];
   selectedPartyPositiveLaws: Law[];
   selectedPartyNegativeLaws: Law[];
   selectedPartyAbstentionLaws: Law[];
@@ -34,6 +36,7 @@ export class PartiesComponent implements OnInit {
 
   ngOnInit() {
     this.getLaws();
+    this.getResults();
     this.getParties();
     let title: string;
     title = 'Partidos pol&iacute;ticos en el Congreso de los Diputados';
@@ -42,7 +45,16 @@ export class PartiesComponent implements OnInit {
   getLaws(): void {
     this.lawService.getLaws()
       .subscribe(laws => {
-        this.laws = laws.filter(l => l.tier == 1);
+        this.laws = laws;
+        this.selectParty('psoe');
+      });
+  }
+
+  getResults(): void {
+    this.lawService.getResults()
+      .subscribe(laws => {
+        this.results = laws;
+        this.selectParty('psoe');
       });
   }
 
@@ -50,13 +62,19 @@ export class PartiesComponent implements OnInit {
     this.partyService.getParties()
       .subscribe(parties => {
         this.parties = parties.filter(p => p.name != 'nd');
+        this.selectParty('psoe');
       });
   }
 
   selectParty(partyName): void {
     this.selectedParty = this.parties.filter(p => p.name == partyName)[0]
-    this.selectedPartyPositiveLaws = this.laws.filter(l => l.positiveParties.includes(partyName));
-    this.selectedPartyNegativeLaws = this.laws.filter(l => l.negativeParties.includes(partyName));
-    this.selectedPartyAbstentionLaws = this.laws.filter(l => l.abstentionParties.includes(partyName));
+    this.selectedPartyLaws = this.laws.filter(l => l.institution == partyName);
+    this.selectedPartyPositiveLaws = this.results.filter(l => l.positiveParties.includes(partyName));
+    this.selectedPartyNegativeLaws = this.results.filter(l => l.negativeParties.includes(partyName));
+    this.selectedPartyAbstentionLaws = this.results.filter(l => l.abstentionParties.includes(partyName));
+  }
+
+  filter(area: string) {
+    this.lawFilter.area = (area == 'all') ? '' : area;
   }
 }
