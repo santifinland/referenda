@@ -1,0 +1,95 @@
+<div class="container">
+  <br>
+  <div class="row justify-content-center">
+    <h1>Partidos pol&iacute;ticos en el Congreso de los Diputados</h1>
+  </div>
+  <hr>
+
+  <div class="row row-cols-1 row-cols-md-6">
+    <div class="col mb-3" *ngFor="let party of parties">
+      <div class="card">
+        <img src="{{party.logo}}" class="mini-logo" alt="{{party.description}}" (click)="selectParty(party.name)">
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="card selectedParty">
+    <img src="{{selectedParty.logo}}" class="card-img-top maxi-logo" alt="{{selectedParty.description}}">
+    <div class="card-body">
+      <h5 class="card-title">Diputados: {{selectedParty.quota}}</h5>
+    </div>
+  </div>
+  <br>
+
+  <div *ngIf="selectedParty" class="row justify-content-center">
+    <h4>A favor de las siguientes leyes y propuestas</h4>
+  </div>
+  <hr>
+  <div *ngIf="selectedParty" class="table-responsive-sm">
+    <table class="table-sm table-hover">
+      <thead>
+      <tr>
+        <th><input class="form-control" [(ngModel)]="lawFilter.area" placeholder="Área"></th>
+        <th><input class="form-control" [(ngModel)]="lawFilter.headline" placeholder="T&iacute;tulo"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="green" *ngFor="let law of selectedPartyPositiveLaws | filterBy: lawFilter">
+        <td>{{law.area[0]}}</td>
+        <td><a routerLink="/ley/{{law.slug}}">{{law.headline}}</a></td>
+      </tr>
+      </tbody>
+    </table>
+    <hr>
+    <br>
+  </div>
+
+  <div *ngIf="selectedParty" class="row justify-content-center">
+    <h4>En contra de las siguientes leyes y propuestas</h4>
+  </div>
+  <hr>
+  <div *ngIf="selectedParty" class="table-responsive-sm">
+    <table class="table-sm table-hover">
+      <thead>
+      <tr>
+        <th><input class="form-control" [(ngModel)]="lawFilter.area" placeholder="Área"></th>
+        <th><input class="form-control" [(ngModel)]="lawFilter.headline" placeholder="T&iacute;tulo"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="red" *ngFor="let law of selectedPartyNegativeLaws | filterBy: lawFilter">
+        <td>{{law.area[0]}}</td>
+        <td><a routerLink="/ley/{{law.slug}}">{{law.headline}}</a></td>
+      </tr>
+      </tbody>
+    </table>
+    <hr>
+    <br>
+  </div>
+
+  <div *ngIf="selectedParty" class="row justify-content-center">
+    <h4>Abstenci&oacute;n en las siguientes leyes y propuestas</h4>
+  </div>
+  <hr>
+  <div *ngIf="selectedParty" class="table-responsive-sm">
+    <table class="table-sm table-hover">
+      <thead>
+      <tr>
+        <th><input class="form-control" [(ngModel)]="lawFilter.area" placeholder="Área"></th>
+        <th><input class="form-control" [(ngModel)]="lawFilter.headline" placeholder="T&iacute;tulo"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let law of selectedPartyAbstentionLaws | filterBy: lawFilter">
+        <td>{{law.area[0]}}</td>
+        <td><a routerLink="/ley/{{law.slug}}">{{law.headline}}</a></td>
+      </tr>
+      </tbody>
+    </table>
+    <hr>
+    <br>
+  </div>
+
+</div>

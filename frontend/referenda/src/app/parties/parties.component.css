@@ -1,0 +1,24 @@
+.mini-logo {
+  max-height: 45px;
+  overflow: hidden;
+}
+.maxi-logo {
+  max-height: 100px;
+  padding: 2px;
+  overflow: hidden;
+}
+.selectedParty{
+  width: 15rem;
+}
+.table-sm > tbody > tr > td > a {
+  color: #333;
+}
+.table-sm > tbody > tr > td > .active > a {
+  color: #333;
+}
+.red {
+    background-color: #ffe6e6;
+}
+.green {
+    background-color: #e6ffee;
+}

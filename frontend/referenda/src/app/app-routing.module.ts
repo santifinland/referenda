@@ -8,6 +8,7 @@ import { HomeComponent } from './home/home.component';
 import { LawDetailComponent } from './law-detail/law-detail.component';
 import { LawsComponent } from './laws/laws.component';
 import { LoginComponent } from './login';
+import { PartiesComponent } from './parties/parties.component';
 import { PasswordComponent } from './password/password.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register';
@@ -29,6 +30,7 @@ const routes: Routes = [
   { path: 'leyes', component: LawsComponent },
   { path: 'ley/:slug', component: LawDetailComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'partidos', component: PartiesComponent },
   { path: 'password', component: PasswordComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'register', component: RegisterComponent },
