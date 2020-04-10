@@ -1,11 +1,12 @@
-import { APP_BASE_HREF } from '@angular/common';
+import { APP_BASE_HREF, registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es';
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { OrderModule } from 'ngx-order-pipe';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -38,6 +39,8 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { ResultsComponent } from './results/results.component';
 import { WINDOW_PROVIDERS } from './_services/window.service';
 
+
+registerLocaleData(localeEs);
 
 const cookieConfig: NgcCookieConsentConfig = {
   cookie: {
@@ -120,6 +123,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     { provide: APP_BASE_HREF, useValue: '/' },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: LOCALE_ID, useValue: 'es-ES'},
     D3Service,
     ModalService,
     { provide: AuthServiceConfig, useFactory: provideConfig },
