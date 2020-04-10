@@ -7,7 +7,7 @@
 
   <div class="row row-cols-1 row-cols-md-6">
     <div class="col mb-3" *ngFor="let party of parties">
-      <div class="card">
+      <div class="card border-light">
         <img src="{{party.logo}}" class="mini-logo" alt="{{party.description}}" (click)="selectParty(party.name)">
       </div>
     </div>
@@ -15,29 +15,89 @@
 
   <hr>
 
-  <div class="card selectedParty">
-    <img src="{{selectedParty.logo}}" class="card-img-top maxi-logo" alt="{{selectedParty.description}}">
-    <div class="card-body">
-      <h5 class="card-title">Diputados: {{selectedParty.quota}}</h5>
+  <div class="media">
+    <img src="{{selectedParty.logo}}" class="mr-3 maxi-logo" alt="{{selectedParty.description}}">
+    <div class="media-body">
+      <h5 class="mt-0"><b>Diputados:</b> {{selectedParty.quota}}</h5>
     </div>
   </div>
+
   <br>
+
+  <input class="form-control mr-sm-2 search" [(ngModel)]="lawFilter.headline"
+         placeholder="Escribe aqu&iacute; palabras clave para buscar una Ley o Proposici&oacute;n">
+  <div class="btn-group btn-group-toggle flex-wrap text-center" data-toggle="buttons">
+    <label class="btn btn-secondary active">
+      <input type="radio" name="options" id="all" autocomplete="off" checked (click)="filter('all')">
+      Todas las propuestas
+    </label>
+    <label class="btn btn-secondary">
+      <input type="radio" name="options" id="educacion" autocomplete="off" (click)="filter('educacion')">
+      Educaci&oacute;n
+    </label>
+    <label class="btn btn-secondary">
+      <input type="radio" name="options" id="sanidad" autocomplete="off" (click)="filter('sanidad')">
+      Sanidad
+    </label>
+    <label class="btn btn-secondary">
+      <input type="radio" name="options" id="economia" autocomplete="off" (click)="filter('economia')">
+      Econom&iacute;a
+    </label>
+    <label class="btn btn-secondary">
+      <input type="radio" name="options" id="justicia" autocomplete="off" (click)="filter('justicia')">
+      Justicia
+    </label>
+    <label class="btn btn-secondary">
+      <input type="radio" name="options" id="exteriores" autocomplete="off" (click)="filter('exteriores')">
+      Exteriores
+    </label>
+    <label class="btn btn-secondary">
+      <input type="radio" name="options" id="defensa" autocomplete="off" (click)="filter('defensa')">
+      Defensa
+    </label>
+    <label class="btn btn-secondary">
+      <input type="radio" name="options" id="interior" autocomplete="off" (click)="filter('interior')">
+      Interior
+    </label>
+    <label class="btn btn-secondary">
+      <input type="radio" name="options" id="agricultura" autocomplete="off" (click)="filter('agricultura')">
+      Agricultura
+    </label>
+    <label class="btn btn-secondary">
+      <input type="radio" name="options" id="infraestructura" autocomplete="off" (click)="filter('infraestructura')">
+      Infraestructuras
+    </label>
+    <label class="btn btn-secondary">
+      <input type="radio" name="options" id="cultura" autocomplete="off" (click)="filter('cultura')">
+      Cultura
+    </label>
+  </div>
+  <hr>
+
+  <div *ngIf="selectedParty" class="row justify-content-center">
+    <h4>Leyes propuestas por &eacute;ste partido</h4>
+  </div>
+  <div *ngIf="selectedParty" class="table-responsive-sm">
+    <table class="table-sm table-hover">
+      <tbody>
+      <tr *ngFor="let law of selectedPartyLaws | filterBy: lawFilter">
+        <td>{{law.area[0] | titlecase }}</td>
+        <td><a routerLink="/ley/{{law.slug}}">{{law.headline}}</a></td>
+      </tr>
+      </tbody>
+    </table>
+    <hr>
+    <br>
+  </div>
 
   <div *ngIf="selectedParty" class="row justify-content-center">
     <h4>A favor de las siguientes leyes y propuestas</h4>
   </div>
-  <hr>
   <div *ngIf="selectedParty" class="table-responsive-sm">
     <table class="table-sm table-hover">
-      <thead>
-      <tr>
-        <th><input class="form-control" [(ngModel)]="lawFilter.area" placeholder="Área"></th>
-        <th><input class="form-control" [(ngModel)]="lawFilter.headline" placeholder="T&iacute;tulo"></th>
-      </tr>
-      </thead>
       <tbody>
       <tr class="green" *ngFor="let law of selectedPartyPositiveLaws | filterBy: lawFilter">
-        <td>{{law.area[0]}}</td>
+        <td>{{law.area[0] | titlecase }}</td>
         <td><a routerLink="/ley/{{law.slug}}">{{law.headline}}</a></td>
       </tr>
       </tbody>
@@ -49,18 +109,12 @@
   <div *ngIf="selectedParty" class="row justify-content-center">
     <h4>En contra de las siguientes leyes y propuestas</h4>
   </div>
-  <hr>
   <div *ngIf="selectedParty" class="table-responsive-sm">
+    <hr>
     <table class="table-sm table-hover">
-      <thead>
-      <tr>
-        <th><input class="form-control" [(ngModel)]="lawFilter.area" placeholder="Área"></th>
-        <th><input class="form-control" [(ngModel)]="lawFilter.headline" placeholder="T&iacute;tulo"></th>
-      </tr>
-      </thead>
       <tbody>
       <tr class="red" *ngFor="let law of selectedPartyNegativeLaws | filterBy: lawFilter">
-        <td>{{law.area[0]}}</td>
+        <td>{{law.area[0] | titlecase }}</td>
         <td><a routerLink="/ley/{{law.slug}}">{{law.headline}}</a></td>
       </tr>
       </tbody>
@@ -72,18 +126,12 @@
   <div *ngIf="selectedParty" class="row justify-content-center">
     <h4>Abstenci&oacute;n en las siguientes leyes y propuestas</h4>
   </div>
-  <hr>
   <div *ngIf="selectedParty" class="table-responsive-sm">
+    <hr>
     <table class="table-sm table-hover">
-      <thead>
-      <tr>
-        <th><input class="form-control" [(ngModel)]="lawFilter.area" placeholder="Área"></th>
-        <th><input class="form-control" [(ngModel)]="lawFilter.headline" placeholder="T&iacute;tulo"></th>
-      </tr>
-      </thead>
       <tbody>
       <tr *ngFor="let law of selectedPartyAbstentionLaws | filterBy: lawFilter">
-        <td>{{law.area[0]}}</td>
+        <td>{{law.area[0] | titlecase }}</td>
         <td><a routerLink="/ley/{{law.slug}}">{{law.headline}}</a></td>
       </tr>
       </tbody>
