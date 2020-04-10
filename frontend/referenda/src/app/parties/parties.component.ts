@@ -40,10 +40,11 @@ export class PartiesComponent implements OnInit {
     this.getParties();
     let title: string;
     title = 'Partidos pol&iacute;ticos en el Congreso de los Diputados';
+    this.metaTagService.updateTag({ name: 'description', content: title });
   }
 
   getLaws(): void {
-    this.lawService.getLaws()
+    this.lawService.getAllLaws()
       .subscribe(laws => {
         this.laws = laws;
         this.selectParty('psoe');
@@ -61,7 +62,8 @@ export class PartiesComponent implements OnInit {
   getParties(): void {
     this.partyService.getParties()
       .subscribe(parties => {
-        this.parties = parties.filter(p => p.name != 'nd');
+        this.parties = parties.filter(p => p.name != 'nd').sort((a, b) =>
+          a.quota > b.quota ? -1 : a.quota === b.quota ? 0 : 1);
         this.selectParty('psoe');
       });
   }
