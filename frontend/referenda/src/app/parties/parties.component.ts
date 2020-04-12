@@ -70,7 +70,7 @@ export class PartiesComponent implements OnInit {
 
   selectParty(partyName): void {
     this.selectedParty = this.parties.filter(p => p.name == partyName)[0]
-    this.selectedPartyLaws = this.laws.filter(l => l.institution == partyName);
+    this.selectedPartyLaws = this.laws.filter(l => l.institution.includes(partyName));
     this.selectedPartyPositiveLaws = this.results.filter(l => l.positiveParties.includes(partyName));
     this.selectedPartyNegativeLaws = this.results.filter(l => l.negativeParties.includes(partyName));
     this.selectedPartyAbstentionLaws = this.results.filter(l => l.abstentionParties.includes(partyName));

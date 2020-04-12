@@ -86,7 +86,44 @@ export class AdminLawComponent implements OnInit {
   ngOnInit() {
     this.lawForm = this.formBuilder.group({
       law_type: ['', [Validators.required]],
-      institution: ['', [Validators.required]],
+      institution_psoe: [0, []],
+      institution_pp: [0, []],
+      institution_vox: [0, []],
+      institution_podemos: [0, []],
+      institution_ciudadanos: [0, []],
+      institution_erc: [0, []],
+      institution_jpc: [0, []],
+      institution_pnv: [0, []],
+      institution_bildu: [0, []],
+      institution_mp: [0, []],
+      institution_cup: [0, []],
+      institution_cc: [0, []],
+      institution_upn: [0, []],
+      institution_bng: [0, []],
+      institution_prc: [0, []],
+      institution_te: [0, []],
+      institution_andalucia: [0, []],
+      institution_aragon: [0, []],
+      institution_asturias: [0, []],
+      institution_baleares: [0, []],
+      institution_canarias: [0, []],
+      institution_cantabria: [0, []],
+      institution_mancha: [0, []],
+      institution_leon: [0, []],
+      institution_catalunya: [0, []],
+      institution_extremadura: [0, []],
+      institution_galicia: [0, []],
+      institution_rioja: [0, []],
+      institution_madrid: [0, []],
+      institution_murcia: [0, []],
+      institution_navarra: [0, []],
+      institution_vasco: [0, []],
+      institution_valencia: [0, []],
+      institution_ceuta: [0, []],
+      institution_melilla: [0, []],
+      institution_gobierno: [0, []],
+      institution_senado: [0, []],
+      institution_popular: [0, []],
       tier: [1, [Validators.required]],
       educacion: [0, []],
       sanidad: [0, []],
@@ -96,7 +133,7 @@ export class AdminLawComponent implements OnInit {
       defensa: [0, []],
       interior: [0, []],
       agricultura: [0, []],
-      infraestructura: [0, []],
+      infraestructuras: [0, []],
       cultura: [0, []],
       featured: ['', [Validators.required]],
       headline: ['', [Validators.required]],
@@ -139,6 +176,44 @@ export class AdminLawComponent implements OnInit {
         this.lawForm.controls.law_type.setValue(law.law_type);
         this.lawForm.controls.institution.setValue(law.institution);
         this.lawForm.controls.tier.setValue(law.tier);
+        this.lawForm.controls.institution_psoe.setValue((this.law.institution.includes('psoe')) ? 'Yes' : 'No');
+        this.lawForm.controls.institution_pp.setValue((this.law.institution.includes('pp')) ? 'Yes' : 'No');
+        this.lawForm.controls.institution_vox.setValue((this.law.institution.includes('vox')) ? 'Yes' : 'No');
+        this.lawForm.controls.institution_podemos.setValue((this.law.institution.includes('podemos')) ? 'Yes' : 'No');
+        this.lawForm.controls.institution_ciudadanos.setValue((this.law.institution.includes('ciudadanos')) ? 'Yes' : 'No');
+        this.lawForm.controls.institution_erc.setValue((this.law.institution.includes('erc')) ? 'Yes' : 'No');
+        this.lawForm.controls.institution_jpc.setValue((this.law.institution.includes('jpc')) ? 'Yes' : 'No');
+        this.lawForm.controls.institution_pnv.setValue((this.law.institution.includes('pnv')) ? 'Yes' : 'No');
+        this.lawForm.controls.institution_bildu.setValue((this.law.institution.includes('bildu')) ? 'Yes' : 'No');
+        this.lawForm.controls.institution_mp.setValue((this.law.institution.includes('mp')) ? 'Yes' : 'No');
+        this.lawForm.controls.institution_cup.setValue((this.law.institution.includes('cup')) ? 'Yes' : 'No');
+        this.lawForm.controls.institution_cc.setValue((this.law.institution.includes('cc')) ? 'Yes' : 'No');
+        this.lawForm.controls.institution_upn.setValue((this.law.institution.includes('upn')) ? 'Yes' : 'No');
+        this.lawForm.controls.institution_bng.setValue((this.law.institution.includes('bng')) ? 'Yes' : 'No');
+        this.lawForm.controls.institution_prc.setValue((this.law.institution.includes('prc')) ? 'Yes' : 'No');
+        this.lawForm.controls.institution_te.setValue((this.law.institution.includes('te')) ? 'Yes' : 'No');
+        this.lawForm.controls.institution_andalucia.setValue((this.law.institution.includes('andalucia')) ? 'Yes' : 'No');
+        this.lawForm.controls.institution_aragon.setValue((this.law.institution.includes('aragon')) ? 'Yes' : 'No');
+        this.lawForm.controls.institution_asturias.setValue((this.law.institution.includes('asturias')) ? 'Yes' : 'No');
+        this.lawForm.controls.institution_baleares.setValue((this.law.institution.includes('baleares')) ? 'Yes' : 'No');
+        this.lawForm.controls.institution_canarias.setValue((this.law.institution.includes('canarias')) ? 'Yes' : 'No');
+        this.lawForm.controls.institution_cantabria.setValue((this.law.institution.includes('cantabria')) ? 'Yes' : 'No');
+        this.lawForm.controls.institution_mancha.setValue((this.law.institution.includes('mancha')) ? 'Yes' : 'No');
+        this.lawForm.controls.institution_leon.setValue((this.law.institution.includes('leon')) ? 'Yes' : 'No');
+        this.lawForm.controls.institution_catalunya.setValue((this.law.institution.includes('catalunya')) ? 'Yes' : 'No');
+        this.lawForm.controls.institution_extremadura.setValue((this.law.institution.includes('extremadura')) ? 'Yes' : 'No');
+        this.lawForm.controls.institution_galicia.setValue((this.law.institution.includes('galicia')) ? 'Yes' : 'No');
+        this.lawForm.controls.institution_rioja.setValue((this.law.institution.includes('rioja')) ? 'Yes' : 'No');
+        this.lawForm.controls.institution_madrid.setValue((this.law.institution.includes('madrid')) ? 'Yes' : 'No');
+        this.lawForm.controls.institution_murcia.setValue((this.law.institution.includes('murcia')) ? 'Yes' : 'No');
+        this.lawForm.controls.institution_navarra.setValue((this.law.institution.includes('navarra')) ? 'Yes' : 'No');
+        this.lawForm.controls.institution_vasco.setValue((this.law.institution.includes('vasco')) ? 'Yes' : 'No');
+        this.lawForm.controls.institution_valencia.setValue((this.law.institution.includes('valencia')) ? 'Yes' : 'No');
+        this.lawForm.controls.institution_ceuta.setValue((this.law.institution.includes('ceuta')) ? 'Yes' : 'No');
+        this.lawForm.controls.institution_melilla.setValue((this.law.institution.includes('melilla')) ? 'Yes' : 'No');
+        this.lawForm.controls.institution_gobierno.setValue((this.law.institution.includes('gobierno')) ? 'Yes' : 'No');
+        this.lawForm.controls.institution_senado.setValue((this.law.institution.includes('senado')) ? 'Yes' : 'No');
+        this.lawForm.controls.institution_popular.setValue((this.law.institution.includes('popular')) ? 'Yes' : 'No');
         this.lawForm.controls.educacion.setValue((this.law.area.includes('educacion')) ? 'Yes' : 'No');
         this.lawForm.controls.sanidad.setValue((this.law.area.includes('sanidad')) ? 'Yes' : 'No');
         this.lawForm.controls.economia.setValue((this.law.area.includes('economia')) ? 'Yes' : 'No');
@@ -146,8 +221,8 @@ export class AdminLawComponent implements OnInit {
         this.lawForm.controls.exteriores.setValue((this.law.area.includes('exteriores')) ? 'Yes' : 'No');
         this.lawForm.controls.defensa.setValue((this.law.area.includes('defensa')) ? 'Yes' : 'No');
         this.lawForm.controls.interior.setValue((this.law.area.includes('interior')) ? 'Yes' : 'No');
-        this.lawForm.controls.agricultura.setValue((this.law.area.includes('agricultura')) ? 'Yes' : 'No');
-        this.lawForm.controls.infraestructura.setValue((this.law.area.includes('infraestructura')) ? 'Yes' : 'No');
+        this.lawForm.controls.agricultura.setValue((this.law.area.includes('agri')) ? 'Yes' : 'No');
+        this.lawForm.controls.infraestructuras.setValue((this.law.area.includes('infraestructuras')) ? 'Yes' : 'No');
         this.lawForm.controls.cultura.setValue((this.law.area.includes('cultura')) ? 'Yes' : 'No');
         this.lawForm.controls.featured.setValue(law.featured);
         this.lawForm.controls.headline.setValue(law.headline);
@@ -214,6 +289,7 @@ export class AdminLawComponent implements OnInit {
     console.log(law);
     law.slug = this.law.slug;
     law.tier = parseInt(law.tier);
+	  law.institution = [];
 	  law.area = [];
     law.featured = law.featured == 'true' ? true : false;
     console.log(law.featured);
@@ -223,6 +299,121 @@ export class AdminLawComponent implements OnInit {
 	  law.positiveParties = [];
 	  law.negativeParties = [];
 	  law.abstentionParties = [];
+
+    if (law.institution_psoe == 'Yes') {
+      law.institution.push("psoe");
+    }
+    if (law.institution_pp == 'Yes') {
+      law.institution.push("pp");
+    }
+    if (law.institution_vox == 'Yes') {
+      law.institution.push("vox");
+    }
+    if (law.institution_podemos == 'Yes') {
+      law.institution.push("podemos");
+    }
+    if (law.institution_ciudadanos == 'Yes') {
+      law.institution.push("ciudadanos");
+    }
+    if (law.institution_erc == 'Yes') {
+      law.institution.push("erc");
+    }
+    if (law.institution_jpc == 'Yes') {
+      law.institution.push("jpc");
+    }
+    if (law.institution_pnv == 'Yes') {
+      law.institution.push("pnv");
+    }
+    if (law.institution_bildu == 'Yes') {
+      law.institution.push("bildu");
+    }
+    if (law.institution_mp == 'Yes') {
+      law.institution.push("mp");
+    }
+    if (law.institution_cup == 'Yes') {
+      law.institution.push("cup");
+    }
+    if (law.institution_cc == 'Yes') {
+      law.institution.push("cc");
+    }
+    if (law.institution_upn == 'Yes') {
+      law.institution.push("upn");
+    }
+    if (law.institution_bng == 'Yes') {
+      law.institution.push("bng");
+    }
+    if (law.institution_prc == 'Yes') {
+      law.institution.push("prc");
+    }
+    if (law.institution_te == 'Yes') {
+      law.institution.push("te");
+    }
+    if (law.institution_gobierno == 'Yes') {
+      law.institution.push("gobierno");
+    }
+    if (law.institution_senado == 'Yes') {
+      law.institution.push("senado");
+    }
+    if (law.institution_popular == 'Yes') {
+      law.institution.push("popular");
+    }
+    if (law.institution_andalucia == 'Yes') {
+      law.institution.push("andalucia");
+    }
+    if (law.institution_aragon == 'Yes') {
+      law.institution.push("aragon");
+    }
+    if (law.institution_asturias == 'Yes') {
+      law.institution.push("asturias");
+    }
+    if (law.institution_baleares == 'Yes') {
+      law.institution.push("baleares");
+    }
+    if (law.institution_canarias == 'Yes') {
+      law.institution.push("canarias");
+    }
+    if (law.institution_cantabria == 'Yes') {
+      law.institution.push("cantabria");
+    }
+    if (law.institution_mancha == 'Yes') {
+      law.institution.push("mancha");
+    }
+    if (law.institution_leon == 'Yes') {
+      law.institution.push("leon");
+    }
+    if (law.institution_catalunya == 'Yes') {
+      law.institution.push("catalunya");
+    }
+    if (law.institution_extremadura == 'Yes') {
+      law.institution.push("extremadura");
+    }
+    if (law.institution_galicia == 'Yes') {
+      law.institution.push("galicia");
+    }
+    if (law.institution_rioja == 'Yes') {
+      law.institution.push("rioja");
+    }
+    if (law.institution_murcia == 'Yes') {
+      law.institution.push("murcia");
+    }
+    if (law.institution_madrid == 'Yes') {
+      law.institution.push("madrid");
+    }
+    if (law.institution_navarra == 'Yes') {
+      law.institution.push("navarra");
+    }
+    if (law.institution_vasco == 'Yes') {
+      law.institution.push("vasco");
+    }
+    if (law.institution_valencia == 'Yes') {
+      law.institution.push("valencia");
+    }
+    if (law.institution_ceuta == 'Yes') {
+      law.institution.push("ceuta");
+    }
+    if (law.institution_melilla == 'Yes') {
+      law.institution.push("melilla");
+    }
 
     if (law.educacion == 'Yes') {
       law.area.push("educacion");
@@ -246,10 +437,10 @@ export class AdminLawComponent implements OnInit {
       law.area.push("interior");
     }
     if (law.agricultura == 'Yes') {
-      law.area.push("agricultura");
+      law.area.push("agri");
     }
-    if (law.infraestructura == 'Yes') {
-      law.area.push("infraestructura");
+    if (law.infraestructuras == 'Yes') {
+      law.area.push("infraestructuras");
     }
     if (law.cultura == 'Yes') {
       law.area.push("cultura");
