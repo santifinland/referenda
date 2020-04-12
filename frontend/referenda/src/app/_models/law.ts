@@ -3,7 +3,7 @@ import { Party } from './party';
 
 export class Law {
   law_type: string;
-  institution: string;
+  institution: string[];
   tier: number;
   area: string[];
   headline: string;

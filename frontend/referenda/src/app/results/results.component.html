@@ -18,7 +18,7 @@
                           red: law.official_positive < law.official_negative}'>
               <td>{{law.vote_end | date: 'MMM yyyy':'UTC':'es'}}</td>
               <td><a routerLink="/ley/{{law.slug}}">{{law.headline}}</a></td>
-              <td>{{law.institution | uppercase}}</td>
+              <td>{{law.institution[0] | uppercase}}</td>
         </tr>
       </tbody>
     </table>
