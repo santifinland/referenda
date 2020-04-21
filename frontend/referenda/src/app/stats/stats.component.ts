@@ -124,6 +124,8 @@ export class StatsComponent implements OnInit {
     const prc = {'label': 'Partido Regionalista de Cantabria', 'id': 15, 'value': 0, 'color': '#bfcd16'};
     const te = {'label': 'Teruel Existe', 'id': 16, 'value': 0, 'color': '#007f54'};
     const gobierno = {'label': 'Gobierno', 'id': 17, 'value': 0, 'color': '#000'};
+    const senado = {'label': 'Senado', 'id': 18, 'value': 0, 'color': '#038758'};
+    const popular = {'label': 'Iniciativa Legislativa Popular', 'id': 19, 'value': 0, 'color': '#ffb400'};
     laws.forEach( (law) => {
       if (law.institution.includes('psoe')) { psoe.value += 1; }
       if (law.institution.includes('pp')) { pp.value += 1; }
@@ -142,8 +144,11 @@ export class StatsComponent implements OnInit {
       if (law.institution.includes('prc')) { prc.value += 1; }
       if (law.institution.includes('te')) { te.value += 1; }
       if (law.institution.includes('gobierno')) { gobierno.value += 1; }
+      if (law.institution.includes('senado')) { senado.value += 1; }
+      if (law.institution.includes('popular')) { popular.value += 1; }
     });
-    return [psoe, pp, vox, podemos, erc, ciudadanos, jpc, pnv, bildu, mp, cup, cc, upn, bng, prc, te, gobierno];
+    return [psoe, pp, vox, podemos, erc, ciudadanos, jpc, pnv, bildu, mp, cup, cc, upn, bng, prc, te, gobierno, senado,
+            popular];
   }
 
   buildCCAAData(laws: Law[]) {
