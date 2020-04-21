@@ -174,7 +174,6 @@ export class AdminLawComponent implements OnInit {
         this.law = law;
         this.law.slug = slug;
         this.lawForm.controls.law_type.setValue(law.law_type);
-        this.lawForm.controls.institution.setValue(law.institution);
         this.lawForm.controls.tier.setValue(law.tier);
         this.lawForm.controls.institution_psoe.setValue((this.law.institution.includes('psoe')) ? 'Yes' : 'No');
         this.lawForm.controls.institution_pp.setValue((this.law.institution.includes('pp')) ? 'Yes' : 'No');
