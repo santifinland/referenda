@@ -22,6 +22,8 @@ export class StatsComponent implements OnInit {
   ccaaResultsShown: Boolean = false;
   partyLawsShown: boolean = true;
   partyResultsShown: boolean = false;
+  partyAreasShown: boolean = false;
+  totalLaws: number = 0;
 
   constructor(
       element: ElementRef,
@@ -38,6 +40,7 @@ export class StatsComponent implements OnInit {
       .subscribe(laws => {
         const data = this.buildData(laws);
         this.draw(data);
+        this.totalLaws = laws.length;
         document.getElementById('partyLaws').scrollIntoView({behavior: "smooth"});
       });
   }
@@ -57,6 +60,22 @@ export class StatsComponent implements OnInit {
         const data = this.buildData(laws);
         this.draw(data);
         document.getElementById('partyResults').scrollIntoView({behavior: "smooth"});
+      });
+  }
+
+  getAreaLaws(): void {
+    this.lawService.getAllLaws()
+      .subscribe(laws => {
+        let data = []
+        const parties = ['psoe', 'pp', 'vox', 'podemos', 'erc', 'ciudadanos', 'jpc', 'pnv', 'bildu', 'mp', 'cup', 'cc', 'upn',
+                   'bng', 'prc', 'te', 'gobierno', 'senado', 'popular'];
+        var p;
+        for (p in parties) {
+          //data = data.concat(this.buildPartyAreaData(parties[p], laws.filter(law => law.institution.includes(parties[p]))));
+          data = data.concat(this.buildPartyAreaData(parties[p], laws.filter(law => law.institution[0] == parties[p])));
+        }
+        this.drawArea(this.totalLaws, data);
+        document.getElementById('partyAreas').scrollIntoView({behavior: "smooth"});
       });
   }
 
@@ -84,24 +103,35 @@ export class StatsComponent implements OnInit {
       this.ccaaResultsShown = false;
       this.partyLawsShown = true;
       this.partyResultsShown = false;
+      this.partyAreasShown = false;
     } else if (selectedStat === 'partyResults') {
       this.getPartyResults();
       this.ccaaLawsShown = false;
       this.ccaaResultsShown = false;
       this.partyLawsShown = false;
       this.partyResultsShown = true;
+      this.partyAreasShown = false;
     } else if (selectedStat === 'ccaaLaws') {
       this.getCCAALaws();
       this.ccaaLawsShown = true;
       this.ccaaResultsShown = false;
       this.partyLawsShown = false;
       this.partyResultsShown = false;
+      this.partyAreasShown = false;
     } else if (selectedStat === 'ccaaResults') {
       this.getCCAAResults();
       this.ccaaLawsShown = false;
       this.ccaaResultsShown = true;
       this.partyLawsShown = false;
       this.partyResultsShown = false;
+      this.partyAreasShown = false;
+    } else if (selectedStat === 'partyAreas') {
+      this.getAreaLaws();
+      this.ccaaLawsShown = false;
+      this.ccaaResultsShown = false;
+      this.partyLawsShown = false;
+      this.partyResultsShown = false;
+      this.partyAreasShown = true;
     } else {
     }
   }
@@ -196,6 +226,33 @@ export class StatsComponent implements OnInit {
             extremadura, galicia, rioja, madrid, murcia, navarra, paisvasco, valencia, ceuta, melilla];
   }
 
+  buildPartyAreaData(party: string, laws: Law[]) {
+    const educacion = {'party': party, 'label': 'Educación', 'id': 1, 'value': 0, 'color': '#006433'};
+    const sanidad = {'party': party, 'label': 'Sanidad', 'id': 2, 'value': 0, 'color': '#d51418'};
+    const economia = {'party': party, 'label': 'Economía', 'id': 2, 'value': 0, 'color': '#d51418'};
+    const justicia = {'party': party, 'label': 'Justicia', 'id': 2, 'value': 0, 'color': '#d51418'};
+    const exteriores = {'party': party, 'label': 'Exteriores', 'id': 2, 'value': 0, 'color': '#d51418'};
+    const defensa = {'party': party, 'label': 'Defensa', 'id': 2, 'value': 0, 'color': '#d51418'};
+    const interior = {'party': party, 'label': 'Interior', 'id': 2, 'value': 0, 'color': '#d51418'};
+    const agricultura = {'party': party, 'label': 'Agricultura', 'id': 2, 'value': 0, 'color': '#d51418'};
+    const infraestructuras = {'party': party, 'label': 'Infraestructuras', 'id': 2, 'value': 0, 'color': '#d51418'};
+    const cultura = {'party': party, 'label': 'Cultura', 'id': 2, 'value': 0, 'color': '#d51418'};
+    laws.forEach( (law) => {
+      if (law.area.includes('educacion')) { educacion.value += 1; }
+      if (law.area.includes('sanidad')) { sanidad.value += 1; }
+      if (law.area.includes('economia')) { economia.value += 1; }
+      if (law.area.includes('justicia')) { justicia.value += 1; }
+      if (law.area.includes('exteriores')) { exteriores.value += 1; }
+      if (law.area.includes('defensa')) { defensa.value += 1; }
+      if (law.area.includes('interior')) { interior.value += 1; }
+      if (law.area.includes('agricultura')) { agricultura.value += 1; }
+      if (law.area.includes('infraestructuras')) { infraestructuras.value += 1; }
+      if (law.area.includes('cultura')) { cultura.value += 1; }
+    });
+    return [educacion, sanidad, economia, justicia, exteriores, defensa, interior, agricultura, infraestructuras,
+            cultura];
+  }
+
   draw(results: any[]) {
     const d3 = this.d3;
     let d3ParentElement: Selection<HTMLElement, any, null, undefined>;
@@ -255,6 +312,96 @@ export class StatsComponent implements OnInit {
 
       d3Svg.selectAll('.gridLine line')
         .style('stroke', '#ddd');
+    }
+  }
+
+  drawArea(totalLaws: number, laws: any[]) {
+    const d3 = this.d3;
+    let d3ParentElement: Selection<HTMLElement, any, null, undefined>;
+    let d3Svg: Selection<SVGSVGElement, any, null, undefined>;
+    let d3G: Selection<SVGGElement, any, null, undefined>;
+    const WIDTH = 700;
+    const HEIGHT = 432;
+
+    if (this.parentNativeElement !== null) {
+
+      var margin = {top: 0, right: 0, bottom: 30, left: 40},
+          width = WIDTH - margin.left - margin.right,
+          height = HEIGHT - margin.top - margin.bottom;
+
+      d3ParentElement = d3.select(this.parentNativeElement);
+      d3Svg = this.d3Svg = d3ParentElement.select<SVGSVGElement>('svg')
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+      d3Svg.selectAll('g').remove();
+      d3G = d3Svg.append<SVGGElement>('g');
+
+      // Labels of row and columns
+      var myParties = laws.map(law => law.party)
+      var myLabels = ["Educación", "Sanidad", "Economía", "Justicia", "Exteriores", "Defensa", "Interior",
+                      "Agricultura", "Infraestructuras", "Cultura"]
+
+      d3Svg
+        .style('width', width + margin.left + margin.right)
+        .style('height', height + margin.top + margin.bottom);
+
+      // Build X scales and axis:
+      var x = d3.scaleBand()
+        .range([ 0, width ])
+        .domain(myParties)
+        .padding(0.01);
+      d3Svg.append("g")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x))
+      d3Svg.selectAll<SVGTextElement, any>('text')
+        .attr('transform', 'rotate(-45)')
+        .attr('text-anchor', 'end');
+
+      // Build X scales and axis:
+      var y = d3.scaleBand()
+        .range([ height, 0 ])
+        .domain(myLabels)
+        .padding(0.01);
+      d3Svg.append("g")
+        .call(d3.axisLeft(y));
+
+      // Build color scale
+      let maxValue: number = 0;
+      laws.forEach( l => {
+        if (l.value > maxValue) {
+          maxValue = l.value;
+        }
+      });
+      var myColor = d3.scaleLinear<string>()
+        .range(["white", "green"])
+        .domain([0, maxValue])
+
+      var myNumber = function(x: number) {
+        if (x == 0) {return ''}
+        return (x * 100 / totalLaws).toFixed(1) + '%'
+      }
+
+      //Read the data
+      d3Svg.selectAll()
+          .data(laws, function(d) {return d.party+':'+d.label;})
+          .enter()
+          .append("rect")
+          .attr("x", function(d) {return x(d.party) })
+          .attr("y", function(d) {return y(d.label) })
+          .attr("width", x.bandwidth() )
+          .attr("height", y.bandwidth() )
+          .style("fill", function(d) {return myColor(d.value)} )
+      d3Svg.selectAll()
+          .data(laws, function(d) {return d.party+':'+d.label;})
+          .enter()
+          .append("text")
+          .attr("x", function(d) {return x(d.party) + 17 })
+          .attr("y", function(d) {return y(d.label) + 25 })
+          .attr("width", x.bandwidth() )
+          .attr("height", y.bandwidth() )
+          .attr("text-anchor", "middle")
+          .attr("font-size", "12px")
+          .text(function(d) { return myNumber(d.value) });
+
     }
   }
 }
