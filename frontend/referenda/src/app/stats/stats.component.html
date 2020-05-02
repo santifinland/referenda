@@ -17,6 +17,9 @@
         <button type="button" class="list-group-item list-group-item-action active" (click)="stat('partyResults')">
           Propuestas votadas
         </button>
+        <button type="button" class="list-group-item list-group-item-action active" (click)="stat('partyAreas')">
+          Propuestas por &aacute;rea
+        </button>
       </ul>
       <ul class="list-group">
         <br>
@@ -95,6 +98,19 @@
       </p>
       <br>
     </div>
+
+    <div id="partyAreas" *ngIf="partyAreasShown" class="col-xl-9 stat">
+      <svg>
+      </svg>
+      <br>
+      <br>
+      <p class="explanation">
+        Porcentaje de propuestas presentadas por &aacute;rea por cada partido
+        político con representación en el Congreso de los Diputados
+      </p>
+      <br>
+    </div>
+
     <div id="ccaaLaws" *ngIf="ccaaLawsShown" class="col-xl-9 stat">
       <svg>
         <rect></rect>
