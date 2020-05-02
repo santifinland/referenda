@@ -71,8 +71,7 @@ export class StatsComponent implements OnInit {
                    'bng', 'prc', 'te', 'gobierno', 'senado', 'popular'];
         var p;
         for (p in parties) {
-          //data = data.concat(this.buildPartyAreaData(parties[p], laws.filter(law => law.institution.includes(parties[p]))));
-          data = data.concat(this.buildPartyAreaData(parties[p], laws.filter(law => law.institution[0] == parties[p])));
+          data = data.concat(this.buildPartyAreaData(parties[p], laws.filter(law => law.institution.includes(parties[p]))));
         }
         this.drawArea(this.totalLaws, data);
         document.getElementById('partyAreas').scrollIntoView({behavior: "smooth"});
@@ -238,16 +237,16 @@ export class StatsComponent implements OnInit {
     const infraestructuras = {'party': party, 'label': 'Infraestructuras', 'id': 2, 'value': 0, 'color': '#d51418'};
     const cultura = {'party': party, 'label': 'Cultura', 'id': 2, 'value': 0, 'color': '#d51418'};
     laws.forEach( (law) => {
-      if (law.area.includes('educacion')) { educacion.value += 1; }
-      if (law.area.includes('sanidad')) { sanidad.value += 1; }
-      if (law.area.includes('economia')) { economia.value += 1; }
-      if (law.area.includes('justicia')) { justicia.value += 1; }
-      if (law.area.includes('exteriores')) { exteriores.value += 1; }
-      if (law.area.includes('defensa')) { defensa.value += 1; }
-      if (law.area.includes('interior')) { interior.value += 1; }
-      if (law.area.includes('agricultura')) { agricultura.value += 1; }
-      if (law.area.includes('infraestructuras')) { infraestructuras.value += 1; }
-      if (law.area.includes('cultura')) { cultura.value += 1; }
+      if (law.area.includes('educacion')) { educacion.value += 1 / law.area.length / law.institution.length; }
+      if (law.area.includes('sanidad')) { sanidad.value += 1 / law.area.length / law.institution.length; }
+      if (law.area.includes('economia')) { economia.value += 1 / law.area.length / law.institution.length; }
+      if (law.area.includes('justicia')) { justicia.value += 1 / law.area.length / law.institution.length; }
+      if (law.area.includes('exteriores')) { exteriores.value += 1 / law.area.length / law.institution.length; }
+      if (law.area.includes('defensa')) { defensa.value += 1 / law.area.length / law.institution.length; }
+      if (law.area.includes('interior')) { interior.value += 1 / law.area.length / law.institution.length; }
+      if (law.area.includes('agricultura')) { agricultura.value += 1 / law.area.length / law.institution.length; }
+      if (law.area.includes('infraestructuras')) { infraestructuras.value += 1 / law.area.length / law.institution.length; }
+      if (law.area.includes('cultura')) { cultura.value += 1 / law.area.length / law.institution.length; }
     });
     return [educacion, sanidad, economia, justicia, exteriores, defensa, interior, agricultura, infraestructuras,
             cultura];
