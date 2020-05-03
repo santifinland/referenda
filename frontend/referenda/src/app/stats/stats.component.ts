@@ -18,12 +18,24 @@ export class StatsComponent implements OnInit {
   private d3Svg: Selection<SVGSVGElement, any, null, undefined>;
   private parentNativeElement: any;
 
+  laws: Law[] = [];
+  totalLaws: number = this.laws.length;
+  proposicionLey: number = 0;
+  proposicionLeyOrganica: number = 0;
+  proposicionNoLey: number = 0;
+  proyectoLey: number = 0;
+  decretoLey: number = 0;
+
   ccaaLawsShown: Boolean = false;
   ccaaResultsShown: Boolean = false;
   partyLawsShown: boolean = true;
   partyResultsShown: boolean = false;
   partyAreasShown: boolean = false;
-  totalLaws: number = 0;
+  sections = {'ccaaLaws': this.ccaaLawsShown,
+              'ccaResults': this.ccaaResultsShown,
+              'partyLaws': this.partyLawsShown,
+              'partyResults': this.partyResultsShown,
+              'partyAreas': this.partyAreasShown};
 
   constructor(
       element: ElementRef,
@@ -35,23 +47,31 @@ export class StatsComponent implements OnInit {
     this.parentNativeElement = element.nativeElement;
   }
 
-  getPartyLaws(): void {
+  lawsTypes(laws): void {
+    this.proposicionLey = laws.filter(l => l.type == "Proposición de Ley");
+    this.proposicionLeyOrganica = laws.filter(l => l.type == "Proposición de Ley Orgnánica");
+    this.proposicionNoLey = laws.filter(l => l.type == "Proposición no de Ley");
+    this.proyectoLey = laws.filter(l => l.type == "Proyecto de Ley");
+    this.decretoLey = laws.filter(l => l.type == "Real Decreto-Ley");
+  }
+
+  getPartyLaws(init: boolean = false): void {
     this.lawService.getAllLaws()
       .subscribe(laws => {
+        this.laws = laws;
+        this.totalLaws = laws.length;
         const data = this.buildData(laws);
         this.draw(data);
-        this.totalLaws = laws.length;
-        document.getElementById('partyLaws').scrollIntoView({behavior: "smooth"});
+        if (init == false) {
+          document.getElementById('partyLaws').scrollIntoView({behavior: "smooth"});
+        }
       });
   }
 
   getCCAALaws(): void {
-    this.lawService.getAllLaws()
-      .subscribe(laws => {
-        const data = this.buildCCAAData(laws);
-        this.draw(data);
-        document.getElementById('ccaaLaws').scrollIntoView({behavior: "smooth"});
-      });
+    const data = this.buildCCAAData(this.laws);
+    this.draw(data);
+    document.getElementById('ccaaLaws').scrollIntoView({behavior: "smooth"});
   }
 
   getPartyResults(): void {
@@ -64,18 +84,15 @@ export class StatsComponent implements OnInit {
   }
 
   getAreaLaws(): void {
-    this.lawService.getAllLaws()
-      .subscribe(laws => {
-        let data = []
-        const parties = ['psoe', 'pp', 'vox', 'podemos', 'erc', 'ciudadanos', 'jpc', 'pnv', 'bildu', 'mp', 'cup', 'cc', 'upn',
-                   'bng', 'prc', 'te', 'gobierno', 'senado', 'popular'];
-        var p;
-        for (p in parties) {
-          data = data.concat(this.buildPartyAreaData(parties[p], laws.filter(law => law.institution.includes(parties[p]))));
-        }
-        this.drawArea(this.totalLaws, data);
-        document.getElementById('partyAreas').scrollIntoView({behavior: "smooth"});
-      });
+    let data = []
+    const parties = ['psoe', 'pp', 'vox', 'podemos', 'erc', 'ciudadanos', 'jpc', 'pnv', 'bildu', 'mp', 'cup', 'cc', 'upn',
+                     'bng', 'prc', 'te', 'gobierno', 'senado', 'popular'];
+    var p;
+    for (p in parties) {
+      data = data.concat(this.buildPartyAreaData(parties[p], this.laws.filter(l => l.institution.includes(parties[p]))));
+    }
+    this.drawArea(this.totalLaws, data);
+    document.getElementById('partyAreas').scrollIntoView({behavior: "smooth"});
   }
 
   getCCAAResults(): void {
@@ -88,49 +105,36 @@ export class StatsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getPartyLaws();
+    this.getPartyLaws(true);
     const title = 'Estadísticas de votaciones en el Congreso de los Diputados';
     this.titleService.setTitle(title);
     this.metaTagService.updateTag({ name: 'description', content: title });
     window.scroll(0,0);
   }
 
+  boolSections(section): void {
+    for (var key in this.sections) {
+      if (key == section) { this.sections[key] = true; }
+      else { this.sections[key] = false; }
+    }
+  }
+
   stat(selectedStat): void {
     if (selectedStat === 'partyLaws') {
       this.getPartyLaws();
-      this.ccaaLawsShown = false;
-      this.ccaaResultsShown = false;
-      this.partyLawsShown = true;
-      this.partyResultsShown = false;
-      this.partyAreasShown = false;
+      this.boolSections(selectedStat);
     } else if (selectedStat === 'partyResults') {
       this.getPartyResults();
-      this.ccaaLawsShown = false;
-      this.ccaaResultsShown = false;
-      this.partyLawsShown = false;
-      this.partyResultsShown = true;
-      this.partyAreasShown = false;
+      this.boolSections(selectedStat);
     } else if (selectedStat === 'ccaaLaws') {
       this.getCCAALaws();
-      this.ccaaLawsShown = true;
-      this.ccaaResultsShown = false;
-      this.partyLawsShown = false;
-      this.partyResultsShown = false;
-      this.partyAreasShown = false;
+      this.boolSections(selectedStat);
     } else if (selectedStat === 'ccaaResults') {
       this.getCCAAResults();
-      this.ccaaLawsShown = false;
-      this.ccaaResultsShown = true;
-      this.partyLawsShown = false;
-      this.partyResultsShown = false;
-      this.partyAreasShown = false;
+      this.boolSections(selectedStat);
     } else if (selectedStat === 'partyAreas') {
       this.getAreaLaws();
-      this.ccaaLawsShown = false;
-      this.ccaaResultsShown = false;
-      this.partyLawsShown = false;
-      this.partyResultsShown = false;
-      this.partyAreasShown = true;
+      this.boolSections(selectedStat);
     } else {
     }
   }

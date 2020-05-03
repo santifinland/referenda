@@ -6,6 +6,59 @@
       <br>
     </div>
   </div>
+
+  <div class="row row-cols-1 row-cols-md-6">
+    <div class="col mb-1">
+      <div class="card border-light">
+        <div class="card-body text-secondary">
+          <p class="card-title stat">{{totalLaws}}</p>
+        </div>
+        <div class="card-footer">Iniciativas legislativas</div>
+      </div>
+    </div>
+    <div class="col mb-1">
+      <div class="card border-light">
+        <div class="card-body text-secondary">
+          <p class="card-title stat">{{proposicionLey}}</p>
+        </div>
+        <div class="card-footer">Proposición de Ley</div>
+      </div>
+    </div>
+    <div class="col mb-1">
+      <div class="card border-light">
+        <div class="card-body text-secondary">
+          <p class="card-title stat">{{proposicionLeyOrganica}}</p>
+        </div>
+        <div class="card-footer">Ley Orgánica</div>
+      </div>
+    </div>
+    <div class="col mb-1">
+      <div class="card border-light">
+        <div class="card-body text-secondary">
+          <p class="card-title stat">{{proyectoLey}}</p>
+        </div>
+        <div class="card-footer">Proyecto de Ley</div>
+      </div>
+    </div>
+    <div class="col mb-1">
+      <div class="card border-light">
+        <div class="card-body text-secondary">
+          <p class="card-title stat">{{decretoLey}}</p>
+        </div>
+        <div class="card-footer">Real Decreto-Ley</div>
+      </div>
+    </div>
+    <div class="col mb-1">
+      <div class="card border-light">
+        <div class="card-body text-secondary">
+          <p class="card-title stat">{{proposicionNoLey}}</p>
+        </div>
+        <div class="card-footer">Proposición no de Ley</div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
   <div class="row row-content">
     <div class="col-xl-3 stat">
       <ul class="list-group">
@@ -34,7 +87,7 @@
       </ul>
       <br>
     </div>
-    <div id="partyResults" *ngIf="partyResultsShown" class="col-xl-9 stat">
+    <div id="partyResults" *ngIf="sections['partyResults']" class="col-xl-9 stat">
       <svg>
         <rect></rect>
         <rect></rect>
@@ -66,7 +119,7 @@
       </p>
       <br>
     </div>
-    <div id="partyLaws" *ngIf="partyLawsShown" class="col-xl-9 stat">
+    <div id="partyLaws" *ngIf="sections['partyLaws']" class="col-xl-9 stat">
       <svg>
         <rect></rect>
         <rect></rect>
@@ -99,7 +152,7 @@
       <br>
     </div>
 
-    <div id="partyAreas" *ngIf="partyAreasShown" class="col-xl-9 stat">
+    <div id="partyAreas" *ngIf="sections['partyAreas']" class="col-xl-9 stat">
       <svg>
       </svg>
       <br>
@@ -111,7 +164,7 @@
       <br>
     </div>
 
-    <div id="ccaaLaws" *ngIf="ccaaLawsShown" class="col-xl-9 stat">
+    <div id="ccaaLaws" *ngIf="sections['ccaaLaws']" class="col-xl-9 stat">
       <svg>
         <rect></rect>
         <rect></rect>
@@ -143,7 +196,7 @@
       </p>
       <br>
     </div>
-    <div id="ccaaResults" *ngIf="ccaaResultsShown" class="col-xl-9 stat">
+    <div id="ccaaResults" *ngIf="sections['ccaaResults']" class="col-xl-9 stat">
       <svg>
         <rect></rect>
         <rect></rect>
