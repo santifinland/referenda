@@ -47,39 +47,31 @@ export class StatsComponent implements OnInit {
     this.parentNativeElement = element.nativeElement;
   }
 
-  lawsTypes(laws): void {
-    this.proposicionLey = laws.filter(l => l.type == "Proposición de Ley");
-    this.proposicionLeyOrganica = laws.filter(l => l.type == "Proposición de Ley Orgnánica");
-    this.proposicionNoLey = laws.filter(l => l.type == "Proposición no de Ley");
-    this.proyectoLey = laws.filter(l => l.type == "Proyecto de Ley");
-    this.decretoLey = laws.filter(l => l.type == "Real Decreto-Ley");
+  lawsTypes(laws: Law[]): void {
+    this.proposicionLey = laws.filter(l => l.law_type =="Proposición de Ley").length;
+    this.proposicionLeyOrganica = laws.filter(l => l.law_type == "Proposición de Ley Orgánica").length;
+    this.proposicionNoLey = laws.filter(l => l.law_type == "Proposición no de Ley").length;
+    this.proyectoLey = laws.filter(l => l.law_type == "Proyecto de Ley").length;
+    this.decretoLey = laws.filter(l => l.law_type == "Real Decreto-Ley").length;
   }
 
-  getPartyLaws(init: boolean = false): void {
+  getPartyLaws(): void {
     this.lawService.getAllLaws()
       .subscribe(laws => {
         this.laws = laws;
         this.totalLaws = laws.length;
-        const data = this.buildData(laws);
-        this.draw(data);
-        if (init == false) {
-          document.getElementById('partyLaws').scrollIntoView({behavior: "smooth"});
-        }
+        this.lawsTypes(laws);
+        this.progressCard(laws, 'law', this.buildData, 80);
+        this.progressCard(laws, 'law', this.buildCCAAData, 70);
+        this.getAreaLaws();
       });
-  }
-
-  getCCAALaws(): void {
-    const data = this.buildCCAAData(this.laws);
-    this.draw(data);
-    document.getElementById('ccaaLaws').scrollIntoView({behavior: "smooth"});
   }
 
   getPartyResults(): void {
     this.lawService.getResults()
       .subscribe(laws => {
-        const data = this.buildData(laws);
-        this.draw(data);
-        document.getElementById('partyResults').scrollIntoView({behavior: "smooth"});
+        this.progressCard(laws, 'result', this.buildData, 80);
+        this.progressCard(laws, 'result', this.buildCCAAData, 70);
       });
   }
 
@@ -91,52 +83,16 @@ export class StatsComponent implements OnInit {
     for (p in parties) {
       data = data.concat(this.buildPartyAreaData(parties[p], this.laws.filter(l => l.institution.includes(parties[p]))));
     }
-    this.drawArea(this.totalLaws, data);
-    document.getElementById('partyAreas').scrollIntoView({behavior: "smooth"});
-  }
-
-  getCCAAResults(): void {
-    this.lawService.getResults()
-      .subscribe(laws => {
-        const data = this.buildCCAAData(laws);
-        this.draw(data);
-        document.getElementById('ccaaResults').scrollIntoView({behavior: "smooth"});
-      });
+    this.drawArea("partyArea", this.totalLaws, data);
   }
 
   ngOnInit() {
-    this.getPartyLaws(true);
+    this.getPartyLaws();
+    this.getPartyResults();
     const title = 'Estadísticas de votaciones en el Congreso de los Diputados';
     this.titleService.setTitle(title);
     this.metaTagService.updateTag({ name: 'description', content: title });
     window.scroll(0,0);
-  }
-
-  boolSections(section): void {
-    for (var key in this.sections) {
-      if (key == section) { this.sections[key] = true; }
-      else { this.sections[key] = false; }
-    }
-  }
-
-  stat(selectedStat): void {
-    if (selectedStat === 'partyLaws') {
-      this.getPartyLaws();
-      this.boolSections(selectedStat);
-    } else if (selectedStat === 'partyResults') {
-      this.getPartyResults();
-      this.boolSections(selectedStat);
-    } else if (selectedStat === 'ccaaLaws') {
-      this.getCCAALaws();
-      this.boolSections(selectedStat);
-    } else if (selectedStat === 'ccaaResults') {
-      this.getCCAAResults();
-      this.boolSections(selectedStat);
-    } else if (selectedStat === 'partyAreas') {
-      this.getAreaLaws();
-      this.boolSections(selectedStat);
-    } else {
-    }
   }
 
   buildData(laws: Law[]) {
@@ -256,6 +212,24 @@ export class StatsComponent implements OnInit {
             cultura];
   }
 
+  progressCard(laws: Law[], idPrefix: string, dataBuilder, progressWidth) {
+    const data = dataBuilder(laws);
+    let maxValue: number = 0;
+      data.forEach( d => {
+        if (d.value > maxValue) {
+          maxValue = d.value;
+        }
+      });
+    data.forEach( (d) => {
+      document.getElementById(idPrefix + d.label).style.width =  d.value * progressWidth / maxValue + "%";
+      document.getElementById(idPrefix + d.label).setAttribute("aria-valuenow", d.value * progressWidth / maxValue + "%");
+      if (d.value != 0) {
+        document.getElementById(idPrefix + d.label).innerHTML = d.value.toString() + '&nbsp';
+        document.getElementById(idPrefix + d.label).classList.add("bg-secondary");
+      }
+    });
+  }
+
   draw(results: any[]) {
     const d3 = this.d3;
     let d3ParentElement: Selection<HTMLElement, any, null, undefined>;
@@ -318,13 +292,13 @@ export class StatsComponent implements OnInit {
     }
   }
 
-  drawArea(totalLaws: number, laws: any[]) {
+  drawArea(id: string, totalLaws: number, laws: any[]) {
     const d3 = this.d3;
     let d3ParentElement: Selection<HTMLElement, any, null, undefined>;
     let d3Svg: Selection<SVGSVGElement, any, null, undefined>;
     let d3G: Selection<SVGGElement, any, null, undefined>;
-    const WIDTH = 700;
-    const HEIGHT = 432;
+    const WIDTH = document.getElementById(id).offsetWidth * 0.95;
+    const HEIGHT = WIDTH * 0.6;
 
     if (this.parentNativeElement !== null) {
 
@@ -375,7 +349,7 @@ export class StatsComponent implements OnInit {
         }
       });
       var myColor = d3.scaleLinear<string>()
-        .range(["white", "green"])
+        .range(["white", "grey"])
         .domain([0, maxValue])
 
       var myNumber = function(x: number) {
@@ -397,14 +371,13 @@ export class StatsComponent implements OnInit {
           .data(laws, function(d) {return d.party+':'+d.label;})
           .enter()
           .append("text")
-          .attr("x", function(d) {return x(d.party) + 17 })
-          .attr("y", function(d) {return y(d.label) + 25 })
+          .attr("x", function(d) {return x(d.party) + 27 })
+          .attr("y", function(d) {return y(d.label) + 33 })
           .attr("width", x.bandwidth() )
           .attr("height", y.bandwidth() )
           .attr("text-anchor", "middle")
           .attr("font-size", "12px")
           .text(function(d) { return myNumber(d.value) });
-
     }
   }
 }
