@@ -11,6 +11,12 @@ svg {
 .stat {
   text-align: center;
 }
+.total {
+  background-color: #EEE;
+}
+.total-footer {
+  background-color: #DDD;
+}
 .line {
   fill: none;
   stroke: steelblue;
@@ -30,4 +36,15 @@ svg {
   padding-right: 0px;
   text-align: center;
   font-size: 0.8em;
+}
+.bg-light {
+  color: #777;
+  padding-right: 10px;
+  font-size: 1.2em;
+}
+.progress {
+  margin: 5px 0px 0px 0px;
+}
+.progress-bar {
+  text-align: right;
 }
