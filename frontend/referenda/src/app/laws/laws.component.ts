@@ -15,7 +15,7 @@ export class LawsComponent implements OnInit {
 
   laws: Law[];
 
-  lawFilter: any = { $or: [{ headline: '', area: '' }] }
+  lawFilter: any = { $or: [{ headline: '', area: '', law_type: '' }] }
 
   constructor(
       private lawService: LawService,
@@ -53,5 +53,36 @@ export class LawsComponent implements OnInit {
 
   filter(area: string) {
     this.lawFilter.area = (area == 'all') ? '' : area;
+  }
+
+  filterLawType(lawType: string) {
+    if (lawType == 'all') {
+      this.lawFilter.law_type = { $or: [
+      	"Proposición de Ley",
+	      "Proposición de Ley Orgánica",
+	      "Proposición de Ley de reforma de Ley Orgánica",
+	      "Proposición de reforma constitucional",
+	      "Proposición de reforma del Reglamento del Congreso",
+	      "Proposición no de Ley",
+	      "Propuesta de candidato a la Presidencia del Gobierno",
+	      "Proyecto de Ley",
+	      "Real Decreto-Ley"
+      ] };
+    }
+    if (lawType == 'legislativas') {
+      this.lawFilter.law_type = { $or: [
+      	"Proposición de Ley",
+	      "Proposición de Ley Orgánica",
+	      "Proposición de Ley de reforma de Ley Orgánica",
+	      "Proposición de reforma constitucional",
+	      "Proposición de reforma del Reglamento del Congreso",
+	      "Propuesta de candidato a la Presidencia del Gobierno",
+	      "Proyecto de Ley",
+	      "Real Decreto-Ley"
+      ] };
+    }
+    if (lawType == 'orientacion') {
+      this.lawFilter.law_type = { $or: ['Proposición no de Ley'] };
+    }
   }
 }

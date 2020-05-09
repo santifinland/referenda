@@ -21,13 +21,13 @@
       <hr>
     </div>
   </div>
-  <ul class="nav justify-content-center">
+  <ul class="nav">
     <input class="form-control mr-sm-2 search" [(ngModel)]="lawFilter.headline"
            placeholder="Escribe aqu&iacute; palabras clave para buscar una Ley o Proposici&oacute;n">
     <div class="btn-group btn-group-toggle flex-wrap text-center" data-toggle="buttons">
-      <label class="btn btn-secondary active">
+      <label class="btn btn-secondary active main-button">
         <input type="radio" name="options" id="all" autocomplete="off" checked (click)="filter('all')">
-          Todas las propuestas
+          Todas las propuestas&nbsp;
       </label>
       <label class="btn btn-secondary">
         <input type="radio" name="options" id="educacion" autocomplete="off" (click)="filter('educacion')">
@@ -71,6 +71,27 @@
       </label>
     </div>
   </ul>
+
+
+  <ul class="nav filters">
+    <div class="btn-group btn-group-toggle flex-wrap text-center" data-toggle="buttons">
+      <label class="btn btn-secondary active main-button">
+        <input type="radio" name="optionsLaws" id="legislativas" autocomplete="off"
+               checked (click)="filterLawType('legislativas')">Propuestas legislativas
+      </label>
+      <label class="btn btn-secondary">
+        <input type="radio" name="optionsLaws" id="orientacion" autocomplete="off"
+               (click)="filterLawType('orientacion')">Propuestas de orientación política
+      </label>
+      <label class="btn btn-secondary">
+        <input type="radio" name="optionsLaws" id="allTypes" autocomplete="off" (click)="filterLawType('all')">
+          Todas las propuestas
+      </label>
+    </div>
+  </ul>
+
+
+
   <hr>
   <div class="row" *ngFor="let law of laws | filterBy: lawFilter">
     <div class="col-xs-12 col-sm-7" [ngStyle]="{'background-color': law.featured === true ? '#eee': 'white'}">

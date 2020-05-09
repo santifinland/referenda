@@ -76,6 +76,9 @@
   padding: 10px;
   cursor: default;
 }
+.btn-secondary {
+  font-size: 80%;
+}
 .result-number {
   margin-right: 10px;
   font-family: "Montserrat-Bold";
@@ -98,4 +101,10 @@
 }
 .search {
   margin-bottom: 10px;
+}
+.filters {
+  margin-top: 10px;
+}
+.main-button {
+  width: 160px;
 }
