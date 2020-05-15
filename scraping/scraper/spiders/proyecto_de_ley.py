@@ -52,7 +52,6 @@ class QuotesSpider(scrapy.Spider):
             'featured': 'False',
             'headline': headline,
             'link': link,
-            'pub_date': '2030-01-01T00:00:00Z',
             'vote_start': vote_start,
             'long_description': response.xpath("//div[@class='texto_completo']").getall()
         }

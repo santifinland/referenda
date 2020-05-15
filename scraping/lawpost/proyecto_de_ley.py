@@ -3,6 +3,8 @@
 # Send Proyecto de Ley to Referenda backend
 
 import json
+import requests
+from datetime import datetime
 
 from law import Law
 
@@ -10,9 +12,19 @@ from law import Law
 def main():
     """ main script """
 
-    # Get arguments
+    # Parse Laws
     print("Start law send")
+    laws = parse_laws()
+    headers = {"Content-Type": "application/json",
+               "x-access-token": ""}
+    # Send laws to referenda
+    for l in laws:
+        print(len(l.toJSON()))
+        r = requests.post('https://referenda.es:3443/api/laws', headers=headers, data=l.toJSON(), verify=False)
+        print(r)
 
+
+def parse_laws():
     # Open proyectos de ley file
     f = open("proyecto_de_ley.json", "r")
     laws_document = json.load(f)
@@ -26,13 +38,12 @@ def main():
             law_document.get('headline')[0],
             law_document.get('long_description'),
             law_document.get('link'),
-            law_document.get('pub_date'),
             law_document.get('vote_start'))
         laws.append(law)
     laws.sort(key=lambda x: x.vote_start, reverse=True)
-    for l in laws:
-        print(l)
+    filtered_laws = list(filter(lambda x: x.vote_start > datetime(2020, 3, 24), laws))
     print('Total laws: {}'.format(len(laws)))
+    return filtered_laws
 
 
 if __name__ == "__main__":
