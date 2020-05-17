@@ -1,0 +1,16 @@
+
+
+scrapy shell 'http://www.congreso.es/portal/page/portal/Congreso/Congreso/Iniciativas/Indice%20de%20Iniciativas'
+
+pdl_links = response.xpath("//a[contains(text(),'Proposición de ley de Grupos Parlamentarios del Congreso.')]").attrib['href']
+
+fetch(response.urljoin(pdl_links))
+
+pdl = response.xpath("//div[{}]//div[1]//div[1]//div[1]//p[1]//a[1]".format(6)).attrib['href']
+
+fetch(response.urljoin(pdl))
+
+headline = response.xpath("//p[@class='titulo_iniciativa']/text()").get()
+headline
+
+long_description_link = response.xpath("(//p/a/b[contains(text(),'texto íntegro')]/..)")[0].attrib['href']
