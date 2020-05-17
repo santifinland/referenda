@@ -9,7 +9,7 @@ class Law(object):
 
     def __init__(self, law_type, institution, tier, featured, headline, long_description, link, vote_start):
         self.law_type = law_type
-        self.institution = institution.lower()
+        self.institution = self.clean_institution(institution)
         self.tier = tier
         self.featured = False if featured == 'False' else True
         self.headline = headline
@@ -42,3 +42,20 @@ class Law(object):
 
     def toJSON(self):
         return json.dumps(self, default=self.datetime_option)
+
+    def clean_institution(self, institution):
+        institution = institution.lower()
+        if "socialista" in institution:
+            return "psoe"
+        if "popular" in institution:
+            return "pp"
+        if "vox" in institution:
+            return "vox"
+        if "unidas" in institution:
+            return "podemos"
+        if "ciudadanos" in institution:
+            return "ciudadanos"
+        if "republicano" in institution:
+            return "erc"
+        else:
+            return institution
