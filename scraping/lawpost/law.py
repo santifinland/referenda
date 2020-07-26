@@ -13,7 +13,8 @@ class Law(object):
         self.tier = tier
         self.featured = False if featured == 'False' else True
         self.headline = headline.partition('.')[0]
-        long_description_replaced = (long_description[0]
+        long_description = long_description[0] if len(long_description) > 0 else "No disponible"
+        long_description_replaced = (long_description
                                      .replace('\n\n', 'carrier-return')
                                      .replace('\n', '')
                                      .replace('<br>', '')
@@ -31,7 +32,8 @@ class Law(object):
         self.official_abstention = 0
 
     def __str__(self):
-        return '{} - {}: institution: {}'.format(self.vote_start, self.headline[0:220], self.institution)
+        return '{} - {}: institution: {}. Long des: {}'\
+            .format(self.vote_start, self.headline[0:220], self.institution, len(self.long_description))
 
     @staticmethod
     def datetime_option(value):
