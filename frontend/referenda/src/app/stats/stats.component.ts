@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 
-import { D3Service, D3, Selection} from 'd3-ng2-service';
+import * as d3 from 'd3';
 
 import { Law } from '../_models/law';
 import { LawService } from '../law.service';
@@ -14,23 +14,19 @@ import { LawService } from '../law.service';
 })
 export class StatsComponent implements OnInit {
 
-  private d3: D3;
-  private d3Svg: Selection<SVGSVGElement, any, null, undefined>;
-  private parentNativeElement: any;
-
   laws: Law[] = [];
   totalLaws: number = this.laws.length;
-  proposicionLey: number = 0;
-  proposicionLeyOrganica: number = 0;
-  proposicionNoLey: number = 0;
-  proyectoLey: number = 0;
-  decretoLey: number = 0;
+  proposicionLey = 0;
+  proposicionLeyOrganica = 0;
+  proposicionNoLey = 0;
+  proyectoLey = 0;
+  decretoLey = 0;
 
   ccaaLawsShown: Boolean = false;
   ccaaResultsShown: Boolean = false;
-  partyLawsShown: boolean = true;
-  partyResultsShown: boolean = false;
-  partyAreasShown: boolean = false;
+  partyLawsShown = true;
+  partyResultsShown = false;
+  partyAreasShown = false;
   sections = {'ccaaLaws': this.ccaaLawsShown,
               'ccaResults': this.ccaaResultsShown,
               'partyLaws': this.partyLawsShown,
@@ -38,21 +34,17 @@ export class StatsComponent implements OnInit {
               'partyAreas': this.partyAreasShown};
 
   constructor(
-      element: ElementRef,
-      d3Service: D3Service,
       private lawService: LawService,
       private metaTagService: Meta,
       private titleService: Title) {
-    this.d3 = d3Service.getD3();
-    this.parentNativeElement = element.nativeElement;
   }
 
   lawsTypes(laws: Law[]): void {
-    this.proposicionLey = laws.filter(l => l.law_type =="Proposición de Ley").length;
-    this.proposicionLeyOrganica = laws.filter(l => l.law_type == "Proposición de Ley Orgánica").length;
-    this.proposicionNoLey = laws.filter(l => l.law_type == "Proposición no de Ley").length;
-    this.proyectoLey = laws.filter(l => l.law_type == "Proyecto de Ley").length;
-    this.decretoLey = laws.filter(l => l.law_type == "Real Decreto-Ley").length;
+    this.proposicionLey = laws.filter(l => l.law_type === 'Proposición de Ley').length;
+    this.proposicionLeyOrganica = laws.filter(l => l.law_type === 'Proposición de Ley Orgánica').length;
+    this.proposicionNoLey = laws.filter(l => l.law_type === 'Proposición no de Ley').length;
+    this.proyectoLey = laws.filter(l => l.law_type === 'Proyecto de Ley').length;
+    this.decretoLey = laws.filter(l => l.law_type === 'Real Decreto-Ley').length;
   }
 
   getPartyLaws(): void {
@@ -76,14 +68,15 @@ export class StatsComponent implements OnInit {
   }
 
   getAreaLaws(): void {
-    let data = []
+    let data = [];
     const parties = ['psoe', 'pp', 'vox', 'podemos', 'erc', 'ciudadanos', 'jpc', 'pnv', 'bildu', 'mp', 'cup', 'cc', 'upn',
                      'bng', 'prc', 'te', 'gobierno', 'senado', 'popular'];
-    var p;
-    for (p in parties) {
-      data = data.concat(this.buildPartyAreaData(parties[p], this.laws.filter(l => l.institution.includes(parties[p]))));
+    for (const p in parties) {
+      if (parties.hasOwnProperty(p)) {
+        data = data.concat(this.buildPartyAreaData(parties[p], this.laws.filter(l => l.institution.includes(parties[p]))));
+      }
     }
-    this.drawArea("partyArea", this.totalLaws, data);
+    this.drawArea('partyArea', this.totalLaws, data);
   }
 
   ngOnInit() {
@@ -92,7 +85,7 @@ export class StatsComponent implements OnInit {
     const title = 'Estadísticas de votaciones en el Congreso de los Diputados';
     this.titleService.setTitle(title);
     this.metaTagService.updateTag({ name: 'description', content: title });
-    window.scroll(0,0);
+    window.scroll(0, 0);
   }
 
   buildData(laws: Law[]) {
@@ -214,170 +207,162 @@ export class StatsComponent implements OnInit {
 
   progressCard(laws: Law[], idPrefix: string, dataBuilder, progressWidth) {
     const data = dataBuilder(laws);
-    let maxValue: number = 0;
+    let maxValue = 0;
       data.forEach( d => {
         if (d.value > maxValue) {
           maxValue = d.value;
         }
       });
     data.forEach( (d) => {
-      document.getElementById(idPrefix + d.label).style.width =  d.value * progressWidth / maxValue + "%";
-      document.getElementById(idPrefix + d.label).setAttribute("aria-valuenow", d.value * progressWidth / maxValue + "%");
-      if (d.value != 0) {
+      document.getElementById(idPrefix + d.label).style.width =  d.value * progressWidth / maxValue + '%';
+      document.getElementById(idPrefix + d.label).setAttribute('aria-valuenow', d.value * progressWidth / maxValue + '%');
+      if (d.value !== 0) {
         document.getElementById(idPrefix + d.label).innerHTML = d.value.toString() + '&nbsp';
-        document.getElementById(idPrefix + d.label).classList.add("bg-secondary");
+        document.getElementById(idPrefix + d.label).classList.add('bg-secondary');
       }
     });
   }
 
   draw(results: any[]) {
-    const d3 = this.d3;
-    let d3ParentElement: Selection<HTMLElement, any, null, undefined>;
-    let d3Svg: Selection<SVGSVGElement, any, null, undefined>;
-    let d3G: Selection<SVGGElement, any, null, undefined>;
     const WIDTH = 700;
     const HEIGHT = 432;
 
-    if (this.parentNativeElement !== null) {
-      d3ParentElement = d3.select(this.parentNativeElement);
-      d3Svg = this.d3Svg = d3ParentElement.select<SVGSVGElement>('svg');
-      d3Svg.selectAll('g').remove();
-      d3G = d3Svg.append<SVGGElement>('g');
+    const d3Svg = d3.select('svg');
+    d3Svg.selectAll('g').remove();
+    d3Svg.append<SVGGElement>('g');
 
-      d3Svg
-        .style('width', WIDTH)
-        .style('height', HEIGHT);
+    d3Svg
+      .style('width', WIDTH)
+      .style('height', HEIGHT);
 
-      const labels = results.map(datum => datum.label);
-      const xScale = d3.scaleBand()
-        .range([0, WIDTH])
-        .domain(labels);
-      const yMax = d3.max(results, function(datum, index) { return datum.value; });
-      const yScale = d3.scaleLinear().domain([0, yMax + 1]).range([HEIGHT, 0]);
-      const barWidth = WIDTH / results.length - (WIDTH * 0.1 / results.length);
+    const labels = results.map(datum => datum.label);
+    const xScale = d3.scaleBand()
+      .range([0, WIDTH])
+      .domain(labels);
+    const yMax = d3.max(results, function(datum) { return datum.value; });
+    const yScale = d3.scaleLinear().domain([0, yMax + 1]).range([HEIGHT, 0]);
+    const barWidth = WIDTH / results.length - (WIDTH * 0.1 / results.length);
 
-      d3Svg.selectAll<SVGRectElement, any>('rect')
-        .data(results)
-        .attr('height', function(datum, index) {
-          return HEIGHT - yScale(datum.value);
-        })
-        .attr('y', function(datum, index) {
-          return yScale(datum.value);
-        })
-        .attr('x', function(datum, index) {
-          return xScale(datum.label);
-        })
-        .attr('width', barWidth)
-        .attr('fill', function(datum, index) {
-          return datum.color;
-        });
+    d3Svg.selectAll<SVGRectElement, any>('rect')
+      .data(results)
+      .attr('height', function(datum) {
+        return HEIGHT - yScale(datum.value);
+      })
+      .attr('y', function(datum) {
+        return yScale(datum.value);
+      })
+      .attr('x', function(datum) {
+        return xScale(datum.label);
+      })
+      .attr('width', barWidth)
+      .attr('fill', function(datum) {
+        return datum.color;
+      });
 
-      const bottomAxis = d3.axisBottom(xScale).tickSizeInner(0).tickSizeOuter(0);
-      const baseLine = HEIGHT;
-      d3Svg.append<SVGGElement>('g')
-        .attr('transform', 'translate(0,' + baseLine + ')')
-        .call(bottomAxis);
+    const bottomAxis = d3.axisBottom(xScale).tickSizeInner(0).tickSizeOuter(0);
+    d3Svg.append<SVGGElement>('g')
+      .attr('transform', 'translate(0,' + HEIGHT + ')')
+      .call(bottomAxis);
 
-      d3Svg.selectAll<SVGTextElement, any>('text')
-        .attr('transform', 'rotate(-45)')
-        .attr('text-anchor', 'end');
+    d3Svg.selectAll<SVGTextElement, any>('text')
+      .attr('transform', 'rotate(-45)')
+      .attr('text-anchor', 'end');
 
-      const leftAxis = d3.axisLeft(yScale).tickSize(-WIDTH).ticks(yMax + 1).tickFormat(d3.format('.0f'));
-      d3Svg.append<SVGGElement>('g')
-        .attr('class', 'gridLine')
-        .call(leftAxis);
+    const leftAxis = d3.axisLeft(yScale).tickSize(-WIDTH).ticks(yMax + 1).tickFormat(d3.format('.0f'));
+    d3Svg.append<SVGGElement>('g')
+      .attr('class', 'gridLine')
+      .call(leftAxis);
 
-      d3Svg.selectAll('.gridLine line')
-        .style('stroke', '#ddd');
-    }
+    d3Svg.selectAll('.gridLine line')
+      .style('stroke', '#ddd');
   }
 
   drawArea(id: string, totalLaws: number, laws: any[]) {
-    const d3 = this.d3;
-    let d3ParentElement: Selection<HTMLElement, any, null, undefined>;
-    let d3Svg: Selection<SVGSVGElement, any, null, undefined>;
-    let d3G: Selection<SVGGElement, any, null, undefined>;
+    console.log('DRAAAAAAAAAAAAAAAAAAAA');
+    console.log(laws);
     const WIDTH = document.getElementById(id).offsetWidth * 0.95;
     const HEIGHT = WIDTH * 0.6;
 
-    if (this.parentNativeElement !== null) {
-
-      var margin = {top: 0, right: 0, bottom: 30, left: 40},
+    const margin = {top: 0, right: 0, bottom: 30, left: 40},
           width = WIDTH - margin.left - margin.right,
           height = HEIGHT - margin.top - margin.bottom;
 
-      d3ParentElement = d3.select(this.parentNativeElement);
-      d3Svg = this.d3Svg = d3ParentElement.select<SVGSVGElement>('svg')
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-      d3Svg.selectAll('g').remove();
-      d3G = d3Svg.append<SVGGElement>('g');
+    const d3Svg = d3.select('svg');
+    d3Svg.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+    d3Svg.selectAll('g').remove();
+    d3Svg.append<SVGGElement>('g');
 
-      // Labels of row and columns
-      var myParties = laws.map(law => law.party)
-      var myLabels = ["Educación", "Sanidad", "Economía", "Justicia", "Exteriores", "Defensa", "Interior",
-                      "Agricultura", "Infraestructuras", "Cultura"]
+    // Labels of row and columns
+    const myParties = laws.map(law => law.party);
+    const myLabels = ['Educación', 'Sanidad', 'Economía', 'Justicia', 'Exteriores', 'Defensa', 'Interior',
+                      'Agricultura', 'Infraestructuras', 'Cultura'];
 
-      d3Svg
-        .style('width', width + margin.left + margin.right)
-        .style('height', height + margin.top + margin.bottom);
+    d3Svg
+      .style('width', width + margin.left + margin.right)
+      .style('height', height + margin.top + margin.bottom);
 
-      // Build X scales and axis:
-      var x = d3.scaleBand()
-        .range([ 0, width ])
-        .domain(myParties)
-        .padding(0.01);
-      d3Svg.append("g")
-        .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(x))
-      d3Svg.selectAll<SVGTextElement, any>('text')
-        .attr('transform', 'rotate(-45)')
-        .attr('text-anchor', 'end');
+    // Build X scales and axis:
+    const x = d3.scaleBand()
+      .range([ 0, width ])
+      .domain(myParties)
+      .padding(0.01);
+    d3Svg.append('g')
+      .attr('transform', 'translate(0,' + height + ')')
+      .call(d3.axisBottom(x));
+    d3Svg.selectAll<SVGTextElement, any>('text')
+      .attr('transform', 'rotate(-45)')
+      .attr('text-anchor', 'end');
 
-      // Build X scales and axis:
-      var y = d3.scaleBand()
-        .range([ height, 0 ])
-        .domain(myLabels)
-        .padding(0.01);
-      d3Svg.append("g")
-        .call(d3.axisLeft(y));
+    // Build X scales and axis:
+    const y = d3.scaleBand()
+      .range([ height, 0 ])
+      .domain(myLabels)
+      .padding(0.01);
+    d3Svg.append('g')
+      .call(d3.axisLeft(y));
 
-      // Build color scale
-      let maxValue: number = 0;
-      laws.forEach( l => {
-        if (l.value > maxValue) {
-          maxValue = l.value;
-        }
-      });
-      var myColor = d3.scaleLinear<string>()
-        .range(["white", "grey"])
-        .domain([0, maxValue])
-
-      var myNumber = function(x: number) {
-        if (x == 0) {return ''}
-        return (x * 100 / totalLaws).toFixed(1) + '%'
+    // Build color scale
+    let maxValue = 0;
+    laws.forEach( l => {
+      if (l.value > maxValue) {
+        console.log(l.value);
+        maxValue = l.value;
       }
+    });
+    const myColor = d3.scaleLinear<string>()
+      .range(['white', 'grey'])
+      .domain([0, maxValue]);
 
-      //Read the data
-      d3Svg.selectAll()
-          .data(laws, function(d) {return d.party+':'+d.label;})
-          .enter()
-          .append("rect")
-          .attr("x", function(d) {return x(d.party) })
-          .attr("y", function(d) {return y(d.label) })
-          .attr("width", x.bandwidth() )
-          .attr("height", y.bandwidth() )
-          .style("fill", function(d) {return myColor(d.value)} )
-      d3Svg.selectAll()
-          .data(laws, function(d) {return d.party+':'+d.label;})
-          .enter()
-          .append("text")
-          .attr("x", function(d) {return x(d.party) + 27 })
-          .attr("y", function(d) {return y(d.label) + 33 })
-          .attr("width", x.bandwidth() )
-          .attr("height", y.bandwidth() )
-          .attr("text-anchor", "middle")
-          .attr("font-size", "12px")
-          .text(function(d) { return myNumber(d.value) });
-    }
+    const myNumber = function(n: number) {
+      if (n === 0) {return ''; }
+      return (n * 100 / totalLaws).toFixed(1) + '%';
+    };
+
+    // Read the data
+    d3Svg.selectAll()
+        .data(laws, function(d) {return d.party + ':' + d.label; })
+        .enter()
+        .append('rect')
+        .attr('x', function(d) {
+          return x(d.party);
+        })
+        .attr('y', function(d) {return y(d.label); })
+        .attr('width', x.bandwidth() )
+        .attr('height', y.bandwidth() )
+        .style('fill', function(d) {
+          console.log(myColor(d.value));
+          return myColor(d.value);
+        } );
+    d3Svg.selectAll()
+        .data(laws, function(d) {return d.party + ':' + d.label; })
+        .enter()
+        .append('text')
+        .attr('x', function(d) {return x(d.party) + 27; })
+        .attr('y', function(d) {return y(d.label) + 33; })
+        .attr('width', x.bandwidth() )
+        .attr('height', y.bandwidth() )
+        .attr('text-anchor', 'middle')
+        .attr('font-size', '12px')
+        .text(function(d) { return myNumber(d.value); });
   }
 }
