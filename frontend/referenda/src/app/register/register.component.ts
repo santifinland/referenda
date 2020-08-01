@@ -5,7 +5,7 @@ import { first } from 'rxjs/operators';
 import { Meta, Title } from '@angular/platform-browser';
 
 import { AlertService, UserService, AuthenticationService } from '../_services';
-import { AuthService, FacebookLoginProvider, GoogleLoginProvider, SocialUser } from 'angularx-social-login';
+import { SocialAuthService, FacebookLoginProvider, GoogleLoginProvider, SocialUser } from 'angularx-social-login';
 import { User} from '../_models';
 
 
@@ -26,7 +26,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(
       private alertService: AlertService,
-      private authService: AuthService,
+      private authService: SocialAuthService,
       private authenticationService: AuthenticationService,
       private formBuilder: FormBuilder,
       private metaTagService: Meta,

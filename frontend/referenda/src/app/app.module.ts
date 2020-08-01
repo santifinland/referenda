@@ -14,7 +14,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
 import { NgcCookieConsentModule, NgcCookieConsentConfig } from 'ngx-cookieconsent';
-import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
+import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
 
 import { AdminLawComponent } from './admin-law/admin-law.component';
 import { CreateLawComponent } from './create-law/create-law.component';
@@ -57,21 +57,6 @@ const cookieConfig: NgcCookieConsentConfig = {
   },
   type: 'info'
 };
-
-const config = new AuthServiceConfig([
-  {
-    id: GoogleLoginProvider.PROVIDER_ID,
-    provider: new GoogleLoginProvider('928349623718-lfcmf80du5n1r2agv00hecdtoqmtpd60.apps.googleusercontent.com')
-  },
-  {
-    id: FacebookLoginProvider.PROVIDER_ID,
-    provider: new FacebookLoginProvider('297519443717240')
-  }
-]);
-
-export function provideConfig() {
-  return config;
-}
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -126,7 +111,22 @@ export function HttpLoaderFactory(http: HttpClient) {
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: LOCALE_ID, useValue: 'es-ES'},
     ModalService,
-    { provide: AuthServiceConfig, useFactory: provideConfig },
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider('928349623718-lfcmf80du5n1r2agv00hecdtoqmtpd60.apps.googleusercontent.com')
+          },
+          {
+            id: FacebookLoginProvider.PROVIDER_ID,
+            provider: new FacebookLoginProvider('297519443717240')
+          }
+        ],
+      } as SocialAuthServiceConfig,
+    },
     Title,
     WINDOW_PROVIDERS
   ],
