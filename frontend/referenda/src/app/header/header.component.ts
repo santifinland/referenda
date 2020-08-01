@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { AuthService } from 'angularx-social-login';
-import { SocialUser } from 'angularx-social-login';
+import { SocialAuthService, SocialUser } from 'angularx-social-login';
 import { Subscription } from 'rxjs';
 
 import { AlertService, AuthenticationService, UserService } from '../_services';
@@ -31,7 +30,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(
       private alertService: AlertService,
-      private authService: AuthService,
+      private authService: SocialAuthService,
       private authenticationService: AuthenticationService,
       private formBuilder: FormBuilder,
       private modalService: ModalService,

@@ -3,8 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Meta, Title } from '@angular/platform-browser';
 
-import { AuthService, SocialUser } from 'angularx-social-login';
-import { FacebookLoginProvider, GoogleLoginProvider} from 'angularx-social-login';
+import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthService, SocialUser } from 'angularx-social-login';
 import { first } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 
@@ -33,7 +32,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
       private alertService: AlertService,
-      private authService: AuthService,
+      private authService: SocialAuthService,
       private authenticationService: AuthenticationService,
       private formBuilder: FormBuilder,
       private metaTagService: Meta,
