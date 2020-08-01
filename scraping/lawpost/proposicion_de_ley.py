@@ -27,7 +27,7 @@ def main():
 
 def parse_laws():
     # Open proyectos de ley file
-    f = open("proposicion_de_ley.json", "r")
+    f = open("/tmp/proposicion_de_ley.json", "r")
     laws_document = json.load(f)
     laws = []
     for law_document in laws_document:
@@ -42,8 +42,9 @@ def parse_laws():
             law_document.get('vote_start'))
         laws.append(law)
     laws.sort(key=lambda x: x.vote_start, reverse=True)
-    filtered_laws = list(filter(lambda x: x.vote_start < datetime(2019, 12, 1), laws))
-    filtered_laws = list(filter(lambda x: x.vote_start > datetime(2019, 11, 1), filtered_laws))
+    filtered_laws = list(filter(lambda x: x.vote_start < datetime(2020, 12, 1), laws))
+    filtered_laws = list(filter(lambda x: x.vote_start > datetime(2020, 7, 1), filtered_laws))
+    filtered_laws = sorted(filtered_laws, key=lambda l: l.vote_start)
     print('Total laws: {}'.format(len(laws)))
     return filtered_laws
 
