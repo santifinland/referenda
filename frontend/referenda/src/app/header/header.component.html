@@ -30,23 +30,23 @@
     </button>
     <div class="collapse navbar-collapse montserrat" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li data-toggle="collapse" data-target=".navbar-collapse.show" [ngClass]="{active: section==='votaciones'}"
+        <li class="nav-item" toggle="collapse" data-target=".navbar-collapse.show" [ngClass]="{active: section==='votaciones'}"
             (click)="section='votaciones';">
           <a class="nav-link" routerLink="/leyes"> &nbsp;VOTACIONES&nbsp; </a>
         </li>
-        <li data-toggle="collapse" data-target=".navbar-collapse.show" [ngClass]="{active: section==='resultados'}"
+        <li class="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show" [ngClass]="{active: section==='resultados'}"
             (click)="section='resultados';">
           <a class="nav-link" routerLink="/resultados"> &nbsp;RESULTADOS&nbsp; </a>
         </li>
-        <li data-toggle="collapse" data-target=".navbar-collapse.show" [ngClass]="{active: section==='delegar'}"
+        <li class="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show" [ngClass]="{active: section==='delegar'}"
             (click)="section='delegar';">
           <a class="nav-link" routerLink="/delegar"> &nbsp;DELEGAR VOTOS&nbsp; </a>
         </li>
-        <li data-toggle="collapse" data-target=".navbar-collapse.show" [ngClass]="{active: section==='parties'}"
+        <li class="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show" [ngClass]="{active: section==='parties'}"
             (click)="section='parties';">
           <a class="nav-link" routerLink="/partidos"> &nbsp;PARTIDOS&nbsp; </a>
         </li>
-        <li data-toggle="collapse" data-target=".navbar-collapse.show" [ngClass]="{active: section==='estadisticas'}"
+        <li class="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show" [ngClass]="{active: section==='estadisticas'}"
             (click)="section='estadisticas';">
           <a class="nav-link" routerLink="/estadisticas"> &nbsp;ESTAD&Iacute;STICAS </a>
         </li>
