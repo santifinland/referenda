@@ -294,6 +294,7 @@ lawRouter.route('/:slug')
     if (err) return next(err);
     law.law_type = req.body.law_type;
     law.institution = req.body.institution;
+    law.featured = req.body.featured;
     law.tier = req.body.tier;
     law.area = req.body.area;
     law.headline = req.body.headline;
