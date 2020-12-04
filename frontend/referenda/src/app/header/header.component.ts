@@ -9,6 +9,7 @@ import { AlertService, AuthenticationService, UserService } from '../_services';
 import { ModalService } from '../_services';
 import { User } from '../_models';
 
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',

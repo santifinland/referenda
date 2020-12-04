@@ -16,8 +16,8 @@
   <hr>
 
   <div class="media">
-    <img src="{{selectedParty.logo}}" class="mr-3 maxi-logo" alt="{{selectedParty.description}}">
-    <div class="media-body">
+    <img *ngIf="selectedParty" src="{{selectedParty.logo}}" class="mr-3 maxi-logo" alt="{{selectedParty.description}}">
+    <div *ngIf="selectedParty" class="media-body">
       <h5 class="mt-0"><b>Diputados:</b> {{selectedParty.quota}}</h5>
     </div>
   </div>

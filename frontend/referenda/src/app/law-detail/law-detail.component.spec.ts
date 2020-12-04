@@ -1,6 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { LawDetailComponent } from './law-detail.component';
+import { Window } from '../_services/window.service';
+
 
 describe('LawDetailComponent', () => {
   let component: LawDetailComponent;
@@ -8,7 +13,10 @@ describe('LawDetailComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LawDetailComponent ]
+      imports: [ HttpClientTestingModule, ReactiveFormsModule, RouterTestingModule ],
+      declarations: [ LawDetailComponent ],
+      providers: [ windowFactory
+    ]
     })
     .compileComponents();
   }));

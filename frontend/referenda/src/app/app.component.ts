@@ -9,6 +9,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { AuthenticationService } from './_services';
 import { User } from './_models';
+import {Meta, Title} from '@angular/platform-browser';
 
 
 @Component({
@@ -18,9 +19,9 @@ import { User } from './_models';
 })
 export class AppComponent implements OnInit, OnDestroy {
 
-  title = 'referenda';
   currentUser: User;
   ccService = null;
+  title = 'Referenda | Democracia Directa';
 
   private popupOpenSubscription: Subscription;
   private popupCloseSubscription: Subscription;
@@ -30,14 +31,18 @@ export class AppComponent implements OnInit, OnDestroy {
   private noCookieLawSubscription: Subscription;
 
   constructor(
-      private authenticationService: AuthenticationService,
-      private translateService: TranslateService,
-      @Inject(PLATFORM_ID) private readonly platformId: Object,
-      private readonly injector: Injector) {
-    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+    private metaTagService: Meta,
+    private titleService: Title,
+    private authenticationService: AuthenticationService,
+    private translateService: TranslateService,
+    @Inject(PLATFORM_ID) private readonly platformId: Object,
+    private readonly injector: Injector) {
+      this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
   }
 
   ngOnInit() {
+    this.titleService.setTitle(this.title);
+    this.metaTagService.updateTag({ name: 'description', content: this.title });
 
     if (!isPlatformBrowser(this.platformId)) {
       return;

@@ -1,6 +1,16 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
+import {
+  FacebookLoginProvider,
+  GoogleLoginProvider,
+  SocialAuthService,
+  SocialAuthServiceConfig
+} from 'angularx-social-login';
 
 import { HeaderComponent } from './header.component';
+import { ModalService } from '../_services/modal.service';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -8,9 +18,32 @@ describe('HeaderComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HeaderComponent ]
+      imports: [ HttpClientTestingModule, ReactiveFormsModule, RouterTestingModule ],
+      declarations: [ HeaderComponent ],
+      providers: [
+        ModalService,
+        SocialAuthService,
+        {
+          provide: 'SocialAuthServiceConfig',
+          useValue: {
+            autoLogin: false,
+            providers: [
+              {
+                id: GoogleLoginProvider.PROVIDER_ID,
+                provider: new GoogleLoginProvider(
+                  'clientId'
+                )
+              },
+              {
+                id: FacebookLoginProvider.PROVIDER_ID,
+                provider: new FacebookLoginProvider('clientId')
+              }
+            ]
+          } as SocialAuthServiceConfig,
+        }
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

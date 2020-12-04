@@ -1,6 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ControlContainer, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { DelegationsComponent } from './delegations.component';
+import { ModalService } from '../_services';
+
 
 describe('DelegationsComponent', () => {
   let component: DelegationsComponent;
@@ -8,7 +13,9 @@ describe('DelegationsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DelegationsComponent ]
+      imports: [ FormsModule, HttpClientTestingModule, ReactiveFormsModule, RouterTestingModule ],
+      declarations: [ DelegationsComponent ],
+      providers: [ ControlContainer, ModalService ]
     })
     .compileComponents();
   }));

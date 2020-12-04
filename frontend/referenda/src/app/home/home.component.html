@@ -12,7 +12,7 @@
         <div class="card-header">Datos básicos</div>
         <div class="card-body text-secondary">
           <h5 class="card-title">Nombre de usuario</h5>
-          <p class="card-text">{{currentUser.username}}</p>
+          <p *ngIf="currentUser" class="card-text">{{currentUser.username}}</p>
           <a routerLink="/profile" class="btn btn-outline-secondary">Modificar</a>
         </div>
       </div>

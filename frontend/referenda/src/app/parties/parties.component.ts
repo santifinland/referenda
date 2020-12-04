@@ -25,7 +25,7 @@ export class PartiesComponent implements OnInit {
   selectedPartyNegativeLaws: Law[];
   selectedPartyAbstentionLaws: Law[];
 
-  lawFilter: any = { $or: [{ area: '', headline: ''}] }
+  lawFilter: any = { $or: [{ area: '', headline: ''}] };
 
   constructor(
       private lawService: LawService,
@@ -40,6 +40,7 @@ export class PartiesComponent implements OnInit {
     this.getParties();
     let title: string;
     title = 'Partidos pol&iacute;ticos en el Congreso de los Diputados';
+    this.titleService.setTitle(title);
     this.metaTagService.updateTag({ name: 'description', content: title });
   }
 
@@ -62,14 +63,14 @@ export class PartiesComponent implements OnInit {
   getParties(): void {
     this.partyService.getParties()
       .subscribe(parties => {
-        this.parties = parties.filter(p => p.name != 'nd').sort((a, b) =>
+        this.parties = parties.filter(p => p.name !== 'nd').sort((a, b) =>
           a.quota > b.quota ? -1 : a.quota === b.quota ? 0 : 1);
         this.selectParty('psoe');
       });
   }
 
   selectParty(partyName): void {
-    this.selectedParty = this.parties.filter(p => p.name == partyName)[0]
+    this.selectedParty = this.parties.filter(p => p.name === partyName)[0];
     this.selectedPartyLaws = this.laws.filter(l => l.institution.includes(partyName));
     this.selectedPartyPositiveLaws = this.results.filter(l => l.positiveParties.includes(partyName));
     this.selectedPartyNegativeLaws = this.results.filter(l => l.negativeParties.includes(partyName));
@@ -77,6 +78,6 @@ export class PartiesComponent implements OnInit {
   }
 
   filter(area: string) {
-    this.lawFilter.area = (area == 'all') ? '' : area;
+    this.lawFilter.area = (area === 'all') ? '' : area;
   }
 }

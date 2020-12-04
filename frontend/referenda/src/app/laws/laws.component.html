@@ -93,7 +93,7 @@
 
 
   <hr>
-  <div class="row" *ngFor="let law of laws | filterBy: lawFilter">
+  <div class="row" *ngFor="let law of laws">
     <div class="col-xs-12 col-sm-7" [ngStyle]="{'background-color': law.featured === true ? '#eee': 'white'}">
       <div class="media">
         <div class="media-body">
