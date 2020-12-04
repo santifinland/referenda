@@ -13,7 +13,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let law of laws | orderBy: '-vote_end' | filterBy: lawFilter"
+        <tr *ngFor="let law of laws"
                 [ngClass]='{green: law.official_positive >= law.official_negative,
                           red: law.official_positive < law.official_negative}'>
               <td>{{law.vote_end | date: 'MMM yyyy':'UTC':'es'}}</td>

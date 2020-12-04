@@ -130,6 +130,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     Title,
     WINDOW_PROVIDERS
   ],
+  exports: [
+    TranslateModule,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

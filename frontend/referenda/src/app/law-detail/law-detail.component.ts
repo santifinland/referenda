@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { Meta, Title} from '@angular/platform-browser';
 import { isPlatformBrowser } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { trigger, state, style, animate, transition } from '@angular/animations';
 
 import { first } from 'rxjs/operators';
 
@@ -36,15 +35,17 @@ export class LawDetailComponent implements OnInit {
 
   currentState = true;
   readMore = 'Leer más';
+
+  location: string;
+
   toggle() {
     this.currentState = !this.currentState;
-    this.readMore = (this.currentState == true) ? 'Leer más' : 'Leer menos';
-    if (this.currentState == true) {
-      document.getElementById('nav').scrollIntoView({behavior: "smooth"});
+    this.readMore = (this.currentState === true) ? 'Leer más' : 'Leer menos';
+    if (this.currentState === true) {
+      document.getElementById('nav').scrollIntoView({behavior: 'smooth'});
     }
   }
 
-  location: string;
 
   constructor(
       private lawService: LawService,
