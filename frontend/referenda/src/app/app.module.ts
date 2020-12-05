@@ -38,6 +38,7 @@ import { RegisterComponent } from './register';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ResultsComponent } from './results/results.component';
 import { WINDOW_PROVIDERS } from './_services/window.service';
+import { NewHeaderComponent } from './new-header/new-header.component';
 
 
 registerLocaleData(localeEs);
@@ -83,6 +84,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ProfileComponent,
     RegisterComponent,
     ResetPasswordComponent,
+    NewHeaderComponent,
   ],
   imports: [
     AngularEditorModule,

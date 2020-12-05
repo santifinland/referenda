@@ -6,7 +6,6 @@ import { SocialAuthService, SocialUser } from 'angularx-social-login';
 import { Subscription } from 'rxjs';
 
 import { AlertService, AuthenticationService, UserService } from '../_services';
-import { ModalService } from '../_services';
 import { User } from '../_models';
 
 
@@ -34,7 +33,6 @@ export class HeaderComponent implements OnInit {
       private authService: SocialAuthService,
       private authenticationService: AuthenticationService,
       private formBuilder: FormBuilder,
-      private modalService: ModalService,
       private route: ActivatedRoute,
       private router: Router,
       private userService: UserService) {
