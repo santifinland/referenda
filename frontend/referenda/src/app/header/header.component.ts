@@ -24,6 +24,9 @@ export class HeaderComponent implements OnInit {
 
   section: string;
 
+  smartphoneMenu = false;
+  smartphoneSession = false;
+
   private socialUser: SocialUser;
   private socialUserLoggedIn: boolean;
   private socialProvider: string;
@@ -66,6 +69,19 @@ export class HeaderComponent implements OnInit {
           );
       }
     });
+  }
+
+  showSmartphoneMenu(show: boolean) {
+    this.smartphoneMenu = show;
+    if (show === false) {
+      this.smartphoneSession = false;
+      document.getElementById('menu').scrollIntoView({behavior: 'smooth'});
+    }
+    console.log(this.smartphoneMenu);
+  }
+
+  showSmartphoneSession() {
+    this.smartphoneSession = !this.smartphoneSession;
   }
 
   logout() {

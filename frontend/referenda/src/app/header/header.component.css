@@ -1,114 +1,264 @@
-.navbar {
-  border-bottom-width: 0;
-  min-height: 75px;
+.menu {
+  position: relative;
+  height: 45px;
+  background: #3E979E;
 }
-.navbar-brand {
-  margin: 0 auto;
-  padding: 5px 0 0 20px;
+
+.fondo {
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: -0.28%;
+  background: #3E979E;
 }
-@font-face {
-    font-family: "Montserrat-Bold";
-    src: url("/assets/fonts/Montserrat-Regular.ttf") format("truetype");
+
+.logotipo img {
+  position: absolute;
+  width: 178px;
+  height: 37px;
+  left: calc(50% - 178px/2 - 449px);
+  top: 6px;
 }
-.montserrat {
-  font-family: "Montserrat-Bold";
-  font-size: 1.7em;
+
+.secciones {
+  position: absolute;
+  display: flex;
+  width: 730px;
+  left: 40%;
+  top: 0;
+  bottom: 0;
+}
+
+.seccion {
+  padding: 10px 15px;
+  height: 45px;
+  top: 0;
+}
+
+.seccion:hover {
+  color: #66ADB3;
+  background-color: #FFF;
+}
+
+.seccion:hover a {
+  color: #66ADB3;
+  background-color: #FFF;
+}
+
+.active {
+  color: #66ADB2;
+}
+
+.votaciones {
+  width: 111px;
+  left: calc(50% - 111px/2 - 82.5px);
+}
+
+.resultados {
+  width: 111px;
+  left: calc(50% - 111px/2 + 28.5px);
+}
+
+.delegar {
+  width: 134px;
+  left: calc(50% - 134px/2 + 151px);
+}
+
+.partidos {
+  width: 93px;
+  left: calc(50% - 93px/2 + 264.5px);
+}
+
+.estadisticas {
+  width: 121px;
+  left: calc(50% - 121px/2 + 371.5px);
+}
+
+.sesion {
+  width: 160px;
+  left: calc(50% - 96px/2 + 544px);
+}
+
+.vertical-line {
+  border-left: thick solid #FFF;
+  border-left-width: 1px;
+}
+
+a {
+  color: #FFFFFF;
+  font-family: Roboto, sans-serif;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 25px;
+}
+
+a:hover {
+  color: #66ADB3;
+  text-decoration: none;
+}
+
+.sesion:hover .dropdown-sesion {
+  display: block;
+}
+
+.dropdown-sesion {
+  display: none;
+  position: relative;
+  top: 10px;
+  left: -16px;
+}
+
+.dropdown-sesion-content {
+  position: relative;
+  width: 128px;
+  height: 106px;
+  filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.15));
+  z-index: 1;
+}
+
+.dropdown-sesion-content a {
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 15px;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.02em;
+  width: 128px;
+  height: 52px;
+  padding: 10px 15px 10px 14px;
+  color: #3E979E;
+  background: #FFFFFF;
+}
+
+.dropdown-sesion:hover .dropdown-sesion-content {
+  display: block;
+  background: #fff;
+}
+
+.dropdown-iniciar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 53px;
+  bottom: 50%;
+}
+
+.dropdown-registrarse {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 53px;
+  bottom: 0;
+  height: 53px;
+  width: 128px;
+  border-radius: 0;
+}
+
+.rectangle {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 98.11%;
+  bottom: 0;
+  height: 1px;
+  background: #E8E8E8;
+}
+
+.smartphone-menu {
+  display: none;
+  position: absolute;
+  width: 25px;
+  height: 14px;
+  top: 26px;
+  right: 37px;
+}
+
+.smartphone-menu-show {
+  background: url(../../assets/img/downarrow.svg);
+}
+
+.smartphone-menu-hide {
+  background: url(../../assets/img/uparrow.svg);
+}
+
+.smartphone-menu-items {
+  display: flex;
+  flex-direction: column;
+  background-color: #FFF;
+}
+
+.menu-item {
+  height: 53px;
+  padding-top: 15px;
   text-align: center;
 }
 
-/* Extra Small Devices, Phones */
-@media only screen and (max-width : 480px) {
-  .montserrat {
-    border: 1px;
-    font-family: "Montserrat-Bold";
-    font-size: 0.9em;
-    text-align: left;
+.dropdown-text a {
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 23px;
+  letter-spacing: 0.02em;
+  color: #3E979E;
+}
+
+.dropdown-text a {
+  width: 100%;
+  color: #3E979E;
+}
+
+.dropdown-text a:hover {
+  color: #FFF;
+  background-color: #3E979E;
+}
+
+@media(min-width: 2500px) {
+  .secciones {
+    left: 45%;
   }
 }
-.montserrat .small { font-size:14px;}
-.montserrat .normal { font-size:16px;}
-.montserrat .large { font-size:20px;}
-.sections .navbar-nav > li > a {
-  font-family: "Montserrat-Bold";
-  color: #666;
-  background-color: #fff;
+
+@media(max-width: 1400px) {
+  .secciones {
+    left: 35%;
+  }
 }
-.sections .navbar-nav > .active > a {
-  border-bottom: thick solid #3D989D;
-  color: #000;
+
+@media(max-width: 1100px) {
+  .secciones {
+    left: 198px;
+  }
+  .logotipo img {
+    left: 10px;
+  }
 }
-.navbar-inverse {
-  background: #3D989D;
-  color: #ffffff;
+
+@media(max-width: 900px) {
+  .menu {
+    height: 72px;
+    top: 0;
+  }
+
+  .logotipo img {
+    width: 215px;
+    height: 43px;
+    top: 16px;
+    left: 26px;
+    background-size: 215px;
+  }
+
+  .secciones {
+    display: none;
+  }
+
+  .smartphone-menu {
+    display: flex;
+  }
 }
-.navbar-inverse .navbar-nav > li > a {
-  color: #ddd;
-}
-.navbar-inverse .navbar-nav > .active > a {
-  background: #1a237e;
-  color: #ffffff;
-}
-.navbar-inverse .navbar-nav > .active > a:hover {
-  background: #1a237e;
-  color: #ffffff;
-}
-.navbar-inverse .navbar-nav > .active > a:focus {
-  background: #1a237e;
-  color: #ffffff;
-}
-.navbar-inverse .navbar-nav > .open > a {
-  background: #1a237e;
-  color: #ffffff;
-}
-.navbar-inverse .navbar-nav > .open > a:hover {
-  background: #1a237e;
-  color: #ffffff;
-}
-.navbar-inverse .navbar-nav > .open > a:focus {
-  background: #1a237e;
-  color: #ffffff;
-}
-.navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
-  background-color: #303f9f;
-  color: #eeeeee;
-}
-.navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover {
-  color: #000000;
-}
-.navbar-inverse .navbar-nav .open .dropdown-menu {
-  background-color: #303f9f;
-  color: #eeeeee;
-}
-.sections .navbar-nav > li > a {
-  font-family: "Montserrat-Bold";
-  color: #666;
-  background-color: #fff;
-}
-.sections .navbar-nav > .active > a {
-  border-bottom: thick solid #3D989D;
-  color: #000;
-}
-a.login-link:hover {
-  text-decoration: none;
-}
-.login-link {
-  padding: 0 5px 0 0;
-  color: #fff;
-}
-.material-icons {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  vertical-align: middle;
-}
-.home {
-  vertical-align: top;
-  padding-right: 5px;
-}
-a.home {
-  color: #fff;
-}
-a.home:hover {
-  color: #f1d600;
-  text-decoration: none;
-}
+
