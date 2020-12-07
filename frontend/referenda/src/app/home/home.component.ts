@@ -1,6 +1,8 @@
 ﻿import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
+import { SocialAuthService, SocialUser } from 'angularx-social-login';
+
 import { AuthenticationService } from '../_services';
 import { Party } from '../_models';
 import { User } from '../_models';
@@ -19,8 +21,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   delegatedPartyValue: Party;
   delegatedUserValue: User;
 
+  private socialUser: SocialUser;
+  private socialUserLoggedIn: boolean;
+  private socialProvider: string;
+
   constructor(
     private authenticationService: AuthenticationService,
+    private authService: SocialAuthService,
     private userService: UserService) {
     this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
       console.log(user);
@@ -65,5 +72,16 @@ export class HomeComponent implements OnInit, OnDestroy {
         },
         err => {}
       );
+  }
+
+  logout() {
+    this.authenticationService.logout();
+    this.currentUserSubscription.unsubscribe();
+    if (this.socialUser) {
+      this.socialUserLoggedIn = false;
+      this.socialUser = null;
+      this.authService.signOut();
+    }
+    location.reload();
   }
 }

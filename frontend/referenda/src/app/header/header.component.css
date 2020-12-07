@@ -51,37 +51,37 @@
 
 .votaciones {
   width: 111px;
-  left: calc(50% - 111px/2 - 82.5px);
 }
 
 .resultados {
   width: 111px;
-  left: calc(50% - 111px/2 + 28.5px);
 }
 
 .delegar {
   width: 134px;
-  left: calc(50% - 134px/2 + 151px);
 }
 
 .partidos {
   width: 93px;
-  left: calc(50% - 93px/2 + 264.5px);
 }
 
 .estadisticas {
   width: 121px;
-  left: calc(50% - 121px/2 + 371.5px);
 }
 
 .sesion {
+  position: relative;
   width: 160px;
-  left: calc(50% - 96px/2 + 544px);
+  left: -2px;
 }
 
 .vertical-line {
+  position: relative;
   border-left: thick solid #FFF;
   border-left-width: 1px;
+  padding: 10px 0 10px 0;
+  margin: 10px 0 10px 0;
+  left: -1px;
 }
 
 a {
