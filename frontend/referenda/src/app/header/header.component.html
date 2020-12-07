@@ -15,10 +15,12 @@
        [ngClass]="{active: section==='parties'}" (click)="section='parties';">PARTIDOS</a>
     <a class="seccion estadisticas" routerLink="/estadisticas"
        [ngClass]="{active: section==='estadisticas'}" (click)="section='estadisticas';">ESTAD&Iacute;STICAS</a>
-    <div class="seccion sesion vertical-line" (click)="section='';">
-      <a routerLink="/home" *ngIf="currentUser">{{currentUser.username}}</a>
-      <a routerLink="/login" *ngIf="!currentUser">MI SESI&Oacute;N</a>
-      <div class="dropdown-sesion" *ngIf="!currentUser">
+    <div class="vertical-line">
+    </div>
+    <a class="seccion sesion" routerLink="/home" *ngIf="currentUser" (click)="section='';">{{currentUser.username}}</a>
+    <div class="seccion sesion" *ngIf="!currentUser" (click)="section='';">
+      <a routerLink="/login">MI SESI&Oacute;N</a>
+      <div class="dropdown-sesion">
         <div class="dropdown-sesion-content">
           <div class="dropdown-iniciar">
             <a routerLink="/login">INICIAR SESI&Oacute;N</a>
@@ -55,7 +57,8 @@
   <a class="menu-item" routerLink="/estadisticas" (click)="showSmartphoneMenu(false); section='estadisticas';">
     ESTAD&Iacute;STICAS
   </a>
-  <a class="menu-item" (click)="showSmartphoneSession()">MI SESI&Oacute;N</a>
+  <a class="menu-item" routerLink="/home" *ngIf="currentUser">{{currentUser.username}}</a>
+  <a class="menu-item" *ngIf="!currentUser" (click)="showSmartphoneSession()">MI SESI&Oacute;N</a>
   <a class="menu-item" routerLink="/login" (click)="showSmartphoneMenu(false); section='';"
      *ngIf="smartphoneSession">
     INICIAR SESI&Oacute;N

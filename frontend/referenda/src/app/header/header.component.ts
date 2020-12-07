@@ -83,15 +83,4 @@ export class HeaderComponent implements OnInit {
   showSmartphoneSession() {
     this.smartphoneSession = !this.smartphoneSession;
   }
-
-  logout() {
-    this.authenticationService.logout();
-    this.currentUserSubscription.unsubscribe();
-    if (this.socialUser) {
-      this.socialUserLoggedIn = false;
-      this.socialUser = null;
-      this.authService.signOut();
-    }
-    location.reload(true);
-  }
 }
