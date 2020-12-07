@@ -1,56 +1,67 @@
-<!--suppress BuyFluidPluginNoteInspection -->
-<div class="row navbar navbar-inverse" id="nav">
-  <div class="container">
-    <div class="col">
-      <a routerLink="/leyes"><img height=65 src="assets/img/logo.png" alt="Logitpo de la marca Referenda" ></a>
-    </div>
-    <div class="flex-row ml-md-auto">
-      <div class="col">
-        <span *ngIf="currentUser">
-          <a class="home" routerLink="/home">
-            <i class="material-icons home">account_circle</i>{{currentUser.username}}
-          </a>
-        </span>
-        <span *ngIf="!currentUser"><a class="login-link" routerLink="/login">Iniciar Sesi&oacute;n</a></span>
-        <i class="material-icons">more_vert</i>
-        <span *ngIf="currentUser" (click)="logout()">Salir</span>
-        <span *ngIf="!currentUser"><a class="login-link" routerLink="/register">Registrarse</a></span>
+<div class="menu" id="menu">
+  <div class="fondo">
+  </div>
+  <div class="logotipo" routerLink="/leyes" (click)="section='votaciones';">
+    <img src="assets/img/logo.png" alt="Logitpo de la marca Referenda">
+  </div>
+  <div class="secciones">
+    <a class="seccion votaciones" routerLink="/leyes"
+       [ngClass]="{active: section==='votaciones'}" (click)="section='votaciones';">VOTACIONES</a>
+    <a class="seccion resultados" routerLink="/resultados"
+       [ngClass]="{active: section==='resultados'}" (click)="section='resultados';">RESULTADOS</a>
+    <a class="seccion delegar" routerLink="/delegar"
+       [ngClass]="{active: section==='delegar'}" (click)="section='delegar';">DELEGAR VOTOS</a>
+    <a class="seccion partidos" routerLink="/partidos"
+       [ngClass]="{active: section==='parties'}" (click)="section='parties';">PARTIDOS</a>
+    <a class="seccion estadisticas" routerLink="/estadisticas"
+       [ngClass]="{active: section==='estadisticas'}" (click)="section='estadisticas';">ESTAD&Iacute;STICAS</a>
+    <div class="seccion sesion vertical-line" (click)="section='';">
+      <a routerLink="/home" *ngIf="currentUser">{{currentUser.username}}</a>
+      <a routerLink="/login" *ngIf="!currentUser">MI SESI&Oacute;N</a>
+      <div class="dropdown-sesion" *ngIf="!currentUser">
+        <div class="dropdown-sesion-content">
+          <div class="dropdown-iniciar">
+            <a routerLink="/login">INICIAR SESI&Oacute;N</a>
+            <div class="rectangle">
+            </div>
+          </div>
+          <div class="dropdown-registrarse">
+            <a routerLink="/register">REGISTRARSE</a>
+            <div class="rectangle">
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
-
-<nav class="undertop"></nav>
-
-<nav class="navbar navbar-expand-lg navbar-light">
-  <div class="container sections">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse montserrat" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item" toggle="collapse" data-target=".navbar-collapse.show" [ngClass]="{active: section==='votaciones'}"
-            (click)="section='votaciones';">
-          <a class="nav-link" routerLink="/leyes"> &nbsp;VOTACIONES&nbsp; </a>
-        </li>
-        <li class="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show" [ngClass]="{active: section==='resultados'}"
-            (click)="section='resultados';">
-          <a class="nav-link" routerLink="/resultados"> &nbsp;RESULTADOS&nbsp; </a>
-        </li>
-        <li class="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show" [ngClass]="{active: section==='delegar'}"
-            (click)="section='delegar';">
-          <a class="nav-link" routerLink="/delegar"> &nbsp;DELEGAR VOTOS&nbsp; </a>
-        </li>
-        <li class="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show" [ngClass]="{active: section==='parties'}"
-            (click)="section='parties';">
-          <a class="nav-link" routerLink="/partidos"> &nbsp;PARTIDOS&nbsp; </a>
-        </li>
-        <li class="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show" [ngClass]="{active: section==='estadisticas'}"
-            (click)="section='estadisticas';">
-          <a class="nav-link" routerLink="/estadisticas"> &nbsp;ESTAD&Iacute;STICAS </a>
-        </li>
-      </ul>
-    </div>
+  <div class="smartphone-menu smartphone-menu-show" *ngIf="!smartphoneMenu" (click)="showSmartphoneMenu(true)">
   </div>
-</nav>
+  <div class="smartphone-menu smartphone-menu-hide" *ngIf="smartphoneMenu" (click)="showSmartphoneMenu(false)">
+  </div>
+</div>
+<div class="smartphone-menu-items dropdown-text" *ngIf="smartphoneMenu">
+  <a class="menu-item" routerLink="/leyes" (click)="showSmartphoneMenu(false); section='votaciones';">
+    VOTACIONES
+  </a>
+  <a class="menu-item" routerLink="/resultados" (click)="showSmartphoneMenu(false); section='resultados';">
+    RESULTADOS
+  </a>
+  <a class="menu-item" routerLink="/delegar" (click)="showSmartphoneMenu(false); section='delegar';">
+    DELEGAR VOTOS
+  </a>
+  <a class="menu-item" routerLink="/partidos" (click)="showSmartphoneMenu(false); section='parties';">
+    PARTIDOS
+  </a>
+  <a class="menu-item" routerLink="/estadisticas" (click)="showSmartphoneMenu(false); section='estadisticas';">
+    ESTAD&Iacute;STICAS
+  </a>
+  <a class="menu-item" (click)="showSmartphoneSession()">MI SESI&Oacute;N</a>
+  <a class="menu-item" routerLink="/login" (click)="showSmartphoneMenu(false); section='';"
+     *ngIf="smartphoneSession">
+    INICIAR SESI&Oacute;N
+  </a>
+  <a class="menu-item" routerLink="/register" (click)="showSmartphoneMenu(false); section='';"
+     *ngIf="smartphoneSession">
+    REGISTRARSE
+  </a>
+</div>

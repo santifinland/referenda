@@ -4,7 +4,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { LawDetailComponent } from './law-detail.component';
-import { Window } from '../_services/window.service';
 
 
 describe('LawDetailComponent', () => {
@@ -15,8 +14,6 @@ describe('LawDetailComponent', () => {
     TestBed.configureTestingModule({
       imports: [ HttpClientTestingModule, ReactiveFormsModule, RouterTestingModule ],
       declarations: [ LawDetailComponent ],
-      providers: [ windowFactory
-    ]
     })
     .compileComponents();
   }));

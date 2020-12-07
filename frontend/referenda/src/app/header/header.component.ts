@@ -6,7 +6,6 @@ import { SocialAuthService, SocialUser } from 'angularx-social-login';
 import { Subscription } from 'rxjs';
 
 import { AlertService, AuthenticationService, UserService } from '../_services';
-import { ModalService } from '../_services';
 import { User } from '../_models';
 
 
@@ -25,6 +24,9 @@ export class HeaderComponent implements OnInit {
 
   section: string;
 
+  smartphoneMenu = false;
+  smartphoneSession = false;
+
   private socialUser: SocialUser;
   private socialUserLoggedIn: boolean;
   private socialProvider: string;
@@ -34,7 +36,6 @@ export class HeaderComponent implements OnInit {
       private authService: SocialAuthService,
       private authenticationService: AuthenticationService,
       private formBuilder: FormBuilder,
-      private modalService: ModalService,
       private route: ActivatedRoute,
       private router: Router,
       private userService: UserService) {
@@ -68,6 +69,19 @@ export class HeaderComponent implements OnInit {
           );
       }
     });
+  }
+
+  showSmartphoneMenu(show: boolean) {
+    this.smartphoneMenu = show;
+    if (show === false) {
+      this.smartphoneSession = false;
+      document.getElementById('menu').scrollIntoView({behavior: 'smooth'});
+    }
+    console.log(this.smartphoneMenu);
+  }
+
+  showSmartphoneSession() {
+    this.smartphoneSession = !this.smartphoneSession;
   }
 
   logout() {
