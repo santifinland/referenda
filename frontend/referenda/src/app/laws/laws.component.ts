@@ -38,6 +38,13 @@ export class LawsComponent implements OnInit {
       .subscribe(laws => {
         const tierLaws = laws.filter(law => law.tier === 1);
         tierLaws.map(law => {
+          law.isPositive = law.positive > law.negative && law.positive > law.abstention;
+          law.isNegative = law.negative > law.positive && law.negative > law.abstention;
+          law.isAbstention = law.abstention > law.positive && law.abstention > law.negative;
+          const totalVotes = law.positive + law.negative + law.abstention;
+          law.positivePercentage = totalVotes === 0 ? 0 : 100 * law.positive / totalVotes;
+          law.negativePercentage = totalVotes === 0 ? 0 : 100 * law.negative / totalVotes;
+          law.abstentionPercentage = totalVotes === 0 ? 0 : 100 * law.abstention / totalVotes;
           law.positiveWidth   = (15 + 40 * law.positive   / (law.positive + law.negative + law.abstention)) + '%';
           law.negativeWidth   = (15 + 40 * law.negative   / (law.positive + law.negative + law.abstention)) + '%';
           law.abstentionWidth = (15 + 40 * law.abstention / (law.positive + law.negative + law.abstention)) + '%';

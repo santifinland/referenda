@@ -108,3 +108,118 @@
 .main-button {
   width: 160px;
 }
+
+.proposicion {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 34px 45px;
+  width: 817px;
+  height: 389px;
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  letter-spacing: 0.02em;
+  background: #F3F3F3;
+  border: #000000 solid 2px;
+  justify-content: space-between;
+}
+
+.texto {
+  position: relative;
+  width: 694px;
+  height: 125px;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 17px;
+  line-height: 144.7%;
+  color: #333333;
+  background: #F3F3F3;
+}
+
+.voto {
+  position: relative;
+  width: 254px;
+  height: 22px;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 144.7%;
+  color: #FFFFFF;
+  background: #3E979E;
+  text-align: center;
+}
+
+.botones {
+  position: relative;
+  width: 351px;
+  height: 53px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.boton {
+  text-align: center;
+  border: 2px solid #3E979E;
+  box-sizing: border-box;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 26px;
+  padding: 15px;
+  color: #F3F3F3;
+  background: #66ADB3;
+}
+
+.boton:hover {
+  color: #F3F3F3;
+  background: #66ADB3;
+}
+
+.si {
+  width: 55px;
+}
+
+.disabled {
+  color: #3E979E;
+  background: #FFF;
+}
+
+.no {
+  width: 65px;
+}
+
+.abs {
+  width: 76px;
+}
+
+.more {
+  width: 134px;
+}
+
+.percentage {
+  width: 717px;
+  height: 45px;
+}
+
+.percentage-bar {
+  height: 10px;
+  background: #E8E8E8;
+}
+
+.percentage-bar-value {
+  height: 10px;
+  background: #3E979E;
+}
+
+.percentage-value {
+  position: relative;
+  height: 20px;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 144.7%;
+  color: #3E979E;
+  text-align: center;
+}
+
+
