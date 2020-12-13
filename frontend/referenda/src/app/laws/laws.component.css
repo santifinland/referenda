@@ -1,24 +1,23 @@
 .containe {
   display: flex;
-  width: 1152px;
+  width: 100%;
   flex-direction: row;
-  margin: 0 auto;
 }
 
 .laws {
   display: flex;
   flex-direction: column;
-  margin: 0;
-}
-
-.empty-laws {
-  width: 817px;
+  width: 100%;
+  min-height: 800px;
 }
 
 .searcher {
+  position: absolute;
+  left: calc(65%);
   display: flex;
   flex-direction: column;
   width: 335px;
+  height: 100%;
   background: #3E979E;
 }
 
@@ -31,13 +30,13 @@
 .law-headline {
   display: flex;
   flex-direction: column;
-  position: relative;
-  width: 817px;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.3) 100%);
   background-size: cover;
 }
 
-.headline {
+.headline-h2 {
+  position: relative;
+  left: calc(50% - 178px/2 - 500px);
   width: 686px;
   font-family: Roboto, sans-serif;
   font-style: normal;
@@ -46,18 +45,18 @@
   line-height: 130.7%;
   letter-spacing: 0.02em;
   color: #FFFFFF;
-  margin: 0;
   text-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   padding: 19px 0 10px 73px;
 }
 
-.headline a {
+.headline-h2 a {
   color: #FFFFFF;
   text-decoration-line: none;
 }
 
 .category {
   position: relative;
+  left: calc(50% - 178px/2 - 500px);
   width: 526px;
   height: 25px;
   font-family: Roboto, sans-serif;
@@ -75,11 +74,12 @@
 
 .law-info {
   position: relative;
+  left: calc(50% - 178px/2 - 500px);
+  width: 817px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding: 34px 5px 45px 45px;
-  width: 817px;
   font-family: Roboto, sans-serif;
   font-style: normal;
   letter-spacing: 0.02em;
@@ -97,6 +97,7 @@
   line-height: 144.7%;
   color: #333333;
   background: #F3F3F3;
+  text-align: justify;
 }
 
 .voto {
@@ -138,6 +139,7 @@
 .boton:hover {
   color: #F3F3F3;
   background: #66ADB3;
+  cursor: pointer;
 }
 
 .si {
@@ -162,7 +164,7 @@
 }
 
 .percentage {
-  width: 717px;
+  width: 85%;
   height: 45px;
   padding-top: 25px;
 }
@@ -184,7 +186,7 @@
   font-size: 18px;
   line-height: 144.7%;
   color: #3E979E;
-  text-align: center;
+  text-align: right;
 }
 
 .searcher-text {
@@ -200,6 +202,22 @@
 
 .searcher-title {
   padding: 19px 26px;
+}
+
+.searcher-input-container {
+  text-align: center;
+}
+
+.searcher-title-category-type {
+  padding: 19px 26px;
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 17px;
+  line-height: 20px;
+  letter-spacing: 0.02em;
+  color: #FFFFFF;
+  opacity: 0.73;
 }
 
 .law-area {
@@ -223,14 +241,14 @@
   padding: 17px 9px;
   background: #5BA7AD;
   text-align: center;
-  border:none;
-  background-image:none;
+  border: none;
+  background-image: none;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
 }
 
-input:focus{
+input:focus {
   outline: none;
 }
 
@@ -251,6 +269,7 @@ input:focus{
   background: #5BA7AD;
   text-align: center;
   padding: 17px 9px;
+  cursor: pointer;
 }
 
 .searcher-large-box {
@@ -259,8 +278,209 @@ input:focus{
   padding: 17px 9px;
   background: #5BA7AD;
   text-align: center;
+  cursor: pointer;
 }
 
 .active {
   background: #BBD7D9;
+}
+
+.searcher-title-container {
+  display: none;
+  height: 53px;
+}
+
+.smartphone-menu-show {
+  width: 21px;
+  height: 11px;
+  background: url(../../assets/img/uparrowblue.svg);
+  cursor: pointer;
+}
+
+.smartphone-menu-hide {
+  width: 21px;
+  height: 11px;
+  background: url(../../assets/img/downarrowblue.svg);
+  cursor: pointer;
+}
+
+@media (max-width: 1150px) {
+  .laws {
+    width: calc(100% - 335px);
+  }
+
+  .searcher {
+    position: relative;
+    min-width: 335px;
+    height: inherit;
+    left: 0;
+  }
+
+  .law-headline {
+    left: 0;
+  }
+
+  .headline-h2 {
+    left: 0;
+    width: inherit;
+  }
+
+  .category {
+    left: 0;
+  }
+
+  .law-info {
+    left: 0;
+    width: inherit;
+  }
+
+  .texto {
+    width: inherit;
+    padding-right: 25px;
+  }
+}
+
+
+@media (max-width: 760px) {
+  .containe {
+    flex-wrap: wrap;
+  }
+
+  .laws {
+    width: 100%;
+  }
+
+  .law-info {
+    padding: 19px 12px 19px 12px;
+  }
+
+  .searcher {
+    width: 100%;
+    background: rgba(235, 235, 235, 0.93);
+  }
+
+  .searcher-title {
+    display: none;
+  }
+
+  .search-input {
+    background: #F5F5F5;
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 144.7%;
+    letter-spacing: 0.02em;
+    color: #828282;
+  }
+
+
+  ::placeholder {
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 144.7%;
+    letter-spacing: 0.02em;
+    color: #828282;
+    opacity: 0.73;
+  }
+
+  .searcher-title-container {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+    margin: 0 auto;
+  }
+
+  .searcher-title-mobile {
+    display: flex;
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 17px;
+    line-height: 20px;
+    letter-spacing: 0.02em;
+    color: #3E979E;
+    cursor: pointer;
+  }
+
+  .searcher-title-category-type {
+    width: 325px;
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 17px;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.02em;
+    color: #3E979E;
+    opacity: 0.73;
+    margin: 0 auto;
+    text-align: right;
+    padding-left: 0;
+  }
+
+  .law-area {
+    margin: 0 auto;
+    width: 336px;
+    gap: 2px;
+    padding: 0;
+  }
+
+  .searcher-small-box {
+    width: 167px;
+    height: 40px;
+    padding: 9px 22px;
+    background: #F5F5F5;
+  }
+
+  .law-type {
+    margin: 0 auto;
+    width: 336px;
+    flex-direction: row;
+    gap: 2px;
+    padding: 0 0 15px 0;
+  }
+
+
+  .searcher-large-box {
+    width: 167px;
+    height: 62px;
+    background: #F5F5F5;
+  }
+
+  .searcher-text {
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 144.7%;
+    text-align: center;
+    letter-spacing: 0.02em;
+    color: #828282;
+  }
+
+  .headline-h2 {
+    display: block;
+    margin: 0 auto;
+    padding: 14px 5px 14px 5px;
+    font-size: 25px;
+    text-align: center;
+  }
+
+  .category {
+    width: 100%;
+    display: block;
+    margin: 0 auto;
+    height: 19px;
+    padding: 0 0 30px 0;
+    text-align: center;
+  }
+
+  .texto {
+    padding: 0 0 25px 0;
+    text-align: center;
+  }
 }

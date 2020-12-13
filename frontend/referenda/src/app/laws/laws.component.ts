@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {Meta, Title} from '@angular/platform-browser';
 
@@ -30,6 +30,7 @@ export class LawsComponent implements OnInit {
     'proyecto de ley',
     'real decreto-ley'];
   orientativas = ['proposición no de ley'];
+  smartphoneMenu = false;
 
   constructor(
       private lawService: LawService,
@@ -48,6 +49,7 @@ export class LawsComponent implements OnInit {
     this.titleService.setTitle(title);
     this.metaTagService.updateTag({ name: 'description', content: title });
   }
+
   getLaws(): void {
     this.lawService.getLaws()
       .subscribe(laws => {
@@ -113,5 +115,15 @@ export class LawsComponent implements OnInit {
       {keys: ['headline'],
         baseSort: (a, b) => (a.item.pub_date < b.item.pub_date ? -1 : 1)});
   }
+
+  showSmartphoneMenu(show: boolean) {
+    this.smartphoneMenu = show;
+  }
+
+  @HostListener('window:resize', [])
+  onResize() {
+    this.smartphoneMenu = window.innerWidth > 640;
+  }
+
 
 }

@@ -24,7 +24,7 @@
   position: absolute;
   display: flex;
   width: 730px;
-  left: 40%;
+  left: calc(60% - 350px);
   top: 0;
   bottom: 0;
 }
@@ -112,7 +112,8 @@ a:hover {
 
 .dropdown-sesion-content {
   position: relative;
-  width: 128px;
+  width: 160px;
+  left: 1px;
   height: 106px;
   filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.15));
   z-index: 1;
@@ -127,7 +128,7 @@ a:hover {
   display: flex;
   align-items: center;
   letter-spacing: 0.02em;
-  width: 128px;
+  width: 160px;
   height: 52px;
   padding: 10px 15px 10px 14px;
   color: #3E979E;
@@ -136,12 +137,13 @@ a:hover {
 
 .dropdown-sesion:hover .dropdown-sesion-content {
   display: block;
+  width: 160px;
   background: #fff;
+  left: 1px;
 }
 
 .dropdown-iniciar {
   position: absolute;
-  left: 0;
   right: 0;
   top: 0;
   height: 53px;
@@ -150,12 +152,11 @@ a:hover {
 
 .dropdown-registrarse {
   position: absolute;
-  left: 0;
   right: 0;
   top: 53px;
   bottom: 0;
   height: 53px;
-  width: 128px;
+  width: 160px;
   border-radius: 0;
 }
 
@@ -176,6 +177,7 @@ a:hover {
   height: 14px;
   top: 26px;
   right: 37px;
+  cursor: pointer;
 }
 
 .smartphone-menu-show {
@@ -218,28 +220,13 @@ a:hover {
   background-color: #3E979E;
 }
 
-@media(min-width: 2500px) {
-  .secciones {
-    left: 45%;
-  }
-}
-
-@media(max-width: 1400px) {
-  .secciones {
-    left: 35%;
-  }
-}
-
 @media(max-width: 1100px) {
-  .secciones {
-    left: 198px;
-  }
   .logotipo img {
     left: 10px;
   }
 }
 
-@media(max-width: 900px) {
+@media(max-width: 950px) {
   .menu {
     height: 72px;
     top: 0;
