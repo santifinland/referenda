@@ -48,6 +48,7 @@ export class LawsComponent implements OnInit {
     }
     this.titleService.setTitle(title);
     this.metaTagService.updateTag({ name: 'description', content: title });
+    this.smartphoneMenu = window.innerWidth > 640;
   }
 
   getLaws(): void {
@@ -100,7 +101,6 @@ export class LawsComponent implements OnInit {
     }
   }
 
-
   sortLaws(laws: Law[]) {
     return laws.sort((a, b) =>
       a.featured > b.featured ? -1 : a.featured === b.featured ? 0 : 1);
@@ -109,11 +109,12 @@ export class LawsComponent implements OnInit {
   lawsToShow(): Law[] {
     const typeLaws: Law[] = this.filterByType(this.laws);
     const areaLaws: Law[] = matchSorter(typeLaws, this.area, {keys: ['area']});
-    return matchSorter(
+    const headlineLaws = matchSorter(
       areaLaws,
       this.headline,
       {keys: ['headline'],
         baseSort: (a, b) => (a.item.pub_date < b.item.pub_date ? -1 : 1)});
+    return this.sortLaws(headlineLaws);
   }
 
   showSmartphoneMenu(show: boolean) {

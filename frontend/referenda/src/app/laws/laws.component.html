@@ -4,7 +4,14 @@
     <div class="law" *ngFor="let law of lawsToShow()">
 
       <div class="law-headline" [style.background-image]="'url(../../assets/img/' + law.area[0] + '.jpg)'">
-        <h2 class="headline-h2"><a routerLink="/ley/{{law.slug}}">{{law.headline}}</a></h2>
+        <div class="headline-featured">
+          <h2 class="headline-h2" [ngClass]="{headlinefeatured: law.featured}">
+            <a routerLink="/ley/{{law.slug}}">{{law.headline}}</a>
+          </h2>
+          <div class="featured" *ngIf="law.featured">
+            &nbsp;¡A debate esta &nbsp; semana en el Congreso de los Diputados!
+          </div>
+        </div>
         <div class="category">{{law.area}}</div>
       </div>
 
@@ -37,15 +44,15 @@
           </div>
           <div class="percentage-value" [style.width.%]="law.positivePercentage + 4"
                *ngIf="law.isPositive && !law.checkNegative && !law.checkAbstention || law.checkPositive">
-            {{law.positivePercentage}}%
+            {{law.positivePercentage | number:'1.0-0'}}%
           </div>
           <div class="percentage-value" [style.width.%]="law.negativePercentage + 4"
                *ngIf="law.isNegative && !law.checkPositive && !law.checkAbstention || law.checkNegative">
-            {{law.negativePercentage}}%
+            {{law.negativePercentage | number:'1.0-0'}}%
           </div>
           <div class="percentage-value" [style.width.%]="law.abstentionPercentage + 4"
                *ngIf="law.isAbstention && !law.checkPositive && !law.checkNegative || law.checkAbstention">
-            {{law.abstentionPercentage}}%
+            {{law.abstentionPercentage | number:'1.0-0'}}%
           </div>
         </div>
       </div>

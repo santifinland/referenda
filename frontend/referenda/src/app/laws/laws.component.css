@@ -34,9 +34,17 @@
   background-size: cover;
 }
 
-.headline-h2 {
+.headline-featured {
+  display: flex;
+  width: 65%;
+  max-width: 830px;
   position: relative;
   left: calc(50% - 178px/2 - 500px);
+  gap: 1.5%;
+  padding: 19px 65px;
+}
+
+.headline-h2 {
   width: 686px;
   font-family: Roboto, sans-serif;
   font-style: normal;
@@ -46,12 +54,34 @@
   letter-spacing: 0.02em;
   color: #FFFFFF;
   text-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-  padding: 19px 0 10px 73px;
+  padding: 0;
 }
 
 .headline-h2 a {
   color: #FFFFFF;
   text-decoration-line: none;
+}
+
+.headlinefeatured {
+  display: flex;
+  width: 575px;
+}
+
+.featured {
+  display: flex;
+  width: 146px;
+  height: 93px;
+  margin-left: 15px;
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 16px;
+  align-items: center;
+  text-align: center;
+  color: #3E979E;
+  background-color: white;
+  border-radius: 10px;
 }
 
 .category {
@@ -320,6 +350,11 @@ input:focus {
     left: 0;
   }
 
+  .headline-featured {
+    left: 0;
+    width: 100%;
+  }
+
   .headline-h2 {
     left: 0;
     width: inherit;
@@ -352,6 +387,26 @@ input:focus {
 
   .law-info {
     padding: 19px 12px 19px 12px;
+  }
+
+  .headline-featured {
+    flex-direction: column-reverse;
+  }
+
+  .featured {
+    position: relative;
+    margin: 0 auto;
+    width: 360px;
+    height: 33px;
+    padding: 9px 10px;
+    text-align: center;
+    border-radius: 0;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 15px;
+    color: #FFF;
+    background: rgba(255, 255, 255, 0.34);
   }
 
   .searcher {
