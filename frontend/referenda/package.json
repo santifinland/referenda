@@ -44,6 +44,7 @@
     "express": "^4.17.1",
     "jquery": "^3.5.1",
     "localstorage-polyfill": "^1.0.1",
+    "match-sorter": "^6.0.2",
     "material-design-icons": "^3.0.1",
     "ngx-cookieconsent": "^2.2.3",
     "ngx-filter-pipe": "^2.1.2",

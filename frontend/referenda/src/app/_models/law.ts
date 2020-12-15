@@ -17,6 +17,15 @@ export class Law {
   positive: number;
   negative: number;
   abstention: number;
+  isPositive: boolean;
+  isNegative: boolean;
+  isAbstention: boolean;
+  checkPositive: boolean;
+  checkNegative: boolean;
+  checkAbstention: boolean;
+  positivePercentage: number;
+  negativePercentage: number;
+  abstentionPercentage: number;
   official_positive: number;
   official_negative: number;
   official_abstention: number;
