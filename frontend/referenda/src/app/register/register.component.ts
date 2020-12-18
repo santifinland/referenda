@@ -47,7 +47,8 @@ export class RegisterComponent implements OnInit {
     this.registerForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.minLength(4)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      gdpr: [false, [Validators.requiredTrue]]
     });
     this.authService.authState.subscribe((user) => {
       this.socialUser = user;
@@ -106,5 +107,9 @@ export class RegisterComponent implements OnInit {
   signInWithFB(): void {
     this.socialProvider = 'Facebook';
     this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+  }
+
+  gdprCompliant(): boolean {
+    return this.submitted && this.registerForm.controls.gdpr.status !== 'VALID';
   }
 }
