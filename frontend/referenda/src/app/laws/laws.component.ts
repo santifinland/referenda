@@ -19,7 +19,6 @@ export class LawsComponent implements OnInit {
   headline = '';
   area = '';
   lawType = '';
-  lawFilter: any = { $or: [{ headline: '', area: '', law_type: '' }] };
   legislativas = [
     'proposición de ley',
     'proposición ley orgánica',
@@ -108,7 +107,8 @@ export class LawsComponent implements OnInit {
 
   lawsToShow(): Law[] {
     const typeLaws: Law[] = this.filterByType(this.laws);
-    const areaLaws: Law[] = matchSorter(typeLaws, this.area, {keys: ['area']});
+    const areaLaws: Law[] = matchSorter(typeLaws,
+      this.area, {keys: [{threshold: matchSorter.rankings.STARTS_WITH, key: 'area'}]});
     const headlineLaws = matchSorter(
       areaLaws,
       this.headline,
