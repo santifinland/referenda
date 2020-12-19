@@ -1,29 +1,26 @@
-<footer class="footer">
-  <div class="container">
-    <div class="media">
-      <a routerLink="/leyes"><img height=50 src="assets/img/logoR.webp" alt="Logotipo R mayúscula de referenda" ></a>
+<div class="footer">
 
-      <div class="media-body footer" >
-        <ul>
-          <p>
-            <a href="/aboutus" (click)="onClick($event)">Qui&eacute;nes somos</a> |
-            <a href="/cookies" (click)="onClick($event)">Pol&iacute;tica de cookies</a> |
-            <a href="/gdpr" (click)="onClick($event)">Proteci&oacute;n de datos</a> |
-            <a href="/developers" (click)="onClick($event)">Developers</a> |
-          Copyright © Referenda 2019 </p>
-        </ul>
-      </div>
-
-      <div>
-        <ul>
-          <a class="btn btn-social-icon btn-lg btn-twitter" href="http://twitter.com/Referenda_es">
-            <i class="fa fa-twitter"></i>
-          </a>
-          <a class="btn btn-social-icon btn-lg btn-default" href="mailto:admin@referenda.es">
-            <i class="fa fa-envelope-o"></i>
-          </a>
-        </ul>
-      </div>
+  <div class="section">
+    <div class="title">REFERENDA</div>
+    <div class="content" routerLink="/aboutus">
+      Nuestro objetivo es acercar la política a la ciudadanía.
+      Queremos formar una opinión pública responsable
+      fomentando el conocimiento sobre nuestras leyes,
+      su proceso de creación y sus legisladores.
     </div>
   </div>
-</footer>
+
+  <div class="section">
+    <div class="title">LEGAL</div>
+    <div class="content" routerLink="/cookies">Pol&iacute;tica de cookies</div>
+    <div class="content" routerLink="/gdpr">Proteci&oacute;n de datos</div>
+    <div class="title second-title">DEVELOPERS</div>
+    <div class="content" routerLink="/developers">Referenda API</div>
+  </div>
+
+  <div class="section">
+    <div class="title">CONTACTO</div>
+    <a class="content" href="mailto:info@referenda.es">info@referenda.es</a>
+    <a class="content" href="https://twitter.com/Referenda_es">Twitter</a>
+  </div>
+</div>

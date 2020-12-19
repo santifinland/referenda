@@ -1,66 +1,47 @@
-﻿<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-sm-12">
-      <br>
-      <br>
-      <h1>Inicia sesi&oacute;n en Referenda y empieza a votar</h1>
-      <hr>
-      <br>
+﻿<div class="login">
+  <div>
+    <h1>Inicia sesi&oacute;n en Referenda y empieza a votar</h1>
+  </div>
+  <div class="social">
+    Inicia sesi&oacute;n con tus redes sociales
+  </div>
+  <div class="facebook-google">
+    <div class="button facebook-button" (click)="signInWithFB()">
+      <img class="facebook-img" src="assets/img/facebook_login.svg"/>
+      Iniciar sesi&oacute;n con Facebook
+    </div>
+    <div class="button google-button" (click)="signInWithGoogle()">
+      <img src="assets/img/btn_google_light_normal_ios.svg"/>
+      Iniciar sesi&oacute;n con Google
     </div>
   </div>
-  <div class="row justify-content-center">
-    <div class="col-sm-5">
-      <h5>Inicia sesi&oacute;n con tu nombre de usuario</h5>
-      <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
-        <div class="form-group">
-          <input type="text" formControlName="username" class="form-control" placeholder="Nombre de usuario"
-                 [ngClass]="{ 'is-invalid': submitted && lf.username.errors }" />
-          <div *ngIf="submitted && lf.username.errors" class="invalid-feedback">
-            <div *ngIf="lf.username.errors.required">Es necesario el nombre de usuario</div>
-          </div>
+  <div class="social referenda">
+    O inicia sesi&oacute;n con tu nombre de usuario y contraseña
+    <form class="loginForm" [formGroup]="loginForm" (ngSubmit)="onLogin()">
+      <div class="form-group">
+        <input type="text" formControlName="username" class="form-control" placeholder="Usuario"
+               [ngClass]="{ 'is-invalid': submitted && lf.username.errors }"/>
+        <div *ngIf="submitted && lf.username.errors" class="invalid-feedback">
+          <div *ngIf="lf.username.errors.required">Es necesario el nombre de usuario</div>
         </div>
-        <div class="form-group">
-          <input type="password" formControlName="password" class="form-control" placeholder="Contrase&#241;a"
-                 [ngClass]="{ 'is-invalid': submitted && lf.password.errors }" />
-          <div *ngIf="submitted && lf.password.errors" class="invalid-feedback">
-            <div *ngIf="lf.password.errors.required">Es necesaria la contrase&#241;a</div>
-          </div>
+      </div>
+      <div class="form-group">
+        <input type="password" formControlName="password" class="form-control" placeholder="Contrase&#241;a"
+               [ngClass]="{ 'is-invalid': submitted && lf.password.errors }"/>
+        <div *ngIf="submitted && lf.password.errors" class="invalid-feedback">
+          <div *ngIf="lf.password.errors.required">Es necesaria la contrase&#241;a</div>
         </div>
-        <div class="form-group">
-          <button [disabled]="loading" class="btn btn-primary">Iniciar sesi&oacute;n</button>
-          <img *ngIf="loading" class="pl-3" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-          <a class="btn btn-link register" routerLink="/register">Registrarse</a>
-        </div>
-        <a class="remember" routerLink="/password"> Recordar contrase&#241;a&nbsp; </a>
-      </form>
-      <br>
-      <hr class="hr-visible">
-      <br>
+      </div>
+      <div class="form-group">
+        <button [disabled]="loading" class="login-button">Iniciar sesi&oacute;n</button>
+        <img *ngIf="loading" class="pl-3"
+             src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+      </div>
+      <a class="remember" routerLink="/password"> Recordar contrase&#241;a&nbsp; </a>
+    </form>
+    <div class="not-registered">
+      ¿A&uacute;n no est&aacute;s registrado?
+      <b class="register" routerLink="/register">Puedes registrarte aqu&iacute;</b>
     </div>
-    <div class="col-sm-5 vertical-line">
-      <br>
-      <button type="button" class="btn btn-outline-secondary btn-block" (click)="signInWithGoogle()">
-        <img src="assets/img/btn_google_light_normal_ios.svg"/>
-        Inicia sesi&oacute;n con Google
-      </button>
-      <button type="button" class="btn btn-outline-secondary btn-block facebook" (click)="signInWithFB()">
-        <img class="facebook-img" src="assets/img/facebook_login.svg"/>
-        Inicia sesi&oacute;n con Facebook
-      </button>
-    </div>
-  </div>
-  <div class="col-sm-12">
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
   </div>
 </div>

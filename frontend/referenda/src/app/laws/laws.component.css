@@ -342,7 +342,7 @@ input:focus {
   .searcher {
     position: relative;
     min-width: 335px;
-    height: inherit;
+    height: auto;
     left: 0;
   }
 
