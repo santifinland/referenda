@@ -376,6 +376,7 @@ input:focus {
 
 
 @media (max-width: 760px) {
+
   .containe {
     flex-wrap: wrap;
   }
@@ -395,7 +396,7 @@ input:focus {
   .featured {
     position: relative;
     margin: 0 auto;
-    width: 360px;
+    width: auto;
     height: 33px;
     padding: 9px 10px;
     text-align: center;
@@ -408,8 +409,13 @@ input:focus {
     background: rgba(255, 255, 255, 0.34);
   }
 
+  .botones {
+    width: 100%;
+  }
+
   .searcher {
     width: 100%;
+    height: auto;
     background: rgba(235, 235, 235, 0.93);
   }
 

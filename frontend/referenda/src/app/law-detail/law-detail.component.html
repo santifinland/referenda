@@ -1,114 +1,23 @@
 <div class="law-detail">
 
+  <div class="friso" id="friso">
+    <div class="law-headline" [style.background-image]="'url(../../assets/img/' + law.area[0] + '.jpg)'"></div>
+    <h2 class="headline-h2" *ngIf="!comments">{{law.area}}</h2>
+    <h1 class="headline-h2" *ngIf="comments">{{law.headline}}</h1>
+  </div>
+
+
   <div class="law">
-    <div class="law-headline" [style.background-image]="'url(../../assets/img/' + law.area[0] + '.jpg)'">
-      <h2 class="headline-h2">{{law.area}}</h2>
-
-      <div class="hover yes-hover" *ngIf="yesHover">
-        <div class="referenda">
-          <div class="results-title">Resultados REFERENDA</div>
-          <div class="results">
-            <div class="votes">
-              <div class="votes-number">{{law.positive}}</div>
-              <div class="votes-explanation">votos</div>
-            </div>
-            <div class="votes">
-              <div class="votes-number">{{law.positivePercentage | number:'1.0-0' }}%</div>
-              <div class="votes-explanation">porcentaje</div>
-            </div>
-          </div>
-        </div>
-        <div class="congreso">
-          <div class="results-title">Resultados Congreso de los Diputados</div>
-          <div class="results">
-            <div class="votes">
-              <div class="votes-number azul">{{law.official_positive ? law.official_positive : 0}}</div>
-              <div class="votes-explanation azul">votos</div>
-            </div>
-            <div class="votes">
-              <div class="votes-number azul">
-                {{official_total > 0 ? law.official_positive / official_total : 0 | number:'1.0-0' }}%
-              </div>
-              <div class="votes-explanation azul">porcentaje</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="hover no-hover" *ngIf="noHover">
-        <div class="referenda">
-          <div class="results-title">Resultados REFERENDA</div>
-          <div class="results">
-            <div class="votes">
-              <div class="votes-number">{{law.negative}}</div>
-              <div class="votes-explanation">votos</div>
-            </div>
-            <div class="votes">
-              <div class="votes-number">{{law.negativePercentage | number:'1.0-0'}}%</div>
-              <div class="votes-explanation">porcentaje</div>
-            </div>
-          </div>
-        </div>
-        <div class="congreso">
-          <div class="results-title">Resultados Congreso de los Diputados</div>
-          <div class="results">
-            <div class="votes">
-              <div class="votes-number azul">{{law.official_negative ? law.official_negative : 0}}</div>
-              <div class="votes-explanation azul">votos</div>
-            </div>
-            <div class="votes">
-              <div class="votes-number azul">
-                {{official_total > 0 ? law.official_negative / official_total : 0 | number:'1.0-0'}}%
-              </div>
-              <div class="votes-explanation azul">porcentaje</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="hover abs-hover" *ngIf="absHover">
-        <div class="referenda">
-          <div class="results-title">Resultados REFERENDA</div>
-          <div class="results">
-            <div class="votes">
-              <div class="votes-number">{{law.abstention}}</div>
-              <div class="votes-explanation">votos</div>
-            </div>
-            <div class="votes">
-              <div class="votes-number">{{law.abstentionPercentage | number:'1.0-0'}}%</div>
-              <div class="votes-explanation">porcentaje</div>
-            </div>
-          </div>
-        </div>
-        <div class="congreso">
-          <div class="results-title">Resultados Congreso de los Diputados</div>
-          <div class="results">
-            <div class="votes">
-              <div class="votes-number azul">{{law.official_abstention ? law.official_abstention : 0}}</div>
-              <div class="votes-explanation azul">votos</div>
-            </div>
-            <div class="votes">
-              <div class="votes-number azul">
-                {{official_total > 0 ? law.official_abstention / official_total : 0 | number:'1.0-0'}}%
-              </div>
-              <div class="votes-explanation azul">porcentaje</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
 
     <div class="law-info" *ngIf="!comments">
-      <div class="headline">{{law.headline}}</div>
-      <div class="description" *ngIf="!readMore" [innerHTML]="law.long_description.substring(0, 800) + ' ...'"></div>
-      <div class="description" *ngIf="readMore" [innerHTML]="law.long_description"></div>
-      <div class="read" *ngIf="!readMore" (click)="toggle()">+ Leer m&aacute;s</div>
-      <div class="read" *ngIf="readMore" (click)="toggle()">- Leer menos</div>
+      <h1 class="headline">{{law.headline}}</h1>
+      <div class="description" *ngIf="!readMore && !mobile" [innerHTML]="law.long_description.substring(0, 800) + ' ...'"></div>
+      <div class="description" *ngIf="readMore || mobile" [innerHTML]="law.long_description"></div>
+      <div class="read" *ngIf="!readMore && !mobile" (click)="toggle()">+ Leer m&aacute;s</div>
+      <div class="read" *ngIf="readMore && !mobile" (click)="toggle()">- Leer menos</div>
     </div>
 
-    <div class="law-info comments" *ngIf="comments">
-      <div class="headline">{{law.headline}}</div>
+    <div class="comments" *ngIf="comments">
       <div class="comments-title">Deja un comentario</div>
       <form [formGroup]="commentForm" (ngSubmit)="comment()">
         <div class="form-group">
@@ -117,7 +26,7 @@
                     [ngClass]="{ 'is-invalid': submitted && f.comment.errors }">
           </textarea>
           <div *ngIf="submitted && f.comment.errors" class="invalid-feedback">
-            <div *ngIf="f.comment.errors.required">Es necesario escribir un comentario</div>
+            <div *ngIf="submitted && f.comment.errors.required">Es necesario escribir un comentario</div>
           </div>
         </div>
         <div class="form-group">
@@ -127,27 +36,21 @@
       <div class="comments-title">Comentarios ({{numComments}})</div>
 
       <div class="comment-tabs">
-        <div class="tabs-base all" [ngClass]="{activetab: tab==='all'}" (click)="tab='all';">
-          TODOS ({{numComments}})
+        <div class="tabs-base all" [ngClass]="{activetab: tab==='all'}" (click)="tab='all'; dateComments();">
+          TODOS
         </div>
-        <div class="tabs-base yes-comments" [ngClass]="{activetab: tab==='yes'}" (click)="tab='yes';">
-          S&Iacute; ({{numComments}})
-        </div>
-        <div class="tabs-base no-comments" [ngClass]="{activetab: tab==='no'}" (click)="tab='no';">
-          NO ({{numComments}})
-        </div>
-        <div class="tabs-base abs-comments" [ngClass]="{activetab: tab==='abs'}" (click)="tab='abs';">
-          ABS ({{numComments}})
+        <div class="tabs-base top-comments" [ngClass]="{activetab: tab==='top'}" (click)="tab='top'; sortComments()">
+          MEJOR VALORADOS
         </div>
       </div>
 
       <div class="comments-list">
-        <div class="comment" *ngFor="let comment of sortComments()">
+        <div class="comment" *ngFor="let comment of law.comments">
           <div class="comment-container">
             <div class="comment-info">
               <div class="comment-username">{{comment.postedBy.username}}</div>
               <div class="comment-datetime">{{comment.updatedAt | date:'d \'de\' MMMM \'de\' yyyy'}}</div>
-              <div class="comment-content ">{{comment.comment}}</div>
+              <div class="comment-content" [innerHTML]="comment.comment"></div>
             </div>
             <div class="comment-votes">
               <div class="comment-vote" (click)="voteComment([comment._id], 1)">
@@ -165,68 +68,162 @@
 
     </div>
 
+    <div class="voter">
+      <div class="voter-sticky">
+        <div class="voter-title voter-text">Vota esta proposici&oacute;n</div>
+        <div class="law-vote">
+          <div class="voter-large-box" (click)="submitVote([law.slug], 1); vote='yes';"
+               [ngClass]="{vote: vote==='yes'}" (mouseover)="yesHover=true" (mouseleave)="yesHover=false">S&Iacute;
+          </div>
+          <div class="voter-large-box" (click)="submitVote([law.slug], 2); vote='no';"
+               [ngClass]="{vote: vote==='no'}" (mouseover)="noHover=true" (mouseleave)="noHover=false">NO
+          </div>
+          <div class="voter-large-box" (click)="submitVote([law.slug], 3); vote='abs';"
+               [ngClass]="{vote: vote==='abs'}" (mouseover)="absHover=true" (mouseleave)="absHover=false">ABSTENCI&Oacute;N
+          </div>
+          <a class="voter-large-box" href="{{law.link}}">+SABER M&Aacute;S</a>
+        </div>
+
+        <div class="institution">
+          <div class="voter-title voter-text presented">Propuesta presentada por:</div>
+          <div class="presented-logo">
+            <img class="mini-logo" src="assets/img/{{law.institution[0]}}.svg" alt="{{law.institution[0]}}">
+          </div>
+        </div>
+
+        <div class="position">
+          <div class="favour" [ngClass]="{active: position==='favour'}" (click)="position='favour';">A FAVOR</div>
+          <div class="against" [ngClass]="{active: position==='against'}" (click)="position='against';">EN CONTRA</div>
+          <div class="abstention" [ngClass]="{active: position==='abs'}" (click)="position='abs';">ABSTENCI&Oacute;N
+          </div>
+        </div>
+        <div class="position-hr"></div>
+
+        <div class="parties" *ngIf="position==='favour'">
+          <img *ngFor="let party of law.positiveParties" src="assets/img/{{party}}.svg" alt="{{party}}"
+               [ngStyle]="{'width': logoWidth(party), 'height': logoHeight(party)}">
+        </div>
+        <div class="parties" *ngIf="position==='against'">
+          <img *ngFor="let party of law.negativeParties" src="assets/img/{{party}}.svg" alt="{{party}}"
+               [ngStyle]="{'width': logoWidth(party), 'height': logoHeight(party)}">
+        </div>
+        <div class="parties" *ngIf="position==='abs'">
+          <img *ngFor="let party of law.abstentionParties" src="assets/img/{{party}}.svg" alt="{{party}}"
+               [ngStyle]="{'width': logoWidth(party), 'height': logoHeight(party)}">
+        </div>
+
+        <div class="law-vote comments-button">
+          <div class="voter-large-box" (click)="showComments()" [ngClass]="{commentsactive: comments===true}">
+            COMENTARIOS ({{numComments}})
+          </div>
+          <div>
+            <a
+              href="https://www.facebook.com/dialog/share?app_id=297519443717240&display=popup&href={{location}}&redirect_uri=https%3A%2F%2Freferenda.es">
+              <img src="assets/img/facebook.svg" alt="Facebook">
+            </a>
+          </div>
+          <div>
+            <img src="assets/img/twitter.svg" alt="Twitter" (click)="shareTwitter()">
+          </div>
+        </div>
+
+
+        <div class="hover yes-hover" *ngIf="yesHover">
+          <div class="referenda">
+            <div class="results-title">Resultados REFERENDA</div>
+            <div class="results">
+              <div class="votes">
+                <div class="votes-number">{{law.positive}}</div>
+                <div class="votes-explanation">votos</div>
+              </div>
+              <div class="votes">
+                <div class="votes-number">{{law.positivePercentage | number:'1.0-0' }}%</div>
+                <div class="votes-explanation">porcentaje</div>
+              </div>
+            </div>
+          </div>
+          <div class="congreso">
+            <div class="results-title">Resultados Congreso de los Diputados</div>
+            <div class="results">
+              <div class="votes">
+                <div class="votes-number azul">{{law.official_positive ? law.official_positive : 0}}</div>
+                <div class="votes-explanation azul">votos</div>
+              </div>
+              <div class="votes">
+                <div class="votes-number azul">
+                  {{(official_total > 0 ? law.official_positive * 100 / official_total : 0) | number:'1.0-0' }}%
+                </div>
+                <div class="votes-explanation azul">porcentaje</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hover no-hover" *ngIf="noHover">
+          <div class="referenda">
+            <div class="results-title">Resultados REFERENDA</div>
+            <div class="results">
+              <div class="votes">
+                <div class="votes-number">{{law.negative}}</div>
+                <div class="votes-explanation">votos</div>
+              </div>
+              <div class="votes">
+                <div class="votes-number">{{law.negativePercentage | number:'1.0-0'}}%</div>
+                <div class="votes-explanation">porcentaje</div>
+              </div>
+            </div>
+          </div>
+          <div class="congreso">
+            <div class="results-title">Resultados Congreso de los Diputados</div>
+            <div class="results">
+              <div class="votes">
+                <div class="votes-number azul">{{law.official_negative ? law.official_negative : 0}}</div>
+                <div class="votes-explanation azul">votos</div>
+              </div>
+              <div class="votes">
+                <div class="votes-number azul">
+                  {{(official_total > 0 ? law.official_negative * 100 / official_total : 0) | number:'1.0-0'}}%
+                </div>
+                <div class="votes-explanation azul">porcentaje</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hover abs-hover" *ngIf="absHover">
+          <div class="referenda">
+            <div class="results-title">Resultados REFERENDA</div>
+            <div class="results">
+              <div class="votes">
+                <div class="votes-number">{{law.abstention}}</div>
+                <div class="votes-explanation">votos</div>
+              </div>
+              <div class="votes">
+                <div class="votes-number">{{law.abstentionPercentage | number:'1.0-0'}}%</div>
+                <div class="votes-explanation">porcentaje</div>
+              </div>
+            </div>
+          </div>
+          <div class="congreso">
+            <div class="results-title">Resultados Congreso de los Diputados</div>
+            <div class="results">
+              <div class="votes">
+                <div class="votes-number azul">{{law.official_abstention ? law.official_abstention : 0}}</div>
+                <div class="votes-explanation azul">votos</div>
+              </div>
+              <div class="votes">
+                <div class="votes-number azul">
+                  {{(official_total > 0 ? law.official_abstention * 100 / official_total : 0) | number:'1.0-0'}}%
+                </div>
+                <div class="votes-explanation azul">porcentaje</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
   </div>
-
-  <div class="voter">
-    <div class="voter-title voter-text">Vota esta proposici&oacute;n</div>
-    <div class="law-vote">
-      <div class="voter-large-box" (click)="submitVote([law.slug], 1); vote='yes';"
-           [ngClass]="{vote: vote==='yes'}" (mouseover)="yesHover=true" (mouseleave)="yesHover=false">S&Iacute;
-      </div>
-      <div class="voter-large-box" (click)="submitVote([law.slug], 2); vote='no';"
-           [ngClass]="{vote: vote==='no'}" (mouseover)="noHover=true" (mouseleave)="noHover=false">NO
-      </div>
-      <div class="voter-large-box" (click)="submitVote([law.slug], 3); vote='abs';"
-           [ngClass]="{vote: vote==='abs'}" (mouseover)="absHover=true" (mouseleave)="absHover=false">ABSTENCI&Oacute;N
-      </div>
-      <a class="voter-large-box" href="{{law.link}}">+SABER M&Aacute;S</a>
-    </div>
-
-    <div class="institution">
-      <div class="voter-title voter-text presented">Propuesta presentada por:</div>
-      <div class="presented-logo">
-        <img class="mini-logo" src="assets/img/{{law.institution[0]}}.svg" alt="{{law.institution[0]}}">
-      </div>
-    </div>
-
-    <div class="position">
-      <div class="favour" [ngClass]="{active: position==='favour'}" (click)="position='favour';">A FAVOR</div>
-      <div class="against" [ngClass]="{active: position==='against'}" (click)="position='against';">EN CONTRA</div>
-      <div class="abstention" [ngClass]="{active: position==='abs'}" (click)="position='abs';">ABSTENCI&Oacute;N</div>
-    </div>
-    <div class="position-hr"></div>
-
-    <div class="parties" *ngIf="position==='favour'">
-      <img *ngFor="let party of law.positiveParties" src="assets/img/{{party}}.svg" alt="{{party}}"
-           [ngStyle]="{'width': logoWidth(party), 'height': logoHeight(party)}">
-    </div>
-    <div class="parties" *ngIf="position==='against'">
-      <img *ngFor="let party of law.negativeParties" src="assets/img/{{party}}.svg" alt="{{party}}"
-           [ngStyle]="{'width': logoWidth(party), 'height': logoHeight(party)}">
-    </div>
-    <div class="parties" *ngIf="position==='abs'">
-      <img *ngFor="let party of law.abstentionParties" src="assets/img/{{party}}.svg" alt="{{party}}"
-           [ngStyle]="{'width': logoWidth(party), 'height': logoHeight(party)}">
-    </div>
-
-    <div class="law-vote comments-button">
-      <div class="voter-large-box" (click)="showComments()" [ngClass]="{commentsactive: comments===true}">
-        COMENTARIOS ({{numComments}})
-      </div>
-      <div>
-      <span>
-        <a
-          href="https://www.facebook.com/dialog/share?app_id=297519443717240&display=popup&href={{location}}&redirect_uri=https%3A%2F%2Freferenda.es">
-          <img src="assets/img/facebook.svg" alt="Facebook">
-        </a>
-      </span>
-        <span>
-        <img src="assets/img/twitter.svg" alt="Twitter" (click)="shareTwitter()">
-      </span>
-      </div>
-    </div>
-
-  </div>
-
 </div>
 

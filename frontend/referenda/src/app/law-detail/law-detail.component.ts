@@ -1,5 +1,5 @@
 import { ActivatedRoute } from '@angular/router';
-import { Component, Inject, OnInit, PLATFORM_ID} from '@angular/core';
+import {Component, HostListener, Inject, OnInit, PLATFORM_ID} from '@angular/core';
 import { Router } from '@angular/router';
 import { Meta, Title} from '@angular/platform-browser';
 import { isPlatformBrowser } from '@angular/common';
@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
 import { Law } from '../_models/law';
+import { Comment } from '../_models/comment';
 import { LawService } from '../law.service';
 import { VoteResponse } from '../_models/vote.response';
 import { WINDOW } from '../_services/window.service';
@@ -45,6 +46,7 @@ export class LawDetailComponent implements OnInit {
   vote = '';
   comments = false;
   tab = 'all';
+  mobile = false;
 
   location: string;
 
@@ -80,6 +82,7 @@ export class LawDetailComponent implements OnInit {
         law.negativeWidth   = (50 * law.negative   / (law.positive + law.negative + law.abstention)) + '%';
         law.abstentionWidth = (50 * law.abstention / (law.positive + law.negative + law.abstention)) + '%';
         this.official_total = law.official_positive + law.official_negative + law.official_abstention;
+        console.log(this.official_total)
         if (this.official_total > 0) {
           this.resultsCongreso = true;
         }
@@ -93,13 +96,15 @@ export class LawDetailComponent implements OnInit {
         this.numComments = law.comments.length;
         this.law = law;
         this.facebook = this.facebookPrefix + law.headline + this.facebookSuffix;
+        this.dateComments();
+        this.mobile = window.innerWidth < 640;
       });
   }
 
   toggle() {
     this.readMore = !this.readMore;
     if (!this.readMore) {
-      document.getElementById('menu').scrollIntoView({behavior: 'smooth'});
+      window.scroll({top: 0, behavior: 'smooth'});
     }
   }
 
@@ -111,7 +116,7 @@ export class LawDetailComponent implements OnInit {
       );
   }
 
-  comment(c: string): void {
+  comment(): void {
     this.submitted = true;
 
     // stop here if form is invalid
@@ -144,6 +149,11 @@ export class LawDetailComponent implements OnInit {
   sortComments() {
     return this.law.comments.sort((a, b) =>
       a.positive > b.positive ? -1 : a.positive === b.positive ? 0 : 1);
+  }
+
+  dateComments() {
+    return this.law.comments.sort((a, b) =>
+    a._id < b._id ? -1 : a._id === b._id ? 0 : 1);
   }
 
   voteComment(commentId: string, vote: number): void {
@@ -214,6 +224,11 @@ export class LawDetailComponent implements OnInit {
 
   showComments(): void {
     this.comments = !this.comments;
+  }
+
+  @HostListener('window:resize', [])
+  onResize() {
+    this.mobile = window.innerWidth < 640;
   }
 
 }

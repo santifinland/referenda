@@ -1,23 +1,40 @@
 .law-detail {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.friso {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
 }
 
 .law {
   display: flex;
-  width: 100%;
-  flex-direction: column;
+  min-height: 850px;
+  margin: 0 auto;
   padding: 0;
+  justify-content: center;
+  flex-grow: 1;
 }
 
 .voter {
-  position: absolute;
-  left: calc(65%);
   display: flex;
   flex-direction: column;
   width: 335px;
-  height: 100vh;
+  max-width: 335px;
+  min-height: 850px;
+  margin-top: -347px;
   background: #3E979E;
+  flex: 1;
+}
+
+.voter-sticky {
+  position: sticky;
+  top: 45px;
 }
 
 .law-headline {
@@ -30,8 +47,10 @@
 }
 
 .headline-h2 {
-  margin: 154px auto;
-  width: 475px;
+  display: flex;
+  height: 339px;
+  width: 817px;
+  margin: -339px 0 0 -335px;
   font-family: Roboto, sans-serif;
   font-style: normal;
   font-weight: bold;
@@ -40,7 +59,10 @@
   letter-spacing: 0.02em;
   color: #FFFFFF;
   text-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-  padding: 0;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px
 }
 
 .headline-h2 a {
@@ -50,17 +72,15 @@
 
 .law-info {
   position: relative;
-  left: calc(50% - 178px/2 - 500px);
   width: 817px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 34px 5px 45px 45px;
+  padding: 57px 66px 0 57px;
   font-family: Roboto, sans-serif;
   font-style: normal;
   letter-spacing: 0.02em;
   background: #F3F3F3;
-  justify-content: space-between;
   gap: 20px;
 }
 
@@ -72,7 +92,6 @@
   line-height: 130.7%;
   letter-spacing: 0.02em;
   color: #3E979E;
-  margin: 0 20px;
 }
 
 .description {
@@ -83,7 +102,6 @@
   line-height: 144.7%;
   letter-spacing: 0.02em;
   color: #333333;
-  margin: 0 20px;
   text-align: justify;
 }
 
@@ -226,19 +244,19 @@
   flex-direction: column;
   width: 215px;
   height: 180px;
-  left: calc(65% - 230px);
+  margin-left: -230px;
 }
 
 .yes-hover {
-  margin-top: 15px;
+  margin-top: -410px;
 }
 
 .no-hover {
-  margin-top: 67px;
+  margin-top: -358px;
 }
 
 .abs-hover {
-  margin-top: 119px;
+  margin-top: -306px;
 }
 
 .results-title {
@@ -310,6 +328,8 @@
 
 .comments-button {
   position: absolute;
+  display: flex;
+  flex-direction: column;
   top: 621px;
 }
 
@@ -331,7 +351,6 @@
   line-height: 130.7%;
   text-align: center;
   letter-spacing: 0.02em;
-  margin: 0 20px;
   cursor: pointer;
   background: #FFFFFF;
   color: #3E979E;
@@ -347,6 +366,8 @@
 }
 
 .comments {
+  width: 817px;
+  padding: 57px 0 0 0;
   background: #EBEBEB;
 }
 
@@ -381,7 +402,7 @@ input::placeholder {
   line-height: 144%;
   letter-spacing: 0.02em;
   color: #BDBDBD;
-  transform:translate3d(0,-45px,0)
+  transform: translate3d(0, -45px, 0)
 }
 
 .comment-send {
@@ -449,12 +470,17 @@ input::placeholder {
   padding: 8px 18px 6px 18px;
 }
 
+.top-comments {
+  min-width: 200px;
+  padding: 8px 18px 6px 18px;
+}
+
 .comments-list {
   display: flex;
   flex-direction: column;
   gap: 10px;
   width: 100%;
-  margin: -30px 0;
+  margin: -10px 0;
   padding: 57px 20px;
   background: #B9B9B9;
 }
@@ -467,26 +493,25 @@ input::placeholder {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  width: 618px;
-  height: 131px;
   background: #F5F5F5;
   border-radius: 7px;
 }
 
 .comment-container {
   display: flex;
+  width: 100%;
 }
 
 .comment-info {
   display: flex;
   flex-direction: column;
-  width: calc(100% - 120px);
+  width: calc(100% - 140px);
 }
 
 .comment-votes {
   display: flex;
   flex-direction: column;
-  width: 120px;
+  width: 140px;
   gap: 5px;
   padding: 20px 10px;
 }
@@ -550,8 +575,7 @@ input::placeholder {
 }
 
 .comment-content {
-  width: 578px;
-  margin: 0 0 0 20px;
+  margin: 0 0 5px 20px;
   font-family: Roboto, sans-serif;
   font-style: normal;
   font-weight: 300;
@@ -559,4 +583,58 @@ input::placeholder {
   line-height: 144.7%;
   letter-spacing: 0.02em;
   color: #828282;
+}
+
+@media (max-width: 1170px) {
+
+  .law-info, .comments {
+    width: 100%;
+  }
+
+
+  .voter {
+    min-width: 335px;
+    left: 0;
+  }
+}
+
+@media (max-width: 1152px) {
+
+  .law-headline {
+    height: 220px;
+  }
+
+  .headline-h2 {
+    width: calc(100% - 335px);
+    height: 220px;
+    margin-top: -220px;
+  }
+
+  .comment-area {
+    width: 80%;
+  }
+
+}
+
+@media (max-width: 950px) {
+
+  .voter-sticky {
+    position: absolute;
+    height: 850px;
+    top: 65px;
+  }
+}
+
+@media (max-width: 760px) {
+
+  .headline-h2 {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .voter {
+    display: none;
+    width: 100%;
+    background: rgba(235, 235, 235, 0.93);
+  }
 }
