@@ -1,7 +1,6 @@
-.containe {
+.layer-laws {
   display: flex;
   width: 100%;
-  flex-direction: row;
 }
 
 .laws {

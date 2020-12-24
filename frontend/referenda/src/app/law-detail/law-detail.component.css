@@ -35,6 +35,7 @@
 .voter-sticky {
   position: sticky;
   top: 45px;
+  min-height: 850px;
 }
 
 .law-headline {
@@ -329,7 +330,6 @@
 .comments-button {
   position: absolute;
   display: flex;
-  flex-direction: column;
   top: 621px;
 }
 
@@ -638,3 +638,17 @@ input::placeholder {
     background: rgba(235, 235, 235, 0.93);
   }
 }
+
+@media (max-height: 850px) {
+
+  .law-headline {
+    height: 220px;
+  }
+
+  .headline-h2 {
+    width: calc(100% - 335px);
+    height: 220px;
+    margin-top: -220px;
+  }
+}
+
