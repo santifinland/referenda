@@ -30,6 +30,7 @@ export class LawsComponent implements OnInit {
     'real decreto-ley'];
   orientativas = ['proposición no de ley'];
   smartphoneMenu = false;
+  maxHeight = 0;
 
   constructor(
       private lawService: LawService,
@@ -67,6 +68,10 @@ export class LawsComponent implements OnInit {
           law.abstentionWidth = (15 + 40 * law.abstention / (law.positive + law.negative + law.abstention)) + '%';
         });
         this.laws = this.sortLaws(tierLaws);
+        const body = document.body;
+        const html = document.documentElement;
+        this.maxHeight = Math.max(body.scrollHeight, body.offsetHeight,
+                               html.clientHeight, html.scrollHeight, html.offsetHeight) + 100;
       });
   }
 
@@ -121,10 +126,6 @@ export class LawsComponent implements OnInit {
     this.smartphoneMenu = show;
   }
 
-  @HostListener('window:resize', [])
-  onResize() {
-    this.smartphoneMenu = window.innerWidth > 640;
-  }
 
 
 }
