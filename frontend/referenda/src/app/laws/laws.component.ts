@@ -1,11 +1,12 @@
-import {Component, HostListener, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {Meta, Title} from '@angular/platform-browser';
+import { Component, HostListener, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Meta, Title } from '@angular/platform-browser';
 
-import {matchSorter} from 'match-sorter';
+import { matchSorter } from 'match-sorter';
 
-import {Law} from '../_models/law';
-import {LawService} from '../law.service';
+import { Law } from '../_models/law';
+import { LawService } from '../law.service';
+import { VoteResponse } from '../_models/vote.response';
 
 
 @Component({
@@ -30,7 +31,9 @@ export class LawsComponent implements OnInit {
     'real decreto-ley'];
   orientativas = ['proposición no de ley'];
   smartphoneMenu = false;
+  voterMenu = false;
   maxHeight = 0;
+  vote = ''
 
   constructor(
       private lawService: LawService,
@@ -126,6 +129,34 @@ export class LawsComponent implements OnInit {
     this.smartphoneMenu = show;
   }
 
+  showVoterMenu() {
+    this.voterMenu = !this.voterMenu;
+  }
+
+  getLaw(slug): void {
+    this.lawService.getLaw(slug)
+      .subscribe(law => {
+        law.isPositive = law.positive > law.negative && law.positive > law.abstention;
+        law.isNegative = law.negative > law.positive && law.negative > law.abstention;
+        law.isAbstention = law.abstention > law.positive && law.abstention > law.negative;
+        const totalVotes = law.positive + law.negative + law.abstention;
+        law.positivePercentage = totalVotes === 0 ? 0 : 100 * law.positive / totalVotes;
+        law.negativePercentage = totalVotes === 0 ? 0 : 100 * law.negative / totalVotes;
+        law.abstentionPercentage = totalVotes === 0 ? 0 : 100 * law.abstention / totalVotes;
+        law.positiveWidth   = (15 + 40 * law.positive   / (law.positive + law.negative + law.abstention)) + '%';
+        law.negativeWidth   = (15 + 40 * law.negative   / (law.positive + law.negative + law.abstention)) + '%';
+        law.abstentionWidth = (15 + 40 * law.abstention / (law.positive + law.negative + law.abstention)) + '%';
+        this.laws = this.laws.map(l => l.slug !== law.slug ? l : law);
+      });
+  }
+
+  submitVote(slug: string, vote: number): void {
+    this.lawService.submitVote(slug, vote)
+      .subscribe(
+        (data: VoteResponse) => { this.getLaw(slug); },
+        err => this.router.navigateByUrl('login?returnUrl=' + encodeURI(this.router.url))
+      );
+  }
 
 
 }
