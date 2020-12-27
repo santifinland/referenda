@@ -47,6 +47,7 @@ export class LawDetailComponent implements OnInit {
   comments = false;
   tab = 'all';
   mobile = false;
+  voterMenu = false;
 
   location: string;
 
@@ -231,4 +232,7 @@ export class LawDetailComponent implements OnInit {
     this.mobile = window.innerWidth < 640;
   }
 
+  showVoterMenu() {
+    this.voterMenu = !this.voterMenu;
+  }
 }

@@ -44,6 +44,7 @@ export class RegisterComponent implements OnInit {
     const title = 'Regístrate en Referenda y empieza a votar';
     this.titleService.setTitle(title);
     this.metaTagService.updateTag({ name: 'description', content: title });
+    window.scroll({top: 0, behavior: 'smooth'});
     this.registerForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.minLength(4)]],
       email: ['', [Validators.required, Validators.email]],
