@@ -4,8 +4,11 @@
   margin: 60px auto;
 }
 
+.header {
+  padding: 5px;
+}
+
 h1 {
-  height: 38px;
   margin: 0;
   font-family: Roboto, sans-serif;
   font-style: normal;
