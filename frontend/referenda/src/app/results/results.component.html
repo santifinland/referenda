@@ -1,27 +1,65 @@
-<div class="container">
-  <br>
-  <div class="col-xs-12 col-sm-12">
-    <h1>Buscador de propuestas votadas</h1>
+<div class="results-container">
+
+  <div class="results">
+    <div class="result" *ngFor="let law of lawsToShow()"
+         [ngClass]='{green: law.official_positive >= law.official_negative,
+                     red: law.official_positive < law.official_negative}'>
+      <h2 routerLink="/ley/{{law.slug}}">{{law.headline}}</h2>
+      <div class="approval" *ngIf="law.official_positive >= law.official_negative">Propuesta aprobada</div>
+      <div class="approval" *ngIf="law.official_positive < law.official_negative">Propuesta no aprobada</div>
+      <div class="date-desk">{{law.vote_end | date:'d \'de\' MMMM \'de\' yyyy'}}</div>
+      <div class="institution">
+        <div class="presented-logo">
+          <img class="mini-logo" src="assets/img/{{law.institution[0]}}.svg" alt="{{law.institution[0]}}">
+        </div>
+        {{law.institution[0] | uppercase}}
+      </div>
+      <div class="detail-desk" routerLink="/ley/{{law.slug}}">VER PROPUESTA</div>
+    </div>
   </div>
-  <div class="table-responsive">
-    <table class="table">
-      <thead>
-        <tr>
-              <th><input class="form-control" [(ngModel)]="lawFilter.vote_end" placeholder="Fecha"></th>
-              <th><input class="form-control" [(ngModel)]="lawFilter.headline" placeholder="T&iacute;tulo"></th>
-              <th><input class="form-control" [(ngModel)]="lawFilter.institution" placeholder="Impulsor"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let law of laws"
-                [ngClass]='{green: law.official_positive >= law.official_negative,
-                          red: law.official_positive < law.official_negative}'>
-              <td>{{law.vote_end | date: 'MMM yyyy':'UTC':'es'}}</td>
-              <td><a routerLink="/ley/{{law.slug}}">{{law.headline}}</a></td>
-              <td>{{law.institution[0] | uppercase}}</td>
-        </tr>
-      </tbody>
-    </table>
+
+  <div class="search-desk">
+    <div class="search-desk-sticky">
+      <div class="search-desk-title">Buscador de propuestas votadas</div>
+      <div class="search-input-container">
+        <input class="search-input" [(ngModel)]="fecha" placeholder="Fecha">
+        <input class="search-input" [(ngModel)]="headline" placeholder="T&iacute;tulo">
+        <input class="search-input" [(ngModel)]="institution" placeholder="Impulsor">
+      </div>
+      <div class="search-desk-title">Buscar por estado de propuesta</div>
+      <div class="search-input-container">
+        <div class="search-state" [ngClass]="{active: approved}" (click)="toggleApproved()">APROBADAS</div>
+        <div class="search-state" [ngClass]="{active: notApproved}" (click)="toggleNotApproved()">NO APROBADAS</div>
+      </div>
+
+    </div>
   </div>
-  <br>
+
+  <div class="search-mob-container">
+    <div class="search-shower-mob" (click)="showSearchMenu()">
+      <div class="search-mob">
+        BUSCADOR
+      </div>
+      <div class="miniuparrow" *ngIf="!searchMenu"></div>
+      <div class="minidownarrow" *ngIf="searchMenu"></div>
+    </div>
+    <div class="search-mob-input-container" *ngIf="searchMenu">
+      <div class="search-mob-title">Buscador de propuestas votadas</div>
+      <div class="search-input-container">
+        <input class="search-input-mob" [(ngModel)]="fecha" placeholder="Fecha">
+        <input class="search-input-mob" [(ngModel)]="headline" placeholder="T&iacute;tulo">
+        <input class="search-input-mob" [(ngModel)]="institution" placeholder="Impulsor">
+      </div>
+      <div class="search-mob-title">Buscar por estado de propuesta</div>
+      <div class="search-input-container-horizontal">
+        <div class="search-input-mob pointer" [ngClass]="{activemob: approved}" (click)="toggleApproved()">
+          APROBADAS
+        </div>
+        <div class="search-input-mob pointer" [ngClass]="{activemob: notApproved}" (click)="toggleNotApproved()">
+          NO APROBADAS
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>

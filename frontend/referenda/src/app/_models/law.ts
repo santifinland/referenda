@@ -14,6 +14,7 @@ export class Law {
   pub_date: Date;
   vote_start: Date;
   vote_end: Date;
+  vote_end_string: string;
   positive: number;
   negative: number;
   abstention: number;

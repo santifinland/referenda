@@ -116,7 +116,8 @@ export class LawsComponent implements OnInit {
       areaLaws,
       this.headline,
       {keys: ['headline'],
-        baseSort: (a, b) => (a.item.pub_date < b.item.pub_date ? -1 : 1)});
+       baseSort: (a, b) => (a.item.pub_date < b.item.pub_date ? -1 : 1),
+       threshold: matchSorter.rankings.CONTAINS});
     return this.sortLaws(headlineLaws);
   }
 
