@@ -10,12 +10,22 @@
   min-height: 800px;
 }
 
+.searcher-sticky {
+  position: fixed;
+  width: 335px;
+  min-width: 335px;
+  height: 100vh;
+  left: calc(65%);
+  background: #3E979E;
+}
+
 .searcher {
   position: absolute;
+  width: 335px;
+  height: 100vh;
   left: calc(65%);
   display: flex;
   flex-direction: column;
-  width: 335px;
   background: #3E979E;
 }
 
@@ -431,6 +441,12 @@ input:focus {
     width: calc(100% - 335px);
   }
 
+  .searcher-sticky {
+    min-width: 335px;
+    right: 0;
+    left: auto;
+  }
+
   .searcher {
     position: relative;
     min-width: 335px;
@@ -531,6 +547,10 @@ input:focus {
   }
 
   .percentage {
+    display: none;
+  }
+
+  .searcher-sticky {
     display: none;
   }
 

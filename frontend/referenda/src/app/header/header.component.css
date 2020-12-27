@@ -198,6 +198,7 @@ a:hover {
   height: 53px;
   padding-top: 15px;
   text-align: center;
+  z-index: 2;
 }
 
 .dropdown-text a {
