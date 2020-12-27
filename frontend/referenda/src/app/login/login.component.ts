@@ -49,6 +49,7 @@ export class LoginComponent implements OnInit {
     const title = 'Inicia sesión en Referenda';
     this.titleService.setTitle(title);
     this.metaTagService.updateTag({ name: 'description', content: title });
+    window.scroll({top: 0, behavior: 'smooth'});
     this.loginForm = this.formBuilder.group({
         username: ['', Validators.required],
         password: ['', Validators.required]
