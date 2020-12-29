@@ -1,0 +1,61 @@
+.legal {
+  display: flex;
+  flex-direction: column;
+  width: 1152px;
+  justify-content: center;
+}
+
+h1 {
+  margin: 53px auto;
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 32px;
+  line-height: 37px;
+  letter-spacing: 0.02em;
+  color: #3E979E;
+}
+
+h2 {
+  margin: 0;
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 26px;
+  line-height: 30px;
+  text-align: center;
+  letter-spacing: 0.02em;
+  color: #3E979E;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  padding: 14px 0 30px 0;
+  width: 553px;
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 130%;
+  letter-spacing: 0.02em;
+  color: #333333;
+  text-align: justify;
+}
+
+.link {
+  color: #3E979E;
+}
+
+.center {
+  text-align: center
+}
+
+@media (max-width: 1152px) {
+
+  .legal {
+    width: 100%;
+  }
+}
+
