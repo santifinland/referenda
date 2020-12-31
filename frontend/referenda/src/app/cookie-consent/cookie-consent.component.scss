@@ -1,0 +1,61 @@
+.cookies {
+  display: flex;
+  width: 95%;
+  margin: 0 auto;
+  background: #F3F3F3;
+  border: 2px solid #66ADB3;
+  gap: 10px;
+}
+
+.section {
+  padding: 15px 20px;
+  width: 33.333%;
+}
+
+.text {
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 130%;
+  letter-spacing: 0.02em;
+  color: #333333;
+}
+
+.link {
+  display: inline;
+  color: #3E979E;
+  outline: none;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+  padding-top: 10px;
+  justify-content: center;
+}
+
+.button {
+  height: 53px;
+  text-align: center;
+  border: 2px solid #3E979E;
+  box-sizing: border-box;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 26px;
+  padding: 12px;
+  color: #F3F3F3;
+  background: #66ADB3;
+  cursor: pointer;
+}
+
+@media(max-width: 950px) {
+
+  .cookies {
+    flex-direction: column;
+  }
+
+  .section {
+    width: 100%;
+  }
+}

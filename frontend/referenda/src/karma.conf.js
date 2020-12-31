@@ -21,8 +21,6 @@ module.exports = function (config) {
       fixWebpackSourcePaths: true
     },
     files: [
-      './node_modules/cookieconsent/build/cookieconsent.min.js',
-      './node_modules/cookieconsent/build/cookieconsent.min.css'
     ],
     reporters: ['progress', 'kjhtml'],
     port: 9876,
