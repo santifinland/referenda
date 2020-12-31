@@ -1,0 +1,16 @@
+<div class="cookies" *ngIf="!decided">
+  <div class="section text">
+    Referenda usa cookies propias y de terceros para ofrecerte una mejor
+    experiencia de usuario y para tareas analíticas.
+    Para más información, revisa nuestra
+    <b class="link" routerLink="/cookies">política de cookies.</b>
+  </div>
+  <div class="section text">
+    Puedes aceptar todas las cookies pulsando “Aceptar” o
+    rechazar su uso pulsando “Rechazar".
+  </div>
+  <div class="section buttons">
+    <div class="button" (click)="cookies(false)">RECHAZAR</div>
+    <div class="button" (click)="cookies(true)">ACEPTAR</div>
+  </div>
+</div>

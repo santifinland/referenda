@@ -7,18 +7,19 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LOCALE_ID, NgModule } from '@angular/core';
-import { OrderModule } from 'ngx-order-pipe';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { AngularEditorModule } from '@kolkov/angular-editor';
+import { CookieService } from 'ngx-cookie-service';
+import { OrderModule } from 'ngx-order-pipe';
 import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
-import { NgcCookieConsentModule, NgcCookieConsentConfig } from 'ngx-cookieconsent';
 import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
 
 import { AdminLawComponent } from './admin-law/admin-law.component';
-import { CreateLawComponent } from './create-law/create-law.component';
 import { AlertComponent } from './_components';
+import { CookieConsentComponent } from './cookie-consent/cookie-consent.component';
+import { CreateLawComponent } from './create-law/create-law.component';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DelegationsComponent } from './delegations/delegations.component';
@@ -42,22 +43,6 @@ import { WINDOW_PROVIDERS } from './_services/window.service';
 
 registerLocaleData(localeEs);
 
-const cookieConfig: NgcCookieConsentConfig = {
-  cookie: {
-    domain: 'referenda.es' // it is mandatory to set a domain, for cookies to work properly (see https://goo.gl/S2Hy2A)
-  },
-  theme: 'block',
-  palette: {
-    popup: {
-      background: '#3D989D'
-    },
-    button: {
-      background: '#f1d600'
-    }
-  },
-  type: 'info'
-};
-
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
@@ -67,6 +52,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   declarations: [
     AppComponent,
     AdminLawComponent,
+    CookieConsentComponent,
     CreateLawComponent,
     LawsComponent,
     LawDetailComponent,
@@ -102,7 +88,6 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     }),
     ReactiveFormsModule,
-    NgcCookieConsentModule.forRoot(cookieConfig),
     SocialLoginModule
   ],
   providers: [
@@ -110,6 +95,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: LOCALE_ID, useValue: 'es-ES'},
+    CookieService,
     ModalService,
     {
       provide: 'SocialAuthServiceConfig',

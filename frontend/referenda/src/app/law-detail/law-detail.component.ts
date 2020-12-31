@@ -83,7 +83,6 @@ export class LawDetailComponent implements OnInit {
         law.negativeWidth   = (50 * law.negative   / (law.positive + law.negative + law.abstention)) + '%';
         law.abstentionWidth = (50 * law.abstention / (law.positive + law.negative + law.abstention)) + '%';
         this.official_total = law.official_positive + law.official_negative + law.official_abstention;
-        console.log(this.official_total)
         if (this.official_total > 0) {
           this.resultsCongreso = true;
         }
