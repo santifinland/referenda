@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { AuthenticationService, CookiesService } from './_services';
 import { User } from './_models';
+import { WINDOW } from './_services/window.service';
 
 
 declare let gtag: Function;
@@ -38,6 +39,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private authenticationService: AuthenticationService,
     public router: Router,
     @Inject(PLATFORM_ID) private readonly platformId: Object,
+    @Inject(WINDOW) private window: Window,
     private readonly injector: Injector) {
       this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
       this.router.events.subscribe(event => {
@@ -45,6 +47,9 @@ export class AppComponent implements OnInit, OnDestroy {
           gtag('config', 'G-QT7CRQ57HF', {'page_path': event.urlAfterRedirects});
         }
       })
+      if (!this.cookiesService.getCookieConsent()) {
+        window['ga-disable-G-QT7CRQ57HF'] = true;
+      }
   }
 
   ngOnInit() {
