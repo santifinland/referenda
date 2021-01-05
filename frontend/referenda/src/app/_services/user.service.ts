@@ -52,13 +52,13 @@ export class UserService {
 
   googleRegister(user: any): Observable<string> {
     const uri = this.usersUrl + '/googleregister';
-    const body = {'id': user.idToken, 'token': user.authToken, 'username': user.name};
+    const body = {'id': user.idToken, 'token': user.authToken, 'username': user.name, 'consent': true};
     return this.http.post<string>(uri, body);
   }
 
   facebookRegister(user: any): Observable<string> {
     const uri = this.usersUrl + '/facebookregister';
-    const body = {'token': user.authToken, 'email': user.email, 'username': user.name};
+    const body = {'token': user.authToken, 'email': user.email, 'username': user.name, 'consent': true};
     return this.http.post<string>(uri, body);
   }
 

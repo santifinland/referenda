@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Meta, Title } from '@angular/platform-browser';
 
@@ -7,6 +7,7 @@ import { matchSorter } from 'match-sorter';
 import { Law } from '../_models/law';
 import { LawService } from '../law.service';
 import { VoteResponse } from '../_models/vote.response';
+import { WINDOW } from '../_services/window.service';
 
 
 @Component({
@@ -38,7 +39,8 @@ export class LawsComponent implements OnInit {
       private lawService: LawService,
       private metaTagService: Meta,
       private router: Router,
-      private titleService: Title) { }
+      private titleService: Title,
+      @Inject(WINDOW) private window: Window) { }
 
   ngOnInit() {
     this.getLaws();

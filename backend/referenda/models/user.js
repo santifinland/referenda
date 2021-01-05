@@ -19,7 +19,8 @@ var User = new Schema({
     delegatedParty: {
         type: String,
         default: null,
-    }
+    },
+    consent: Boolean
 });
 
 User.methods.getName = function() {

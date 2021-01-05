@@ -17,12 +17,17 @@ import { User} from '../_models';
 export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup;
-  loading = false;
+  socialRegisterForm: FormGroup;
   submitted = false;
+  socialSubmitted = false;
+  socialConsentNeeded = false;
+  socialConsentGranted = false;
+  refconsent = false;
 
   private socialUser: SocialUser;
   private socialUserLoggedIn: boolean;
   private socialProvider: string;
+  private user;
 
   constructor(
       private alertService: AlertService,
@@ -45,39 +50,27 @@ export class RegisterComponent implements OnInit {
     this.titleService.setTitle(title);
     this.metaTagService.updateTag({ name: 'description', content: title });
     window.scroll({top: 0, behavior: 'smooth'});
+    this.socialRegisterForm = this.formBuilder.group({
+      username: ['', [Validators.required, Validators.minLength(4)]],
+      consent: [false, [Validators.requiredTrue]]
+    })
     this.registerForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.minLength(4)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      gdpr: [false, [Validators.requiredTrue]]
+      consent: ['', [Validators.requiredTrue]]
     });
     this.authService.authState.subscribe((user) => {
       this.socialUser = user;
       this.socialUserLoggedIn = (user != null);
-      if (this.socialProvider === 'Google') {
-        this.userService.googleRegister(user)
-          .subscribe(
-            (data: any) => {
-              const referendaUser: User = {username: data.username, token: data.token};
-              this.authenticationService.loginWithToken(referendaUser);
-            },
-            err => console.log(err)
-          );
-      }
-      if (this.socialProvider === 'Facebook') {
-        this.userService.facebookRegister(user)
-          .subscribe(
-            (data: any) => {
-              const referendaUser: User = {username: data.username, token: data.token};
-              this.authenticationService.loginWithToken(referendaUser);
-            },
-            err => console.log(err)
-          );
-      }
+      // Assure GDPR consent
+      this.user = user;
+      this.socialConsentNeeded = true;
     });
   }
 
   get rf() { return this.registerForm.controls; }
+  get srf() { return this.socialRegisterForm.controls; }
 
   onRegister() {
     this.submitted = true;
@@ -86,7 +79,6 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
-    this.loading = true;
     this.userService.register(this.registerForm.value)
       .pipe(first())
       .subscribe(
@@ -96,8 +88,41 @@ export class RegisterComponent implements OnInit {
         },
         error => {
           this.alertService.error(error);
-          this.loading = false;
         });
+  }
+
+  onSocialRegister() {
+    this.socialSubmitted = true;
+
+    if (this.socialRegisterForm.invalid) {
+      return;
+      this.socialConsentGranted = false;
+    } else {
+      this.socialConsentGranted = true;
+      this.user.name = this.socialRegisterForm.controls.username.value
+      if (this.socialProvider === 'Google') {
+        this.userService.googleRegister(this.user)
+          .subscribe(
+            (data: any) => {
+              const referendaUser: User = {username: data.username, token: data.token};
+              this.authenticationService.loginWithToken(referendaUser);
+              this.socialConsentNeeded = false;
+            },
+            err => console.log(err)
+          );
+      }
+      if (this.socialProvider === 'Facebook' && this.socialConsentGranted) {
+        this.userService.facebookRegister(this.user)
+          .subscribe(
+            (data: any) => {
+              const referendaUser: User = {username: data.username, token: data.token};
+              this.authenticationService.loginWithToken(referendaUser);
+              this.socialConsentNeeded = false;
+            },
+            err => console.log(err)
+          );
+      }
+    }
   }
 
   signInWithGoogle(): void {
@@ -111,6 +136,10 @@ export class RegisterComponent implements OnInit {
   }
 
   gdprCompliant(): boolean {
-    return this.submitted && this.registerForm.controls.gdpr.status !== 'VALID';
+    return this.submitted && this.registerForm.controls.consent.status !== 'VALID';
+  }
+
+  socialGdprCompliant(): boolean {
+    return this.socialSubmitted && this.socialRegisterForm.controls.consent.status !== 'VALID';
   }
 }

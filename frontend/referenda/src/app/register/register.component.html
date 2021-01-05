@@ -1,67 +1,100 @@
-﻿<div class="register">
-  <div>
-    <h1>Regístrate en Referenda y empieza a votar</h1>
-  </div>
-  <div class="social">
-    Reg&iacute;strate con tus redes sociales
-  </div>
-  <div class="facebook-google">
-    <div class="button facebook-button" (click)="signInWithFB()">
-      <img class="facebook-img" src="assets/img/facebook_login.svg"/>
-      Reg&iacute;strate con Facebook
+﻿<div>
+  <div class="register">
+    <div>
+      <h1>Regístrate en Referenda y empieza a votar</h1>
     </div>
-    <div class="button google-button" (click)="signInWithGoogle()">
-      <img src="assets/img/btn_google_light_normal_ios.svg"/>
-      Reg&iacute;strate con Google
+    <div class="social">
+      Reg&iacute;strate con tus redes sociales
+    </div>
+    <div class="facebook-google">
+      <div class="button facebook-button" (click)="signInWithFB()">
+        <img class="facebook-img" src="assets/img/facebook_login.svg"/>
+        Reg&iacute;strate con Facebook
+      </div>
+      <div class="button google-button" (click)="signInWithGoogle()">
+        <img src="assets/img/btn_google_light_normal_ios.svg"/>
+        Reg&iacute;strate con Google
+      </div>
+    </div>
+    <div class="referenda">
+      O reg&iacute;strate con tu nombre de usuario y contraseña
+      <form class="regiterForm" [formGroup]="registerForm" (ngSubmit)="onRegister()">
+        <div class="form-group">
+          <input type="text" formControlName="username" class="form-control" placeholder="Nombre de usuario"
+                 [ngClass]="{ 'is-invalid': submitted && rf.username.errors }"/>
+          <div *ngIf="submitted && rf.username.errors" class="invalid-feedback">
+            <div *ngIf="rf.username.errors.required">Es necesario un nombre de usuario</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <input type="text" formControlName="email" class="form-control" placeholder="Correo electr&oacute;nico"
+                 [ngClass]="{ 'is-invalid': submitted && rf.email.errors }"/>
+          <div *ngIf="submitted && rf.email.errors" class="invalid-feedback">
+            <div *ngIf="rf.email.errors.required">Es necesaria una direcci&oacute;n de correo electr&oacute;nico</div>
+            <div *ngIf="rf.email.errors.email">Direcci&oacute;n de correo electr&oacute;nico con formato incorrecto
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <input type="password" formControlName="password" class="form-control" placeholder="Contrase&#241;a"
+                 [ngClass]="{ 'is-invalid': submitted && rf.password.errors }"/>
+          <div *ngIf="submitted && rf.password.errors" class="invalid-feedback">
+            <div *ngIf="rf.password.errors.required">Es necesaria una contrase&#241;a</div>
+            <div *ngIf="rf.password.errors.minlength">La contrase&#241;a debe tener al menos 6 caracteres</div>
+          </div>
+        </div>
+        <div class="form-check">
+          <input type="checkbox" formControlName="consent" class="form-check-input"
+                 [ngClass]="{ 'is-invalid-check': gdprCompliant()}"/>
+          <label class="gdpr-conditions">
+            Accepto la
+            <a routerLink="/cookies"> pol&iacute;tica de privacidad</a> y
+            <a routerLink="/legal">protecci&oacute;n de datos</a>
+          </label>
+        </div>
+        <div *ngIf="gdprCompliant()" class="gdpr-feedback invalid-feedback">
+          Para registrarse es necesario aceptar la politica de protección de dtaos
+        </div>
+        <div class="form-group">
+          <button type="submit" class="register-button">Registrarse</button>
+        </div>
+      </form>
+    </div>
+    <div class="social">
+      ¿Ya est&aacute;s registrado?
+      <b class="login" routerLink="/login">Puedes iniciar tu sesi&oacute;n aqu&iacute;</b>
     </div>
   </div>
-  <div class="referenda">
-    O reg&iacute;strate con tu nombre de usuario y contraseña
-    <form class="regiterForm" [formGroup]="registerForm" (ngSubmit)="onRegister()">
-      <div class="form-group">
-        <input type="text" formControlName="username" class="form-control" placeholder="Nombre de usuario"
-               [ngClass]="{ 'is-invalid': submitted && rf.username.errors }"/>
-        <div *ngIf="submitted && rf.username.errors" class="invalid-feedback">
-          <div *ngIf="rf.username.errors.required">Es necesario un nombre de usuario</div>
+
+  <div class="social-consent-container" *ngIf="socialConsentNeeded">
+    <div class="social-consent">
+      <div class="exit-social" (click)="socialConsentNeeded=false">x</div>
+      <h2>Regístrate en Referenda</h2>
+      <form class="regiterForm" [formGroup]="socialRegisterForm" (ngSubmit)="onSocialRegister()">
+        <div class="text">
+          Completa tu registro eligiendo un nombre de usuario
         </div>
-      </div>
-      <div class="form-group">
-        <input type="text" formControlName="email" class="form-control" placeholder="Correo electr&oacute;nico"
-               [ngClass]="{ 'is-invalid': submitted && rf.email.errors }"/>
-        <div *ngIf="submitted && rf.email.errors" class="invalid-feedback">
-          <div *ngIf="rf.email.errors.required">Es necesaria una direcci&oacute;n de correo electr&oacute;nico</div>
-          <div *ngIf="rf.email.errors.email">Direcci&oacute;n de correo electr&oacute;nico con formato incorrecto</div>
+        <div class="form-group">
+          <input type="text" formControlName="username" class="form-control" placeholder="Nombre de usuario"
+                 [ngClass]="{ 'is-invalid': socialSubmitted && srf.username.errors }"/>
+          <div *ngIf="socialSubmitted && srf.username.errors" class="invalid-feedback">
+            <div *ngIf="srf.username.errors.required">Es necesario un nombre de usuario</div>
+          </div>
         </div>
-      </div>
-      <div class="form-group">
-        <input type="password" formControlName="password" class="form-control" placeholder="Contrase&#241;a"
-               [ngClass]="{ 'is-invalid': submitted && rf.password.errors }"/>
-        <div *ngIf="submitted && rf.password.errors" class="invalid-feedback">
-          <div *ngIf="rf.password.errors.required">Es necesaria una contrase&#241;a</div>
-          <div *ngIf="rf.password.errors.minlength">La contrase&#241;a debe tener al menos 6 caracteres</div>
+        <div class="form-check">
+          <input type="checkbox" formControlName="consent" class="form-check-input"
+                 [ngClass]="{ 'is-invalid-check': socialGdprCompliant()}"/>
+          <label class="gdpr-conditions">
+            Accepto la
+            <a routerLink="/cookies"> pol&iacute;tica de privacidad</a> y
+            <a routerLink="/legal">protecci&oacute;n de datos</a>
+          </label>
         </div>
-      </div>
-      <div class="gdpr">
-        <input type="checkbox" formControlName="gdpr" class="form-check-input" checked="checked"
-               [ngClass]="{ 'is-invalid-check': gdprCompliant()}"/>
-        <p>
-          Accepto la
-          <a routerLink="/cookies"> pol&iacute;tica de privacidad</a> y
-          <a routerLink="/gdpr">protecci&oacute;n de datos</a>
-        </p>
-      </div>
-      <div class="form-group">
-        <button [disabled]="loading" class="register-button">Registrarse</button>
-        <img *ngIf="loading" class="pl-3"
-             src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
-      </div>
-      <div *ngIf="gdprCompliant()" class="gdpr gdpr-feedback">
-        Para registrarse es necesario aceptar la politica de protección de dtaos
-      </div>
-    </form>
-  </div>
-  <div class="social">
-    ¿Ya est&aacute;s registrado?
-    <b class="login" routerLink="/login">Puedes iniciar tu sesi&oacute;n aqu&iacute;</b>
+        <div *ngIf="socialGdprCompliant()" class="gdpr-feedback invalid-feedback">
+          <div>Para registrarse es necesario aceptar la politica de protección de datos</div>
+        </div>
+        <button class="register-button">Registrarse</button>
+      </form>
+    </div>
   </div>
 </div>
