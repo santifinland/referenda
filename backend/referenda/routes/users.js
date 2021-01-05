@@ -56,7 +56,7 @@ userRouter.route('/register')
   if ((req.body.username.length < 4) || (req.body.username.length > 15)) {
     return res.status(400).json({err: "Username too long"});
   }
-  if ((req.body.consent != true) || (req.body.consent != false)) {
+  if ((req.body.consent != true) && (req.body.consent != false)) {
     return res.status(400).json({err: "Bad consent"});
   }
   if (validator.validate(req.body.email)) {
@@ -268,7 +268,7 @@ userRouter.route('/googleregister')
               });
             });
           } else {
-            if ((req.body.consent != true) || (req.body.consent != false)) {
+            if ((req.body.consent != true) && (req.body.consent != false)) {
               return res.status(400).json({err: "Bad consent"});
             }
             User.register(new User(
@@ -338,7 +338,7 @@ userRouter.route('/facebookregister')
               });
             });
           } else {
-            if ((req.body.consent != true) || (req.body.consent != false)) {
+            if ((req.body.consent != true) && (req.body.consent != false)) {
               return res.status(400).json({err: "Bad consent"});
             }
             User.register(new User(
