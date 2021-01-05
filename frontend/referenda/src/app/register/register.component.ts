@@ -58,7 +58,7 @@ export class RegisterComponent implements OnInit {
       username: ['', [Validators.required, Validators.minLength(4)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      refconsent: ['', [Validators.requiredTrue]]
+      consent: ['', [Validators.requiredTrue]]
     });
     this.authService.authState.subscribe((user) => {
       this.socialUser = user;
@@ -73,14 +73,9 @@ export class RegisterComponent implements OnInit {
   get srf() { return this.socialRegisterForm.controls; }
 
   onRegister() {
-    console.log("register");
-    console.log(this.registerForm.controls.refconsent.status);
-    console.log(this.registerForm.controls.refconsent);
-    console.log(this.registerForm.controls.refconsent.value);
     this.submitted = true;
 
     if (this.registerForm.invalid) {
-      console.log("register invalid");
       return;
     }
 
@@ -141,7 +136,7 @@ export class RegisterComponent implements OnInit {
   }
 
   gdprCompliant(): boolean {
-    return this.submitted && this.registerForm.controls.refconsent.status !== 'VALID';
+    return this.submitted && this.registerForm.controls.consent.status !== 'VALID';
   }
 
   socialGdprCompliant(): boolean {

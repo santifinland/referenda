@@ -56,6 +56,9 @@ userRouter.route('/register')
   if ((req.body.username.length < 4) || (req.body.username.length > 15)) {
     return res.status(400).json({err: "Username too long"});
   }
+  if ((req.body.consent != true) || (req.body.consent != false)) {
+    return res.status(400).json({err: "Bad consent"});
+  }
   if (validator.validate(req.body.email)) {
     User.find({"mail": req.body.email}).exec(function (err, user) {
       if (err) {
@@ -69,7 +72,7 @@ userRouter.route('/register')
       if (user.length === 0) {
         console.log("Mail libre");
         User.register(new User(
-          { username: req.body.username, mail: req.body.email, origin: "referenda" }),
+          { username: req.body.username, mail: req.body.email, origin: "referenda", consent: req.body.consent }),
           // { username : req.body.username, admin: req.body.admin }),
           req.body.password,
           function(err, user) {
@@ -265,8 +268,11 @@ userRouter.route('/googleregister')
               });
             });
           } else {
+            if ((req.body.consent != true) || (req.body.consent != false)) {
+              return res.status(400).json({err: "Bad consent"});
+            }
             User.register(new User(
-              { username: req.body.username, mail: JSON.parse(data).email, origin: "google" }),
+              {username: req.body.username, mail: JSON.parse(data).email, origin: "google", consent: req.body.consent}),
               "Google01!",
               function(err, user) {
                 if (err) {
@@ -332,8 +338,11 @@ userRouter.route('/facebookregister')
               });
             });
           } else {
+            if ((req.body.consent != true) || (req.body.consent != false)) {
+              return res.status(400).json({err: "Bad consent"});
+            }
             User.register(new User(
-              { username: req.body.username, mail: req.body.email, origin: "facebook" }),
+              { username: req.body.username, mail: req.body.email, origin: "facebook", consent: req.body.consent }),
               "Facebook01!",
               function(err, user) {
                 if (err) {
