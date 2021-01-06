@@ -49,6 +49,20 @@
   cursor: pointer;
 }
 
+.conf-button {
+  height: 53px;
+  text-align: center;
+  border: 2px solid #3E979E;
+  box-sizing: border-box;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 26px;
+  padding: 12px;
+  color: #66ADB3;
+  background: #F3F3F3;
+  cursor: pointer;
+}
+
 @media(max-width: 950px) {
 
   .cookies {
