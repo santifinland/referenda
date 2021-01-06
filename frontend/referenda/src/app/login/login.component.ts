@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Meta, Title } from '@angular/platform-browser';
@@ -7,7 +7,7 @@ import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthService, SocialUs
 import { first } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 
-import { AlertService, AuthenticationService, UserService } from '../_services';
+import { AlertService, AuthenticationService, UserService, WINDOW } from '../_services';
 import { User } from '../_models';
 
 
@@ -39,7 +39,8 @@ export class LoginComponent implements OnInit {
       private route: ActivatedRoute,
       private router: Router,
       private titleService: Title,
-      private userService: UserService) {
+      private userService: UserService,
+      @Inject(WINDOW) private window: Window) {
     this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
       this.currentUser = user;
     });

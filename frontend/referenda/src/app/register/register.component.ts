@@ -1,12 +1,13 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { Meta, Title } from '@angular/platform-browser';
 
-import { AlertService, UserService, AuthenticationService } from '../_services';
 import { SocialAuthService, FacebookLoginProvider, GoogleLoginProvider, SocialUser } from 'angularx-social-login';
-import { User} from '../_models';
+
+import { AlertService, UserService, AuthenticationService, WINDOW } from '../_services';
+import { User } from '../_models';
 
 
 @Component({
@@ -39,9 +40,10 @@ export class RegisterComponent implements OnInit {
       private router: Router,
       private titleService: Title,
       private userService: UserService,
+      @Inject(WINDOW) private window: Window
   ) {
     if (this.authenticationService.currentUserValue) {
-      this.router.navigate(['/']);
+      this.router.navigateByUrl('/leyes');
     }
   }
 
@@ -122,6 +124,7 @@ export class RegisterComponent implements OnInit {
             err => console.log(err)
           );
       }
+      this.router.navigateByUrl('/leyes');
     }
   }
 

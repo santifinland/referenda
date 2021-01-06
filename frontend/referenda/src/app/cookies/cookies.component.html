@@ -72,6 +72,28 @@
       No tenemos control directo sobre la información recopilada por estas cookies.</p>
   </div>
 
+  <h2>Configuración de cookies</h2>
+  <div class="text">
+    <p class="section">
+      <input type="checkbox" checked disabled>
+      Cookies técnicas (necesarias):
+    </p>
+    <p>
+      Estas cookies son necesarias para el funcionamiento
+      del sitio Web y por tanto no pueden ser deshabilitadas.
+    </p>
+    <br>
+    <p class="section">
+       <input type="checkbox" [checked]="cookieConsent" (click)="changeConsent()">
+       Cookies de análisis o medición:
+    </p>
+    <p>
+      Si no deseas que se almacenen estas cookies en tu
+      dispositivo, deshabilitalas pulsando el checkbox.
+    </p>
+
+  </div>
+
   <h2>Eliminación de Cookies</h2>
   <div class="text">
     <p>Puedes aceptar, bloquear o eliminar las cookies instaladas en tu equipo mediante
@@ -79,10 +101,15 @@
       pero parte del sitio no funcionará correctamente o su calidad puede verse afectada.</p>
     <p>En los siguientes enlaces encontrarás instrucciones para habilitar o
       deshabilitar las cookies en los navegadores más comunes:</p>
-    <li class="link"><a href="http://support.mozilla.org/es/kb/habilitar-y-deshabilitar-cookies-que-los-sitios-we">Firefox</a></li>
+    <li class="link"><a href="http://support.mozilla.org/es/kb/habilitar-y-deshabilitar-cookies-que-los-sitios-we">Firefox</a>
+    </li>
     <li class="link"><a href="https://support.google.com/chrome/answer/95647?hl=es">Google Chrome</a></li>
-    <li class="link"><a href='https://support.microsoft.com/es-es/help/17442/windows-internet-explorer-delete-manage-cookies#ie="ie-10"'>Internet Explorer</a></li>
-    <li class="link"><a href="https://support.microsoft.com/es-es/help/4468242/microsoft-edge-browsing-data-and-privacy">Microsoft Edge</a></li>
+    <li class="link"><a
+      href='https://support.microsoft.com/es-es/help/17442/windows-internet-explorer-delete-manage-cookies#ie="ie-10"'>Internet
+      Explorer</a></li>
+    <li class="link"><a
+      href="https://support.microsoft.com/es-es/help/4468242/microsoft-edge-browsing-data-and-privacy">Microsoft
+      Edge</a></li>
     <li class="link"><a href="http://support.apple.com/kb/HT1677?viewlocale=es_ES">Safari</a></li>
   </div>
 
