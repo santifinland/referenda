@@ -9,7 +9,7 @@ import { first } from 'rxjs/operators';
 
 import { Law } from '../_models/law';
 import { Comment } from '../_models/comment';
-import { LawService } from '../law.service';
+import { LawService } from '../_services/law.service';
 import { VoteResponse } from '../_models/vote.response';
 import { WINDOW } from '../_services/window.service';
 

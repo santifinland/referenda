@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Meta, Title } from '@angular/platform-browser';
 
 import { Law } from '../_models/law';
-import { LawService } from '../law.service';
+import { LawService } from '../_services/law.service';
 import { Party } from '../_models/party';
 import { PartyService } from '../_services/party.service';
 

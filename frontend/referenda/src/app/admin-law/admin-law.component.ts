@@ -8,7 +8,7 @@ import { first } from 'rxjs/operators';
 
 import { AlertService, AuthenticationService } from '../_services';
 import { Law } from '../_models/law';
-import { LawService } from '../law.service';
+import { LawService } from '../_services/law.service';
 import { User } from '../_models';
 
 

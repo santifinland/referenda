@@ -5,7 +5,7 @@ import { Meta, Title } from '@angular/platform-browser';
 import { matchSorter } from 'match-sorter';
 
 import { Law } from '../_models/law';
-import { LawService } from '../law.service';
+import { LawService } from '../_services/law.service';
 import { VoteResponse } from '../_models/vote.response';
 import { WINDOW } from '../_services';
 
@@ -43,7 +43,7 @@ export class LawsComponent implements OnInit {
       @Inject(WINDOW) private window: Window) { }
 
   ngOnInit() {
-    this.getLaws();
+    this.getLatestLaws();
     let title: string;
     if (this.router.url === '/') {
       title = 'Democracia directa';
@@ -53,24 +53,40 @@ export class LawsComponent implements OnInit {
     this.titleService.setTitle(title);
     this.metaTagService.updateTag({ name: 'description', content: title });
     this.smartphoneMenu = window.innerWidth > 640;
+    this.getLaws();
+  }
+
+  getLatestLaws(): void {
+    this.lawService.getLatestLaws()
+      .subscribe(laws => {
+        const tierLaws = this.prepareLaws(laws.filter(law => law.tier === 1));
+        this.laws = this.sortLaws(tierLaws);
+      });
+  }
+
+  prepareLaws(laws: Law[]): Law[] {
+    laws.map(law => this.prepareLaw(law));
+    return laws;
+  }
+
+  prepareLaw(law: Law): Law {
+    law.isPositive = law.positive > law.negative && law.positive > law.abstention;
+    law.isNegative = law.negative > law.positive && law.negative > law.abstention;
+    law.isAbstention = law.abstention > law.positive && law.abstention > law.negative;
+    const totalVotes = law.positive + law.negative + law.abstention;
+    law.positivePercentage = totalVotes === 0 ? 0 : 100 * law.positive / totalVotes;
+    law.negativePercentage = totalVotes === 0 ? 0 : 100 * law.negative / totalVotes;
+    law.abstentionPercentage = totalVotes === 0 ? 0 : 100 * law.abstention / totalVotes;
+    law.positiveWidth   = (15 + 40 * law.positive   / (law.positive + law.negative + law.abstention)) + '%';
+    law.negativeWidth   = (15 + 40 * law.negative   / (law.positive + law.negative + law.abstention)) + '%';
+    law.abstentionWidth = (15 + 40 * law.abstention / (law.positive + law.negative + law.abstention)) + '%';
+    return law;
   }
 
   getLaws(): void {
     this.lawService.getLaws()
       .subscribe(laws => {
-        const tierLaws = laws.filter(law => law.tier === 1);
-        tierLaws.map(law => {
-          law.isPositive = law.positive > law.negative && law.positive > law.abstention;
-          law.isNegative = law.negative > law.positive && law.negative > law.abstention;
-          law.isAbstention = law.abstention > law.positive && law.abstention > law.negative;
-          const totalVotes = law.positive + law.negative + law.abstention;
-          law.positivePercentage = totalVotes === 0 ? 0 : 100 * law.positive / totalVotes;
-          law.negativePercentage = totalVotes === 0 ? 0 : 100 * law.negative / totalVotes;
-          law.abstentionPercentage = totalVotes === 0 ? 0 : 100 * law.abstention / totalVotes;
-          law.positiveWidth   = (15 + 40 * law.positive   / (law.positive + law.negative + law.abstention)) + '%';
-          law.negativeWidth   = (15 + 40 * law.negative   / (law.positive + law.negative + law.abstention)) + '%';
-          law.abstentionWidth = (15 + 40 * law.abstention / (law.positive + law.negative + law.abstention)) + '%';
-        });
+        const tierLaws = this.prepareLaws(laws.filter(law => law.tier === 1));
         this.laws = this.sortLaws(tierLaws);
       });
   }
@@ -134,16 +150,7 @@ export class LawsComponent implements OnInit {
   getLaw(slug): void {
     this.lawService.getLaw(slug)
       .subscribe(law => {
-        law.isPositive = law.positive > law.negative && law.positive > law.abstention;
-        law.isNegative = law.negative > law.positive && law.negative > law.abstention;
-        law.isAbstention = law.abstention > law.positive && law.abstention > law.negative;
-        const totalVotes = law.positive + law.negative + law.abstention;
-        law.positivePercentage = totalVotes === 0 ? 0 : 100 * law.positive / totalVotes;
-        law.negativePercentage = totalVotes === 0 ? 0 : 100 * law.negative / totalVotes;
-        law.abstentionPercentage = totalVotes === 0 ? 0 : 100 * law.abstention / totalVotes;
-        law.positiveWidth   = (15 + 40 * law.positive   / (law.positive + law.negative + law.abstention)) + '%';
-        law.negativeWidth   = (15 + 40 * law.negative   / (law.positive + law.negative + law.abstention)) + '%';
-        law.abstentionWidth = (15 + 40 * law.abstention / (law.positive + law.negative + law.abstention)) + '%';
+        law = this.prepareLaw(law);
         this.laws = this.laws.map(l => l.slug !== law.slug ? l : law);
       });
   }

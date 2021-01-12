@@ -6,7 +6,7 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { first } from 'rxjs/operators';
 
 import { AlertService, AuthenticationService } from '../_services';
-import { LawService } from '../law.service';
+import { LawService } from '../_services/law.service';
 import { User } from '../_models';
 
 
