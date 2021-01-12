@@ -17,6 +17,7 @@ import { VoteResponse } from './_models/vote.response';
 export class LawService {
 
   private lawsUrl = environment.baseUrl + '/laws';
+  private publicLawsUrl = environment.publicUrl + '/laws';
 
   currentUser: User;
   currentUserSubscription: Subscription;
@@ -28,40 +29,38 @@ export class LawService {
   }
 
   getLaws(): Observable<Law[]> {
-    return this.http.get<Law[]>(this.lawsUrl)
+    return this.http.get<Law[]>(this.publicLawsUrl)
       .pipe(
         catchError(this.handleError('getLaws', []))
       );
   }
 
   getAllLaws(): Observable<Law[]> {
-    return this.http.get<Law[]>(this.lawsUrl + '?all=true')
+    return this.http.get<Law[]>(this.publicLawsUrl + '?all=true')
       .pipe(
         catchError(this.handleError('getLaws', []))
       );
   }
 
-  postLaw(law: Law): Observable<any>{
+  postLaw(law: Law): Observable<any> {
     const uri = this.lawsUrl;
-    const body = law;
-    return this.http.post<VoteResponse>(uri, body);
+    return this.http.post<VoteResponse>(uri, law);
   }
 
-  putLaw(law: Law): Observable<any>{
+  putLaw(law: Law): Observable<any> {
     const uri = this.lawsUrl + '/' + law.slug;
-    const body = law;
-    return this.http.put<VoteResponse>(uri, body);
+    return this.http.put<VoteResponse>(uri, law);
   }
 
   getResults(): Observable<Law[]> {
-    return this.http.get<Law[]>(this.lawsUrl + '?results=true')
+    return this.http.get<Law[]>(this.publicLawsUrl + '?results=true')
       .pipe(
         catchError(this.handleError('getResults', []))
       );
   }
 
   getLaw(slug: string): Observable<Law> {
-    return this.http.get<Law>(this.lawsUrl + '/' + slug)
+    return this.http.get<Law>(this.publicLawsUrl + '/' + slug)
       .pipe(
         catchError(this.handleError<Law>('getLaw slug=${slug}'))
       );
