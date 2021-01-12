@@ -4,7 +4,7 @@ import { Meta, Title } from '@angular/platform-browser';
 import * as d3 from 'd3';
 
 import { Law } from '../_models/law';
-import { LawService } from '../law.service';
+import { LawService } from '../_services/law.service';
 
 
 @Component({

@@ -249,7 +249,7 @@ lawRouter.route('/')
   });
 });
 
-lawRouter.route('/:slug')
+lawRouter.route('/ley/:slug')
 .put(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function (req, res, next) {
   Laws.findOne({"slug": req.params.slug}, function (err, law) {
     if (err) return next(err);
@@ -309,7 +309,7 @@ lawRouter.route('/:slug')
     });
 });
 
-lawRouter.route('/:slug/comments')
+lawRouter.route('/ley/:slug/comments')
 .post(Verify.verifyOrdinaryUser, function (req, res, next) {
     Laws.findOne({"slug": req.params.slug}, function (err, law) {
         if (law) {
@@ -342,7 +342,7 @@ lawRouter.route('/:slug/comments')
     });
 });
 
-lawRouter.route('/:slug/votes')
+lawRouter.route('/ley/:slug/votes')
 .post(Verify.verifyOrdinaryUser, function (req, res, next) {
     if (req.body.vote < 1 || req.body.vote > 3) {
         res.status(400).json({"Reason": "Vote out of bounds: 1-3"});
@@ -433,7 +433,7 @@ lawRouter.route('/:slug/votes')
     }
 });
 
-lawRouter.route('/:slug/comments/:commentId')
+lawRouter.route('/ley/:slug/comments/:commentId')
 .get(Verify.verifyOrdinaryUser, function (req, res, next) {
     Laws.findOne({"slug": req.params.slug})
         .populate('comments.postedBy', '-admin -_id -__v')
@@ -490,7 +490,7 @@ lawRouter.route('/:slug/comments/:commentId')
     });
 });
 
-lawRouter.route('/:slug/comments/:commentId/votes')
+lawRouter.route('/ley/:slug/comments/:commentId/votes')
 .post(Verify.verifyOrdinaryUser, function (req, res, next) {
     Laws.findOne({"slug": req.params.slug})
         .exec(function (err, law) {

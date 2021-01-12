@@ -4,11 +4,11 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Subscription } from 'rxjs';
 
-import { AuthenticationService } from './_services';
-import { environment } from '../environments/environment';
-import { Law } from './_models/law';
-import { User } from './_models';
-import { VoteResponse } from './_models/vote.response';
+import { AuthenticationService } from './index';
+import { environment } from '../../environments/environment';
+import { Law } from '../_models/law';
+import { User } from '../_models';
+import { VoteResponse } from '../_models/vote.response';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +35,13 @@ export class LawService {
       );
   }
 
+  getLatestLaws(): Observable<Law[]> {
+    return this.http.get<Law[]>(this.publicLawsUrl + '/latest')
+      .pipe(
+        catchError(this.handleError('getLatestLaws', []))
+      );
+  }
+
   getAllLaws(): Observable<Law[]> {
     return this.http.get<Law[]>(this.publicLawsUrl + '?all=true')
       .pipe(
@@ -48,7 +55,7 @@ export class LawService {
   }
 
   putLaw(law: Law): Observable<any> {
-    const uri = this.lawsUrl + '/' + law.slug;
+    const uri = this.lawsUrl + '/ley/' + law.slug;
     return this.http.put<VoteResponse>(uri, law);
   }
 
@@ -60,26 +67,26 @@ export class LawService {
   }
 
   getLaw(slug: string): Observable<Law> {
-    return this.http.get<Law>(this.publicLawsUrl + '/' + slug)
+    return this.http.get<Law>(this.publicLawsUrl + '/ley/' + slug)
       .pipe(
         catchError(this.handleError<Law>('getLaw slug=${slug}'))
       );
   }
 
   submitVote(slug: string, vote: number): Observable<VoteResponse> {
-    const uri = this.lawsUrl + '/' + slug + '/votes';
+    const uri = this.lawsUrl + '/ley/' + slug + '/votes';
     const body = {'vote': vote};
     return this.http.post<VoteResponse>(uri, body);
   }
 
   comment(slug: string, c: string): Observable<any> {
-    const uri = this.lawsUrl + '/' + slug + '/comments';
+    const uri = this.lawsUrl + '/ley/' + slug + '/comments';
     const body = {'comment': c};
     return this.http.post(uri, body);
   }
 
   voteComment(slug: string, commentId: string, vote: number): Observable<any> {
-    const uri = this.lawsUrl + '/' + slug + '/comments/' + commentId + '/votes';
+    const uri = this.lawsUrl + '/ley/' + slug + '/comments/' + commentId + '/votes';
     const body = {'vote': vote};
     return this.http.post(uri, body);
   }

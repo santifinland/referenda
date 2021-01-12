@@ -85,9 +85,25 @@ lawRouter.route('/')
         if (err) next(err);
         res.json(law);
     });
-})
+});
 
-lawRouter.route('/:slug')
+lawRouter.route('/latest')
+.get(function (req, res, next) {
+    const today = new Date();
+    const lastMonth = new Date(today.setMonth(today.getMonth() - 1));
+    req.query.vote_start = {$lt: lastMonth};
+    req.query.vote_end = {$gte: today};
+    Laws.find(req.query)
+        .select('law_type institution tier area headline slug short_description link pub_date ' +
+            'vote_start vote_end positive negative abstention official_positive official_negative ' +
+            'official_abstention featured  positiveParties negativeParties abstentionParties -_id')
+        .exec(function (err, law) {
+            if (err) next(err);
+            res.json(law);
+        });
+});
+
+lawRouter.route('/ley/:slug')
 .get(function (req, res, next) {
     Laws.findOne({"slug": req.params.slug})
         .select('law_type institution tier area featured headline slug short_description long_description ' +
@@ -105,7 +121,7 @@ lawRouter.route('/:slug')
     });
 });
 
-lawRouter.route('/:slug/comments')
+lawRouter.route('/ley/:slug/comments')
 .get(function (req, res, next) {
     Laws.findOne({"slug": req.params.slug})
         .populate('comments.postedBy', '-admin -_id -__v')
