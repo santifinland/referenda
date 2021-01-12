@@ -16,18 +16,18 @@ export class CookiesService {
 
   public setCookieConsent(decision: boolean) {
       this.cookieService.set(this.REFERENDA_CONSENT,
-                             decision ? 'true': 'false',
+                             decision ? 'true' : 'false',
                              {expires: 30});
   }
 
   public isCookieConsentDecided(): boolean {
-    return this.cookieService.check(this.REFERENDA_CONSENT)
+    return this.cookieService.check(this.REFERENDA_CONSENT);
   }
 
   checkConsentFromCookie(): boolean {
     if (this.cookieService.check(this.REFERENDA_CONSENT)) {
       const cookieConsent = this.cookieService.get(this.REFERENDA_CONSENT);
-      return cookieConsent === 'true' ? true : false;
+      return cookieConsent === 'true';
     } else {
       return false;
     }

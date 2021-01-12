@@ -1,4 +1,4 @@
-import { Component, HostListener, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Meta, Title } from '@angular/platform-browser';
 
@@ -7,7 +7,7 @@ import { matchSorter } from 'match-sorter';
 import { Law } from '../_models/law';
 import { LawService } from '../law.service';
 import { VoteResponse } from '../_models/vote.response';
-import { WINDOW } from '../_services/window.service';
+import { WINDOW } from '../_services';
 
 
 @Component({
@@ -33,7 +33,7 @@ export class LawsComponent implements OnInit {
   orientativas = ['proposición no de ley'];
   smartphoneMenu = false;
   voterMenu = false;
-  vote = ''
+  vote = '';
 
   constructor(
       private lawService: LawService,
