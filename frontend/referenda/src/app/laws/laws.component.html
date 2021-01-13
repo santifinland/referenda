@@ -3,7 +3,7 @@
   <div class="laws">
     <div class="law" *ngFor="let law of lawsToShow()">
 
-      <div class="law-headline" [style.background-image]="'url(../../assets/img/' + law.area[0] + '.jpg)'">
+      <div class="law-headline" [style.background-image]="'url(../../assets/img/' + law.area[0] + '.webp)'">
         <div class="headline-featured">
           <h2 class="headline-h2" [ngClass]="{headlinefeatured: law.featured}">
             <a routerLink="/ley/{{law.slug}}">{{law.headline}}</a>

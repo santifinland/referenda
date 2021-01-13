@@ -1,7 +1,7 @@
 <div class="law-detail" *ngIf="law">
 
   <div class="friso" id="friso">
-    <div class="law-headline" [style.background-image]="'url(../../assets/img/' + law.area[0] + '.jpg)'"></div>
+    <div class="law-headline" [style.background-image]="'url(../../assets/img/' + law.area[0] + '.webp)'"></div>
     <h2 class="headline-h2" *ngIf="!comments">{{law.area}}</h2>
     <h1 class="headline-h2" *ngIf="comments">{{law.headline}}</h1>
   </div>

@@ -1,13 +1,13 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
 import { Meta, Title } from '@angular/platform-browser';
+import { isPlatformBrowser } from '@angular/common';
 
 import { matchSorter } from 'match-sorter';
 
 import { Law } from '../_models/law';
-import { LawService } from '../_services/law.service';
+import { LawService, WINDOW } from '../_services';
 import { VoteResponse } from '../_models/vote.response';
-import { WINDOW } from '../_services';
 
 
 @Component({
@@ -40,6 +40,7 @@ export class LawsComponent implements OnInit {
       private metaTagService: Meta,
       private router: Router,
       private titleService: Title,
+      @Inject(PLATFORM_ID) private platformId: Object,
       @Inject(WINDOW) private window: Window) { }
 
   ngOnInit() {
@@ -52,7 +53,9 @@ export class LawsComponent implements OnInit {
     }
     this.titleService.setTitle(title);
     this.metaTagService.updateTag({ name: 'description', content: title });
-    this.smartphoneMenu = window.innerWidth > 640;
+    if (isPlatformBrowser(this.platformId)) {
+      this.smartphoneMenu = window.innerWidth > 640;
+    }
     this.getLaws();
   }
 
