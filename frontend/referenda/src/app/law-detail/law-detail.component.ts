@@ -8,10 +8,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
 import { Law } from '../_models/law';
-import { Comment } from '../_models/comment';
-import { LawService } from '../_services/law.service';
+import { LawService, WINDOW } from '../_services';
 import { VoteResponse } from '../_models/vote.response';
-import { WINDOW } from '../_services/window.service';
 
 
 @Component({
@@ -97,14 +95,18 @@ export class LawDetailComponent implements OnInit {
         this.law = law;
         this.facebook = this.facebookPrefix + law.headline + this.facebookSuffix;
         this.dateComments();
-        this.mobile = window.innerWidth < 640;
+        if (isPlatformBrowser(this.platformId)) {
+          this.mobile = window.innerWidth < 640;
+        }
       });
   }
 
   toggle() {
     this.readMore = !this.readMore;
-    if (!this.readMore) {
-      window.scroll({top: 0, behavior: 'smooth'});
+    if (isPlatformBrowser(this.platformId)) {
+      if (!this.readMore) {
+        window.scroll({top: 0, behavior: 'smooth'});
+      }
     }
   }
 
@@ -224,11 +226,6 @@ export class LawDetailComponent implements OnInit {
 
   showComments(): void {
     this.comments = !this.comments;
-  }
-
-  @HostListener('window:resize', [])
-  onResize() {
-    this.mobile = window.innerWidth < 640;
   }
 
   showVoterMenu() {
