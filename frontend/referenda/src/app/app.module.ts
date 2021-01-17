@@ -1,6 +1,6 @@
 import { APP_BASE_HREF, registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
-import { BrowserModule, Title } from '@angular/platform-browser';
+import {BrowserModule, BrowserTransferStateModule, Title} from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -28,7 +28,7 @@ import { HeaderComponent } from './header/header.component';
 import { LawDetailComponent } from './law-detail/law-detail.component';
 import { LawsComponent } from './laws/laws.component';
 import { ModalComponent } from './_directives';
-import { ModalService } from './_services';
+import { ModalService, WINDOW_PROVIDERS } from './_services';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login';
@@ -38,7 +38,6 @@ import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ResultsComponent } from './results/results.component';
-import { WINDOW_PROVIDERS } from './_services/window.service';
 
 
 registerLocaleData(localeEs);
@@ -88,6 +87,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     }),
     ReactiveFormsModule,
+    BrowserTransferStateModule,
     SocialLoginModule
   ],
   providers: [
