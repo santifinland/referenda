@@ -679,6 +679,11 @@ input::placeholder {
   color: #3E979E;
 }
 
+.twitter {
+  height: 50px;
+  cursor: pointer;
+}
+
 @media (max-width: 1170px) {
 
   .law-info, .comments {

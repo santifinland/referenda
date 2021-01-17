@@ -55,6 +55,24 @@
   border: none;
 }
 
+.copyright {
+  height: 26px;
+  padding: 7px;
+  text-align: center;
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 130.7%;
+  letter-spacing: 0.02em;
+  color: #3E979E;
+}
+
+img {
+  margin-top: 10px;
+  height: 30px;
+}
+
 @media(max-width: 950px) {
   .footer{
     flex-direction: column;
