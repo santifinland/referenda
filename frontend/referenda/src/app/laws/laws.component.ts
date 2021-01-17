@@ -1,13 +1,12 @@
-import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
-import { Router } from '@angular/router';
-import { Meta, Title } from '@angular/platform-browser';
-import { isPlatformBrowser } from '@angular/common';
+import {Component, Inject, OnInit, PLATFORM_ID} from '@angular/core';
+import {Router} from '@angular/router';
+import {Meta, Title} from '@angular/platform-browser';
+import {isPlatformBrowser} from '@angular/common';
 
-import { matchSorter } from 'match-sorter';
+import {matchSorter } from 'match-sorter';
 
-import { Law } from '../_models/law';
-import { LawService, WINDOW } from '../_services';
-import { VoteResponse } from '../_models/vote.response';
+import {Law, VoteResponse} from '../_models';
+import {LawService, TransferStateService, WINDOW} from '../_services';
 
 
 @Component({
@@ -40,10 +39,12 @@ export class LawsComponent implements OnInit {
       private metaTagService: Meta,
       private router: Router,
       private titleService: Title,
+      private readonly transferStateService: TransferStateService,
       @Inject(PLATFORM_ID) private platformId: Object,
       @Inject(WINDOW) private window: Window) { }
 
   ngOnInit() {
+
     this.getLatestLaws();
     let title: string;
     if (this.router.url === '/') {
@@ -60,7 +61,7 @@ export class LawsComponent implements OnInit {
   }
 
   getLatestLaws(): void {
-    this.lawService.getLatestLaws()
+    this.transferStateService.fetch('latestLaws', this.lawService.getLatestLaws())
       .subscribe(laws => {
         const tierLaws = this.prepareLaws(laws.filter(law => law.tier === 1));
         this.laws = this.sortLaws(tierLaws);
@@ -87,7 +88,7 @@ export class LawsComponent implements OnInit {
   }
 
   getLaws(): void {
-    this.lawService.getLaws()
+    this.transferStateService.fetch('laws', this.lawService.getLaws())
       .subscribe(laws => {
         const tierLaws = this.prepareLaws(laws.filter(law => law.tier === 1));
         this.laws = this.sortLaws(tierLaws);

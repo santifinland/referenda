@@ -4,11 +4,9 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Subscription } from 'rxjs';
 
-import { AuthenticationService } from './index';
+import { AuthenticationService } from './authentication.service';
 import { environment } from '../../environments/environment';
-import { Law } from '../_models/law';
-import { User } from '../_models';
-import { VoteResponse } from '../_models/vote.response';
+import { Law, User, VoteResponse } from '../_models';
 
 @Injectable({
   providedIn: 'root'
