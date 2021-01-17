@@ -18,10 +18,10 @@ import { ResultsComponent } from './results/results.component';
 
 const routes: Routes = [
   { path: '', component: LawsComponent },
-  { path: 'aboutus', loadChildren: () => import('./aboutus/aboutus.module').then(m => m.AboutusModule) },
   { path: 'admin-law', component: CreateLawComponent },
   { path: 'admin-law/:slug', component: AdminLawComponent },
   { path: 'cookies', loadChildren: () => import('./cookies/cookies.module').then(m => m.CookiesModule) },
+  { path: 'creditos', loadChildren: () => import('./credits/credits.module').then(m => m.CreditsModule) },
   { path: 'delegar', component: DelegationsComponent },
   { path: 'developers', loadChildren: () => import('./developers/developers.module').then(m => m.DevelopersModule) },
   { path: 'estadisticas', loadChildren: () => import('./stats/stats.module').then(m => m.StatsModule) },
@@ -34,6 +34,7 @@ const routes: Routes = [
   { path: 'password', component: PasswordComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'referenda', loadChildren: () => import('./aboutus/aboutus.module').then(m => m.AboutusModule) },
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'resultados', component: ResultsComponent }
 ];
