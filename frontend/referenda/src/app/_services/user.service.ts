@@ -43,6 +43,7 @@ export class UserService {
 
   findUser(username: string): Observable<User[]> {
     const uri = this.usersUrl + '/find/' + username;
+    console.log(uri);
     return this.http.get<User[]>(uri);
   }
 

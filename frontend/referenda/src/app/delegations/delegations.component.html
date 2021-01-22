@@ -1,225 +1,105 @@
-<div class="container">
-  <br>
-  <div *ngIf="!currentUser" class="col-xs-12 col-sm-9">
-    <h1>Inicia sesi&oacute;n para delegar tu voto</h1>
-    <br>
-    <div class="row">
-      <div class="col-6 funciona">
-        <p>As&iacute; es como funciona</p>
-        <span>Solo si no votas en una determinada propuesta,
-              tu voto ser&aacute; el seleccionado por el usuario o partido al que delegas tu voto.
-        </span>
-        <br><br>
-        <span>Puedes cambiar de usuario y de partido cuando quieras, o no delegar tu voto a nadie.
-        </span>
+<div class="delegate">
+  <div class="explanation">
+    <div class="explanation-text-container">
+      <div class="explanation-text">
+        <h2>As&iacute; es como funciona</h2>
+        <p class="text">Solo si no votas en una determinada propuesta,
+          tu voto ser&aacute; el seleccionado por el usuario o partido al que delegas tu voto.
+          <br>
+          <br>
+          Puedes cambiar de usuario y de partido cuando quieras, o no delegar tu voto a nadie.</p>
       </div>
+    </div>
+    <div class="explanation-img-container">
+      <img class="explanation-img1" src="../../assets/img/delegateexplanation1.svg" alt="Delegación de voto">
+      <img class="explanation-img2" src="../../assets/img/delegateexplanation2.svg" alt="Delegación de voto">
+      <img class="explanation-img3" src="../../assets/img/delegateexplanation3.svg" alt="Delegación de voto">
     </div>
   </div>
+  <div class="delegation-type">
+    <div class="login-container" *ngIf="!currentUser">
+      <h3 class="login">Inicia sesi&oacute;n para delegar tu voto</h3>
+      <div class="login-options">
 
-  <div *ngIf="currentUser" class="row align-items-start">
-    <div class="col-7 ">
-      <h3 *ngIf="delegation != 'none'">Actualmente tienes tus votos delegados a:</h3>
-      <h3 *ngIf="delegation == 'none'">Todav&iacute;a no has delegado tu voto a nadie:</h3>
-      <br>
-    </div>
-    <div class="col-6 funciona">
-      <p>As&iacute; es como funciona</p>
-      <span>Solo si no votas en una determinada propuesta,
-            tu voto ser&aacute; el seleccionado por el usuario o partido al que delegas tu voto.
-      </span>
-      <br><br>
-      <span>Puedes cambiar de usuario y de partido cuando quieras, o no delegar tu voto a nadie.
-      </span>
-    </div>
-    <div class="col-5">
-      <div *ngIf="delegation == 'party'" class="party-selected">
-        <img class="party-logo" src="{{delegatedPartyValue.logo}}">
-      </div>
-      <div *ngIf="delegation == 'user'" class="center">
-        <i class="material-icons user-icon">account_box</i>
-        <h3> {{delegatedUserValue.username}}</h3>
-      </div>
-    </div>
-  </div>
-
-  <hr>
-  <div class="row">
-    <div class="col-5">
-      <h2>Delega tu voto en otro usuario:</h2>
-
-      <form [formGroup]="findUsersForm" (ngSubmit)="findUsers()">
-        <div class="form-group">
-          <div class="input-group mb-3">
-            <input type="text" formControlName="username" class="form-control"
-                   [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
-                   placeholder="Nombre de usuario (al menos 4 caracteres)"/>
-            <div class="input-group-append">
-              <button class="form-control btn btn-outline-secondary" type="submit">
-                <span><i class="material-icons"> search </i></span>
-              </button>
-            </div>
-            <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-              <div *ngIf="f.username.errors.required">
-                <span>Es necesario un nombre de usuario con al menos 4 caracteres</span>
-              </div>
+        <form class="loginForm" [formGroup]="loginForm" (ngSubmit)="onLogin()">
+          <div class="form-group">
+            <input type="text" formControlName="username" class="form-control" placeholder="Usuario"
+                   [ngClass]="{ 'is-invalid': submitted && lf.username.errors }"/>
+            <div *ngIf="submitted && lf.username.errors" class="invalid-feedback">
+              <div *ngIf="lf.username.errors.required">Es necesario el nombre de usuario</div>
             </div>
           </div>
+          <div class="form-group">
+            <input type="password" formControlName="password" class="form-control" placeholder="Contrase&#241;a"
+                   [ngClass]="{ 'is-invalid': submitted && lf.password.errors }"/>
+            <div *ngIf="submitted && lf.password.errors" class="invalid-feedback">
+              <div *ngIf="lf.password.errors.required">Es necesaria la contrase&#241;a</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <button class="login-button">Iniciar sesi&oacute;n</button>
+          </div>
+        </form>
+
+        <div class="vertical-line"></div>
+
+        <div class="facebook-google">
+          <div class="button facebook-button" (click)="signInWithFB()">
+            <img class="facebook-img" src="assets/img/facebook_login.svg"/>
+            Iniciar sesi&oacute;n con Facebook
+          </div>
+          <div class="button google-button" (click)="signInWithGoogle()">
+            <img src="assets/img/btn_google_light_normal_ios.svg"/>
+            Iniciar sesi&oacute;n con Google
+          </div>
         </div>
-      </form>
+      </div>
     </div>
 
-    <div class="col-xs-12 col-5">
-      <form>
-        <div class="form-row" >
-          <div class="col party-mixto" *ngFor="let user of foundUsers">
-            <span class="user-delegated"> {{user.username}} </span>
-            <button (click)="delegateUser(user.username)" type="submit" class="btn btn-primary center-block">
-              Delegar
+    <div class="login-container" *ngIf="currentUser">
+      <h3 class="login" *ngIf="delegatedUserValue">Delega tu voto en otro usuario</h3>
+      <h3 class="login" *ngIf="!delegatedUserValue">Delega tu voto en un usuario</h3>
+      <div class="user-delegation">
+        <div class="user-delegation-combo">
+          <form class="delegationForm" [formGroup]="findUsersForm">
+            <div class="form-group">
+              <input type="text" formControlName="username" class="find-user" (keyup)="findUsers()"
+                     [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
+                     placeholder={{placeholder()}}/>
+              <div *ngFor="let user of foundUsers">
+                <div class="find-user option" (click)="setTentativeUser(user.username)">{{user.username}}</div>
+                <div class="find-user-separator"></div>
+              </div>
+              <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                <div *ngIf="f.username.errors.required">
+                  <span>Es necesario un nombre de usuario con al menos 4 caracteres</span>
+                </div>
+              </div>
+            </div>
+          </form>
+          <div class="buttons">
+            <button class="save-button" (click)="delegateUser()"
+                    [ngStyle]="{
+                    'z-index': foundUsers.length > 0 ? -1 : 0,
+                    'position': foundUsers.length > 0 ? 'fixed' : 'relative',
+                    'top.px': foundUsers.length > 0 ? 560 : 0,
+                    'z-index': tentativeUser ? 0 : -1
+                    }">
+              Guardar cambios
             </button>
           </div>
         </div>
-      </form>
+        <div class="tick" *ngIf="this.delegatedUserValue && !this.tentativeUser">
+          <div class="tick-background"></div>
+        </div>
+        <div class="tick-background-only" *ngIf="this.tentativeUser"></div>
+      </div>
     </div>
-  </div>
-
-  <div class="row">
-    <div class="col">
-      <hr>
-      <br>
-      <h2>Selecciona el partido al que delegas tu voto:</h2>
-      <br>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class=" col-sm-1 party">
-    </div>
-    <div class=" col-sm-3 party-right">
-      <button (click)="delegateParty('psoe')" class="no-border" type="submit">
-        <img src="assets/img/psoe.svg" height="90" width="100" alt="Logotipo del PSOE" />
-      </button>
-    </div>
-    <div class=" col-sm-3 party-right">
-      <button (click)="delegateParty('pp')" class="no-border" type="submit">
-        <img src="assets/img/pp.svg" height="90" width="100" alt="Logotipo del Partido Popular"/>
-      </button>
-    </div>
-    <div class=" col-sm-3 party-left">
-      <button (click)="delegateParty('vox')" class="no-border" type="submit">
-        <img src="assets/img/vox.svg" height="80" width="150" alt="Logotipo de Vox"/>
-      </button>
-    </div>
-    <div class=" col-sm-2 party">
-    </div>
-  </div>
-
-  <div class="row">
-    <div class=" col-sm-1 party">
-    </div>
-    <div class=" col-sm-3 party-right">
-      <button (click)="delegateParty('podemos')" class="no-border" type="submit">
-        <img src="assets/img/podemos.svg" height="80" width="200" alt="Logotipo de Podemos"/>
-      </button>
-    </div>
-    <div class=" col-sm-3 party-right">
-      <button (click)="delegateParty('ciudadanos')" class="no-border" type="submit">
-        <img src="assets/img/ciudadanos.svg" height="80" width="250" alt="Logotipo de Ciudadanos"/>
-      </button>
-    </div>
-    <div class=" col-sm-3 party-left">
-      <button (click)="delegateParty('erc')" class="no-border" type="submit">
-        <img src="assets/img/erc.svg" height="80" width="250" alt="Logotipo de ERC"/>
-      </button>
-    </div>
-    <div class=" col-sm-2 party">
-    </div>
-  </div>
-
-  <div class="row">
-    <div class=" col-sm-1 party">
-    </div>
-    <div class=" col-sm-3 party-right">
-      <button (click)="delegateParty('jpc')" class="no-border" type="submit">
-        <img src="assets/img/jpc.svg" height="80" width="100" alt="Logotipo de Junts Per Catalunya"/>
-      </button>
-    </div>
-    <div class=" col-sm-3 party-right">
-      <button (click)="delegateParty('pnv')" class="no-border" type="submit">
-        <img src="assets/img/pnv.svg" height="90" width="150" alt="Logotipo del Partido Nacionalista Vasco"/>
-      </button>
-    </div>
-    <div class=" col-sm-3 party-left">
-      <button (click)="delegateParty('bildu')" class="no-border" type="submit">
-        <img src="assets/img/bildu.svg" height="80" width="250" alt="Logotipo de Bildu"/>
-      </button>
-    </div>
-    <div class=" col-sm-2 party">
-    </div>
-  </div>
-
-  <div class="row">
-    <div class=" col-sm-1 party">
-    </div>
-    <div class=" col-sm-3 party-right">
-      <button (click)="delegateParty('mp')" class="no-border" type="submit">
-        <img src="assets/img/mp.svg" height="80" width="250" alt="Logotipo de Más País"/>
-      </button>
-    </div>
-    <div class=" col-sm-3 party-right">
-      <button (click)="delegateParty('cup')" class="no-border" type="submit">
-        <img src="assets/img/cup.svg" height="90" width="200" alt="Logotipo de Candidatura de Unidad Popular (CUP)"/>
-      </button>
-    </div>
-    <div class=" col-sm-3 party-left">
-      <button (click)="delegateParty('cc')" class="no-border" type="submit">
-        <img src="assets/img/cc.svg" height="90" width="150" alt="Logotipo de Coalición Canaria"/>
-      </button>
-    </div>
-    <div class=" col-sm-2 party">
-    </div>
-  </div>
-
-  <div class="row">
-    <div class=" col-sm-1 party">
-    </div>
-    <div class=" col-sm-3 party-right">
-      <button (click)="delegateParty('upn')" class="no-border" type="submit">
-        <img src="assets/img/upn.svg" height="90" width="200" alt="Logotipo de Navarra Suma"/>
-      </button>
-    </div>
-    <div class=" col-sm-3 party-right">
-      <button (click)="delegateParty('bng')" class="no-border" type="submit">
-        <img src="assets/img/bng.svg" height="80" width="200" alt="Logotipo de Bloque Nacionalista Gallego"/>
-      </button>
-    </div>
-    <div class=" col-sm-3 party-left">
-      <button (click)="delegateParty('prc')" class="no-border" type="submit">
-        <img src="assets/img/prc.svg" height="80" width="200" alt="Logotipo de Partido Regionalista Cántabro"/>
-      </button>
-    </div>
-    <div class=" col-sm-2 party">
-    </div>
-  </div>
-
-  <div class="row">
-    <div class=" col-sm-1 party">
-    </div>
-    <div class=" col-sm-3 party-right">
-      <button (click)="delegateParty('te')" class="no-border" type="submit">
-        <img src="assets/img/te.png" height="90" width="200" alt="Logotipo de Teruel Existe"/>
-      </button>
-    </div>
-    <div class=" col-sm-3 party-right">
-      <h3>
-        <button (click)="delegateParty('nd')" class="no-border" type="submit">
-          No delegar
-        </button>
-      </h3>
-    </div>
-    <div class=" col-sm-3 party-left">
-    </div>
-    <div class=" col-sm-2 party">
+    <div class="login-container" *ngIf="delegatedUserValue">
+      <h3 class="login">No delegar mi voto en ning&uacute;n usario o partido</h3>
+      <button class="no-delegate" (click)="removeDelegations()">No delegar</button>
     </div>
   </div>
 
 </div>
+

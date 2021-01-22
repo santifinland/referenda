@@ -33,9 +33,9 @@ userRouter.route('/find/:username')
 /* GET users listing. */
 .get(Verify.verifyOrdinaryUser, function(req, res, next) {
     let name = req.params.username.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
-    if (name.length < 4) {
+    if (name.length < 1) {
         return res.status(405).json({"Reason": "username pattern too short"});
-    } else {
+    } else {
         User.find({"username": new RegExp('^'+name, "i")}, {"_id": 0}).limit(3).select("username")
             .exec(function (err, users) {
             if (err) return next(err);
