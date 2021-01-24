@@ -41,6 +41,7 @@
           </div>
         </form>
 
+        <div class="social">O inicia sesi&oacute;n con tu nombre usuario y contraseña</div>
         <div class="vertical-line"></div>
 
         <div class="facebook-google">
@@ -53,6 +54,7 @@
             Iniciar sesi&oacute;n con Google
           </div>
         </div>
+        <div class="social">Inicia sesi&oacute;n con tus redes sociales</div>
       </div>
     </div>
 
@@ -77,29 +79,66 @@
               </div>
             </div>
           </form>
+          <div class="tick" *ngIf="this.delegatedUserValue && !this.tentativeUser">
+            <div class="tick-background"></div>
+          </div>
+          <div class="tick-background-only" *ngIf="this.tentativeUser"></div>
           <div class="buttons">
             <button class="save-button" (click)="delegateUser()"
-                    [ngStyle]="{
-                    'z-index': foundUsers.length > 0 ? -1 : 0,
-                    'position': foundUsers.length > 0 ? 'fixed' : 'relative',
-                    'top.px': foundUsers.length > 0 ? 560 : 0,
-                    'z-index': tentativeUser ? 0 : -1
-                    }">
+                    [ngStyle]="{'display': tentativeUser ? 'flex' : 'none'}">
               Guardar cambios
             </button>
           </div>
         </div>
-        <div class="tick" *ngIf="this.delegatedUserValue && !this.tentativeUser">
-          <div class="tick-background"></div>
-        </div>
-        <div class="tick-background-only" *ngIf="this.tentativeUser"></div>
       </div>
     </div>
-    <div class="login-container" *ngIf="delegatedUserValue">
-      <h3 class="login">No delegar mi voto en ning&uacute;n usario o partido</h3>
-      <button class="no-delegate" (click)="removeDelegations()">No delegar</button>
+
+    <div class="login-container" *ngIf="currentUser">
+      <h3 class="login">O selecciona el partido al que delegas tu voto: </h3>
     </div>
   </div>
+
+  <swiper *ngIf="currentUser" class="swiper-container" [config]="config">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide" *ngFor="let party of parties">
+        <div class="party-container">
+          <button class="party-button" (click)="delegateParty(party)">
+            <img src="assets/img/{{party}}.svg" alt="{{party}}"
+                 [ngStyle]="{'width': logoWidth(party), 'height': logoHeight(party)}">
+          </button>
+          <div class="tick party-tick" *ngIf="delegatedPartyValue && delegatedPartyValue.name === party">
+          </div>
+        </div>
+      </div>
+    </div>
+  </swiper>
+
+  <div class="delegation-type" *ngIf="currentUser">
+    <div class="party-container-mobile" *ngFor="let party of parties" (click)="delegateParty(party)">
+      <div class="party-img-mobile">
+        <img src="assets/img/{{party}}.svg" alt="{{party}}"
+             [ngStyle]="{'width': logoMobileWidth(party), 'height': logoMobileHeight(party)}">
+      </div>
+      <div class="tick-mobile" *ngIf="delegatedPartyValue && delegatedPartyValue.name === party">
+        <div class="tick-background"></div>
+      </div>
+      <div class="tick-pending-mobile" *ngIf="!(delegatedPartyValue && delegatedPartyValue.name === party)"></div>
+    </div>
+  </div>
+
+  <div class="delegation-type">
+    <div class="login-container">
+      <div class="login-container" *ngIf="currentUser">
+        <h3 class="login">No delegar mi voto en ning&uacute;n usario o partido</h3>
+        <button class="no-delegate" (click)="removeDelegations()">No delegar</button>
+      </div>
+    </div>
+  </div>
+
+  <br>
+  <br>
+  <br>
+  <br>
 
 </div>
 

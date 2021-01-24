@@ -13,6 +13,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { CookieService } from 'ngx-cookie-service';
 import { OrderModule } from 'ngx-order-pipe';
+import {NgxUsefulSwiperModule} from 'ngx-useful-swiper';
 import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
 import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
 
@@ -78,6 +79,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     FormsModule,
     HttpClientModule,
     NgbModule,
+    NgxUsefulSwiperModule,
     OrderModule,
     TranslateModule.forRoot({
       loader: {

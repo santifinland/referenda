@@ -7,6 +7,7 @@
 .explanation {
   display: flex;
   height: 348px;
+  padding: 0 20px;
   background: #3E979E;
   justify-content: center;
   gap: 97px;
@@ -85,7 +86,7 @@ h2 {
 .login-container {
   display: flex;
   flex-direction: column;
-  padding: 34px 0;
+  padding: 34px 0 0 0;
 }
 
 h3 {
@@ -206,7 +207,6 @@ h3 {
   background: #FFFFFF;
 }
 
-
 .vertical-line {
   height: 200px;
   border-left: 2px solid #3E979E;
@@ -270,10 +270,10 @@ input:focus::placeholder {
 }
 
 .save-button {
+  display: flex;
   position: relative;
   width: 200px;
   height: 53px;
-  top: 560px;
   padding: 13px 18px;
   background: #3E979E;
   border: 2px solid #3E979E;
@@ -286,6 +286,8 @@ input:focus::placeholder {
   letter-spacing: 0.02em;
   color: #FFFFFF;
   cursor: pointer;
+  box-shadow: none;
+  outline: none;
 }
 
 .save-button:hover {
@@ -309,6 +311,8 @@ input:focus::placeholder {
   letter-spacing: 0.02em;
   color: #FFFFFF;
   cursor: pointer;
+  box-shadow: none;
+  outline: none;
 }
 
 .search-button:hover {
@@ -333,6 +337,8 @@ input:focus::placeholder {
   letter-spacing: 0.02em;
   color: #FFFFFF;
   cursor: pointer;
+  box-shadow: none;
+  outline: none;
 }
 
 .no-delegate:hover {
@@ -371,83 +377,203 @@ input:focus::placeholder {
   display: flex;
 }
 
+swiper {
+  display: flex;
+  height: 150px;
+}
 
-
-
-
-
-
-
-img.party-logo {
-  max-width: 90%;
-  max-height: 150px;
-}
-.party-right {
-  padding: 30px;
-  text-align: center;
-  border-right: 1px solid #999;
-  border-bottom: 1px solid #999;
-}
-.no-border {
-  border: 0px;
-  padding: 0px;
-  background-color: #fff;
-}
-.party-left {
-  padding: 30px;
-  text-align: center;
-  border-right: 0px;
-  border-bottom: 1px solid #999;
-}
-.party-mixto {
-  padding: 30px;
-  text-align: center;
-  text-align: center;
-  border-right: 1px solid #999;
-}
-.party-selected {
-  margin-top: 0px;
-}
-.party > button {
-  display: block;
-  margin: auto;
-}
-.delegados {
-  font-family: "Montserrat-Bold";
-  font-size: 150%;
-}
-.funciona {
-  margin: 0px 0px 0px 15px;
-  padding: 0px 0px 0px 15px;
-  text-align: justify;
-  border-left: thick solid #7BA3A0;
-}
-.funciona > p {
-  font-weight: bold;
-  color: #208575;
-}
-.material-icons {
-  display: inline-flex;
+.party-container {
+  display: flex;
+  height: 150px;
   align-items: center;
   justify-content: center;
-  vertical-align: middle;
+  background: #FFF;
 }
-.center {
+
+.party-tick {
+  display: flex;
+  align-self: flex-end;
+}
+
+.party-button {
+  border: 0;
+  cursor: pointer;
+  background: #FFF;
+}
+
+.party-container-mobile {
+  display: none;
+  justify-content: space-between;
+  background: #EFEFEF;
+  border-radius: 9px;
+  padding: 5px 10px;
+  gap: 5px
+}
+
+.party-img-mobile {
+  display: flex;
+  width: 95px;
+  padding: 7px 13px  5px 13px;
+  justify-content: center;
+  align-self: center;
+}
+
+.tick-mobile {
+  display: flex;
+  width: 26px;
+  height: 27px;
+  background: url(../../assets/img/tick.svg) #D5D5D5 no-repeat;
+  padding-left: 10px;
+  margin-left: -10px;
+  align-self: center;
+}
+
+.tick-pending-mobile {
+  display: flex;
+  width: 26px;
+  height: 27px;
+  background: #D5D5D5;
+  align-self: center;
+}
+
+.social{
+  display: none;
+  position: relative;
+  padding-top: 28px;
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 130.7%;
   text-align: center;
-  font-family: "Montserrat-Bold";
-  font-size: 200%;
+  letter-spacing: 0.02em;
+  color: #333333;
 }
-.user-icon {
-  font-size: 100px;
+
+.swiper-container {
+  max-width: 100%;
 }
-.user-delegated {
-  display: block;
-  font-family: "Montserrat-Bold";
-  font-size: 160%;
-  text-align: center;
+
+
+@media (max-width: 1300px) {
+
+  .explanation {
+    height: 330px;
+  }
+
+  .explanation-img1 {
+    width: 57%;
+  }
+
+  .explanation-img2 {
+    width: 55%;
+  }
 }
-.user-delegated > button {
-  text-align: center;
-  position:relative;
-  margin: 0 auto;
+
+@media (max-width: 1150px) {
+
+  .explanation-img1 {
+    width: 60%;
+  }
+
+  .explanation-img2 {
+    width: 58%;
+  }
+
+  .explanation-img3 {
+    height: 300px;
+  }
+}
+
+@media (max-width: 1030px) {
+
+  .explanation {
+    flex-direction: column-reverse;
+    height: 576px;
+    gap: 24px;
+  }
+
+  .explanation-text-container {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .explanation-text {
+    padding: 0;
+  }
+
+  .explanation-img-container {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .explanation-img1 {
+    display: none;
+  }
+
+  .explanation-img2 {
+    display: none;
+  }
+
+  .explanation-img3 {
+    position: relative;
+    width: 100%;
+  }
+
+  .delegation-type {
+    width: 100%;
+    height: auto;
+  }
+}
+
+@media (max-width: 760px) {
+
+  swiper {
+    display: none;
+  }
+
+  .party-container-mobile {
+    display: flex;
+    height: 68px;
+  }
+
+  h3 {
+    align-self: center;
+  }
+
+  .login {
+    padding: 0 20px;
+    text-align: center;
+  }
+
+  .user-delegation {
+    flex-direction: column;
+    justify-items: center;
+  }
+
+  .delegation-type {
+    padding: 10px 40px;
+  }
+
+  .user-delegation-combo {
+    align-items: center;
+  }
+
+  .login-container {
+    align-items: center;
+  }
+
+  .login-options {
+    flex-direction: column-reverse;
+    gap: 10px
+  }
+
+  .vertical-line {
+    display: none;
+  }
+
+  .social {
+    display: flex;
+  }
 }
