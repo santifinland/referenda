@@ -181,11 +181,11 @@ a:hover {
 }
 
 .smartphone-menu-show {
-  background: url(../../assets/img/downarrow.svg);
+  background: url(../../assets/img/downarrowbig.svg);
 }
 
 .smartphone-menu-hide {
-  background: url(../../assets/img/uparrow.svg);
+  background: url(../../assets/img/uparrowbig.svg);
 }
 
 .smartphone-menu-items {

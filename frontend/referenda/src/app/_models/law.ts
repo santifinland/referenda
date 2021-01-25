@@ -37,8 +37,8 @@ export class Law {
   officialPositiveWidth: string;
   officialNegativeWidth: string;
   officialAbstentionWidth: string;
-  positiveParties: Party[];
-  negativeParties: Party[];
-  abstentionParties: Party[];
+  positiveParties: string[];
+  negativeParties: string[];
+  abstentionParties: string[];
   comments: Comment[];
 }
