@@ -540,14 +540,14 @@ input::placeholder {
   cursor: pointer;
 }
 
-.uparrow {
+.uparrowbluebig {
   width: 21px;
   height: 11px;
   background: url(../../assets/img/uparrowblue.svg);
   margin-right: 10px;
 }
 
-.downarrow {
+.downarrowbluebig {
   width: 21px;
   height: 11px;
   background: url(../../assets/img/downarrowblue.svg);
