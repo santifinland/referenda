@@ -1,3 +1,193 @@
+.home {
+  display: flex;
+  flex-direction: column;
+  margin: 60px auto;
+  gap: 89px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  gap: 28px
+}
+
+h1 {
+  margin: 0;
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 32px;
+  line-height: 37px;
+  text-align: center;
+  letter-spacing: 0.02em;
+  color: #3E979E;
+}
+
+h2 {
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 26px;
+  line-height: 30px;
+  text-align: center;
+  letter-spacing: 0.02em;
+  color: #3E979E;
+}
+
+h3 {
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 130.7%;
+  text-align: center;
+  letter-spacing: 0.02em;
+  color: #333333;
+}
+
+.text {
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 130.7%;
+  text-align: center;
+  letter-spacing: 0.02em;
+  color: #333333;
+}
+
+.delegation-party-user {
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
 img.party-logo {
   height: 40px;
 }
+
+.referenda {
+  color: #3E979E;
+}
+
+.delegations {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+}
+
+.delegate {
+  display: flex;
+  width: 299px;
+  margin-top: 17px;
+  border: 2px solid #3E979E;
+  padding: 12px 18px;
+  color: #3E979E;
+  background: #FFF;
+  align-self: center;
+  outline: none;
+  box-shadow: none;
+  cursor: pointer;
+}
+
+.delegate:hover {
+  padding: 12px 18px;
+  color: #FFF;
+  background: #3E979E;
+}
+
+.center {
+  text-align: center;
+}
+
+
+.homeForm {
+  margin: 24px auto;
+  width: 197px;
+}
+
+.username {
+  padding: 9px 22px;
+  width: 197px;
+  height: 40px;
+  background: #EFEFEF;
+  border-radius: 7px;
+  border: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 144.7%;
+  text-align: center;
+  letter-spacing: 0.02em;
+  color: #828282;
+}
+
+.save {
+  display: flex;
+  width: 200px;
+  height: 53px;
+  background: #3E979E;
+  border: 2px solid #3E979E;
+  box-sizing: border-box;
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 130.7%;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 0.02em;
+  color: #FFFFFF;
+}
+
+.save:hover {
+  padding: 12px 18px;
+  background: #FFF;
+  color: #3E979E;
+}
+
+.logout {
+  display: flex;
+  margin: 0 auto;
+  width: 200px;
+  height: 53px;
+  background: red;
+  border: 2px solid red;
+  box-sizing: border-box;
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 130.7%;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 0.02em;
+  color: #FFFFFF;
+}
+
+.logout:hover {
+  padding: 12px 18px;
+  background: #FFF;
+  color: red;
+}
+
+.remember {
+  color: #3E979E;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+

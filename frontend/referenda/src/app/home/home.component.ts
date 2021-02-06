@@ -1,12 +1,11 @@
 ﻿import { Component, OnInit, OnDestroy } from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 import { SocialAuthService, SocialUser } from 'angularx-social-login';
 
-import { AuthenticationService } from '../_services';
-import { Party } from '../_models';
-import { User } from '../_models';
-import { UserService } from '../_services';
+import { AuthenticationService, UserService } from '../_services';
+import { Party, User } from '../_models';
 
 
 @Component({
@@ -21,13 +20,16 @@ export class HomeComponent implements OnInit, OnDestroy {
   delegatedPartyValue: Party;
   delegatedUserValue: User;
 
+  profileForm: FormGroup;
+  submitted = false;
+
   private socialUser: SocialUser;
   private socialUserLoggedIn: boolean;
-  private socialProvider: string;
 
   constructor(
     private authenticationService: AuthenticationService,
     private authService: SocialAuthService,
+    private formBuilder: FormBuilder,
     private userService: UserService) {
     this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
       console.log(user);
@@ -37,12 +39,17 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.profileForm = this.formBuilder.group({
+      username: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(15)]]
+    });
+  }
 
   ngOnDestroy() {
-      // unsubscribe to ensure no memory leaks
       this.currentUserSubscription.unsubscribe();
   }
+
+  get pf() { return this.profileForm.controls; }
 
   delegatedParty(): void {
     this.userService.delegatedParty()
@@ -83,5 +90,30 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.authService.signOut();
     }
     location.reload();
+  }
+
+  onChangeUsername() {
+
+    this.submitted = true;
+
+    if (this.profileForm.invalid) {
+      return;
+    }
+
+    if (this.pf.username.value !== this.currentUser.username) {
+      this.userService.changeUsername(this.pf.username.value)
+        .subscribe(
+          data => {
+            const newUser = new User(this.pf.username.value, this.currentUser.token);
+            this.authenticationService.loginWithToken(newUser);
+          },
+          error => {
+            this.submitted = false;
+            this.profileForm = this.formBuilder.group({
+              username: ['', Validators.required]
+            });
+            return true;
+          });
+    }
   }
 }

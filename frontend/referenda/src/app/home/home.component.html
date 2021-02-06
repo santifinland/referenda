@@ -1,53 +1,46 @@
-﻿<div class="container">
-  <div class="row row-content">
-    <div class="col">
-      <br>
-      <h3>Perfil de usuario</h3>
-      <hr>
-    </div>
+﻿<div class="home">
+
+  <div class="header">
+    <h1>¡Hola, {{currentUser.username}}!</h1>
+    <h3>Aqu&iacute; puedes gestionar tus preferencias y tu actividad en Referenda</h3>
   </div>
-  <div class="row row-content">
-    <div class="col">
-      <div class="card border-secondary mb-3">
-        <div class="card-header">Datos básicos</div>
-        <div class="card-body text-secondary">
-          <h5 class="card-title">Nombre de usuario</h5>
-          <p *ngIf="currentUser" class="card-text">{{currentUser.username}}</p>
-          <a routerLink="/profile" class="btn btn-outline-secondary">Modificar</a>
-        </div>
+
+  <div class="delegations">
+    <h2>Delegaci&oacute;n de voto</h2>
+    <div class="delegation-party-user">
+      <div class="text" *ngIf="delegation == 'party'"> Has delegado tu voto al partido</div>
+      <div *ngIf="delegation == 'party'"><img class="party-logo" src="{{delegatedPartyValue.logo}}"></div>
+      <div class="text" *ngIf="delegation == 'user'"> Has delegado tu voto al usuario
+        <b class="referenda">{{delegatedUserValue.username}}</b>
       </div>
-      <div class="card border-secondary mb-3">
-        <div class="card-header">Delegación de voto</div>
-        <div class="card-body text-secondary">
-          <h5 class="card-title">Delegación a partido político </h5>
-          <div *ngIf="delegation == 'party'">
-            <img class="party-logo" src="{{delegatedPartyValue.logo}}">
-          </div>
-          <div *ngIf="delegation != 'party'">
-            <p class="card-text">Ninguna</p>
-          </div>
-        </div>
-        <div class="card-body text-secondary">
-          <h5 class="card-title">Delegación a usuario</h5>
-          <div *ngIf="delegation == 'user'">
-            <p class="card-text">{{delegatedUserValue.username}}</p>
-          </div>
-          <div *ngIf="delegation != 'user'">
-            <p class="card-text">Ninguna</p>
-          </div>
-          <br>
-          <a routerLink="/delegar" class="btn btn-outline-secondary">Modificar</a>
-        </div>
-      </div>
-      <button type="button" class="btn btn-outline-danger btn-lg btn-block" (click)="logout()">
-        Finalizar sesi&oacute;n
-      </button>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
     </div>
+    <div class="delegate" routerLink="/delegar">MODIFICAR DELEGACI&Oacute;N DE VOTO</div>
   </div>
+
+  <div class="preferences">
+    <h2>Nombre de usuario</h2>
+    <div class="text">Aqu&iacute; puedes cambiar tu nombre de usuario</div>
+    <form class="homeForm" [formGroup]="profileForm" (ngSubmit)="onChangeUsername()">
+      <div class="form">
+        <input type="text" formControlName="username" class="username"
+               placeholder={{currentUser.username}} value={{currentUser.username}}
+               [ngClass]="{ 'is-invalid': submitted && pf.username.errors }"/>
+        <div *ngIf="submitted && pf.username.errors" class="invalid-feedback">
+          <div *ngIf="pf.username.errors.required">Es necesario el nombre de usuario</div>
+          <div *ngIf="pf.username.errors.minlength">El nombre de usuario debe tener al menos 4 caracteres</div>
+          <div *ngIf="pf.username.errors.maxlength">El nombre de usuario debe tener como m&aacute;ximo 15 caracteres
+          </div>
+        </div>
+        <button class="save">Guardar cambios</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="preferences">
+    <h2>Contraseña</h2>
+    <div class="text">Pincha<a class="remember" routerLink="/password"> aqu&iacute; </a>para cambiar tu contraseña</div>
+  </div>
+
+  <button type="button" class="logout" (click)="logout()">Finalizar sesi&oacute;n</button>
+
 </div>
