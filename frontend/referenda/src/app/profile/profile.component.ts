@@ -44,7 +44,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.userService.changeUsername(this.pf.username.value)
       .subscribe(
         data => {
-          var newUser = new User(this.pf.username.value, this.currentUser.token);
+          const newUser = new User(this.pf.username.value, this.currentUser.token);
           this.authenticationService.loginWithToken(newUser);
         },
         error => {
@@ -55,7 +55,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
           return true;
         });
   }
-
 
   ngOnDestroy() {
       this.currentUserSubscription.unsubscribe();
