@@ -17,20 +17,18 @@
        [ngClass]="{active: section==='estadisticas'}" (click)="section='estadisticas';">ESTAD&Iacute;STICAS</a>
     <div class="vertical-line">
     </div>
-    <a class="seccion sesion" routerLink="/home" *ngIf="currentUser" (click)="section='';">{{currentUser.username}}</a>
+    <div class="seccion sesion" *ngIf="currentUser">
+      <a routerLink="/home" (click)="section='';">{{currentUser.username}}</a>
+    </div>
     <div class="seccion sesion" *ngIf="!currentUser" (click)="section='';">
       <a routerLink="/login">MI SESI&Oacute;N</a>
       <div class="dropdown-sesion">
         <div class="dropdown-sesion-content">
           <div class="dropdown-iniciar">
             <a routerLink="/login">INICIAR SESI&Oacute;N</a>
-            <div class="rectangle">
-            </div>
           </div>
           <div class="dropdown-registrarse">
             <a routerLink="/register">REGISTRARSE</a>
-            <div class="rectangle">
-            </div>
           </div>
         </div>
       </div>

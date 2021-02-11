@@ -5,7 +5,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -26,7 +25,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { DelegationsComponent } from './delegations/delegations.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
-import { LawDetailComponent } from './law-detail/law-detail.component';
 import { LawsComponent } from './laws/laws.component';
 import { ModalComponent } from './_directives';
 import { ModalService, WINDOW_PROVIDERS } from './_services';
@@ -35,7 +33,6 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login';
 import { PartiesComponent } from './parties/parties.component';
 import { PasswordComponent } from './password/password.component';
-import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ResultsComponent } from './results/results.component';
@@ -55,7 +52,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     CookieConsentComponent,
     CreateLawComponent,
     LawsComponent,
-    LawDetailComponent,
     FooterComponent,
     HeaderComponent,
     ResultsComponent,
@@ -66,7 +62,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     LoginComponent,
     PartiesComponent,
     PasswordComponent,
-    ProfileComponent,
     RegisterComponent,
     ResetPasswordComponent,
   ],
@@ -78,7 +73,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     FilterPipeModule,
     FormsModule,
     HttpClientModule,
-    NgbModule,
     NgxUsefulSwiperModule,
     OrderModule,
     TranslateModule.forRoot({

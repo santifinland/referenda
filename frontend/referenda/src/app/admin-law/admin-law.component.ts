@@ -1,5 +1,5 @@
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
@@ -7,13 +7,12 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { first } from 'rxjs/operators';
 
 import { AlertService, AuthenticationService } from '../_services';
-import { Law } from '../_models/law';
-import { LawService } from '../_services/law.service';
-import { User } from '../_models';
+import { Law, User } from '../_models';
+import { LawService } from '../_services';
 
 
 @Component({
-  selector: 'admin-law',
+  selector: 'app-admin-law',
   templateUrl: './admin-law.component.html',
   styleUrls: ['./admin-law.component.css']
 })

@@ -16,7 +16,7 @@
 
 .party-selected {
   display: flex;
-  width: 100%;
+  width: 690px;
   height: 137px;
   padding: 27px 69px 42px 58px;
   background: #FFF;
@@ -205,8 +205,8 @@
 }
 
 .voter-large-box {
-  width: 282px;
-  height: 48px;
+  width: 246px;
+  height: 24px;
   padding: 12px 18px;
   background: #5BA7AD;
   text-align: center;
@@ -249,9 +249,9 @@
 }
 
 .input {
-  width: 282px;
-  height: 46px;
-  padding: 17px 9px;
+  width: 246px;
+  height: 24px;
+  padding: 12px 18px;
   background: #5BA7AD;
   text-align: center;
   border: none;
