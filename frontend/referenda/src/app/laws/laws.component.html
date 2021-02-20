@@ -58,15 +58,15 @@
       </div>
 
       <div class="voter-container">
-        <div class="voter-shower">
-          <div class="voter" (click)="showVoterMenu()">
+        <div class="voter-shower" (click)="showVoterMenu(law.slug)">
+          <div class="voter">
             VOTA ESTA PROPOSICI&Oacute;N
           </div>
-          <div class="miniuparrow" *ngIf="!voterMenu"></div>
-          <div class="minidownarrow" *ngIf="voterMenu"></div>
+          <div class="miniuparrow" *ngIf="!voterSlugs.includes(law.slug)"></div>
+          <div class="minidownarrow" *ngIf="voterSlugs.includes(law.slug)"></div>
         </div>
 
-        <div class="voter-menu" *ngIf="voterMenu">
+        <div class="voter-menu" *ngIf="voterSlugs.includes(law.slug)">
 
           <div class="voter-button-bar">
             <div class="voter-button" (click)="submitVote([law.slug], 1); vote='yes';">S&Iacute;</div>

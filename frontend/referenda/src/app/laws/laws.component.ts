@@ -31,7 +31,7 @@ export class LawsComponent implements OnInit {
     'real decreto-ley'];
   orientativas = ['proposición no de ley'];
   smartphoneMenu = false;
-  voterMenu = false;
+  voterSlugs: string[] = [];
   vote = '';
 
   constructor(
@@ -147,8 +147,15 @@ export class LawsComponent implements OnInit {
     this.smartphoneMenu = show;
   }
 
-  showVoterMenu() {
-    this.voterMenu = !this.voterMenu;
+  showVoterMenu(slug: string) {
+    if (this.voterSlugs.includes(slug)) {
+      const index = this.voterSlugs.indexOf(slug);
+      if (index >= 0) {
+        this.voterSlugs.splice(index, 1);
+      }
+    } else {
+      this.voterSlugs.push(slug);
+    }
   }
 
   getLaw(slug): void {
