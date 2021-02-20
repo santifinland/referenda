@@ -22,3 +22,7 @@
   bottom: 0;
   z-index: 3;
 }
+
+.footerapp {
+  z-index: 1;
+}

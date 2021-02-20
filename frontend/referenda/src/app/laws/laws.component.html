@@ -115,12 +115,12 @@
   <div class="searcher-sticky"></div>
   <div class="searcher">
     <div class="searcher-title searcher-text">Busca una ley o proposici&oacute;n</div>
-    <div class="searcher-title-container">
-      <div class="searcher-title-mobile" (click)="showSmartphoneMenu(true)">
+    <div class="searcher-title-container" (click)="showSmartphoneMenu()">
+      <div class="searcher-title-mobile">
         BUSCA UNA LEY O PROPOSICI&Oacute;N
       </div>
-      <div class="smartphone-menu-show" *ngIf="!smartphoneMenu" (click)="showSmartphoneMenu(true)"></div>
-      <div class="smartphone-menu-hide" *ngIf="smartphoneMenu" (click)="showSmartphoneMenu(false)"></div>
+      <div class="smartphone-menu-show" *ngIf="!smartphoneMenu"></div>
+      <div class="smartphone-menu-hide" *ngIf="smartphoneMenu"></div>
     </div>
     <div class="searcher-input-container" *ngIf="smartphoneMenu">
       <input class="search-input searcher-text" [(ngModel)]="headline"

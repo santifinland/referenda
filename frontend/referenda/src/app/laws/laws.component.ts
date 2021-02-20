@@ -143,8 +143,8 @@ export class LawsComponent implements OnInit {
     return this.sortLaws(headlineLaws);
   }
 
-  showSmartphoneMenu(show: boolean) {
-    this.smartphoneMenu = show;
+  showSmartphoneMenu() {
+    this.smartphoneMenu = !this.smartphoneMenu;
   }
 
   showVoterMenu(slug: string) {
