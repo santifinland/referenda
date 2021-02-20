@@ -118,8 +118,8 @@ h3 {
 
 .facebook-button {
   position: relative;
-  width: 369px;
-  height: 48px;
+  width: 265px;
+  height: 24px;
   padding: 12px 52px 12px 52px;
   background: #475993;
   border-radius: 3px;
@@ -130,7 +130,7 @@ h3 {
   line-height: 130.7%;
   text-align: center;
   letter-spacing: 0.02em;
-  color: #FFFFFF
+  color: #FFFFFF;
 }
 
 .google-button {
@@ -161,6 +161,11 @@ h3 {
   right: 14px;
   width: 21px;
   height: 21px;
+  vertical-align: middle;
+}
+
+.google-img {
+  vertical-align: middle;
 }
 
 .loginForm {
@@ -170,7 +175,11 @@ h3 {
 }
 
 .form-control {
+  width: 160px;
+  height: 40px;
+  margin: 10px 0;
   background: #F5F5F5;
+  border: 0;
   border-radius: 7px;
   font-family: Roboto, sans-serif;
   font-style: normal;
@@ -180,10 +189,6 @@ h3 {
   text-align: center;
   letter-spacing: 0.02em;
   color: black;
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-  margin: 10px 0;
 }
 
 .login-button {
@@ -228,8 +233,8 @@ h3 {
 }
 
 .find-user {
-  width: 313px;
-  height: 40px;
+  width: 269px;
+  height: 22px;
   background: #F1F1F1;
   font-family: Roboto, sans-serif;
   font-style: normal;
@@ -553,6 +558,7 @@ swiper {
   }
 
   .delegation-type {
+    width: calc(100% - 80px);
     padding: 10px 40px;
   }
 

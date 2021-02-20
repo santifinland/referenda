@@ -1,5 +1,5 @@
 import { ActivatedRoute } from '@angular/router';
-import {Component, HostListener, Inject, OnInit, PLATFORM_ID} from '@angular/core';
+import {Component, Inject, OnInit, PLATFORM_ID} from '@angular/core';
 import { Router } from '@angular/router';
 import { Meta, Title} from '@angular/platform-browser';
 import { isPlatformBrowser } from '@angular/common';
@@ -7,9 +7,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { first } from 'rxjs/operators';
 
-import { Law } from '../_models/law';
+import { Law, VoteResponse } from '../_models';
 import { LawService, WINDOW } from '../_services';
-import { VoteResponse } from '../_models/vote.response';
 
 
 @Component({

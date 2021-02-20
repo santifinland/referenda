@@ -1,10 +1,10 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 
 import * as d3 from 'd3';
 
-import { Law } from '../_models/law';
-import { LawService } from '../_services/law.service';
+import { Law } from '../_models';
+import { LawService } from '../_services';
 
 
 @Component({
@@ -16,27 +16,57 @@ export class StatsComponent implements OnInit {
 
   laws: Law[] = [];
   totalLaws: number = this.laws.length;
+  maxPartyLaws = 1;
+  maxPartyResults = 1;
+  institutionProposals: any[] = [];
+  ccaaProposals: any[] = [];
+  institutionVoted: any[] = [];
+  ccaaVoted: any[] = [];
   proposicionLey = 0;
   proposicionLeyOrganica = 0;
   proposicionNoLey = 0;
   proyectoLey = 0;
   decretoLey = 0;
 
-  ccaaLawsShown: Boolean = false;
-  ccaaResultsShown: Boolean = false;
-  partyLawsShown = true;
-  partyResultsShown = false;
-  partyAreasShown = false;
-  sections = {'ccaaLaws': this.ccaaLawsShown,
-              'ccaResults': this.ccaaResultsShown,
-              'partyLaws': this.partyLawsShown,
-              'partyResults': this.partyResultsShown,
-              'partyAreas': this.partyAreasShown};
 
   constructor(
       private lawService: LawService,
       private metaTagService: Meta,
       private titleService: Title) {
+  }
+
+  ngOnInit() {
+    this.getPartyLaws();
+    this.getPartyResults();
+    const title = 'Estadísticas de votaciones en el Congreso de los Diputados';
+    this.titleService.setTitle(title);
+    this.metaTagService.updateTag({ name: 'description', content: title });
+    window.scroll(-1, 0);
+  }
+
+  getPartyLaws(): void {
+    this.lawService.getAllLaws()
+      .subscribe(laws => {
+        this.laws = laws;
+        this.totalLaws = laws.length;
+        this.institutionProposals = this.buildData(this.laws);
+        this.maxPartyLaws = this.getMaxPartyLaws(this.institutionProposals);
+        this.ccaaProposals = this.buildCCAAData(this.laws);
+        this.lawsTypes(laws);
+        this.progressCard(laws, 'law', this.buildData, 80);
+        this.progressCard(laws, 'law', this.buildCCAAData, 70);
+        this.getAreaLaws();
+      });
+  }
+
+  getMaxPartyLaws(parties: any[]): number {
+    let maxValue = 0;
+    parties.forEach( d => {
+      if (d.value > maxValue) {
+        maxValue = d.value;
+      }
+    });
+    return maxValue;
   }
 
   lawsTypes(laws: Law[]): void {
@@ -47,23 +77,14 @@ export class StatsComponent implements OnInit {
     this.decretoLey = laws.filter(l => l.law_type === 'Real Decreto-Ley').length;
   }
 
-  getPartyLaws(): void {
-    this.lawService.getAllLaws()
-      .subscribe(laws => {
-        this.laws = laws;
-        this.totalLaws = laws.length;
-        this.lawsTypes(laws);
-        this.progressCard(laws, 'law', this.buildData, 80);
-        this.progressCard(laws, 'law', this.buildCCAAData, 70);
-        this.getAreaLaws();
-      });
-  }
-
   getPartyResults(): void {
     this.lawService.getResults()
       .subscribe(laws => {
-        this.progressCard(laws, 'result', this.buildData, 80);
-        this.progressCard(laws, 'result', this.buildCCAAData, 70);
+        this.institutionVoted = this.buildData(laws);
+        this.maxPartyResults = this.getMaxPartyLaws(this.institutionVoted);
+        this.ccaaVoted = this.buildCCAAData(laws);
+        // this.progressCard(laws, 'result', this.buildData, 80);
+        // this.progressCard(laws, 'result', this.buildCCAAData, 70);
       });
   }
 
@@ -79,35 +100,26 @@ export class StatsComponent implements OnInit {
     this.drawArea('partyArea', this.totalLaws, data);
   }
 
-  ngOnInit() {
-    this.getPartyLaws();
-    this.getPartyResults();
-    const title = 'Estadísticas de votaciones en el Congreso de los Diputados';
-    this.titleService.setTitle(title);
-    this.metaTagService.updateTag({ name: 'description', content: title });
-    window.scroll(0, 0);
-  }
-
   buildData(laws: Law[]) {
-    const psoe = {'label': 'PSOE', 'id': 1, 'value': 0, 'color': '#ee1d1d'};
-    const pp = {'label': 'PP', 'id': 2, 'value': 0, 'color': '#00a3df'};
-    const vox = {'label': 'VOX', 'id': 3, 'value': 0, 'color': '#81c03b'};
-    const podemos = {'label': 'Podemos-IU', 'id': 4, 'value': 0, 'color': '#683064'};
-    const ciudadanos = {'label': 'Ciudadanos', 'id': 6, 'value': 0, 'color': '#f36b25'};
-    const erc = {'label': 'ERC', 'id': 5, 'value': 0, 'color': '#feb832'};
-    const jpc = {'label': 'Junts per Catalunya', 'id': 7, 'value': 0, 'color': '#02428b'};
-    const pnv = {'label': 'PNV', 'id': 8, 'value': 0, 'color': '#409552'};
-    const bildu = {'label': 'Bildu', 'id': 9, 'value': 0, 'color': '#b0d136'};
-    const mp = {'label': 'Más País', 'id': 10, 'value': 0, 'color': '#0ff'};
-    const cup = {'label': 'CUP', 'id': 11, 'value': 0, 'color': '#ffeea7'};
-    const cc = {'label': 'Coalición Canaria', 'id': 12, 'value': 0, 'color': '#ffed00'};
-    const upn = {'label': 'Navarra Suma', 'id': 13, 'value': 0, 'color': '#0065a7'};
-    const bng = {'label': 'Bloque Nacionalista Galego', 'id': 14, 'value': 0, 'color': '#76b3dd'};
-    const prc = {'label': 'Partido Regionalista de Cantabria', 'id': 15, 'value': 0, 'color': '#bfcd16'};
-    const te = {'label': 'Teruel Existe', 'id': 16, 'value': 0, 'color': '#007f54'};
-    const gobierno = {'label': 'Gobierno', 'id': 17, 'value': 0, 'color': '#000'};
-    const senado = {'label': 'Senado', 'id': 18, 'value': 0, 'color': '#038758'};
-    const popular = {'label': 'Iniciativa Legislativa Popular', 'id': 19, 'value': 0, 'color': '#ffb400'};
+    const psoe = {'label': 'PSOE', 'id': 1, 'value': 0, 'width': 0, 'color': '#ee1d1d'};
+    const pp = {'label': 'PP', 'id': 2, 'value': 0, 'width': 0, 'color': '#00a3df'};
+    const vox = {'label': 'VOX', 'id': 3, 'value': 0, 'width': 0, 'color': '#81c03b'};
+    const podemos = {'label': 'PODEMOS - IU', 'id': 4, 'value': 0, 'width': 0, 'color': '#683064'};
+    const ciudadanos = {'label': 'Ciudadanos', 'id': 6, 'value': 0, 'width': 0, 'color': '#f36b25'};
+    const erc = {'label': 'ERC', 'id': 5, 'value': 0, 'width': 0, 'color': '#feb832'};
+    const jpc = {'label': 'Junts per Cat', 'id': 7, 'value': 0, 'width': 0, 'color': '#02428b'};
+    const pnv = {'label': 'PNV', 'id': 8, 'value': 0, 'width': 0, 'color': '#409552'};
+    const bildu = {'label': 'Bildu', 'id': 9, 'value': 0, 'width': 0, 'color': '#b0d136'};
+    const mp = {'label': 'Más País', 'id': 10, 'value': 0, 'width': 0, 'color': '#0ff'};
+    const cup = {'label': 'CUP', 'id': 11, 'value': 0, 'width': 0, 'color': '#ffeea7'};
+    const cc = {'label': 'Coal. Canaria', 'id': 12, 'value': 0, 'width': 0, 'color': '#ffed00'};
+    const upn = {'label': 'Navarra Suma', 'id': 13, 'value': 0, 'width': 0, 'color': '#0065a7'};
+    const bng = {'label': 'BNG', 'id': 14, 'value': 0, 'width': 0, 'color': '#76b3dd'};
+    const prc = {'label': 'PRC', 'id': 15, 'value': 0, 'width': 0, 'color': '#bfcd16'};
+    const te = {'label': 'Teruel Existe', 'id': 16, 'value': 0, 'width': 0, 'color': '#007f54'};
+    const gobierno = {'label': 'Gobierno', 'id': 17, 'value': 0, 'width': 0, 'color': '#000'};
+    const senado = {'label': 'Senado', 'id': 18, 'value': 0, 'width': 0, 'color': '#038758'};
+    const popular = {'label': 'Iniciativa Pop.', 'id': 19, 'value': 0, 'width': 0, 'color': '#ffb400'};
     laws.forEach( (law) => {
       if (law.institution.includes('psoe')) { psoe.value += 1; }
       if (law.institution.includes('pp')) { pp.value += 1; }
@@ -148,7 +160,7 @@ export class StatsComponent implements OnInit {
     const rioja = {'label': 'La Rioja', 'id': 12, 'value': 0, 'color': '#67bb2b'};
     const madrid = {'label': 'Comunidad de Madrid', 'id': 13, 'value': 0, 'color': '#bc0a1c'};
     const murcia = {'label': 'Región de Murcia', 'id': 14, 'value': 0, 'color': '#9a1f2e'};
-    const navarra = {'label': 'Comunidad Foral de Navarra', 'id': 15, 'value': 0, 'color': '#d41219'};
+    const navarra = {'label': 'Com. Foral de Navarra', 'id': 15, 'value': 0, 'color': '#d41219'};
     const paisvasco = {'label': 'País Vasco', 'id': 16, 'value': 0, 'color': '#009c46'};
     const valencia = {'label': 'Comunidad Valenciana', 'id': 17, 'value': 0, 'color': '#fbd70f'};
     const ceuta = {'label': 'Ceuta', 'id': 17, 'value': 0, 'color': '#000'};
@@ -203,6 +215,13 @@ export class StatsComponent implements OnInit {
     });
     return [educacion, sanidad, economia, justicia, exteriores, defensa, interior, agricultura, infraestructuras,
             cultura];
+  }
+
+  partyBars() {
+    // Obtención del número de leyes presentadas por el partido que más leyes ha presentado. Representa una barra al 100%
+    // Para cada partido obtener su % relativo de leyes presentadas
+
+
   }
 
   progressCard(laws: Law[], idPrefix: string, dataBuilder, progressWidth) {

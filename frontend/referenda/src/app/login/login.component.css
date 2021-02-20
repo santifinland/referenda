@@ -42,8 +42,8 @@ h1 {
 
 .facebook-button {
   position: relative;
-  width: 369px;
-  height: 48px;
+  width: 265px;
+  height: 24px;
   padding: 12px 52px 12px 52px;
   background: #475993;
   border-radius: 3px;
@@ -85,6 +85,11 @@ h1 {
   right: 14px;
   width: 21px;
   height: 21px;
+  vertical-align: middle;
+}
+
+.google-img {
+  vertical-align: middle;
 }
 
 .referenda {
@@ -98,7 +103,11 @@ h1 {
 }
 
 .form-control {
+  width: 160px;
+  height: 40px;
+  margin: 10px 0;
   background: #F5F5F5;
+  border: 0;
   border-radius: 7px;
   font-family: Roboto, sans-serif;
   font-style: normal;

@@ -1,0 +1,43 @@
+.admin-law {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+.header {
+  padding: 65px 0 5px 0;
+}
+
+h1 {
+  margin: 0;
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 32px;
+  line-height: 37px;
+  letter-spacing: 0.02em;
+  text-align: center;
+  color: #3E979E;
+}
+
+.law-form {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  gap: 20px;
+  padding: 50px;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 50px 0;
+}
+
+.institution {
+  display: flex;
+  width: 220px;
+  justify-content: space-between;
+}

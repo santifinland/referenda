@@ -10,7 +10,6 @@ import { LawsComponent } from './laws/laws.component';
 import { LoginComponent } from './login';
 import { PartiesComponent } from './parties/parties.component';
 import { PasswordComponent } from './password/password.component';
-import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ResultsComponent } from './results/results.component';
@@ -28,11 +27,10 @@ const routes: Routes = [
   { path: 'legal', loadChildren: () => import('./gdpr/gdpr.module').then(m => m.GdprModule) },
   { path: 'home', component: HomeComponent },
   { path: 'leyes', component: LawsComponent },
-  { path: 'ley/:slug', component: LawDetailComponent },
+  { path: 'ley/:slug', loadChildren: () => import('./law-detail/law-detail.module').then(m => m.LawDetailModule) },
   { path: 'login', component: LoginComponent },
   { path: 'partidos', component: PartiesComponent },
   { path: 'password', component: PasswordComponent },
-  { path: 'profile', component: ProfileComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'referenda', loadChildren: () => import('./aboutus/aboutus.module').then(m => m.AboutusModule) },
   { path: 'reset-password', component: ResetPasswordComponent },

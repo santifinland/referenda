@@ -1,489 +1,110 @@
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-sm-12">
-      <h1>Estad&iacute;sticas de votaciones en el Congreso de los Diputados</h1>
-      <hr>
-      <br>
+<div class="stats">
+
+  <div class="header">
+    <h1>Estad&iacute;sticas de votaciones en el Congreso de los Diputados</h1>
+  </div>
+
+  <div class="cards">
+    <div class="card">
+      <div class="card-number number-main">{{totalLaws}}</div>
+      <div class="card-text text-main">INICIATIVAS<br>LEGISLATIVAS</div>
+    </div>
+    <div class="card">
+      <div class="card-number">{{proposicionLey}}</div>
+      <div class="card-text">PROPSICI&Oacute;N<br>DE LEY</div>
+    </div>
+    <div class="card">
+      <div class="card-number">{{proposicionLeyOrganica}}</div>
+      <div class="card-text">LEY<br>ORG&Aacute;NICA</div>
+    </div>
+    <div class="card">
+      <div class="card-number">{{proyectoLey}}</div>
+      <div class="card-text">PROYECTO<br>DE LEY</div>
+    </div>
+    <div class="card">
+      <div class="card-number">{{decretoLey}}</div>
+      <div class="card-text">REAL<br>DECRETO-LEY</div>
+    </div>
+    <div class="card">
+      <div class="card-number">{{proposicionNoLey}}</div>
+      <div class="card-text">PROPSICI&Oacute;N<br>NO DE LEY</div>
     </div>
   </div>
 
-  <div class="row row-cols-1 row-cols-md-6">
-    <div class="col mb-1">
-      <div class="card">
-        <div class="card-body text-secondary total">
-          <p class="card-title stat">{{totalLaws}}</p>
-        </div>
-        <div class="card-footer total-footer">Iniciativas legislativas</div>
-      </div>
-    </div>
-    <div class="col mb-1">
-      <div class="card border-light">
-        <div class="card-body text-secondary">
-          <p class="card-title stat">{{proposicionLey}}</p>
-        </div>
-        <div class="card-footer">Proposición de Ley</div>
-      </div>
-    </div>
-    <div class="col mb-1">
-      <div class="card border-light">
-        <div class="card-body text-secondary">
-          <p class="card-title stat">{{proposicionLeyOrganica}}</p>
-        </div>
-        <div class="card-footer">Ley Orgánica</div>
-      </div>
-    </div>
-    <div class="col mb-1">
-      <div class="card border-light">
-        <div class="card-body text-secondary">
-          <p class="card-title stat">{{proyectoLey}}</p>
-        </div>
-        <div class="card-footer">Proyecto de Ley</div>
-      </div>
-    </div>
-    <div class="col mb-1">
-      <div class="card border-light">
-        <div class="card-body text-secondary">
-          <p class="card-title stat">{{decretoLey}}</p>
-        </div>
-        <div class="card-footer">Real Decreto-Ley</div>
-      </div>
-    </div>
-    <div class="col mb-1">
-      <div class="card border-light">
-        <div class="card-body text-secondary">
-          <p class="card-title stat">{{proposicionNoLey}}</p>
-        </div>
-        <div class="card-footer">Proposición no de Ley</div>
-      </div>
-    </div>
-  </div>
+  <div class="law-stats-group">
 
-  <div class="row row-cols-1 row-cols-md-2">
-    <div class="col mb-1">
-      <div class="card border-light">
-        <div class="card-body text-secondary">
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 20%" aria-valuenow="20"
-                 aria-valuemin="0" aria-valuemax="100">PSOE</div>
-            <div id="lawPSOE" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 20%" aria-valuenow="20"
-                 aria-valuemin="0" aria-valuemax="100">PP</div>
-            <div id="lawPP" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 20%" aria-valuenow="20"
-                 aria-valuemin="0" aria-valuemax="100">VOX</div>
-            <div id="lawVOX" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 20%" aria-valuenow="20"
-                 aria-valuemin="0" aria-valuemax="100">Podemos - IU</div>
-            <div id="lawPodemos-IU" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 20%" aria-valuenow="20"
-                 aria-valuemin="0" aria-valuemax="100">ERC</div>
-            <div id="lawERC" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 20%" aria-valuenow="20"
-                 aria-valuemin="0" aria-valuemax="100">Ciudadanos</div>
-            <div id="lawCiudadanos" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 20%" aria-valuenow="20"
-                 aria-valuemin="0" aria-valuemax="100">Junts per Cat</div>
-            <div id="lawJunts per Catalunya" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 20%" aria-valuenow="20"
-                 aria-valuemin="0" aria-valuemax="100">PNV</div>
-            <div id="lawPNV" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 20%" aria-valuenow="20"
-                 aria-valuemin="0" aria-valuemax="100">Bildu</div>
-            <div id="lawBildu" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 20%" aria-valuenow="20"
-                 aria-valuemin="0" aria-valuemax="100">Más País</div>
-            <div id="lawMás País" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 20%" aria-valuenow="20"
-                 aria-valuemin="0" aria-valuemax="100">CUP</div>
-            <div id="lawCUP" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 20%" aria-valuenow="20"
-                 aria-valuemin="0" aria-valuemax="100">Coal. Canaria</div>
-            <div id="lawCoalición Canaria" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 20%" aria-valuenow="20"
-                 aria-valuemin="0" aria-valuemax="100">Navarra Suma</div>
-            <div id="lawNavarra Suma" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 20%" aria-valuenow="20"
-                 aria-valuemin="0" aria-valuemax="100">BNG</div>
-            <div id="lawBloque Nacionalista Galego" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 20%" aria-valuenow="20"
-                 aria-valuemin="0" aria-valuemax="100">PRC</div>
-            <div id="lawPartido Regionalista de Cantabria" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 20%" aria-valuenow="20"
-                 aria-valuemin="0" aria-valuemax="100">Teruel Existe</div>
-            <div id="lawTeruel Existe" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 20%" aria-valuenow="20"
-                 aria-valuemin="0" aria-valuemax="100">Gobierno</div>
-            <div id="lawGobierno" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 20%" aria-valuenow="20"
-                 aria-valuemin="0" aria-valuemax="100">Senado</div>
-            <div id="lawSenado" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 20%" aria-valuenow="20"
-                 aria-valuemin="0" aria-valuemax="100">Iniciativa Pop.</div>
-            <div id="lawIniciativa Legislativa Popular" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+    <div class="law-stats">
+      <div class="title-container">
+        <div class="title-empty"></div>
+        <div class="title">PROPUESTAS PRESENTADAS</div>
+      </div>
+      <div class="party-bar" *ngFor="let party of institutionProposals">
+        <div class="party">
+          {{party.label}}
+        </div>
+        <div class="bars">
+          <div class="bar" [ngStyle]="{'width.%': party.value * 100 / maxPartyLaws}" *ngIf="party.value > 0">
+          {{party.value * 100 / maxPartyLaws | number:'1.0-0'}}
           </div>
         </div>
-        <div class="card-footer">Propuestas presentadas</div>
       </div>
     </div>
 
-    <div class="col mb-1">
-      <div class="card border-light">
-        <div class="card-body text-secondary">
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 20%" aria-valuenow="20"
-                 aria-valuemin="0" aria-valuemax="100">PSOE</div>
-            <div id="resultPSOE" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 20%" aria-valuenow="20"
-                 aria-valuemin="0" aria-valuemax="100">PP</div>
-            <div id="resultPP" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 20%" aria-valuenow="20"
-                 aria-valuemin="0" aria-valuemax="100">VOX</div>
-            <div id="resultVOX" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 20%" aria-valuenow="20"
-                 aria-valuemin="0" aria-valuemax="100">Podemos - IU</div>
-            <div id="resultPodemos-IU" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 20%" aria-valuenow="20"
-                 aria-valuemin="0" aria-valuemax="100">ERC</div>
-            <div id="resultERC" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 20%" aria-valuenow="20"
-                 aria-valuemin="0" aria-valuemax="100">Ciudadanos</div>
-            <div id="resultCiudadanos" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 20%" aria-valuenow="20"
-                 aria-valuemin="0" aria-valuemax="100">Junts per Cat</div>
-            <div id="resultJunts per Catalunya" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 20%" aria-valuenow="20"
-                 aria-valuemin="0" aria-valuemax="100">PNV</div>
-            <div id="resultPNV" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 20%" aria-valuenow="20"
-                 aria-valuemin="0" aria-valuemax="100">Bildu</div>
-            <div id="resultBildu" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 20%" aria-valuenow="20"
-                 aria-valuemin="0" aria-valuemax="100">Más País</div>
-            <div id="resultMás País" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 20%" aria-valuenow="20"
-                 aria-valuemin="0" aria-valuemax="100">CUP</div>
-            <div id="resultCUP" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 20%" aria-valuenow="20"
-                 aria-valuemin="0" aria-valuemax="100">Coal. Canaria</div>
-            <div id="resultCoalición Canaria" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 20%" aria-valuenow="20"
-                 aria-valuemin="0" aria-valuemax="100">Navarra Suma</div>
-            <div id="resultNavarra Suma" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 20%" aria-valuenow="20"
-                 aria-valuemin="0" aria-valuemax="100">BNG</div>
-            <div id="resultBloque Nacionalista Galego" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 20%" aria-valuenow="20"
-                 aria-valuemin="0" aria-valuemax="100">PRC</div>
-            <div id="resultPartido Regionalista de Cantabria" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 20%" aria-valuenow="20"
-                 aria-valuemin="0" aria-valuemax="100">Teruel Existe</div>
-            <div id="resultTeruel Existe" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 20%" aria-valuenow="20"
-                 aria-valuemin="0" aria-valuemax="100">Gobierno</div>
-            <div id="resultGobierno" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 20%" aria-valuenow="20"
-                 aria-valuemin="0" aria-valuemax="100">Senado</div>
-            <div id="resultSenado" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 20%" aria-valuenow="20"
-                 aria-valuemin="0" aria-valuemax="100">Iniciativa Pop.</div>
-            <div id="resultIniciativa Legislativa Popular" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+    <div class="law-stats">
+      <div class="title-container">
+        <div class="title-empty"></div>
+        <div class="title">PROPUESTAS VOTADAS</div>
+      </div>
+      <div class="party-bar" *ngFor="let party of institutionVoted">
+        <div class="party">
+          {{party.label}}
+        </div>
+        <div class="bars">
+          <div class="bar" [ngStyle]="{'width.%': party.value * 100 / maxPartyResults}" *ngIf="party.value > 0">
+            {{party.value * 100 / maxPartyResults | number:'1.0-0'}}
           </div>
         </div>
-        <div class="card-footer">Propuestas votadas</div>
       </div>
     </div>
+
   </div>
 
-  <div class="row row-cols-1 row-cols-md-1">
-    <div class="col mb-1">
-      <div class="card border-light">
-        <div id="partyArea" class="card-body text-secondary">
-          <svg>
-          </svg>
+  <div class="law-stats-group">
+
+    <div class="law-stats">
+      <div class="title-container">
+        <div class="title-empty"></div>
+        <div class="title">PROPUESTAS PRESENTADAS</div>
+      </div>
+      <div class="party-bar" *ngFor="let party of ccaaProposals">
+        <div class="party ccaa">
+          {{party.label}}
         </div>
-        <div class="card-footer">Propuestas presentadas por partido político y área</div>
+        <div class="bars">
+          <div class="bar" [ngStyle]="{'width.%': party.value * 100 / maxPartyLaws}" *ngIf="party.value > 0">
+          {{party.value * 100 / maxPartyLaws | number:'1.0-0'}}
+          </div>
+        </div>
       </div>
     </div>
+
+    <div class="law-stats">
+      <div class="title-container">
+        <div class="title-empty"></div>
+        <div class="title">PROPUESTAS VOTADAS</div>
+      </div>
+      <div class="party-bar" *ngFor="let party of ccaaVoted">
+        <div class="party ccaa">
+          {{party.label}}
+        </div>
+        <div class="bars">
+          <div class="bar" [ngStyle]="{'width.%': party.value * 100 / maxPartyResults}" *ngIf="party.value > 0">
+            {{party.value * 100 / maxPartyResults | number:'1.0-0'}}
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
-  <div class="row row-cols-1 row-cols-md-2">
-    <div class="col mb-1">
-      <div class="card border-light">
-        <div class="card-body text-secondary">
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 30%" aria-valuenow="30"
-                 aria-valuemin="0" aria-valuemax="100">Andalucía</div>
-            <div id="lawAndalucía" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 30%" aria-valuenow="30"
-                 aria-valuemin="0" aria-valuemax="100">Aragón</div>
-            <div id="lawAragón" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 30%" aria-valuenow="30"
-                 aria-valuemin="0" aria-valuemax="100">Principado de Asturias</div>
-            <div id="lawPrincipado de Asturias" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 30%" aria-valuenow="30"
-                 aria-valuemin="0" aria-valuemax="100">Illes Balears</div>
-            <div id="lawIlles Balears" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 30%" aria-valuenow="30"
-                 aria-valuemin="0" aria-valuemax="100">Canarias</div>
-            <div id="lawCanarias" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 30%" aria-valuenow="30"
-                 aria-valuemin="0" aria-valuemax="100">Cantabria</div>
-            <div id="lawCantabria" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 30%" aria-valuenow="30"
-                 aria-valuemin="0" aria-valuemax="100">Castilla-La Mancha</div>
-            <div id="lawCastilla-La Mancha" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 30%" aria-valuenow="30"
-                 aria-valuemin="0" aria-valuemax="100">Castilla y León</div>
-            <div id="lawCastilla y León" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 30%" aria-valuenow="30"
-                 aria-valuemin="0" aria-valuemax="100">Catalunya</div>
-            <div id="lawCatalunya" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 30%" aria-valuenow="30"
-                 aria-valuemin="0" aria-valuemax="100">Extremadura</div>
-            <div id="lawExtremadura" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 30%" aria-valuenow="30"
-                 aria-valuemin="0" aria-valuemax="100">Galicia</div>
-            <div id="lawGalicia" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 30%" aria-valuenow="30"
-                 aria-valuemin="0" aria-valuemax="100">La Rioja</div>
-            <div id="lawLa Rioja" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 30%" aria-valuenow="30"
-                 aria-valuemin="0" aria-valuemax="100">Comunidad de Madrid</div>
-            <div id="lawComunidad de Madrid" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 30%" aria-valuenow="30"
-                 aria-valuemin="0" aria-valuemax="100">Región de Murcia</div>
-            <div id="lawRegión de Murcia" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 30%" aria-valuenow="30"
-                 aria-valuemin="0" aria-valuemax="100">Com. Foral de Navarra</div>
-            <div id="lawComunidad Foral de Navarra" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 30%" aria-valuenow="30"
-                 aria-valuemin="0" aria-valuemax="100">País Vasco</div>
-            <div id="lawPaís Vasco" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 30%" aria-valuenow="30"
-                 aria-valuemin="0" aria-valuemax="100">Comunidad Valenciana</div>
-            <div id="lawComunidad Valenciana" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 30%" aria-valuenow="30"
-                 aria-valuemin="0" aria-valuemax="100">Ceuta</div>
-            <div id="lawCeuta" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 30%" aria-valuenow="30"
-                 aria-valuemin="0" aria-valuemax="100">Melilla</div>
-            <div id="lawMelilla" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-        </div>
-        <div class="card-footer">Propuestas presentadas</div>
-      </div>
-    </div>
-    <div class="col mb-1">
-      <div class="card border-light">
-        <div class="card-body text-secondary">
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 30%" aria-valuenow="30"
-                 aria-valuemin="0" aria-valuemax="100">Andalucía</div>
-            <div id="resultAndalucía" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 30%" aria-valuenow="30"
-                 aria-valuemin="0" aria-valuemax="100">Aragón</div>
-            <div id="resultAragón" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 30%" aria-valuenow="30"
-                 aria-valuemin="0" aria-valuemax="100">Principado de Asturias</div>
-            <div id="resultPrincipado de Asturias" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 30%" aria-valuenow="30"
-                 aria-valuemin="0" aria-valuemax="100">Illes Balears</div>
-            <div id="resultIlles Balears" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 30%" aria-valuenow="30"
-                 aria-valuemin="0" aria-valuemax="100">Canarias</div>
-            <div id="resultCanarias" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 30%" aria-valuenow="30"
-                 aria-valuemin="0" aria-valuemax="100">Cantabria</div>
-            <div id="resultCantabria" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 30%" aria-valuenow="30"
-                 aria-valuemin="0" aria-valuemax="100">Castilla-La Mancha</div>
-            <div id="resultCastilla-La Mancha" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 30%" aria-valuenow="30"
-                 aria-valuemin="0" aria-valuemax="100">Castilla y León</div>
-            <div id="resultCastilla y León" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 30%" aria-valuenow="30"
-                 aria-valuemin="0" aria-valuemax="100">Catalunya</div>
-            <div id="resultCatalunya" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 30%" aria-valuenow="30"
-                 aria-valuemin="0" aria-valuemax="100">Extremadura</div>
-            <div id="resultExtremadura" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 30%" aria-valuenow="30"
-                 aria-valuemin="0" aria-valuemax="100">Galicia</div>
-            <div id="resultGalicia" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 30%" aria-valuenow="30"
-                 aria-valuemin="0" aria-valuemax="100">La Rioja</div>
-            <div id="resultLa Rioja" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 30%" aria-valuenow="30"
-                 aria-valuemin="0" aria-valuemax="100">Comunidad de Madrid</div>
-            <div id="resultComunidad de Madrid" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 30%" aria-valuenow="30"
-                 aria-valuemin="0" aria-valuemax="100">Región de Murcia</div>
-            <div id="resultRegión de Murcia" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 30%" aria-valuenow="30"
-                 aria-valuemin="0" aria-valuemax="100">Com. Foral de Navarra</div>
-            <div id="resultComunidad Foral de Navarra" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 30%" aria-valuenow="30"
-                 aria-valuemin="0" aria-valuemax="100">País Vasco</div>
-            <div id="resultPaís Vasco" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 30%" aria-valuenow="30"
-                 aria-valuemin="0" aria-valuemax="100">Comunidad Valenciana</div>
-            <div id="resultComunidad Valenciana" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 30%" aria-valuenow="30"
-                 aria-valuemin="0" aria-valuemax="100">Ceuta</div>
-            <div id="resultCeuta" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="progress">
-            <div class="progress-bar bg-light" role="progressbar" style="width: 30%" aria-valuenow="30"
-                 aria-valuemin="0" aria-valuemax="100">Melilla</div>
-            <div id="resultMelilla" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-        </div>
-        <div class="card-footer">Propuestas presentadas</div>
-      </div>
-    </div>
-  </div>
-  <br>
-  <br>
 </div>

@@ -27,7 +27,7 @@
   width: 335px;
   max-width: 335px;
   min-height: 850px;
-  margin-top: -347px;
+  margin-top: -387px;
   background: #3E979E;
   flex: 1;
 }
@@ -126,12 +126,13 @@
   flex-direction: row;
   flex-wrap: wrap;
   gap: 8px;
-  padding-left: 27px;
+  padding: 0 26px;
 }
 
 .voter-large-box {
+  display: flex;
   width: 282px;
-  height: 48px;
+  height: 20px;
   padding: 12px 18px;
   background: #5BA7AD;
   text-align: center;
@@ -144,6 +145,8 @@
   line-height: 130.7%;
   letter-spacing: 0.02em;
   color: #FFFFFF;
+  align-items: center;
+  justify-content: center;
   text-decoration: none;
 }
 
@@ -185,7 +188,7 @@
   display: flex;
   flex-direction: row;
   height: 24px;
-  padding: 20px 26px;
+  padding: 0px 26px;
   gap: 0;
   font-family: Roboto, sans-serif;
   font-style: normal;
@@ -202,19 +205,16 @@
 }
 
 .favour {
-  height: 24px;
   width: 76px;
   padding: 4px 10px;
 }
 
 .against {
-  height: 24px;
-  width: 98px;
+  width: 100px;
   padding: 4px 9px;
 }
 
 .abstention {
-  height: 24px;
   width: 107px;
   padding: 4px 10px;
 }
@@ -225,7 +225,7 @@
 
 .position-hr {
   width: 301px;
-  margin: 2px 16px;
+  margin: 0 16px;
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -334,6 +334,7 @@
 .comments-button {
   position: absolute;
   display: flex;
+  width: 283px;
   top: 621px;
 }
 
@@ -483,7 +484,7 @@ input::placeholder {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  width: 100%;
+  width: calc(100% - 40px);
   margin: -10px 0;
   padding: 57px 20px;
   background: #B9B9B9;
@@ -686,10 +687,13 @@ input::placeholder {
 
 @media (max-width: 1170px) {
 
-  .law-info, .comments {
-    width: 100%;
+  .law-info {
+    width: calc(100% - 114px);
   }
 
+  .comments {
+    width: 100%;
+  }
 
   .voter {
     min-width: 335px;
@@ -725,6 +729,12 @@ input::placeholder {
 }
 
 @media (max-width: 760px) {
+
+  .law-info {
+    width: calc(100% - 30px);
+    padding-right: 15px;
+    padding-left: 15px;
+  }
 
   .law {
     flex-direction: column;

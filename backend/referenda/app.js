@@ -43,8 +43,8 @@ app.all('*', function(req, res, next){  // Secure traffic only
   res.redirect('https://'+req.hostname+':'+app.get('secPort')+req.url);
 });
 app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json({limit: '2mb'}));
+app.use(bodyParser.urlencoded({ extended: false, limit: '2mb' }));
 app.use(cookieParser());
 app.use(passport.initialize());
 passport.use(new LocalStrategy(User.authenticate()));
