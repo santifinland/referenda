@@ -593,6 +593,7 @@ input::placeholder {
 .mob-voter-shower {
   display: flex;
   width: 100%;
+  height: 53px;
   align-items: center;
   gap: 72px;
   margin: 0 auto;
@@ -600,7 +601,7 @@ input::placeholder {
 
 .mob-voter-menu {
   display: flex;
-  width: 100%;
+  width: calc(100% - 40px);
   height: auto;
   flex-direction: column;
   margin: 0 auto;
@@ -678,6 +679,12 @@ input::placeholder {
   align-items: start;
   letter-spacing: 0.02em;
   color: #3E979E;
+}
+
+.facebook {
+  padding-top: 7px;
+  height: 34px;
+  cursor: pointer;
 }
 
 .twitter {
