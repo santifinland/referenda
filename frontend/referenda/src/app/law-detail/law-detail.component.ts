@@ -120,7 +120,6 @@ export class LawDetailComponent implements OnInit {
   comment(): void {
     this.submitted = true;
 
-    // stop here if form is invalid
     if (this.commentForm.invalid) {
       return;
     }
