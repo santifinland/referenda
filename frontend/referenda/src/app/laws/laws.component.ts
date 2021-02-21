@@ -96,18 +96,18 @@ export class LawsComponent implements OnInit {
   }
 
   toggleArea(area: string): void {
-    if (this.area === '') {
-      this.area = area;
-    } else {
+    if (this.area === area) {
       this.area = '';
+    } else {
+      this.area = area;
     }
   }
 
   toggleType(lawType: string): void {
-    if (this.lawType === '') {
-      this.lawType = lawType;
-    } else {
+    if (this.lawType === lawType) {
       this.lawType = '';
+    } else {
+      this.lawType = lawType;
     }
   }
 

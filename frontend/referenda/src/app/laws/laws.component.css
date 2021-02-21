@@ -669,6 +669,10 @@ input:focus {
     padding: 9px 18px;
   }
 
+  .active {
+    background: #DDD;
+  }
+
   .searcher-text {
     font-family: Roboto, sans-serif;
     font-style: normal;
