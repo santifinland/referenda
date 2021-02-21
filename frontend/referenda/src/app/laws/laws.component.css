@@ -40,6 +40,7 @@
   flex-direction: column;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.3) 100%);
   background-size: cover;
+  background-position: center;
 }
 
 .headline-featured {
