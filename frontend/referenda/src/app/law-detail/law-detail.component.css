@@ -433,6 +433,7 @@ input::placeholder {
   letter-spacing: 0.02em;
   color: #FFFFFF;
   padding: 14px 18px;
+  cursor: pointer;
 }
 
 .comment-tabs {
@@ -456,6 +457,7 @@ input::placeholder {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   background: #D8D8D8;
+  cursor: pointer;
 }
 
 .tabs-base:hover {
