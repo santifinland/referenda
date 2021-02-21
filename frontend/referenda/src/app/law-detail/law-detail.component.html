@@ -1,9 +1,11 @@
 <div class="law-detail" *ngIf="law">
 
-  <div class="friso" id="friso">
-    <div class="law-headline" [style.background-image]="'url(../../assets/img/' + law.area[0] + '.webp)'"></div>
-    <h2 class="headline-h2" *ngIf="!comments">{{law.area}}</h2>
-    <h1 class="headline-h2" *ngIf="comments">{{law.headline}}</h1>
+  <div class="friso" id="friso" [style.background-image]="'url(../../assets/img/' + law.area[0] + '.webp)'">
+    <div class="law-headline">
+      <h2 class="headline-h2" *ngIf="!comments">{{law.area}}</h2>
+      <h1 class="headline-h2" *ngIf="comments">{{law.headline}}</h1>
+    </div>
+    <div class="friso-right"></div>
   </div>
 
 
@@ -239,24 +241,27 @@
         <div class="voter-button-bar">
           <div class="voter-button" (click)="submitVote([law.slug], 1); vote='yes';">S&Iacute;</div>
           <div class="voter-bar">
-            <div class="voter-bar-value" [style.width.%]="law.positivePercentage"></div>
-            <div class="voter-percentage">{{law.positivePercentage | number:'1.0-0'}}%</div>
+            <div class="voter-bar-value" [style.width.%]="law.positivePercentage">
+              <div class="voter-percentage">{{law.positivePercentage | number:'1.0-0'}}%</div>
+            </div>
           </div>
         </div>
 
         <div class="voter-button-bar">
           <div class="voter-button" (click)="submitVote([law.slug], 2); vote='no';">NO</div>
           <div class="voter-bar">
-            <div class="voter-bar-value" [style.width.%]="law.negativePercentage"></div>
-            <div class="voter-percentage">{{law.negativePercentage | number:'1.0-0'}}%</div>
+            <div class="voter-bar-value" [style.width.%]="law.negativePercentage">
+              <div class="voter-percentage">{{law.negativePercentage | number:'1.0-0'}}%</div>
+            </div>
           </div>
         </div>
 
         <div class="voter-button-bar">
           <div class="voter-button" (click)="submitVote([law.slug], 3); vote='abs';">ABS</div>
           <div class="voter-bar">
-            <div class="voter-bar-value" [style.width.%]="law.abstentionPercentage"></div>
-            <div class="voter-percentage">{{law.abstentionPercentage | number:'1.0-0'}}%</div>
+            <div class="voter-bar-value" [style.width.%]="law.abstentionPercentage">
+              <div class="voter-percentage">{{law.abstentionPercentage | number:'1.0-0'}}%</div>
+            </div>
           </div>
         </div>
 
