@@ -205,6 +205,9 @@
               <div *ngIf="lf.institution_te.errors.required">Es necesaria una institucion</div>
             </div>
           </div>
+        </div>
+
+        <div class="form-row">
           <div class="institution">
             <label for="institution_gobierno">Institution Gobierno</label>
             <select class="form-control" id="institution_gobierno" formControlName="institution_gobierno"
@@ -575,7 +578,7 @@
           </div>
         </div>
 
-        <div class="form-group">
+        <div class="featured">
           <label for="featured">Featured</label>
           <select class="form-control" id="featured" formControlName="featured"
                   [ngClass]="{ 'is-invalid': submitted && lf.featured.errors }">
@@ -586,17 +589,18 @@
             <div *ngIf="lf.featured.errors.required">Es necesaria una prioridad</div>
           </div>
         </div>
-        <div class="form-group">
+
+        <div class="headline">
           <label for="headline">Headline</label>
-          <input type="text" class="form-control" id="headline" formControlName="headline"
+          <input type="text" class="headline" id="headline" formControlName="headline"
                  [ngClass]="{ 'is-invalid': submitted && lf.headline.errors }">
           <div *ngIf="submitted && lf.headline.errors" class="invalid-feedback">
             <div *ngIf="lf.headline.errors.required">Es necesario un titular</div>
           </div>
         </div>
-        <div class="form-group">
+        <div class="headline">
           <label for="short_description">Short Description</label>
-          <textarea class="form-control" id="short_description" rows="3" formControlName="short_description"
+          <textarea class="headline" id="short_description" rows="3" formControlName="short_description"
                     [ngClass]="{ 'is-invalid': submitted && lf.short_description.errors }"></textarea>
           <div *ngIf="submitted && lf.short_description.errors" class="invalid-feedback">
             <div *ngIf="lf.short_description.errors.required">Es necesaria una descripción corta</div>
@@ -612,7 +616,7 @@
         <br>
         <div class="form-group">
           <label for="link">Link</label>
-          <input type="text" class="form-control" id="link" formControlName="link"
+          <input type="text" class="headline" id="link" formControlName="link"
                  [ngClass]="{ 'is-invalid': submitted && lf.link.errors }">
           <div *ngIf="submitted && lf.link.errors" class="invalid-feedback">
             <div *ngIf="lf.link.errors.required">Es necesario un enlace oficial</div>
@@ -647,7 +651,7 @@
         </div>
 
         <div class="form-row">
-          <div class="area">
+          <div class="institution">
             <label for="psoe">Psoe</label>
             <select class="form-control" id="psoe" formControlName="psoe"
                     [ngClass]="{ 'is-invalid': submitted && lf.psoe.errors }">
@@ -659,7 +663,7 @@
               <div *ngIf="lf.psoe.errors.required">Es necesario un voto</div>
             </div>
           </div>
-          <div class="area">
+          <div class="institution">
             <label for="pp">PP</label>
             <select class="form-control" id="pp" formControlName="pp"
                     [ngClass]="{ 'is-invalid': submitted && lf.pp.errors }">
@@ -671,7 +675,7 @@
               <div *ngIf="lf.pp.errors.required">Es necesario un voto</div>
             </div>
           </div>
-          <div class="area">
+          <div class="institution">
             <label for="vox">Vox</label>
             <select class="form-control" id="vox" formControlName="vox"
                     [ngClass]="{ 'is-invalid': submitted && lf.vox.errors }">
@@ -683,7 +687,7 @@
               <div *ngIf="lf.vox.errors.required">Es necesario un voto</div>
             </div>
           </div>
-          <div class="area">
+          <div class="institution">
             <label for="podemos">Podemos</label>
             <select class="form-control" id="podemos" formControlName="podemos"
                     [ngClass]="{ 'is-invalid': submitted && lf.podemos.errors }">
@@ -695,7 +699,7 @@
               <div *ngIf="lf.podemos.errors.required">Es necesario un voto</div>
             </div>
           </div>
-          <div class="area">
+          <div class="institution">
             <label for="ciudadanos">Ciudadanos</label>
             <select class="form-control" id="ciudadanos" formControlName="ciudadanos"
                     [ngClass]="{ 'is-invalid': submitted && lf.ciudadanos.errors }">
@@ -707,7 +711,7 @@
               <div *ngIf="lf.ciudadanos.errors.required">Es necesario un voto</div>
             </div>
           </div>
-          <div class="area">
+          <div class="institution">
             <label for="erc">Erc</label>
             <select class="form-control" id="erc" formControlName="erc"
                     [ngClass]="{ 'is-invalid': submitted && lf.erc.errors }">
@@ -719,7 +723,7 @@
               <div *ngIf="lf.erc.errors.required">Es necesario un voto</div>
             </div>
           </div>
-          <div class="area">
+          <div class="institution">
             <label for="jpc">Jpc</label>
             <select class="form-control" id="jpc" formControlName="jpc"
                     [ngClass]="{ 'is-invalid': submitted && lf.jpc.errors }">
@@ -731,7 +735,7 @@
               <div *ngIf="lf.jpc.errors.required">Es necesario un voto</div>
             </div>
           </div>
-          <div class="area">
+          <div class="institution">
             <label for="pnv">Pnv</label>
             <select class="form-control" id="pnv" formControlName="pnv"
                     [ngClass]="{ 'is-invalid': submitted && lf.pnv.errors }">
@@ -743,7 +747,7 @@
               <div *ngIf="lf.pnv.errors.required">Es necesario un voto</div>
             </div>
           </div>
-          <div class="area">
+          <div class="institution">
             <label for="bildu">Bildu</label>
             <select class="form-control" id="bildu" formControlName="bildu"
                     [ngClass]="{ 'is-invalid': submitted && lf.bildu.errors }">
@@ -755,7 +759,7 @@
               <div *ngIf="lf.bildu.errors.required">Es necesario un voto</div>
             </div>
           </div>
-          <div class="area">
+          <div class="institution">
             <label for="mp">Mp</label>
             <select class="form-control" id="mp" formControlName="mp"
                     [ngClass]="{ 'is-invalid': submitted && lf.mp.errors }">
@@ -767,7 +771,7 @@
               <div *ngIf="lf.mp.errors.required">Es necesario un voto</div>
             </div>
           </div>
-          <div class="area">
+          <div class="institution">
             <label for="cup">Cup</label>
             <select class="form-control" id="cup" formControlName="cup"
                     [ngClass]="{ 'is-invalid': submitted && lf.cup.errors }">
@@ -779,7 +783,7 @@
               <div *ngIf="lf.cup.errors.required">Es necesario un voto</div>
             </div>
           </div>
-          <div class="area">
+          <div class="institution">
             <label for="cc">CC</label>
             <select class="form-control" id="cc" formControlName="cc"
                     [ngClass]="{ 'is-invalid': submitted && lf.cc.errors }">
@@ -791,7 +795,7 @@
               <div *ngIf="lf.cc.errors.required">Es necesario un voto</div>
             </div>
           </div>
-          <div class="area">
+          <div class="institution">
             <label for="upn">Upn</label>
             <select class="form-control" id="upn" formControlName="upn"
                     [ngClass]="{ 'is-invalid': submitted && lf.upn.errors }">
@@ -803,7 +807,7 @@
               <div *ngIf="lf.upn.errors.required">Es necesario un voto</div>
             </div>
           </div>
-          <div class="area">
+          <div class="institution">
             <label for="bng">Bng</label>
             <select class="form-control" id="bng" formControlName="bng"
                     [ngClass]="{ 'is-invalid': submitted && lf.bng.errors }">
@@ -815,7 +819,7 @@
               <div *ngIf="lf.bng.errors.required">Es necesario un voto</div>
             </div>
           </div>
-          <div class="area">
+          <div class="institution">
             <label for="prc">Prc</label>
             <select class="form-control" id="prc" formControlName="prc"
                     [ngClass]="{ 'is-invalid': submitted && lf.prc.errors }">
@@ -827,7 +831,7 @@
               <div *ngIf="lf.prc.errors.required">Es necesario un voto</div>
             </div>
           </div>
-          <div class="area">
+          <div class="institution">
             <label for="te">Te</label>
             <select class="form-control" id="te" formControlName="te"
                     [ngClass]="{ 'is-invalid': submitted && lf.te.errors }">

@@ -207,7 +207,9 @@
               <div *ngIf="lf.institution_te.errors.required">Es necesaria una institucion</div>
             </div>
           </div>
+        </div>
 
+        <div class="form-row">
           <div class="institution">
             <label for="institution_gobierno">Institution Gobierno</label>
             <select class="form-control" id="institution_gobierno" formControlName="institution_gobierno"
@@ -582,7 +584,7 @@
         </div>
 
 
-        <div class="form-group">
+        <div class="featured">
           <label for="featured">Featured</label>
           <select class="form-control" id="featured" formControlName="featured"
                   [ngClass]="{ 'is-invalid': submitted && lf.featured.errors }">
@@ -593,17 +595,18 @@
             <div *ngIf="lf.featured.errors.required">Es necesaria una prioridad</div>
           </div>
         </div>
-        <div class="form-group">
+
+        <div class="headline-container">
           <label for="headline">Headline</label>
-          <input type="text" class="form-control" id="headline" formControlName="headline"
+          <input type="text" class="headline" id="headline" formControlName="headline"
                  [ngClass]="{ 'is-invalid': submitted && lf.headline.errors }">
           <div *ngIf="submitted && lf.headline.errors" class="invalid-feedback">
             <div *ngIf="lf.headline.errors.required">Es necesario un titular</div>
           </div>
         </div>
-        <div class="form-group">
+        <div class="headline-container">
           <label for="short_description">Short Description</label>
-          <textarea class="form-control" id="short_description" rows="3" formControlName="short_description"
+          <textarea class="headline" id="short_description" rows="3" formControlName="short_description"
                     [ngClass]="{ 'is-invalid': submitted && lf.short_description.errors }"></textarea>
           <div *ngIf="submitted && lf.short_description.errors" class="invalid-feedback">
             <div *ngIf="lf.short_description.errors.required">Es necesaria una descripción corta</div>
