@@ -44,7 +44,7 @@
         </div>
         <div class="bars">
           <div class="bar" [ngStyle]="{'width.%': party.value * 100 / maxPartyLaws}" *ngIf="party.value > 0">
-          {{party.value * 100 / maxPartyLaws | number:'1.0-0'}}
+          {{party.value }}
           </div>
         </div>
       </div>
@@ -61,7 +61,7 @@
         </div>
         <div class="bars">
           <div class="bar" [ngStyle]="{'width.%': party.value * 100 / maxPartyResults}" *ngIf="party.value > 0">
-            {{party.value * 100 / maxPartyResults | number:'1.0-0'}}
+            {{party.value }}
           </div>
         </div>
       </div>
@@ -82,7 +82,7 @@
         </div>
         <div class="bars">
           <div class="bar" [ngStyle]="{'width.%': party.value * 100 / maxPartyLaws}" *ngIf="party.value > 0">
-          {{party.value * 100 / maxPartyLaws | number:'1.0-0'}}
+            {{party.value }}
           </div>
         </div>
       </div>
@@ -99,7 +99,7 @@
         </div>
         <div class="bars">
           <div class="bar" [ngStyle]="{'width.%': party.value * 100 / maxPartyResults}" *ngIf="party.value > 0">
-            {{party.value * 100 / maxPartyResults | number:'1.0-0'}}
+            {{party.value }}
           </div>
         </div>
       </div>
