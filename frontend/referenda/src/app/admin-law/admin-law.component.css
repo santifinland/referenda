@@ -28,16 +28,43 @@ h1 {
   padding: 50px;
 }
 
+.form-group {
+  display: flex;
+  gap: 10px;
+}
+
 .form-row {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 20px;
-  padding: 50px 0;
+  gap: 20px 200px;
+  padding: 30px 0;
 }
 
 .institution {
   display: flex;
   width: 220px;
   justify-content: space-between;
+}
+
+.area {
+  display: flex;
+  width: 150px;
+  justify-content: space-between;
+}
+
+.featured {
+  display: flex;
+  gap: 20px;
+  padding: 30px 0;
+}
+
+.headline {
+  display: flex;
+  gap: 20px;
+  width: 80%;
+}
+
+.headline-container {
+  padding: 30px 0;
 }

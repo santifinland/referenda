@@ -5,7 +5,6 @@ import { AdminLawComponent } from './admin-law/admin-law.component';
 import { CreateLawComponent } from './create-law/create-law.component';
 import { DelegationsComponent } from './delegations/delegations.component';
 import { HomeComponent } from './home/home.component';
-import { LawDetailComponent } from './law-detail/law-detail.component';
 import { LawsComponent } from './laws/laws.component';
 import { LoginComponent } from './login';
 import { PartiesComponent } from './parties/parties.component';
