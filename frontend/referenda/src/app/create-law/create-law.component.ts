@@ -5,13 +5,12 @@ import { Subscription } from 'rxjs';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { first } from 'rxjs/operators';
 
-import { AlertService, AuthenticationService } from '../_services';
-import { LawService } from '../_services/law.service';
+import { AlertService, AuthenticationService, LawService } from '../_services';
 import { User } from '../_models';
 
 
 @Component({
-  selector: 'create-law',
+  selector: 'app-create-law',
   templateUrl: './create-law.component.html',
   styleUrls: ['./create-law.component.css']
 })
@@ -162,316 +161,316 @@ export class CreateLawComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    console.log('Sending Law')
+    console.log('Sending Law');
 
     if (this.lawForm.invalid) {
-      console.log('Invalid form')
+      console.log('Invalid form');
       return;
     }
 
-    let law = this.lawForm.value
-    law.tier = parseInt(law.tier)
-	  law.institution = [];
-	  law.area = [];
-    law.featured = law.featured == 'True' ? true : false;
-    law.positive = 0
-    law.negative = 0
-    law.abstention = 0
-    law.official_positive = 0
-    law.official_negative = 0
-    law.official_abstention = 0
+    const law = this.lawForm.value;
+    law.tier = parseInt(law.tier, 10);
+    law.institution = [];
+    law.area = [];
+    law.featured = law.featured === 'True';
+    law.positive = 0;
+    law.negative = 0;
+    law.abstention = 0;
+    law.official_positive = 0;
+    law.official_negative = 0;
+    law.official_abstention = 0;
 
-    if (law.institution_psoe == 'Yes') {
-      law.institution.push("psoe");
+    if (law.institution_psoe === 'Yes') {
+      law.institution.push('psoe');
     }
-    if (law.institution_pp == 'Yes') {
-      law.institution.push("pp");
+    if (law.institution_pp === 'Yes') {
+      law.institution.push('pp');
     }
-    if (law.institution_vox == 'Yes') {
-      law.institution.push("vox");
+    if (law.institution_vox === 'Yes') {
+      law.institution.push('vox');
     }
-    if (law.institution_podemos == 'Yes') {
-      law.institution.push("podemos");
+    if (law.institution_podemos === 'Yes') {
+      law.institution.push('podemos');
     }
-    if (law.institution_ciudadanos == 'Yes') {
-      law.institution.push("ciudadanos");
+    if (law.institution_ciudadanos === 'Yes') {
+      law.institution.push('ciudadanos');
     }
-    if (law.institution_erc == 'Yes') {
-      law.institution.push("erc");
+    if (law.institution_erc === 'Yes') {
+      law.institution.push('erc');
     }
-    if (law.institution_jpc == 'Yes') {
-      law.institution.push("jpc");
+    if (law.institution_jpc === 'Yes') {
+      law.institution.push('jpc');
     }
-    if (law.institution_pnv == 'Yes') {
-      law.institution.push("pnv");
+    if (law.institution_pnv === 'Yes') {
+      law.institution.push('pnv');
     }
-    if (law.institution_bildu == 'Yes') {
-      law.institution.push("bildu");
+    if (law.institution_bildu === 'Yes') {
+      law.institution.push('bildu');
     }
-    if (law.institution_mp == 'Yes') {
-      law.institution.push("mp");
+    if (law.institution_mp === 'Yes') {
+      law.institution.push('mp');
     }
-    if (law.institution_cup == 'Yes') {
-      law.institution.push("cup");
+    if (law.institution_cup === 'Yes') {
+      law.institution.push('cup');
     }
-    if (law.institution_cc == 'Yes') {
-      law.institution.push("cc");
+    if (law.institution_cc === 'Yes') {
+      law.institution.push('cc');
     }
-    if (law.institution_upn == 'Yes') {
-      law.institution.push("upn");
+    if (law.institution_upn === 'Yes') {
+      law.institution.push('upn');
     }
-    if (law.institution_bng == 'Yes') {
-      law.institution.push("bng");
+    if (law.institution_bng === 'Yes') {
+      law.institution.push('bng');
     }
-    if (law.institution_prc == 'Yes') {
-      law.institution.push("prc");
+    if (law.institution_prc === 'Yes') {
+      law.institution.push('prc');
     }
-    if (law.institution_te == 'Yes') {
-      law.institution.push("te");
+    if (law.institution_te === 'Yes') {
+      law.institution.push('te');
     }
-    if (law.institution_gobierno == 'Yes') {
-      law.institution.push("gobierno");
+    if (law.institution_gobierno === 'Yes') {
+      law.institution.push('gobierno');
     }
-    if (law.institution_senado == 'Yes') {
-      law.institution.push("senado");
+    if (law.institution_senado === 'Yes') {
+      law.institution.push('senado');
     }
-    if (law.institution_popular == 'Yes') {
-      law.institution.push("popular");
+    if (law.institution_popular === 'Yes') {
+      law.institution.push('popular');
     }
-    if (law.institution_andalucia == 'Yes') {
-      law.institution.push("andalucia");
+    if (law.institution_andalucia === 'Yes') {
+      law.institution.push('andalucia');
     }
-    if (law.institution_aragon == 'Yes') {
-      law.institution.push("aragon");
+    if (law.institution_aragon === 'Yes') {
+      law.institution.push('aragon');
     }
-    if (law.institution_asturias == 'Yes') {
-      law.institution.push("asturias");
+    if (law.institution_asturias === 'Yes') {
+      law.institution.push('asturias');
     }
-    if (law.institution_baleares == 'Yes') {
-      law.institution.push("baleares");
+    if (law.institution_baleares === 'Yes') {
+      law.institution.push('baleares');
     }
-    if (law.institution_canarias == 'Yes') {
-      law.institution.push("canarias");
+    if (law.institution_canarias === 'Yes') {
+      law.institution.push('canarias');
     }
-    if (law.institution_cantabria == 'Yes') {
-      law.institution.push("cantabria");
+    if (law.institution_cantabria === 'Yes') {
+      law.institution.push('cantabria');
     }
-    if (law.institution_mancha == 'Yes') {
-      law.institution.push("mancha");
+    if (law.institution_mancha === 'Yes') {
+      law.institution.push('mancha');
     }
-    if (law.institution_leon == 'Yes') {
-      law.institution.push("leon");
+    if (law.institution_leon === 'Yes') {
+      law.institution.push('leon');
     }
-    if (law.institution_catalunya == 'Yes') {
-      law.institution.push("catalunya");
+    if (law.institution_catalunya === 'Yes') {
+      law.institution.push('catalunya');
     }
-    if (law.institution_extremadura == 'Yes') {
-      law.institution.push("extremadura");
+    if (law.institution_extremadura === 'Yes') {
+      law.institution.push('extremadura');
     }
-    if (law.institution_galicia == 'Yes') {
-      law.institution.push("galicia");
+    if (law.institution_galicia === 'Yes') {
+      law.institution.push('galicia');
     }
-    if (law.institution_rioja == 'Yes') {
-      law.institution.push("rioja");
+    if (law.institution_rioja === 'Yes') {
+      law.institution.push('rioja');
     }
-    if (law.institution_murcia == 'Yes') {
-      law.institution.push("murcia");
+    if (law.institution_murcia === 'Yes') {
+      law.institution.push('murcia');
     }
-    if (law.institution_madrid == 'Yes') {
-      law.institution.push("madrid");
+    if (law.institution_madrid === 'Yes') {
+      law.institution.push('madrid');
     }
-    if (law.institution_navarra == 'Yes') {
-      law.institution.push("navarra");
+    if (law.institution_navarra === 'Yes') {
+      law.institution.push('navarra');
     }
-    if (law.institution_vasco == 'Yes') {
-      law.institution.push("vasco");
+    if (law.institution_vasco === 'Yes') {
+      law.institution.push('vasco');
     }
-    if (law.institution_valencia == 'Yes') {
-      law.institution.push("valencia");
+    if (law.institution_valencia === 'Yes') {
+      law.institution.push('valencia');
     }
-    if (law.institution_ceuta == 'Yes') {
-      law.institution.push("ceuta");
+    if (law.institution_ceuta === 'Yes') {
+      law.institution.push('ceuta');
     }
-    if (law.institution_melilla == 'Yes') {
-      law.institution.push("melilla");
+    if (law.institution_melilla === 'Yes') {
+      law.institution.push('melilla');
     }
 
-    if (law.educacion == 'Yes') {
-      law.area.push("educacion");
+    if (law.educacion === 'Yes') {
+      law.area.push('educacion');
     }
-    if (law.sanidad == 'Yes') {
-      law.area.push("sanidad");
+    if (law.sanidad === 'Yes') {
+      law.area.push('sanidad');
     }
-    if (law.economia == 'Yes') {
-      law.area.push("economia");
+    if (law.economia === 'Yes') {
+      law.area.push('economia');
     }
-    if (law.justicia == 'Yes') {
-      law.area.push("justicia");
+    if (law.justicia === 'Yes') {
+      law.area.push('justicia');
     }
-    if (law.exteriores == 'Yes') {
-      law.area.push("exteriores");
+    if (law.exteriores === 'Yes') {
+      law.area.push('exteriores');
     }
-    if (law.defensa == 'Yes') {
-      law.area.push("defensa");
+    if (law.defensa === 'Yes') {
+      law.area.push('defensa');
     }
-    if (law.interior == 'Yes') {
-      law.area.push("interior");
+    if (law.interior === 'Yes') {
+      law.area.push('interior');
     }
-    if (law.agricultura == 'Yes') {
-      law.area.push("agri");
+    if (law.agricultura === 'Yes') {
+      law.area.push('agri');
     }
-    if (law.infraestructuras == 'Yes') {
-      law.area.push("infraestructuras");
+    if (law.infraestructuras === 'Yes') {
+      law.area.push('infraestructuras');
     }
-    if (law.cultura == 'Yes') {
-      law.area.push("cultura");
+    if (law.cultura === 'Yes') {
+      law.area.push('cultura');
     }
 
     // PP
-    if (law.pp == 'Yes') {
-      law.pp = 1
-    } else if (law.pp == 'No') {
-      law.pp = 2
+    if (law.pp === 'Yes') {
+      law.pp = 1;
+    } else if (law.pp === 'No') {
+      law.pp = 2;
     } else {
-      law.pp = 3
+      law.pp = 3;
     }
     // Psoe
-    if (law.psoe == 'Yes') {
-      law.psoe = 1
-    } else if (law.psoe == 'No') {
-      law.psoe = 2
+    if (law.psoe === 'Yes') {
+      law.psoe = 1;
+    } else if (law.psoe === 'No') {
+      law.psoe = 2;
     } else {
-      law.psoe = 3
+      law.psoe = 3;
     }
     // Podemos
-    if (law.podemos == 'Yes') {
-      law.podemos = 1
-    } else if (law.podemos == 'No') {
-      law.podemos = 2
+    if (law.podemos === 'Yes') {
+      law.podemos = 1;
+    } else if (law.podemos === 'No') {
+      law.podemos = 2;
     } else {
-      law.podemos = 3
+      law.podemos = 3;
     }
     // Ciudada'No's
-    if (law.ciudadanos == 'Yes') {
-      law.ciudadanos = 1
-    } else if (law.ciudadanos == 'No') {
-      law.ciudadanos = 2
+    if (law.ciudadanos === 'Yes') {
+      law.ciudadanos = 1;
+    } else if (law.ciudadanos === 'No') {
+      law.ciudadanos = 2;
     } else {
-      law.ciudadanos = 3
+      law.ciudadanos = 3;
     }
     // Erc
-    if (law.erc == 'Yes') {
-      law.erc = 1
-    } else if (law.erc == 'No') {
-      law.erc = 2
+    if (law.erc === 'Yes') {
+      law.erc = 1;
+    } else if (law.erc === 'No') {
+      law.erc = 2;
     } else {
-      law.erc = 3
+      law.erc = 3;
     }
     // Pnv
-    if (law.pnv == 'Yes') {
-      law.pnv = 1
-    } else if (law.pnv == 'No') {
-      law.pnv = 2
+    if (law.pnv === 'Yes') {
+      law.pnv = 1;
+    } else if (law.pnv === 'No') {
+      law.pnv = 2;
     } else {
-      law.pnv = 3
+      law.pnv = 3;
     }
     // Mas pais
-    if (law.mp == 'Yes') {
-      law.mp = 1
-    } else if (law.mp == 'No') {
-      law.mp = 2
+    if (law.mp === 'Yes') {
+      law.mp = 1;
+    } else if (law.mp === 'No') {
+      law.mp = 2;
     } else {
-      law.mp = 3
+      law.mp = 3;
     }
     // Coalicion Canaria
-    if (law.cc == 'Yes') {
-      law.cc = 1
-    } else if (law.cc == 'No') {
-      law.cc = 2
+    if (law.cc === 'Yes') {
+      law.cc = 1;
+    } else if (law.cc === 'No') {
+      law.cc = 2;
     } else {
-      law.cc = 3
+      law.cc = 3;
     }
     // Vox
-    if (law.vox == 'Yes') {
-      law.vox = 1
-    } else if (law.vox == 'No') {
-      law.vox = 2
+    if (law.vox === 'Yes') {
+      law.vox = 1;
+    } else if (law.vox === 'No') {
+      law.vox = 2;
     } else {
-      law.vox = 3
+      law.vox = 3;
     }
     // Partido Regionalista Cantabro
-    if (law.prc == 'Yes') {
-      law.prc = 1
-    } else if (law.prc == 'No') {
-      law.prc = 2
+    if (law.prc === 'Yes') {
+      law.prc = 1;
+    } else if (law.prc === 'No') {
+      law.prc = 2;
     } else {
-      law.prc = 3
+      law.prc = 3;
     }
     // Navarra suma
-    if (law.upn == 'Yes') {
-      law.upn = 1
-    } else if (law.upn == 'No') {
-      law.upn = 2
+    if (law.upn === 'Yes') {
+      law.upn = 1;
+    } else if (law.upn === 'No') {
+      law.upn = 2;
     } else {
-      law.upn = 3
+      law.upn = 3;
     }
     // Bildu
-    if (law.bildu == 'Yes') {
-      law.bildu = 1
-    } else if (law.bildu == 'No') {
-      law.bildu = 2
+    if (law.bildu === 'Yes') {
+      law.bildu = 1;
+    } else if (law.bildu === 'No') {
+      law.bildu = 2;
     } else {
-      law.bildu = 3
+      law.bildu = 3;
     }
     // Junts per cat
-    if (law.jpc == 'Yes') {
-      law.jpc = 1
-    } else if (law.jpc == 'No') {
-      law.jpc = 2
+    if (law.jpc === 'Yes') {
+      law.jpc = 1;
+    } else if (law.jpc === 'No') {
+      law.jpc = 2;
     } else {
-      law.jpc = 3
+      law.jpc = 3;
     }
     // Teruel Existe
-    if (law.te == 'Yes') {
-      law.te = 1
-    } else if (law.te == 'No') {
-      law.te = 2
+    if (law.te === 'Yes') {
+      law.te = 1;
+    } else if (law.te === 'No') {
+      law.te = 2;
     } else {
-      law.te = 3
+      law.te = 3;
     }
     // CUP
-    if (law.cup == 'Yes') {
-      law.cup = 1
-    } else if (law.cup == 'No') {
-      law.cup = 2
+    if (law.cup === 'Yes') {
+      law.cup = 1;
+    } else if (law.cup === 'No') {
+      law.cup = 2;
     } else {
-      law.cup = 3
+      law.cup = 3;
     }
     // BNG
-    if (law.bng == 'Yes') {
-      law.bng = 1
-    } else if (law.bng == 'No') {
-      law.bng = 2
+    if (law.bng === 'Yes') {
+      law.bng = 1;
+    } else if (law.bng === 'No') {
+      law.bng = 2;
     } else {
-      law.bng = 3
+      law.bng = 3;
     }
 
-    law.psoe = parseInt(law.psoe)
-    law.pp = parseInt(law.pp)
-	  law.vox = parseInt(law.vox)
-	  law.podemos = parseInt(law.podemos)
-	  law.ciudadanos = parseInt(law.ciudadanos)
-	  law.erc = parseInt(law.erc)
-	  law.jpc = parseInt(law.jpc)
-	  law.pnv = parseInt(law.pnv)
-	  law.bildu = parseInt(law.bildu)
-	  law.mp = parseInt(law.mp)
-	  law.cup = parseInt(law.cup)
-	  law.cc = parseInt(law.cc)
-	  law.upn = parseInt(law.upn)
-	  law.bng = parseInt(law.bng)
-	  law.prc = parseInt(law.prc)
-	  law.te = parseInt(law.te)
+    law.psoe = parseInt(law.psoe, 10);
+    law.pp = parseInt(law.pp, 10);
+    law.vox = parseInt(law.vox, 10);
+    law.podemos = parseInt(law.podemos, 10);
+    law.ciudadanos = parseInt(law.ciudadanos, 10);
+    law.erc = parseInt(law.erc, 10);
+    law.jpc = parseInt(law.jpc, 10);
+    law.pnv = parseInt(law.pnv, 10);
+    law.bildu = parseInt(law.bildu, 10);
+    law.mp = parseInt(law.mp, 10);
+    law.cup = parseInt(law.cup, 10);
+    law.cc = parseInt(law.cc, 10);
+    law.upn = parseInt(law.upn, 10);
+    law.bng = parseInt(law.bng, 10);
+    law.prc = parseInt(law.prc, 10);
+    law.te = parseInt(law.te, 10);
 
     this.lawService.postLaw(law)
       .pipe(first())

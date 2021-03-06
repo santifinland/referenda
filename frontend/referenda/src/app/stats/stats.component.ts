@@ -166,25 +166,25 @@ export class StatsComponent implements OnInit {
     const ceuta = {'label': 'Ceuta', 'id': 17, 'value': 0, 'color': '#000'};
     const melilla = {'label': 'Melilla', 'id': 17, 'value': 0, 'color': '#4c86c9'};
     laws.forEach( (law) => {
-      if (law.institution.includes('Comunidad Autónoma de Andalucía')) { andalucia.value += 1; }
-      if (law.institution.includes('Comunidad Autónoma de Aragón')) { aragon.value += 1; }
-      if (law.institution.includes('Comunidad Autónoma del Principado de Asturias')) { asturias.value += 1; }
-      if (law.institution.includes('Comunidad Autónoma de las Illes Balears')) { baleares.value += 1; }
-      if (law.institution.includes('Comunidad Autónoma de Canarias')) { canarias.value += 1; }
-      if (law.institution.includes('Comunidad Autónoma de Cantabria')) { cantabria.value += 1; }
-      if (law.institution.includes('Comunidad Autónoma de Castilla-La Mancha')) { castillalamancha.value += 1; }
-      if (law.institution.includes('Comunidad Autónoma de Castilla y León')) { castillayleon.value += 1; }
-      if (law.institution.includes('Comunidad Autónoma de Cataluña')) { catalunya.value += 1; }
-      if (law.institution.includes('Comunidad Autónoma de Extremadura')) { extremadura.value += 1; }
-      if (law.institution.includes('Comunidad Autónoma de Galicia')) { galicia.value += 1; }
-      if (law.institution.includes('Comunidad Autónoma de La Rioja')) { rioja.value += 1; }
-      if (law.institution.includes('Comunidad Autónoma de Madrid')) { madrid.value += 1; }
-      if (law.institution.includes('Comunidad Autónoma de la Región de Murcia')) { murcia.value += 1; }
-      if (law.institution.includes('Comunidad Autónoma de Navarra')) { navarra.value += 1; }
-      if (law.institution.includes('Comunidad Autónoma del País Vasco')) { paisvasco.value += 1; }
-      if (law.institution.includes('Comunidad Autónoma de Valencia')) { valencia.value += 1; }
-      if (law.institution.includes('Ciudad Autónoma de Ceuta')) { ceuta.value += 1; }
-      if (law.institution.includes('Ciudad Autónoma de Melilla')) { melilla.value += 1; }
+      if (law.institution.includes('andalucia')) { andalucia.value += 1; }
+      if (law.institution.includes('aragon')) { aragon.value += 1; }
+      if (law.institution.includes('asturias')) { asturias.value += 1; }
+      if (law.institution.includes('baleares')) { baleares.value += 1; }
+      if (law.institution.includes('canarias')) { canarias.value += 1; }
+      if (law.institution.includes('cantabria')) { cantabria.value += 1; }
+      if (law.institution.includes('mancha')) { castillalamancha.value += 1; }
+      if (law.institution.includes('leon')) { castillayleon.value += 1; }
+      if (law.institution.includes('catalunya')) { catalunya.value += 1; }
+      if (law.institution.includes('extremadura')) { extremadura.value += 1; }
+      if (law.institution.includes('galicia')) { galicia.value += 1; }
+      if (law.institution.includes('rioja')) { rioja.value += 1; }
+      if (law.institution.includes('madrid')) { madrid.value += 1; }
+      if (law.institution.includes('murcia')) { murcia.value += 1; }
+      if (law.institution.includes('navarra')) { navarra.value += 1; }
+      if (law.institution.includes('vasco')) { paisvasco.value += 1; }
+      if (law.institution.includes('valencia')) { valencia.value += 1; }
+      if (law.institution.includes('ceuta')) { ceuta.value += 1; }
+      if (law.institution.includes('melilla')) { melilla.value += 1; }
     });
     return [andalucia, aragon, asturias, baleares, canarias, cantabria, castillalamancha, castillayleon, catalunya,
             extremadura, galicia, rioja, madrid, murcia, navarra, paisvasco, valencia, ceuta, melilla];

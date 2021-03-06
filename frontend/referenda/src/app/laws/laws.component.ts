@@ -6,7 +6,7 @@ import {isPlatformBrowser} from '@angular/common';
 import {matchSorter } from 'match-sorter';
 
 import {Law, VoteResponse} from '../_models';
-import {LawService, TransferStateService, WINDOW} from '../_services';
+import {CookiesService, LawService, TransferStateService, WINDOW} from '../_services';
 
 
 @Component({
@@ -16,6 +16,7 @@ import {LawService, TransferStateService, WINDOW} from '../_services';
 })
 export class LawsComponent implements OnInit {
 
+  landing = true;
   laws: Law[] = [];
   headline = '';
   area = '';
@@ -35,13 +36,16 @@ export class LawsComponent implements OnInit {
   vote = '';
 
   constructor(
+      private cookiesService: CookiesService,
       private lawService: LawService,
       private metaTagService: Meta,
       private router: Router,
       private titleService: Title,
       private readonly transferStateService: TransferStateService,
       @Inject(PLATFORM_ID) private platformId: Object,
-      @Inject(WINDOW) private window: Window) { }
+      @Inject(WINDOW) private window: Window) {
+    this.landing = !this.cookiesService.getLanding();
+  }
 
   ngOnInit() {
 

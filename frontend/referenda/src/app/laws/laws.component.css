@@ -438,6 +438,132 @@ input:focus {
   cursor: pointer;
 }
 
+.landing {
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 284px);
+  height: 412px;
+  padding: 118px 142px;
+  gap: 24px;
+  background: url(../../assets/img/slider.jpg);
+  background-size: cover;
+  background-position: center;
+}
+
+h1 {
+  width: 460px;
+  margin: 0;
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 47px;
+  line-height: 55px;
+  letter-spacing: 0.02em;
+  color: #FFFFFF;
+}
+
+h3 {
+  width: 460px;
+  margin: 0;
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 33px;
+  line-height: 39px;
+  letter-spacing: 0.02em;
+  color: #FFFFFF;
+}
+
+.explanation {
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 284px);
+  padding: 48px 142px;
+  gap: 24px;
+  background: #FFF;
+}
+
+.what {
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 32px;
+  line-height: 37px;
+  text-align: center;
+  letter-spacing: 0.02em;
+  color: #3E979E;
+}
+
+.explanation-text {
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 130.7%;
+  text-align: center;
+  letter-spacing: 0.02em;
+  color: #333333;
+}
+
+.text-referenda {
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 130.7%;
+  text-align: center;
+  letter-spacing: 0.02em;
+  color: #3E979E;
+}
+
+.explanation-columns {
+  display: flex;
+  gap: 123px;
+  justify-content: center;
+  padding-bottom: 71px;
+}
+
+.explanation-column {
+  display: flex;
+  flex-direction: column;
+  width: 367px;
+  gap: 31px;
+  align-items: center;
+}
+
+.img {
+  height: 123px;
+}
+
+.delegate {
+  width: 160px;
+  height: 53px;
+  padding: 13px 16px;
+  left: 740px;
+  top: 1297px;
+  background: #3E979E;
+  border: 2px solid #3E979E;
+  box-sizing: border-box;
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 130.7%;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: 0.02em;
+  color: #FFFFFF;
+  cursor: pointer;
+}
+
+.delegate:hover {
+  color: #3E979E;
+  background: #FFFFFF;
+}
+
+
+
 @media (max-width: 1150px) {
 
   .laws {
@@ -704,5 +830,28 @@ input:focus {
   .texto {
     padding: 0 0 25px 0;
     text-align: center;
+  }
+
+  .landing {
+    width: calc(100% - 66px);
+    padding: 23px 33px;
+  }
+
+  h1, h3 {
+    width: 310px;
+  }
+
+  .explanation {
+    width: calc(100% - 24px);
+    padding: 48px 12px;
+  }
+
+  .explanation-columns {
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  .explanation-column {
+    width: 100%;
   }
 }

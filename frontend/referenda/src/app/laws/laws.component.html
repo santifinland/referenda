@@ -1,3 +1,43 @@
+<div class="landing" *ngIf="landing">
+  <h1>Democracia directa y delegaci&oacute;n de voto</h1>
+  <h3>Nuestro objetivo es acercar la pol&iacute;tica a la ciudadan&iacute;a</h3>
+</div>
+
+<div class="explanation" *ngIf="landing">
+  <div class="what">¿Qu&eacute; hacemos?</div>
+  <div class="explanation-text">
+    Nuestro objetivo es acercar la política a la ciudadanía.
+    Queremos formar una opinión pública responsable fomentando el conocimiento sobre nuestras leyes,
+    su proceso de creación y sus legisladores.
+  </div>
+  <div class="explanation-columns">
+    <div class="explanation-column">
+      <img class="img" src="../../assets/img/directdemocracy.svg" alt="Democracia Directa">
+      <div class="explanation-text">
+        Para conseguirlo, utilizamos la <span class="text-referenda">Democracia Directa</span>,
+        que <span class="text-referenda">permite a cualquier ciudadano indicar si está
+        o no de acuerdo con una determinada ley</span>.
+        Lo hacemos ofreciendo la posibilidad de votar las <span class="text-referenda">mismas leyes</span> y propuestas
+        que se debaten a la vez en el <span class="text-referenda">Congreso de los Diputados.</span>
+      </div>
+    </div>
+    <div class="explanation-column">
+      <img class="img" src="../../assets/img/delegatevote.svg" alt="Delegación de voto">
+      <div class="explanation-text">
+        <span class="text-referenda">Apostamos por la delegación de voto</span> en una organización o en un individuo,
+        permitiendo a nuestros usuarios delegar sus votos en expertos y personas influyentes
+        cuando se discuta sobre ciertos temas. Esta delegación es transitiva,
+        pudiéndose formar grandes cadenas que canalizan los votos.
+      </div>
+      <div class="delegate" routerLink="/delegar">Delegar voto</div>
+    </div>
+  </div>
+  <div class="explanation-text">
+    A continuación listamos las leyes que se están debatiendo ahora en el Congreso de los Diputados
+    para que puedas indicar tu voto. A favor, en contra o abstención
+  </div>
+</div>
+
 <div class="layer-laws">
 
   <div class="laws">
