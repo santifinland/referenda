@@ -39,6 +39,7 @@ export class AppComponent implements OnInit, OnDestroy {
       if (!this.cookiesService.getCookieConsent()) {
         window['ga-disable-G-QT7CRQ57HF'] = true;
       }
+      this.cookiesService.setLanding();
   }
 
   ngOnInit() {
