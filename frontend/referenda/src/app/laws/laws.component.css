@@ -530,7 +530,13 @@ h3 {
   align-items: center;
 }
 
-.img {
+.img-direct-democracy {
+  width: 120px;
+  height: 123px;
+}
+
+.img-delegation {
+  width: 92px;
   height: 123px;
 }
 
