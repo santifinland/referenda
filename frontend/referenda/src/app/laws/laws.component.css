@@ -445,9 +445,8 @@ input:focus {
   height: 412px;
   padding: 118px 142px;
   gap: 24px;
-  background: url(../../assets/img/slider.jpg);
   background-size: cover;
-  background-position: center;
+  background: url(../../assets/img/slider.webp) center;
 }
 
 h1 {

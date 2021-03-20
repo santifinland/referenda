@@ -28,6 +28,16 @@
                 "glob": "*.svg",
                 "input": "src/assets/img",
                 "output": "./"
+              },
+              {
+                "glob": "*.webp",
+                "input": "src/assets/img",
+                "output": "./"
+              },
+              {
+                "glob": "*.jpg",
+                "input": "src/assets/img",
+                "output": "./"
               }
             ],
             "styles": [
