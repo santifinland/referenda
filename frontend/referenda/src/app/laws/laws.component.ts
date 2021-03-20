@@ -65,7 +65,8 @@ export class LawsComponent implements OnInit {
   }
 
   getLatestLaws(): void {
-    this.transferStateService.fetch('latestLaws', this.lawService.getLatestLaws())
+    // this.transferStateService.fetch('latestLaws', this.lawService.getLatestLaws())
+    this.lawService.getLatestLaws()
       .subscribe(laws => {
         const tierLaws = this.prepareLaws(laws.filter(law => law.tier === 1));
         this.laws = this.sortLaws(tierLaws);

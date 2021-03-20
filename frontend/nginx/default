@@ -10,6 +10,10 @@ upstream my_nodejs_upstream {
     server 127.0.0.1:3443;
 }
 
+upstream public_backend {
+    server 127.0.0.1:3444;
+}
+
 upstream ssr_referenda_nodejs {
     server 127.0.0.1:4000;
 }
@@ -19,15 +23,12 @@ server {
     ssl on;
     gzip on;
     gzip_types text/plain text/css text/js text/xml text/javascript application/javascript application/json application/xml image/svg+xml image/png image/jpeg;
-    ssl_certificate /home/referenda/referenda/backend/referenda/bin/referenda.es.cer;
-    ssl_certificate_key /home/referenda/referenda/backend/referenda/bin/referenda.es.key;
+    ssl_certificate /home/ubuntu/referenda/backend/referenda/bin/referenda.es.cer;
+    ssl_certificate_key /home/ubuntu/referenda/backend/referenda/bin/referenda.es.key;
 
     location / {
-        root /home/referenda/referenda/frontend/referenda/dist/browser;
+        root /home/ubuntu/referenda/frontend/referenda/dist/browser;
         try_files $uri $uri @backend;
-        proxy_cache STATIC;
-        proxy_cache_valid 200 1d;
-        proxy_cache_use_stale error timeout invalid_header updating http_500 http_502 http_503 http_504;
     }
 
     location @backend {
@@ -39,9 +40,21 @@ server {
         proxy_set_header X-NginX-Proxy true;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
-        proxy_cache_bypass $http_upgrade;
         proxy_redirect off;
         proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    location /private {
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $http_host;
+        proxy_set_header X-NginX-Proxy true;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_max_temp_file_size 0;
+        proxy_pass https://my_nodejs_upstream/api;
+        proxy_redirect off;
+        proxy_read_timeout 240s;
     }
 
     location /api {
@@ -52,7 +65,7 @@ server {
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
         proxy_max_temp_file_size 0;
-        proxy_pass https://my_nodejs_upstream/api;
+        proxy_pass https://public_backend/api;
         proxy_redirect off;
         proxy_read_timeout 240s;
     }
