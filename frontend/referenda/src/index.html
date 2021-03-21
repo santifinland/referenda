@@ -10,32 +10,7 @@
     gtag('js', new Date());
   </script>
 
-  <script>
-    if (window.document.documentMode) {
-      // polyfill IE11 in a blocking way
-      const s = document.createElement('script');
-      s.src = 'generated/ie-polyfills.min.js';
-      document.head.appendChild(s);
-    } else if (!Object.assign) {
-      // polyfill other non-evergreen browsers in a blocking way
-      const polyfillUrl = "https://cdn.polyfill.io/v2/polyfill.min.js?features=default,Array.prototype.find&flags=gated&unknown=polyfill";
-      // send a blocking XHR to fetch the polyfill
-      // then append it to the document so that its eval-ed synchronously
-      // this is required because the method used for IE is not reliable with other non-evergreen browsers
-      const xhr = new XMLHttpRequest();
-      xhr.addEventListener("load", function() {
-        const s = document.createElement('script');
-        s.type = 'text/javascript';
-        const code = this.responseText;
-        s.appendChild(document.createTextNode(code));
-        document.head.appendChild(s);
-      });
-      xhr.open("GET", polyfillUrl, false);
-      xhr.send();
-    }
-  </script>
-
-  <title>Referenda | Democracia directa</title>
+  <title>Referenda - Democracia directa</title>
 
   <meta name="description" content="Referenda es una plataforma online de Democracia Directa. Nuestro objetivo es
                                     acercar la pol&iacute;tica a la ciudadan&iacute;a. Queremos formar una

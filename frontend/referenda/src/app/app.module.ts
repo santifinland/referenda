@@ -26,8 +26,7 @@ import { DelegationsComponent } from './delegations/delegations.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { LawsComponent } from './laws/laws.component';
-import { ModalComponent } from './_directives';
-import { ModalService, WINDOW_PROVIDERS } from './_services';
+import { WINDOW_PROVIDERS } from './_services';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login';
@@ -57,7 +56,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     ResultsComponent,
     DelegationsComponent,
     AlertComponent,
-    ModalComponent,
     HomeComponent,
     LoginComponent,
     PartiesComponent,
@@ -92,7 +90,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: LOCALE_ID, useValue: 'es-ES'},
     CookieService,
-    ModalService,
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {

@@ -4,7 +4,6 @@ import { ControlContainer, FormsModule, ReactiveFormsModule } from '@angular/for
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { DelegationsComponent } from './delegations.component';
-import { ModalService } from '../_services';
 
 
 describe('DelegationsComponent', () => {
@@ -15,7 +14,7 @@ describe('DelegationsComponent', () => {
     TestBed.configureTestingModule({
       imports: [ FormsModule, HttpClientTestingModule, ReactiveFormsModule, RouterTestingModule ],
       declarations: [ DelegationsComponent ],
-      providers: [ ControlContainer, ModalService ]
+      providers: [ ControlContainer ]
     })
     .compileComponents();
   }));

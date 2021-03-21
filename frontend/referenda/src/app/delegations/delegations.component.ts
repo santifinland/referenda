@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {Meta, Title} from '@angular/platform-browser';
 
@@ -8,7 +9,6 @@ import {first} from 'rxjs/operators';
 import {SwiperOptions} from 'swiper';
 
 import {AuthenticationService} from '../_services';
-import {ModalService} from '../_services';
 import {Party} from '../_models';
 import {User} from '../_models';
 import {UserService} from '../_services';
@@ -90,7 +90,7 @@ export class DelegationsComponent implements OnInit {
     private authService: SocialAuthService,
     private formBuilder: FormBuilder,
     private metaTagService: Meta,
-    private modalService: ModalService,
+    private router: Router,
     private titleService: Title,
     private userService: UserService) {
     this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
@@ -192,7 +192,7 @@ export class DelegationsComponent implements OnInit {
           this.findUsersForm.reset();
           this.delegatedParty();
         },
-        err => this.modalService.open('login')
+        err => this.router.navigateByUrl('login?returnUrl=' + encodeURI(this.router.url))
       );
   }
 
