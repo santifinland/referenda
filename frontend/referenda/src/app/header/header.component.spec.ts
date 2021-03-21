@@ -10,7 +10,6 @@ import {
 } from 'angularx-social-login';
 
 import { HeaderComponent } from './header.component';
-import { ModalService } from '../_services/modal.service';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -21,7 +20,6 @@ describe('HeaderComponent', () => {
       imports: [ HttpClientTestingModule, ReactiveFormsModule, RouterTestingModule ],
       declarations: [ HeaderComponent ],
       providers: [
-        ModalService,
         SocialAuthService,
         {
           provide: 'SocialAuthServiceConfig',

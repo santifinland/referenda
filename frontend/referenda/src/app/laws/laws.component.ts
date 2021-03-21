@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit, PLATFORM_ID} from '@angular/core';
+import {Component, HostListener, Inject, OnInit, PLATFORM_ID} from '@angular/core';
 import {Router} from '@angular/router';
 import {Meta, Title} from '@angular/platform-browser';
 import {isPlatformBrowser} from '@angular/common';
@@ -34,6 +34,14 @@ export class LawsComponent implements OnInit {
   smartphoneMenu = false;
   voterSlugs: string[] = [];
   vote = '';
+  scrolled = false;
+
+  @HostListener('window:scroll') onScroll(e: Event): void {
+    if (this.scrolled === false) {
+      this.getLaws();
+      this.scrolled = true;
+    }
+  }
 
   constructor(
       private cookiesService: CookiesService,
@@ -52,7 +60,7 @@ export class LawsComponent implements OnInit {
     this.getLatestLaws();
     let title: string;
     if (this.router.url === '/') {
-      title = 'Democracia directa';
+      title = 'Referenda - Democracia directa';
     }  else {
       title = 'Leyes debatidas en el Congreso de los Diputados de España';
     }
@@ -61,7 +69,6 @@ export class LawsComponent implements OnInit {
     if (isPlatformBrowser(this.platformId)) {
       this.smartphoneMenu = window.innerWidth > 640;
     }
-    this.getLaws();
   }
 
   getLatestLaws(): void {
