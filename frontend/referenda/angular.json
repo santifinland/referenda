@@ -20,7 +20,7 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
-              "src/assets/img/favicon.png",
+              "src/assets/img/favicon.webp",
               "src/robots.txt",
               "src/sitemap.xml",
               "src/assets",
@@ -58,7 +58,11 @@
               ],
               "optimization": true,
               "outputHashing": "all",
-              "sourceMap": false,
+              "sourceMap": {
+                "scripts": true,
+                "styles": true,
+                "vendor": true
+              },
               "extractCss": true,
               "namedChunks": false,
               "aot": true,
@@ -108,7 +112,6 @@
             ],
             "scripts": [],
             "assets": [
-              "src/favicon.ico",
               "src/assets"
             ]
           }
@@ -140,7 +143,11 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
-              "sourceMap": false,
+              "sourceMap": {
+                "scripts": true,
+                "styles": true,
+                "vendor": true
+              },
               "optimization": true
             }
           }

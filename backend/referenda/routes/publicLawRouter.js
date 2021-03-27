@@ -90,10 +90,11 @@ lawRouter.route('/')
 lawRouter.route('/latest')
 .get(function (req, res, next) {
     const today = new Date();
-    const lastMonth = new Date(today.setMonth(today.getMonth() - 1));
-    req.query.vote_start = {$lt: lastMonth};
-    req.query.vote_end = {$gte: today};
-    Laws.find(req.query)
+    const lastMonth = new Date(today.setMonth(today.getMonth() - 2));
+    //req.query.vote_start = {$gt: lastMonth};
+    //req.query.vote_end = {$gte: today};
+    //req.query.featured = {true};
+    Laws.find({featured: true, vote_end: {$gte: today}})
         .select('law_type institution tier area headline slug short_description link pub_date ' +
             'vote_start vote_end positive negative abstention official_positive official_negative ' +
             'official_abstention featured  positiveParties negativeParties abstentionParties -_id')
