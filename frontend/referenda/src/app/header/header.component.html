@@ -55,7 +55,8 @@
   <a class="menu-item" routerLink="/estadisticas" (click)="showSmartphoneMenu(false); section='estadisticas';">
     ESTAD&Iacute;STICAS
   </a>
-  <a class="menu-item" routerLink="/home" *ngIf="currentUser">{{currentUser.username}}</a>
+  <a class="menu-item" routerLink="/home" *ngIf="currentUser" (click)="showSmartphoneMenu(false); section='';">
+    {{currentUser.username}}</a>
   <a class="menu-item" *ngIf="!currentUser" (click)="showSmartphoneSession()">MI SESI&Oacute;N</a>
   <a class="menu-item" routerLink="/login" (click)="showSmartphoneMenu(false); section='';"
      *ngIf="smartphoneSession">
