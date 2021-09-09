@@ -461,6 +461,19 @@ h1 {
   color: #FFFFFF;
 }
 
+.delegacionvoto {
+  width: 460px;
+  margin: 0;
+  padding: 0;
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 47px;
+  line-height: 55px;
+  letter-spacing: 0.02em;
+  color: #FFFFFF;
+}
+
 h2 {
   width: 460px;
   margin: 0;
