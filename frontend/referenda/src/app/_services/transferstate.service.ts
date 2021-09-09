@@ -65,7 +65,7 @@ export class TransferStateService {
       }
       this.transferState.set(
         this.getStateKey(key),
-        value
+        <any> value
       );
     }
   }

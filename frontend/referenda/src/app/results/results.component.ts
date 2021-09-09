@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { APP_ID, Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
-import { formatDate } from '@angular/common';
+import { formatDate, isPlatformBrowser } from '@angular/common';
 
 import { matchSorter } from 'match-sorter';
 
@@ -26,7 +26,9 @@ export class ResultsComponent implements OnInit {
   constructor(
       private lawService: LawService,
       private metaTagService: Meta,
-      private titleService: Title) { }
+      private titleService: Title,
+      @Inject(PLATFORM_ID) private platformId: object,
+      @Inject(APP_ID) private appId: string) { }
 
   ngOnInit() {
     const title = 'Resultados de votaciones Congreso de los Diputados';
@@ -38,6 +40,8 @@ export class ResultsComponent implements OnInit {
   getResults(): void {
     this.lawService.getResults()
       .subscribe(laws => {
+        const platform = isPlatformBrowser(this.platformId) ? 'in the browser' : 'on the server';
+        console.log(`getUsers : Running ${platform} with appId=${this.appId}`);
         laws.map(law => {
           law.vote_end_string = formatDate(law.vote_end, 'fullDate', 'es-ES');
         });
