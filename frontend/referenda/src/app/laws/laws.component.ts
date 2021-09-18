@@ -4,10 +4,17 @@ import {Meta, Title} from '@angular/platform-browser';
 import {isPlatformBrowser} from '@angular/common';
 
 import {matchSorter } from 'match-sorter';
-import { timer } from 'rxjs';
+import {Subscription, timer} from 'rxjs';
 
-import {Law, VoteResponse} from '../_models';
-import {CookiesService, LawService, TransferStateService, WINDOW} from '../_services';
+import {Law, User, VoteResponse} from '../_models';
+import {
+  AuthenticationService,
+  CookiesService,
+  LawService,
+  TransferStateService,
+  UserService,
+  WINDOW
+} from '../_services';
 
 
 @Component({
@@ -37,6 +44,9 @@ export class LawsComponent implements OnInit {
   vote = '';
   scrolled = false;
 
+  currentUser: User | undefined;
+  currentUserSubscription: Subscription;
+
   @HostListener('window:scroll') onScroll(e: Event): void {
     if (this.scrolled === false) {
       this.getLaws();
@@ -51,9 +61,14 @@ export class LawsComponent implements OnInit {
       private router: Router,
       private titleService: Title,
       private readonly transferStateService: TransferStateService,
+      private authenticationService: AuthenticationService,
+      private userService: UserService,
       @Inject(PLATFORM_ID) private platformId: Object,
       @Inject(WINDOW) private window: Window) {
     this.landing = !this.cookiesService.getLanding();
+    this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
+      this.currentUser = user;
+    });
   }
 
   ngOnInit() {
@@ -182,10 +197,18 @@ export class LawsComponent implements OnInit {
   }
 
   submitVote(slug: string, vote: number): void {
-    this.lawService.submitVote(slug, vote)
-      .subscribe(
-        (data: VoteResponse) => { this.getLaw(slug); },
-        err => this.router.navigateByUrl('login?returnUrl=' + encodeURI(this.router.url))
-      );
+    if (this.currentUser !== undefined) {
+      console.log('submit logged');
+      this.lawService.submitVote(slug, vote)
+        .subscribe(
+          (data: VoteResponse) => {
+            this.getLaw(slug);
+          },
+          err => this.router.navigateByUrl('login?returnUrl=' + encodeURI(this.router.url))
+        );
+    } else {
+      console.log('submit NOT logged');
+      this.router.navigateByUrl('login?returnUrl=' + encodeURI(this.router.url));
+    }
   }
 }
