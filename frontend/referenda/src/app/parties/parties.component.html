@@ -106,10 +106,10 @@
       </div>
 
       <div class="position-mobile-container" *ngIf="mobile">
-        <div class="position-mobile-title-container">
+        <div class="position-mobile-title-container"(click)="positionMenu = !positionMenu">
           <div class="position-mobile-title">FILTRAR POR POSICIONAIENTO</div>
-          <div class="uparrow" *ngIf="!positionMenu" (click)="positionMenu = true"></div>
-          <div class="downarrow" *ngIf="positionMenu" (click)="positionMenu = false"></div>
+          <div class="uparrow" *ngIf="!positionMenu"></div>
+          <div class="downarrow" *ngIf="positionMenu"></div>
         </div>
         <div class="position-mobile" *ngIf="positionMenu">
           <div class="mobile-search">
