@@ -113,7 +113,7 @@
         </div>
         <div class="position-mobile" *ngIf="positionMenu">
           <div class="mobile-search">
-            <input class="mobile-input" [(ngModel)]="headline" placeholder="Busca por palabra clave">
+            <input class="mobile-input" [(ngModel)]="headline" placeholder="Busca por palabra clave" autofocus>
             <div class="mobile-position-button go" (click)="positionMenu = false"></div>
           </div>
           <div class="mobile-text">Busca por tipo de propuesta:</div>

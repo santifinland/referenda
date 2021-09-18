@@ -56,6 +56,7 @@ export class LoginComponent implements OnInit {
         password: ['', Validators.required]
     });
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    console.log(this.returnUrl);
     this.authService.authState.subscribe((user) => {
       this.socialUser = user;
       this.socialUserLoggedIn = (user != null);
@@ -112,10 +113,12 @@ export class LoginComponent implements OnInit {
   signInWithGoogle(): void {
     this.socialProvider = 'Google';
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    this.router.navigate([this.returnUrl]);
   }
 
   signInWithFB(): void {
     this.socialProvider = 'Facebook';
     this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+    this.router.navigate([this.returnUrl]);
   }
 }
