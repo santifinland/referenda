@@ -21,7 +21,7 @@ app.set('secPort', port+443);
  */
 const options = {
   key: fs.readFileSync(__dirname+'/referenda.es.key'),
-  cert: fs.readFileSync(__dirname+'/referenda.es.cer')
+  cert: fs.readFileSync(__dirname+'/referenda.es.pem')
 };
 const secureServer = https.createServer(options,app);
 
