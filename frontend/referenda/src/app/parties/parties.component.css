@@ -142,9 +142,9 @@
 }
 
 .party-laws-list {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  width: 100%;
   gap: 1px;
   background: #FFF;
 }
@@ -322,6 +322,7 @@
 }
 
 .parties-mobile {
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 1px;
@@ -368,11 +369,11 @@
 
 .position-mobile-title-container {
   display: flex;
-  width: 100%;
-  height: 53px;
+  width: calc(100% - 41px);
+  height: 20px;
   padding: 17px 24px 16px 24px;
-  justify-content: space-between;
   background: #3E979E;
+  justify-content: space-between;
 }
 
 .position-mobile-title {
@@ -426,7 +427,6 @@
 .mobile-position-button {
   display: flex;
   height: 54px;
-  padding: 17px 16px;
   border: 2px solid #3E979E;
   flex-direction: column;
   font-family: Roboto, sans-serif;
@@ -435,6 +435,7 @@
   font-size: 17px;
   line-height: 20px;
   align-items: center;
+  justify-content: center;
   letter-spacing: 0.02em;
   color: #3E979E;
   cursor: pointer;
@@ -473,6 +474,7 @@
 
 .mobile-text {
   display: flex;
+  width: 100%;
   font-family: Roboto, sans-serif;
   font-style: normal;
   font-weight: 300;
@@ -600,7 +602,8 @@
   }
 
   .party-law {
-    width: 100%;
+    width: calc(100% - 44px);
+    padding: 22px;
   }
 
   .law-detail-more {
@@ -620,9 +623,22 @@
   }
 
   .party-selected {
-    padding: 12px 35px 17px 19px;
+    width: 100%;
+    gap: 20px;
     height: 79px;
+    padding: 0;
+    justify-content: center;
   }
 
+  .mobile-search {
+    width: 281px;
+    height: 54px;
+  }
+
+  .mobile-input {
+    padding: 0;
+    height: 54px;
+    justify-content: center;
+  }
 }
 

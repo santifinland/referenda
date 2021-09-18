@@ -4,6 +4,7 @@ import {Meta, Title} from '@angular/platform-browser';
 import {isPlatformBrowser} from '@angular/common';
 
 import {matchSorter } from 'match-sorter';
+import { timer } from 'rxjs';
 
 import {Law, VoteResponse} from '../_models';
 import {CookiesService, LawService, TransferStateService, WINDOW} from '../_services';
@@ -69,6 +70,8 @@ export class LawsComponent implements OnInit {
     if (isPlatformBrowser(this.platformId)) {
       this.smartphoneMenu = window.innerWidth > 640;
     }
+    const source = timer(5000);
+    source.subscribe(x => this.getLaws());
   }
 
   getLatestLaws(): void {
