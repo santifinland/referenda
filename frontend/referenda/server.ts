@@ -36,6 +36,7 @@ export function app() {
 
   // All regular routes use the Universal engine
   server.get('*', (req, res) => {
+    console.log('Request received:' + req.originalUrl);
     res.render(indexHtml, { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }] });
   });
 

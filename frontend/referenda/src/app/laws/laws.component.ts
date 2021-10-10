@@ -15,6 +15,7 @@ import {
   UserService,
   WINDOW
 } from '../_services';
+import {take} from "rxjs/operators";
 
 
 @Component({
@@ -72,7 +73,6 @@ export class LawsComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.getLatestLaws();
     let title: string;
     if (this.router.url === '/') {
@@ -85,17 +85,17 @@ export class LawsComponent implements OnInit {
     if (isPlatformBrowser(this.platformId)) {
       this.smartphoneMenu = window.innerWidth > 640;
     }
-    const source = timer(5000);
-    source.subscribe(x => this.getLaws());
   }
 
-  getLatestLaws(): void {
-    // this.transferStateService.fetch('latestLaws', this.lawService.getLatestLaws())
-    this.lawService.getLatestLaws()
+  async getLatestLaws() {
+     this.transferStateService.fetch('latestLaws', this.lawService.getLatestLaws())
+    // this.lawService.getLatestLaws()
       .subscribe(laws => {
         const tierLaws = this.prepareLaws(laws.filter(law => law.tier === 1));
         this.laws = this.sortLaws(tierLaws);
       });
+    const data = await this.lawService.getLaws().pipe(take(1)).toPromise();
+    this.laws = this.sortLaws(data);
   }
 
   prepareLaws(laws: Law[]): Law[] {

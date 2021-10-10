@@ -23,6 +23,7 @@ export class TransferStateService {
     defaultValue?: T
   ): Observable<T> {
     if (this.has(key)) {
+      console.log('Fetch transfer state ' + key);
       return of(this.get(key, defaultValue)).pipe(
         tap(() => this.remove(key))
       );
@@ -63,6 +64,7 @@ export class TransferStateService {
           `Setting existing value into TransferState using key: '${key}'`
         );
       }
+      console.log('Set transfer state ' + key);
       this.transferState.set(
         this.getStateKey(key),
         <any> value
