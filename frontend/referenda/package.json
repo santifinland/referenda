@@ -14,7 +14,7 @@
     "build:client-and-server-bundles_bak": "ng build --prod && ng run referenda:server:production --bundleDependencies all",
     "dev:ssr": "ng run referenda:serve-ssr",
     "serve:ssr": "node dist/server/main.js",
-    "build:ssr": "ng build --prod && ng run referenda:server:production",
+    "build:ssr": "ng build --configuration production && ng run referenda:server:production",
     "prerender": "ng run referenda:prerender"
   },
   "private": true,
