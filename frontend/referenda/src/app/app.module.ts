@@ -3,7 +3,7 @@ import localeEs from '@angular/common/locales/es';
 import {BrowserModule, BrowserTransferStateModule, Title} from '@angular/platform-browser';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LOCALE_ID, NgModule } from '@angular/core';
 
 import { AngularEditorModule } from '@kolkov/angular-editor';
