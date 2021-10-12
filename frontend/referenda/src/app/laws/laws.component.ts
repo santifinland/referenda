@@ -15,7 +15,6 @@ import {
   UserService,
   WINDOW
 } from '../_services';
-import {take} from "rxjs/operators";
 
 
 @Component({
@@ -88,14 +87,14 @@ export class LawsComponent implements OnInit {
   }
 
   async getLatestLaws() {
-     this.transferStateService.fetch('latestLaws', this.lawService.getLatestLaws())
+    this.transferStateService.fetch('latestLaws', this.lawService.getLatestLaws())
     // this.lawService.getLatestLaws()
       .subscribe(laws => {
         const tierLaws = this.prepareLaws(laws.filter(law => law.tier === 1));
         this.laws = this.sortLaws(tierLaws);
       });
-    const data = await this.lawService.getLaws().pipe(take(1)).toPromise();
-    this.laws = this.sortLaws(data);
+    // const data = await this.lawService.getLaws().pipe(take(1)).toPromise();
+    // this.laws = this.sortLaws(data);
   }
 
   prepareLaws(laws: Law[]): Law[] {
@@ -117,7 +116,7 @@ export class LawsComponent implements OnInit {
     return law;
   }
 
-  getLaws(): void {
+  async getLaws() {
     this.transferStateService.fetch('laws', this.lawService.getLaws())
       .subscribe(laws => {
         const tierLaws = this.prepareLaws(laws.filter(law => law.tier === 1));
