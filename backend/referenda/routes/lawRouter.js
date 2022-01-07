@@ -74,137 +74,137 @@ lawRouter.route('/')
   req.body.negativeParties = [];
   req.body.abstentionParties = [];
   // PP
-  if (req.body.pp == 1) {
+  if (req.body.pp === 1) {
       req.body.positiveParties.push("pp");
-  } else if (req.body.pp == 2) {
+  } else if (req.body.pp === 2) {
       req.body.negativeParties.push("pp");
   } else {
       req.body.abstentionParties.push("pp");
   }
   // Psoe
-  if (req.body.psoe == 1) {
+  if (req.body.psoe === 1) {
     req.body.positiveParties.push("psoe");
-  } else if (req.body.psoe == 2) {
+  } else if (req.body.psoe === 2) {
       req.body.negativeParties.push("psoe");
   } else {
       req.body.abstentionParties.push("psoe");
   }
   // Podemos
-  if (req.body.podemos == 1) {
+  if (req.body.podemos === 1) {
       req.body.positiveParties.push("podemos");
-  } else if (req.body.podemos == 2) {
+  } else if (req.body.podemos === 2) {
       req.body.negativeParties.push("podemos");
   } else {
       req.body.abstentionParties.push("podemos");
   }
   // Ciudadanos
-  if (req.body.ciudadanos == 1) {
+  if (req.body.ciudadanos === 1) {
       req.body.positiveParties.push("ciudadanos");
-  } else if (req.body.ciudadanos == 2) {
+  } else if (req.body.ciudadanos === 2) {
       req.body.negativeParties.push("ciudadanos");
   } else {
       req.body.abstentionParties.push("ciudadanos");
   }
   // Erc
-  if (req.body.erc == 1) {
+  if (req.body.erc === 1) {
       req.body.positiveParties.push("erc");
-  } else if (req.body.erc == 2) {
+  } else if (req.body.erc === 2) {
       req.body.negativeParties.push("erc");
   } else {
       req.body.abstentionParties.push("erc");
   }
   // Pnv
-  if (req.body.pnv == 1) {
+  if (req.body.pnv === 1) {
       req.body.positiveParties.push("pnv");
-  } else if (req.body.pnv == 2) {
+  } else if (req.body.pnv === 2) {
       req.body.negativeParties.push("pnv");
   } else {
       req.body.abstentionParties.push("pnv");
   }
   // Mas pais
-  if (req.body.mp == 1) {
+  if (req.body.mp === 1) {
       req.body.positiveParties.push("mp");
-  } else if (req.body.mp == 2) {
+  } else if (req.body.mp === 2) {
       req.body.negativeParties.push("mp");
   } else {
       req.body.abstentionParties.push("mp");
   }
   // Coalicion Canaria
-  if (req.body.cc == 1) {
+  if (req.body.cc === 1) {
       req.body.positiveParties.push("cc");
-  } else if (req.body.cc == 2) {
+  } else if (req.body.cc === 2) {
       req.body.negativeParties.push("cc");
   } else {
       req.body.abstentionParties.push("cc");
   }
   // Vox
-  if (req.body.vox == 1) {
+  if (req.body.vox === 1) {
       req.body.positiveParties.push("vox");
-  } else if (req.body.vox == 2) {
+  } else if (req.body.vox === 2) {
       req.body.negativeParties.push("vox");
   } else {
       req.body.abstentionParties.push("vox");
   }
   // Partido Regionalista Cantabro
-  if (req.body.prc == 1) {
+  if (req.body.prc === 1) {
       req.body.positiveParties.push("prc");
-  } else if (req.body.prc == 2) {
+  } else if (req.body.prc === 2) {
       req.body.negativeParties.push("prc");
   } else {
       req.body.abstentionParties.push("prc");
   }
   // Navarra suma
-  if (req.body.upn == 1) {
+  if (req.body.upn === 1) {
       req.body.positiveParties.push("upn");
-  } else if (req.body.upn == 2) {
+  } else if (req.body.upn === 2) {
       req.body.negativeParties.push("upn");
   } else {
       req.body.abstentionParties.push("upn");
   }
   // Bildu
-  if (req.body.bildu == 1) {
+  if (req.body.bildu === 1) {
       req.body.positiveParties.push("bildu");
-  } else if (req.body.bildu == 2) {
+  } else if (req.body.bildu === 2) {
       req.body.negativeParties.push("bildu");
   } else {
       req.body.abstentionParties.push("bildu");
   }
   // Junts per cat
-  if (req.body.jpc == 1) {
+  if (req.body.jpc === 1) {
       req.body.positiveParties.push("jpc");
-  } else if (req.body.jpc == 2) {
+  } else if (req.body.jpc === 2) {
       req.body.negativeParties.push("jpc");
   } else {
       req.body.abstentionParties.push("jpc");
   }
   // Teruel Existe
-  if (req.body.te == 1) {
+  if (req.body.te === 1) {
       req.body.positiveParties.push("te");
-  } else if (req.body.te == 2) {
+  } else if (req.body.te === 2) {
       req.body.negativeParties.push("te");
   } else {
       req.body.abstentionParties.push("te");
   }
   // CUP
-  if (req.body.cup == 1) {
+  if (req.body.cup === 1) {
       req.body.positiveParties.push("cup");
-  } else if (req.body.cup == 2) {
+  } else if (req.body.cup === 2) {
       req.body.negativeParties.push("cup");
   } else {
       req.body.abstentionParties.push("cup");
   }
   // BNG
-  if (req.body.bng == 1) {
+  if (req.body.bng === 1) {
       req.body.positiveParties.push("bng");
-  } else if (req.body.bng == 2) {
+  } else if (req.body.bng === 2) {
       req.body.negativeParties.push("bng");
   } else {
       req.body.abstentionParties.push("bng");
   }
   // No Delegar
-  if (req.body.nd == 1) {
+  if (req.body.nd === 1) {
       req.body.positiveParties.push("nd");
-  } else if (req.body.nd == 2) {
+  } else if (req.body.nd === 2) {
       req.body.negativeParties.push("nd");
   } else {
       req.body.abstentionParties.push("nd");
@@ -253,6 +253,8 @@ lawRouter.route('/ley/:slug')
 .put(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function (req, res, next) {
   Laws.findOne({"slug": req.params.slug}, function (err, law) {
     if (err) return next(err);
+    law.law_id = req.body.law_id;
+    law.reviewed = req.body.reviewed;
     law.law_type = req.body.law_type;
     law.institution = req.body.institution;
     law.featured = req.body.featured;
@@ -453,7 +455,7 @@ lawRouter.route('/ley/:slug/comments/:commentId')
         if (err) return next(err);
         if (law) {
             if (law.comments.id(req.params.commentId)) {
-                if (law.comments.id(req.params.commentId).postedBy == req.decoded._id) {
+                if (law.comments.id(req.params.commentId).postedBy === req.decoded._id) {
                     law.comments.id(req.params.commentId).comment = req.body.comment;
                     law.save(function (err, law) {
                         if (err) return next(err);
@@ -521,8 +523,8 @@ lawRouter.route('/ley/:slug/comments/:commentId/votes')
                             if (err) return console.error(err);
                             console.log('Saved CommentVote!');
                         });
-                        var comment = law.comments.id(req.params.commentId);
-                        if (req.body.vote == 1) {
+                        let comment = law.comments.id(req.params.commentId);
+                        if (req.body.vote === 1) {
                             comment.positive = comment.positive + 1;
                         } else {
                             comment.negative = comment.negative + 1;

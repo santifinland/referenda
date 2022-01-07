@@ -1,7 +1,8 @@
 import { Comment } from './comment';
-import { Party } from './party';
 
 export class Law {
+  law_id: string;
+  reviewed: boolean;
   law_type: string;
   institution: string[];
   tier: number;

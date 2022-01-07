@@ -3,6 +3,7 @@
 # Send Proyecto de Ley to Referenda backend
 
 import json
+import re
 from datetime import datetime
 
 import requests
@@ -48,7 +49,6 @@ def parse_laws():
     filtered_laws = sorted(filtered_laws, key=lambda l: l.vote_start)
     print('Total laws: {}'.format(len(filtered_laws)))
     return filtered_laws
-
 
 if __name__ == "__main__":
     try:
