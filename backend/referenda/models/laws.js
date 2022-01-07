@@ -27,6 +27,8 @@ commentSchema.add({ replies: [commentSchema] });
 
 // create a schema
 var lawSchema = new Schema({
+      law_id: String,
+      reviewed: Boolean,
       law_type: String,
       institution: [String],
       tier: Number,

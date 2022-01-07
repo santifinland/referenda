@@ -79,6 +79,8 @@ export class CreateLawComponent implements OnInit {
 
   ngOnInit() {
     this.lawForm = this.formBuilder.group({
+      law_id: ['', [Validators.required]],
+      reviewed: ['', [Validators.required]],
       law_type: ['', [Validators.required]],
       institution_psoe: [0, []],
       institution_pp: [0, []],

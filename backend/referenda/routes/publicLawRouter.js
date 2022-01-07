@@ -22,7 +22,7 @@ const findVote = function findVote(law, user, callback) {
             console.log("Username: " + user.username);
             console.log("Delegated party: " + user.delegatedParty);
             console.log("Delegated user: " + user.delegatedUser);
-            if ((user.delegatedParty != null) && (user.delegatedParty != 'nd')) {
+            if ((user.delegatedParty != null) && (user.delegatedParty !== 'nd')) {
                 console.log("El usuario ha delagado en un partido");
                 // User has a party delegations. Checking type
                 if (law.positiveParties.indexOf(user.delegatedParty) >= 0) return callback(null, 1);
@@ -78,7 +78,7 @@ lawRouter.route('/')
         req.query.vote_end = {$gte: today};
     }
     Laws.find(req.query)
-        .select('law_type institution tier area headline slug short_description long_description link pub_date ' +
+        .select('law_id, reviewed, law_type institution tier area headline slug short_description long_description link pub_date ' +
                  'vote_start vote_end positive negative abstention official_positive official_negative ' +
                  'official_abstention featured  positiveParties negativeParties abstentionParties -_id')
         .exec(function (err, law) {
@@ -95,7 +95,7 @@ lawRouter.route('/latest')
     //req.query.vote_end = {$gte: today};
     //req.query.featured = {true};
     Laws.find({featured: true, vote_end: {$gte: today}})
-        .select('law_type institution tier area headline slug short_description link pub_date ' +
+        .select('law_id, reviewed, law_type institution tier area headline slug short_description link pub_date ' +
             'vote_start vote_end positive negative abstention official_positive official_negative ' +
             'official_abstention featured  positiveParties negativeParties abstentionParties -_id')
         .exec(function (err, law) {
@@ -107,7 +107,7 @@ lawRouter.route('/latest')
 lawRouter.route('/ley/:slug')
 .get(function (req, res, next) {
     Laws.findOne({"slug": req.params.slug})
-        .select('law_type institution tier area featured headline slug short_description long_description ' +
+        .select('law_id, reviewed, law_type institution tier area featured headline slug short_description long_description ' +
                  'link pub_date vote_start vote_end positive negative abstention official_positive official_negative ' +
                  'official_abstention positiveParties negativeParties abstentionParties ' +
                  'comments -_id')

@@ -583,7 +583,6 @@
           </div>
         </div>
 
-
         <div class="featured">
           <label for="featured">Featured</label>
           <select class="form-control" id="featured" formControlName="featured"
@@ -593,6 +592,18 @@
           </select>
           <div *ngIf="submitted && lf.featured.errors" class="invalid-feedback">
             <div *ngIf="lf.featured.errors.required">Es necesaria una prioridad</div>
+          </div>
+        </div>
+
+        <div class="featured">
+          <label for="reviewed">Reviwed</label>
+          <select class="form-control" id="reviewed" formControlName="reviewed"
+                  [ngClass]="{ 'is-invalid': submitted && lf.reviewed.errors }">
+            <option>true</option>
+            <option>false</option>
+          </select>
+          <div *ngIf="submitted && lf.reviewed.errors" class="invalid-feedback">
+            <div *ngIf="lf.reviewed.errors.required">Es necesaria una revisión</div>
           </div>
         </div>
 
@@ -625,6 +636,14 @@
                  [ngClass]="{ 'is-invalid': submitted && lf.link.errors }">
           <div *ngIf="submitted && lf.link.errors" class="invalid-feedback">
             <div *ngIf="lf.link.errors.required">Es necesario un enlace oficial</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="law_id">Law ID</label>
+          <input type="text" class="form-control" id="law_id" formControlName="law_id"
+                 [ngClass]="{ 'is-invalid': submitted && lf.law_id.errors }">
+          <div *ngIf="submitted && lf.law_id.errors" class="invalid-feedback">
+            <div *ngIf="lf.law_id.errors.required">Es necesario un identificador oficial</div>
           </div>
         </div>
 
