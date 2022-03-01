@@ -47,7 +47,7 @@
     "ngx-useful-swiper": "^10.0.1",
     "rxjs": "^6.5.3",
     "rxjs-compat": "^6.6.7",
-    "swagger-ui": "^3.51.0",
+    "swagger-ui": "^4.5.2",
     "swiper": "^6.7.1",
     "tslib": "^2.3.0",
     "zone.js": "^0.11.4"
