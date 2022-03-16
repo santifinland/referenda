@@ -79,6 +79,13 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+  toggleSmartphoneMenu() {
+    if (this.smartphoneMenu === true) {
+      document.getElementById('menu').scrollIntoView({behavior: 'smooth'});
+    }
+    this.smartphoneMenu = !this.smartphoneMenu;
+  }
+
   showSmartphoneSession() {
     this.smartphoneSession = !this.smartphoneSession;
   }
