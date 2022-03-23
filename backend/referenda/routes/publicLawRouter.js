@@ -107,7 +107,7 @@ lawRouter.route('/latest')
 lawRouter.route('/ley/:slug')
 .get(function (req, res, next) {
     Laws.findOne({"slug": req.params.slug})
-        .select('law_id, reviewed, law_type institution tier area featured headline slug short_description long_description ' +
+        .select('law_id reviewed law_type institution tier area featured headline slug short_description long_description ' +
                  'link pub_date vote_start vote_end positive negative abstention official_positive official_negative ' +
                  'official_abstention positiveParties negativeParties abstentionParties ' +
                  'comments -_id')
