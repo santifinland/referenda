@@ -41,8 +41,10 @@ export class LawsComponent implements OnInit {
   orientativas = ['proposición no de ley'];
   smartphoneMenu = false;
   voterSlugs: string[] = [];
+  partiesSlugs: string[] = [];
   vote = '';
   scrolled = false;
+  position: string;
 
   currentUser: User | undefined;
   currentUserSubscription: Subscription;
@@ -84,6 +86,7 @@ export class LawsComponent implements OnInit {
     if (isPlatformBrowser(this.platformId)) {
       this.smartphoneMenu = window.innerWidth > 640;
     }
+    this.position = 'favour';
   }
 
   async getLatestLaws() {
@@ -184,6 +187,17 @@ export class LawsComponent implements OnInit {
       }
     } else {
       this.voterSlugs.push(slug);
+    }
+  }
+
+  showPartiesMenu(slug: string) {
+    if (this.partiesSlugs.includes(slug)) {
+      const index = this.partiesSlugs.indexOf(slug);
+      if (index >= 0) {
+        this.partiesSlugs.splice(index, 1);
+      }
+    } else {
+      this.partiesSlugs.push(slug);
     }
   }
 

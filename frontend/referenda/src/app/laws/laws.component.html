@@ -154,6 +154,42 @@
 
       </div>
 
+      <div class="position-container">
+        <div class="voter-shower" (click)="showPartiesMenu(law.slug)">
+          <div class="voter azul-referenda">
+            POSICIONAMIENTOS
+          </div>
+          <div class="miniuparrowblue" *ngIf="!partiesSlugs.includes(law.slug)"></div>
+          <div class="minidownarrowblue" *ngIf="partiesSlugs.includes(law.slug)"></div>
+        </div>
+
+        <div class="position-menu" *ngIf="partiesSlugs.includes(law.slug)">
+          <div class="parties-position">
+            <div class="party-owner">Propuesta presentada por:</div>
+            <img class="mini-logo" src="assets/img/{{law.institution[0]}}.svg" alt="{{law.institution[0]}}">
+          </div>
+        </div>
+        <div class="position-menu" *ngIf="partiesSlugs.includes(law.slug)">
+          <div class="position-button favor" [ngClass]="{'position-active': position==='favour'}"
+               (click)="position='favour';">A FAVOR</div>
+          <div class="position-button contra" [ngClass]="{'position-active': position==='against'}"
+               (click)="position='against';">EN CONTRA</div>
+          <div class="position-button abs" [ngClass]="{'position-active': position==='abs'}"
+               (click)="position='abs';">ABS</div>
+        </div>
+        <div class="position-logos" *ngIf="partiesSlugs.includes(law.slug)">
+          <div *ngFor="let party of law.positiveParties">
+            <img class="logo" src="assets/img/{{party}}.svg" alt="{{party}}" *ngIf="position==='favour'">
+          </div>
+          <div *ngFor="let party of law.negativeParties">
+            <img class="logo" src="assets/img/{{party}}.svg" alt="{{party}}" *ngIf="position==='against'">
+          </div>
+          <div *ngFor="let party of law.abstentionParties">
+            <img class="logo" src="assets/img/{{party}}.svg" alt="{{party}}" *ngIf="position==='abs'">
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 

@@ -16,9 +16,42 @@
       <div class="description" *ngIf="!readMore && !mobile"
            [innerHTML]="law.long_description.substring(0, 800) + ' [...]'"></div>
       <div class="description" *ngIf="readMore || mobile" [innerHTML]="law.long_description"></div>
-      <div class="read" *ngIf="!readMore && !mobile" (click)="toggle()">+ Leer m&aacute;s</div>
-      <div class="read" *ngIf="readMore && !mobile" (click)="toggle()">- Leer menos</div>
+      <div class="read-more" *ngIf="!readMore && !mobile" (click)="toggle()">+ Leer m&aacute;s</div>
+      <div class="read-less" *ngIf="readMore && !mobile" (click)="toggle()">- Leer menos</div>
+
+      <div class="comments-title">Comentarios ({{numComments}})</div>
+      <div class="comment-tabs">
+        <div class="tabs-base all" [ngClass]="{activetab: tab==='all'}" (click)="tab='all'; dateComments();">
+          TODOS
+        </div>
+        <div class="tabs-base top-comments" [ngClass]="{activetab: tab==='top'}" (click)="tab='top'; sortComments()">
+          MEJOR VALORADOS
+        </div>
+      </div>
+      <div class="comments-list">
+        <div class="comment" *ngFor="let comment of law.comments">
+          <div class="comment-container">
+            <div class="comment-info">
+              <div class="comment-username">{{comment.postedBy.username}}</div>
+              <div class="comment-datetime">{{comment.updatedAt | date:'d \'de\' MMMM \'de\' yyyy'}}</div>
+              <div class="comment-content" [innerHTML]="comment.comment"></div>
+            </div>
+            <div class="comment-votes">
+              <div class="comment-vote" (click)="voteComment([comment._id], 1)">
+                <div class="uparrowbluebig"></div>
+                {{comment.positive}}
+              </div>
+              <div class="comment-vote" (click)="voteComment([comment._id], 2)">
+                <div class="downarrowbluebig"></div>
+                {{comment.negative}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
+
 
     <div class="comments" *ngIf="comments">
       <div class="comments-title">Deja un comentario</div>
@@ -116,8 +149,13 @@
         </div>
 
         <div class="law-vote comments-button">
-          <div class="voter-large-box" (click)="showComments()" [ngClass]="{commentsactive: comments===true}">
-            COMENTARIOS ({{numComments}})
+          <div class="voter-large-box" *ngIf="comments===false" (click)="showComments()"
+               [ngClass]="{commentsactive: comments===true}">
+            COMENTAR
+          </div>
+          <div class="voter-large-box" *ngIf="comments===true" (click)="showComments()"
+               [ngClass]="{commentsactive: comments===true}">
+            PROPOSICIÓN
           </div>
           <div>
             <a
@@ -267,6 +305,45 @@
 
       </div>
 
+    </div>
+
+    <div class="position-container">
+      <div class="position-shower" (click)="showPartiesMenu(law.slug)">
+        <div class="position-title azul-referenda">
+          POSICIONAMIENTOS
+        </div>
+        <div class="miniuparrowblue" *ngIf="!partiesSlugs.includes(law.slug)"></div>
+        <div class="minidownarrowblue" *ngIf="partiesSlugs.includes(law.slug)"></div>
+      </div>
+
+      <div class="position-menu" *ngIf="partiesSlugs.includes(law.slug)">
+        <div class="parties-position">
+          <div class="party-owner">Propuesta presentada por:</div>
+          <img class="mini-logo" src="assets/img/{{law.institution[0]}}.svg" alt="{{law.institution[0]}}">
+        </div>
+      </div>
+      <div class="position-menu" *ngIf="partiesSlugs.includes(law.slug)">
+        <div class="position-button favor" [ngClass]="{'position-active': position==='favour'}"
+             (click)="position='favour';">A FAVOR
+        </div>
+        <div class="position-button contra" [ngClass]="{'position-active': position==='against'}"
+             (click)="position='against';">EN CONTRA
+        </div>
+        <div class="position-button abs" [ngClass]="{'position-active': position==='abs'}"
+             (click)="position='abs';">ABS
+        </div>
+      </div>
+      <div class="position-logos" *ngIf="partiesSlugs.includes(law.slug)">
+        <div *ngFor="let party of law.positiveParties">
+          <img class="logo" src="assets/img/{{party}}.svg" alt="{{party}}" *ngIf="position==='favour'">
+        </div>
+        <div *ngFor="let party of law.negativeParties">
+          <img class="logo" src="assets/img/{{party}}.svg" alt="{{party}}" *ngIf="position==='against'">
+        </div>
+        <div *ngFor="let party of law.abstentionParties">
+          <img class="logo" src="assets/img/{{party}}.svg" alt="{{party}}" *ngIf="position==='abs'">
+        </div>
+      </div>
     </div>
 
 
