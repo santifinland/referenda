@@ -10,7 +10,7 @@
   width: 33.3333%;
   flex-direction: column;
   flex-wrap: wrap;
-  height: 132px;
+  height: 150px;
   padding: 36px 108px 36px 50px;
   z-index: 1;
 }
@@ -33,7 +33,7 @@
 
 .content, a {
   display: flex;
-  width: 226px;
+  width: 260px;
   font-family: Roboto, sans-serif;
   font-style: normal;
   font-weight: 300;

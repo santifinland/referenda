@@ -1,8 +1,8 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var URLSlugs = require('mongoose-url-slugs');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const URLSlugs = require('mongoose-url-slugs');
 
-var commentSchema = new Schema({
+const commentSchema = new Schema({
     positive: {
         type: Number,
         default: 0
@@ -10,6 +10,10 @@ var commentSchema = new Schema({
     negative: {
         type: Number,
         default: 0
+    },
+    position: {
+        type: Number,
+        default: 1  // 1: second, 2: against, 3: abstention
     },
     comment:  {
         type: String,
@@ -26,7 +30,7 @@ var commentSchema = new Schema({
 commentSchema.add({ replies: [commentSchema] });
 
 // create a schema
-var lawSchema = new Schema({
+const lawSchema = new Schema({
       law_id: String,
       reviewed: Boolean,
       law_type: String,
@@ -70,7 +74,7 @@ lawSchema.plugin(URLSlugs('headline'), {field: 'slug'});
 
 // the schema is useless so far
 // we need to create a model using it
-var Laws = mongoose.model('Law', lawSchema);
+const Laws = mongoose.model('Law', lawSchema);
 
 // make this available to our Node applications
 module.exports = Laws;
