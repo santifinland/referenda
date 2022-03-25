@@ -13,6 +13,7 @@
 
     <div class="law-info" *ngIf="!comments">
       <h1 class="headline">{{law.headline}}</h1>
+      <div class="vote-advise" *ngIf="userPosition === 0 && mobile">Aún no has votado esta propuesta</div>
       <div class="description" *ngIf="!readMore && !mobile"
            [innerHTML]="law.long_description.substring(0, 800) + ' [...]'"></div>
       <div class="description" *ngIf="readMore || mobile" [innerHTML]="law.long_description"></div>
@@ -108,14 +109,14 @@
       <div class="voter-sticky">
         <div class="voter-title voter-text">Vota esta proposici&oacute;n</div>
         <div class="law-vote">
-          <div class="voter-large-box" (click)="submitVote([law.slug], 1); vote='yes';"
-               [ngClass]="{vote: vote==='yes'}" (mouseover)="yesHover=true" (mouseleave)="yesHover=false">S&Iacute;
+          <div class="voter-large-box" (click)="submitVote([law.slug], 1);"
+               [ngClass]="{vote: userPosition===1}" (mouseover)="yesHover=true" (mouseleave)="yesHover=false">S&Iacute;
           </div>
-          <div class="voter-large-box" (click)="submitVote([law.slug], 2); vote='no';"
-               [ngClass]="{vote: vote==='no'}" (mouseover)="noHover=true" (mouseleave)="noHover=false">NO
+          <div class="voter-large-box" (click)="submitVote([law.slug], 2);"
+               [ngClass]="{vote: userPosition===2}" (mouseover)="noHover=true" (mouseleave)="noHover=false">NO
           </div>
-          <div class="voter-large-box" (click)="submitVote([law.slug], 3); vote='abs';"
-               [ngClass]="{vote: vote==='abs'}" (mouseover)="absHover=true" (mouseleave)="absHover=false">ABSTENCI&Oacute;N
+          <div class="voter-large-box" (click)="submitVote([law.slug], 3);"
+               [ngClass]="{vote: userPosition===3}" (mouseover)="absHover=true" (mouseleave)="absHover=false">ABSTENCI&Oacute;N
           </div>
           <a class="voter-large-box" href="{{law.link}}">+SABER M&Aacute;S</a>
         </div>
@@ -128,22 +129,22 @@
         </div>
 
         <div class="position">
-          <div class="favour" [ngClass]="{active: position==='favour'}" (click)="position='favour';">A FAVOR</div>
-          <div class="against" [ngClass]="{active: position==='against'}" (click)="position='against';">EN CONTRA</div>
-          <div class="abstention" [ngClass]="{active: position==='abs'}" (click)="position='abs';">ABSTENCI&Oacute;N
+          <div class="favour" [ngClass]="{active: partiesPosition==='favour'}" (click)="partiesPosition='favour';">A FAVOR</div>
+          <div class="against" [ngClass]="{active: partiesPosition==='against'}" (click)="partiesPosition='against';">EN CONTRA</div>
+          <div class="abstention" [ngClass]="{active: partiesPosition==='abs'}" (click)="partiesPosition='abs';">ABSTENCI&Oacute;N
           </div>
         </div>
         <div class="position-hr"></div>
 
-        <div class="parties" *ngIf="position==='favour'">
+        <div class="parties" *ngIf="partiesPosition==='favour'">
           <img *ngFor="let party of law.positiveParties" src="assets/img/{{party}}.svg" alt="{{party}}"
                [ngStyle]="{'width': logoWidth(party), 'height': logoHeight(party)}">
         </div>
-        <div class="parties" *ngIf="position==='against'">
+        <div class="parties" *ngIf="partiesPosition==='against'">
           <img *ngFor="let party of law.negativeParties" src="assets/img/{{party}}.svg" alt="{{party}}"
                [ngStyle]="{'width': logoWidth(party), 'height': logoHeight(party)}">
         </div>
-        <div class="parties" *ngIf="position==='abs'">
+        <div class="parties" *ngIf="partiesPosition==='abs'">
           <img *ngFor="let party of law.abstentionParties" src="assets/img/{{party}}.svg" alt="{{party}}"
                [ngStyle]="{'width': logoWidth(party), 'height': logoHeight(party)}">
         </div>
@@ -274,10 +275,15 @@
         <div class="minidownarrow" *ngIf="voterMenu"></div>
       </div>
 
+      <div class="vote-remember" *ngIf="voterMenu && userPosition !== 0">Ya has votado esta propuesta</div>
+      <div class="vote-remember" *ngIf="voterMenu && userPosition === 0">Aún no has votado esta propuesta</div>
+
       <div class="mob-voter-menu" *ngIf="voterMenu">
 
         <div class="voter-button-bar">
-          <div class="voter-button" (click)="submitVote([law.slug], 1); vote='yes';">S&Iacute;</div>
+          <div class="voter-button" (click)="submitVote([law.slug], 1);"
+               [ngClass]="{vote: userPosition===1}">S&Iacute;
+          </div>
           <div class="voter-bar">
             <div class="voter-bar-value" [style.width.%]="law.positivePercentage">
               <div class="voter-percentage">{{law.positivePercentage | number:'1.0-0'}}%</div>
@@ -286,7 +292,9 @@
         </div>
 
         <div class="voter-button-bar">
-          <div class="voter-button" (click)="submitVote([law.slug], 2); vote='no';">NO</div>
+          <div class="voter-button" (click)="submitVote([law.slug], 2);"
+               [ngClass]="{vote: userPosition===2}">NO
+          </div>
           <div class="voter-bar">
             <div class="voter-bar-value" [style.width.%]="law.negativePercentage">
               <div class="voter-percentage">{{law.negativePercentage | number:'1.0-0'}}%</div>
@@ -295,7 +303,8 @@
         </div>
 
         <div class="voter-button-bar">
-          <div class="voter-button" (click)="submitVote([law.slug], 3); vote='abs';">ABS</div>
+          <div class="voter-button" (click)="submitVote([law.slug], 3);"
+               [ngClass]="{vote: userPosition===3}">ABS</div>
           <div class="voter-bar">
             <div class="voter-bar-value" [style.width.%]="law.abstentionPercentage">
               <div class="voter-percentage">{{law.abstentionPercentage | number:'1.0-0'}}%</div>
@@ -323,27 +332,31 @@
         </div>
       </div>
       <div class="position-menu" *ngIf="partiesSlugs.includes(law.slug)">
-        <div class="position-button favor" [ngClass]="{'position-active': position==='favour'}"
-             (click)="position='favour';">A FAVOR
+        <div class="position-button favor" [ngClass]="{'position-active': partiesPosition==='favour'}"
+             (click)="partiesPosition='favour';">A FAVOR
         </div>
-        <div class="position-button contra" [ngClass]="{'position-active': position==='against'}"
-             (click)="position='against';">EN CONTRA
+        <div class="position-button contra" [ngClass]="{'position-active': partiesPosition==='against'}"
+             (click)="partiesPosition='against';">EN CONTRA
         </div>
-        <div class="position-button abs" [ngClass]="{'position-active': position==='abs'}"
-             (click)="position='abs';">ABS
+        <div class="position-button abs" [ngClass]="{'position-active': partiesPosition==='abs'}"
+             (click)="partiesPosition='abs';">ABS
         </div>
       </div>
       <div class="position-logos" *ngIf="partiesSlugs.includes(law.slug)">
-        <div *ngFor="let party of law.positiveParties">
-          <img class="logo" src="assets/img/{{party}}.svg" alt="{{party}}" *ngIf="position==='favour'">
+       <div class="parties" *ngIf="partiesPosition==='favour'">
+          <img *ngFor="let party of law.positiveParties" src="assets/img/{{party}}.svg" alt="{{party}}"
+               [ngStyle]="{'width': logoWidth(party), 'height': logoHeight(party)}">
         </div>
-        <div *ngFor="let party of law.negativeParties">
-          <img class="logo" src="assets/img/{{party}}.svg" alt="{{party}}" *ngIf="position==='against'">
+        <div class="parties" *ngIf="partiesPosition==='against'">
+          <img *ngFor="let party of law.negativeParties" src="assets/img/{{party}}.svg" alt="{{party}}"
+               [ngStyle]="{'width': logoWidth(party), 'height': logoHeight(party)}">
         </div>
-        <div *ngFor="let party of law.abstentionParties">
-          <img class="logo" src="assets/img/{{party}}.svg" alt="{{party}}" *ngIf="position==='abs'">
+        <div class="parties" *ngIf="partiesPosition==='abs'">
+          <img *ngFor="let party of law.abstentionParties" src="assets/img/{{party}}.svg" alt="{{party}}"
+               [ngStyle]="{'width': logoWidth(party), 'height': logoHeight(party)}">
         </div>
       </div>
+
     </div>
 
 

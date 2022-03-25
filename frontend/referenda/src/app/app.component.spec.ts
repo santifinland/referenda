@@ -16,7 +16,6 @@ describe('AppComponent', () => {
         AppComponent
       ],
       providers: [
-        WindowService
       ],
     }).compileComponents();
   }));

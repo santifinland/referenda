@@ -18,7 +18,7 @@ export class CookiesService {
   public setCookieConsent(decision: boolean) {
       this.cookieService.set(this.REFERENDA_CONSENT,
                              decision ? 'true' : 'false',
-                             {expires: 30});
+                             {expires: 30, domain: 'referenda.es', path: '/', secure: true});
   }
 
   public isCookieConsentDecided(): boolean {

@@ -62,18 +62,23 @@
 
       <div class="law-info">
         <div class="texto">{{law.short_description}}</div>
+        <div class="vote-advise" *ngIf="law.userPosition === 0">Aún no has votado esta propuesta</div>
+        <div class="vote-remember" *ngIf="law.userPosition !== 0" >Ya has votado esta propuesta</div>
         <!--<div class="voto">A&uacute;n no has votado esta propuesta</div>-->
         <div class="botones">
-          <div
-            [ngClass]="{boton: true, si: true, disabled: !law.isPositive || law.checkNegative || law.checkAbstention}"
+          <div class="boton si" (click)="submitVote([law.slug], 1);"
+            [ngClass]="{'position-active': law.userPosition === 1,
+                        disabled: !law.isPositive || law.checkNegative || law.checkAbstention}"
             (mouseover)="law.checkPositive=true" (mouseleave)="law.checkPositive=false">S&Iacute;
           </div>
-          <div
-            [ngClass]="{boton: true, no: true, disabled: !law.isNegative || law.checkPositive || law.checkAbstention}"
+          <div class="boton no" (click)="submitVote([law.slug], 2);"
+            [ngClass]="{'position-active': law.userPosition === 2,
+                        disabled: !law.isNegative || law.checkPositive || law.checkAbstention}"
             (mouseover)="law.checkNegative=true" (mouseleave)="law.checkNegative=false">NO
           </div>
-          <div
-            [ngClass]="{boton: true, abs: true, disabled: !law.isAbstention || law.checkPositive || law.checkNegative}"
+          <div class="boton abs" (click)="submitVote([law.slug], 3);"
+            [ngClass]="{'position-active': law.userPosition === 3,
+                        disabled: !law.isAbstention || law.checkPositive || law.checkNegative}"
             (mouseover)="law.checkAbstention=true" (mouseleave)="law.checkAbstention=false">ABS
           </div>
           <div class="boton more disabled" routerLink="/ley/{{law.slug}}">LEER M&Aacute;S</div>
@@ -114,7 +119,8 @@
         <div class="voter-menu" *ngIf="voterSlugs.includes(law.slug)">
 
           <div class="voter-button-bar">
-            <div class="voter-button" (click)="submitVote([law.slug], 1); vote='yes';">S&Iacute;</div>
+            <div class="voter-button" (click)="submitVote([law.slug], 1);"
+                 [ngClass]="{vote: law.userPosition===1}">S&Iacute;</div>
             <div class="voter-bar">
               <div class="voter-bar-value" [style.width.%]="law.positivePercentage">
                 <div class="voter-percentage">
@@ -125,7 +131,8 @@
           </div>
 
           <div class="voter-button-bar">
-            <div class="voter-button" (click)="submitVote([law.slug], 2); vote='no';">NO</div>
+            <div class="voter-button" (click)="submitVote([law.slug], 2);"
+                 [ngClass]="{vote: law.userPosition===2}">NO</div>
             <div class="voter-bar">
               <div class="voter-bar-value" [style.width.%]="law.negativePercentage">
                 <div class="voter-percentage">
@@ -136,7 +143,8 @@
           </div>
 
           <div class="voter-button-bar">
-            <div class="voter-button" (click)="submitVote([law.slug], 3); vote='abs';">ABS</div>
+            <div class="voter-button" (click)="submitVote([law.slug], 3);"
+                 [ngClass]="{vote: law.userPosition===3}">ABS</div>
             <div class="voter-bar">
               <div class="voter-bar-value" [style.width.%]="law.abstentionPercentage">
                 <div class="voter-percentage">
@@ -170,22 +178,28 @@
           </div>
         </div>
         <div class="position-menu" *ngIf="partiesSlugs.includes(law.slug)">
-          <div class="position-button favor" [ngClass]="{'position-active': position==='favour'}"
-               (click)="position='favour';">A FAVOR</div>
-          <div class="position-button contra" [ngClass]="{'position-active': position==='against'}"
-               (click)="position='against';">EN CONTRA</div>
-          <div class="position-button abs" [ngClass]="{'position-active': position==='abs'}"
-               (click)="position='abs';">ABS</div>
+          <div class="position-button favor" [ngClass]="{'position-active': partiesPosition==='favour'}"
+               (click)="partiesPosition='favour';">A FAVOR
+          </div>
+          <div class="position-button contra" [ngClass]="{'position-active': partiesPosition==='against'}"
+               (click)="partiesPosition='against';">EN CONTRA
+          </div>
+          <div class="position-button abs" [ngClass]="{'position-active': partiesPosition==='abs'}"
+               (click)="partiesPosition='abs';">ABS
+          </div>
         </div>
         <div class="position-logos" *ngIf="partiesSlugs.includes(law.slug)">
-          <div *ngFor="let party of law.positiveParties">
-            <img class="logo" src="assets/img/{{party}}.svg" alt="{{party}}" *ngIf="position==='favour'">
+          <div class="parties" *ngIf="partiesPosition==='favour'">
+            <img *ngFor="let party of law.positiveParties" src="assets/img/{{party}}.svg" alt="{{party}}"
+                 [ngStyle]="{'width': logoWidth(party), 'height': logoHeight(party)}">
           </div>
-          <div *ngFor="let party of law.negativeParties">
-            <img class="logo" src="assets/img/{{party}}.svg" alt="{{party}}" *ngIf="position==='against'">
+          <div class="parties" *ngIf="partiesPosition==='against'">
+            <img *ngFor="let party of law.negativeParties" src="assets/img/{{party}}.svg" alt="{{party}}"
+                 [ngStyle]="{'width': logoWidth(party), 'height': logoHeight(party)}">
           </div>
-          <div *ngFor="let party of law.abstentionParties">
-            <img class="logo" src="assets/img/{{party}}.svg" alt="{{party}}" *ngIf="position==='abs'">
+          <div class="parties" *ngIf="partiesPosition==='abs'">
+            <img *ngFor="let party of law.abstentionParties" src="assets/img/{{party}}.svg" alt="{{party}}"
+                 [ngStyle]="{'width': logoWidth(party), 'height': logoHeight(party)}">
           </div>
         </div>
       </div>

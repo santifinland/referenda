@@ -33,7 +33,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'referenda', loadChildren: () => import('./aboutus/aboutus.module').then(m => m.AboutusModule) },
   { path: 'reset-password', component: ResetPasswordComponent },
-  { path: 'resultados', component: ResultsComponent }
+  { path: 'resultados', component: ResultsComponent },
 ];
 
 @NgModule({

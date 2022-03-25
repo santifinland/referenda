@@ -42,6 +42,23 @@ const findVote = function findVote(law, user, callback) {
     });
 };
 
+const findDirectVote = function findDirectVote(law, user, callback) {
+    console.log(law._id);
+    console.log(user._id);
+    Votes.findOne({"lawId": law._id, "userId": user}, function (err, singleVote) {
+        if (err) callback(err, null);
+        // If direct vote found
+        if (singleVote) {
+            console.log("Encontrado voto directo:");
+            console.log(singleVote.vote);
+            return callback(null, singleVote.vote);
+            // If no direct vote found
+        } else {
+            return callback(null, 0);
+        }
+    });
+};
+
 const updateVotes = function updateVotes(law, users, accPositive, accNegative, accAbstention, callback) {
     console.log("Users length: " + users.length);
     if (users.length > 0) {
@@ -53,10 +70,10 @@ const updateVotes = function updateVotes(law, users, accPositive, accNegative, a
                 console.log("Encontrado voto del usuario: " + vote)
                 if (err) return callback(err, null, null, null);
                 users.shift();
-                if (vote == 0) return updateVotes(law, users, accPositive, accNegative, accAbstention, callback);
-                if (vote == 1) return updateVotes(law, users, accPositive + 1, accNegative, accAbstention, callback);
-                if (vote == 2) return updateVotes(law, users, accPositive, accNegative + 1, accAbstention, callback);
-                if (vote == 3) return updateVotes(law, users, accPositive, accNegative, accAbstention + 1, callback);
+                if (vote === 0) return updateVotes(law, users, accPositive, accNegative, accAbstention, callback);
+                if (vote === 1) return updateVotes(law, users, accPositive + 1, accNegative, accAbstention, callback);
+                if (vote === 2) return updateVotes(law, users, accPositive, accNegative + 1, accAbstention, callback);
+                if (vote === 3) return updateVotes(law, users, accPositive, accNegative, accAbstention + 1, callback);
             });
         });
     } else {
@@ -345,6 +362,24 @@ lawRouter.route('/ley/:slug/comments')
 });
 
 lawRouter.route('/ley/:slug/votes')
+.get(Verify.verifyOrdinaryUser, function (req, res, next) {
+    Laws.findOne({"slug": req.params.slug})
+        .exec(function (err, law) {
+        if (err) return next(err);
+        if (law) {
+            findDirectVote(law, req.decoded._id, function (err, vote) {
+                if (err) return next(err);
+                res.status(200).json({
+                    "positive": vote === 1 ? 1: 0,
+                    "negative": vote === 2 ? 1: 0,
+                    "abstention": vote === 3 ? 1: 0,
+                });
+            });
+        } else {
+            res.status(404).end();
+        }
+    });
+})
 .post(Verify.verifyOrdinaryUser, function (req, res, next) {
     if (req.body.vote < 1 || req.body.vote > 3) {
         res.status(400).json({"Reason": "Vote out of bounds: 1-3"});

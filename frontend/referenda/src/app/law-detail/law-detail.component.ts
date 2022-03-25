@@ -22,7 +22,8 @@ export class LawDetailComponent implements OnInit {
   facebook: string;
   twitter: string;
 
-  position: string;
+  userPosition: number = 0;
+  partiesPosition: string;
   yesHover: boolean;
   noHover: boolean;
   absHover: boolean;
@@ -58,15 +59,15 @@ export class LawDetailComponent implements OnInit {
     private titleService: Title,
     @Inject(PLATFORM_ID) private platformId: Object,
     @Inject(WINDOW) private window: Window) {
-    this.route.params.subscribe(params => this.getLaw(params['slug']));
-    this.location = 'https://referenda.es' + this.router.url;
+      this.route.params.subscribe(params => this.getLaw(params['slug']));
+      this.location = 'https://referenda.es' + this.router.url;
   }
 
   ngOnInit() {
     this.commentForm = this.formBuilder.group({
       comment: ['', Validators.required]
     });
-    this.position = 'favour';
+    this.partiesPosition = 'favour';
   }
 
   get f() {
@@ -100,6 +101,7 @@ export class LawDetailComponent implements OnInit {
         if (isPlatformBrowser(this.platformId)) {
           this.mobile = window.innerWidth < 640;
         }
+        this.getVote(law.slug);
       });
   }
 
@@ -112,11 +114,29 @@ export class LawDetailComponent implements OnInit {
     }
   }
 
+  getVote(slug: string): void {
+    this.lawService.getLawVote(slug)
+      .subscribe(
+        (data: VoteResponse) => {
+          if (data.positive > 0) {
+            this.userPosition = 1
+          } else if (data.negative > 0) {
+            this.userPosition = 2
+          } else if (data.abstention > 0) {
+            this.userPosition = 3
+          } else {
+            this.userPosition = 0
+          }
+        },
+      );
+  }
+
   submitVote(slug: string, vote: number): void {
     this.lawService.submitVote(slug, vote)
       .subscribe(
         (data: VoteResponse) => {
           this.getLaw(slug);
+          this.getVote(slug);
         },
         err => this.router.navigateByUrl('login?returnUrl=' + encodeURI(this.router.url))
       );

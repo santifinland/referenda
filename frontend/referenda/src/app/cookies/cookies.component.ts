@@ -1,7 +1,9 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { Meta, Title } from '@angular/platform-browser';
+import {Component, Inject, OnInit, PLATFORM_ID} from '@angular/core';
+import {isPlatformBrowser} from '@angular/common';
+import {Meta, Title} from '@angular/platform-browser';
 
-import { CookiesService, WINDOW } from '../_services';
+
+import {CookiesService, WINDOW} from '../_services';
 
 
 @Component({
@@ -18,6 +20,7 @@ export class CookiesComponent implements OnInit {
       private metaTagService: Meta,
       private titleService: Title,
       private cookiesService: CookiesService,
+      @Inject(PLATFORM_ID) private platformId: Object,
       @Inject(WINDOW) private window: Window) {
     this.decided = this.cookiesService.isCookieConsentDecided();
   }
@@ -26,7 +29,9 @@ export class CookiesComponent implements OnInit {
     const title = 'Referenda. Política de Cookies';
     this.titleService.setTitle(title);
     this.metaTagService.updateTag({ name: 'description', content: title });
-    window.scroll({top: 0, behavior: 'smooth'});
+    if (isPlatformBrowser(this.platformId)) {
+      window.scroll({top: 0, behavior: 'smooth'});
+    }
     if (this.decided) {
       this.cookieConsent = this.cookiesService.getCookieConsent();
     } else {
