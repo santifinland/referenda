@@ -30,7 +30,7 @@
     "@nguniversal/express-engine": "^13.1.0",
     "angularx-social-login": "^4.1.0",
     "buffer": "^6.0.3",
-    "core-js": "^3.15.1",
+    "core-js": "^3.21.1",
     "d3": "^7.3.0",
     "express": "^4.17.3",
     "localstorage-polyfill": "^1.0.1",
