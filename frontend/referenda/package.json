@@ -41,7 +41,7 @@
     "ngx-order-pipe": "^2.1.1",
     "ngx-swiper-wrapper": "^10.0.0",
     "ngx-useful-swiper": "^10.0.1",
-    "rxjs": "^6.5.3",
+    "rxjs": "^7.5.5",
     "rxjs-compat": "^6.6.7",
     "stream-browserify": "^3.0.0",
     "swagger-ui": "^4.5.2",
