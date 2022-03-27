@@ -139,6 +139,10 @@ h1 {
   color: #FFFFFF;
 }
 
+.login-button:hover {
+  cursor: pointer;
+}
+
 .register {
   color: #3E979E;
 }
