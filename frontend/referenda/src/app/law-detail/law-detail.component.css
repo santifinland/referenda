@@ -40,7 +40,6 @@
   background: #3E979E;
   flex: 1;
 }
-
 .voter-sticky {
   position: sticky;
   top: 45px;
@@ -164,6 +163,7 @@
 }
 
 .vote {
+  background: #BBD7D9;
 }
 
 .voter-title {
@@ -690,7 +690,10 @@ input::placeholder {
   justify-content: center;
   letter-spacing: 0.02em;
   color: #FFFFFF;
-  background: #3E979E;
+}
+
+.voter-button:hover {
+  background: #BBD7D9;
 }
 
 .voter-bar {
@@ -736,6 +739,44 @@ input::placeholder {
 
 .position-container {
   display: none;
+}
+
+.vote-advise {
+  display: flex;
+  width: 254px;
+  height: 22px;
+  justify-content: center;
+  align-self: center;
+  background: #3E979E;
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 144.7%;
+  text-align: center;
+  letter-spacing: 0.02em;
+  color: #FFFFFF;
+}
+
+.vote-remember {
+  display: flex;
+  margin: 15px 0 42px 0;
+  align-self: center;
+  justify-content: center;
+  padding: 0 16px;
+  width: auto;
+  height: 22px;
+  border: 1px solid #3E979E;
+  box-sizing: border-box;
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 144.7%;
+  text-align: center;
+  letter-spacing: 0.02em;
+  color: #3E979E;
+  background: #FFF;
 }
 
 @media (max-width: 1170px) {
@@ -816,7 +857,6 @@ input::placeholder {
     width: 100%;
     height: auto;
     align-items: center;
-    gap: 72px;
     margin: 0 auto;
     background: #3E979E;
   }
@@ -972,16 +1012,13 @@ input::placeholder {
   .position-logos {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    align-items: start;
     width: calc(100% - 80px);
-    height: auto;
+    height: 200px;
     gap: 14px;
-    padding: 35px 40px 46px 40px;
-    justify-content: start;
+    padding: 20px 40px 10px 40px;
     background: rgba(222, 228, 228, 0.93);
-  }
-
-  .logo {
-    height: 37px;
   }
 }
 

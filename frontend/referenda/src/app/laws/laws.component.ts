@@ -42,9 +42,8 @@ export class LawsComponent implements OnInit {
   smartphoneMenu = false;
   voterSlugs: string[] = [];
   partiesSlugs: string[] = [];
-  vote = '';
   scrolled = false;
-  position: string;
+  partiesPosition: string;
 
   currentUser: User | undefined;
   currentUserSubscription: Subscription;
@@ -79,6 +78,7 @@ export class LawsComponent implements OnInit {
     if (this.router.url === '/') {
       title = 'Referenda - Democracia directa';
     }  else {
+      this.landing = false;
       title = 'Leyes debatidas en el Congreso de los Diputados de España';
     }
     this.titleService.setTitle(title);
@@ -86,7 +86,7 @@ export class LawsComponent implements OnInit {
     if (isPlatformBrowser(this.platformId)) {
       this.smartphoneMenu = window.innerWidth > 640;
     }
-    this.position = 'favour';
+    this.partiesPosition = 'favour';
   }
 
   async getLatestLaws() {
@@ -95,6 +95,10 @@ export class LawsComponent implements OnInit {
       .subscribe(laws => {
         const tierLaws = this.prepareLaws(laws.filter(law => law.tier === 1));
         this.laws = this.sortLaws(tierLaws);
+        if (this.currentUser) {
+          console.log("Current user " + this.currentUser)
+          this.laws = this.getVotes(this.laws);
+        }
       });
     // const data = await this.lawService.getLaws().pipe(take(1)).toPromise();
     // this.laws = this.sortLaws(data);
@@ -116,6 +120,7 @@ export class LawsComponent implements OnInit {
     law.positiveWidth   = (15 + 40 * law.positive   / (law.positive + law.negative + law.abstention)) + '%';
     law.negativeWidth   = (15 + 40 * law.negative   / (law.positive + law.negative + law.abstention)) + '%';
     law.abstentionWidth = (15 + 40 * law.abstention / (law.positive + law.negative + law.abstention)) + '%';
+    law.userPosition = 0;
     return law;
   }
 
@@ -124,6 +129,9 @@ export class LawsComponent implements OnInit {
       .subscribe(laws => {
         const tierLaws = this.prepareLaws(laws.filter(law => law.tier === 1));
         this.laws = this.sortLaws(tierLaws);
+        if (this.currentUser) {
+          this.laws = this.getVotes(this.laws);
+        }
       });
   }
 
@@ -206,7 +214,32 @@ export class LawsComponent implements OnInit {
       .subscribe(law => {
         law = this.prepareLaw(law);
         this.laws = this.laws.map(l => l.slug !== law.slug ? l : law);
+        if (this.currentUser) {
+          this.laws = this.getVotes(this.laws);
+        }
       });
+  }
+
+  getVotes(laws: Law[]): Law[] {
+    return laws.map(law => this.getVote(law))
+  }
+
+  getVote(law: Law): Law {
+    this.lawService.getLawVote(law.slug)
+      .subscribe(
+        (data: VoteResponse) => {
+          if (data.positive > 0) {
+            law.userPosition = 1;
+          } else if (data.negative > 0) {
+            law.userPosition = 2;
+          } else if (data.abstention > 0) {
+            law.userPosition = 3;
+          } else {
+            law.userPosition = 0;
+          }
+        },
+      );
+    return law
   }
 
   submitVote(slug: string, vote: number): void {
@@ -223,5 +256,153 @@ export class LawsComponent implements OnInit {
       console.log('submit NOT logged');
       this.router.navigateByUrl('login?returnUrl=' + encodeURI(this.router.url));
     }
+  }
+
+  logoWidth(party: string): string {
+    let width = '30px';
+    switch (party) {
+      case 'psoe': {
+        width = '30px';
+        break;
+      }
+      case 'pp': {
+        width = '30px';
+        break;
+      }
+      case 'vox': {
+        width = '50px';
+        break;
+      }
+      case 'podemos': {
+        width = '69px';
+        break;
+      }
+      case 'ciudadanos': {
+        width = '100px';
+        break;
+      }
+      case 'erc': {
+        width = '96px';
+        break;
+      }
+      case 'jpc': {
+        width = '24px';
+        break;
+      }
+      case 'pnv': {
+        width = '30px';
+        break;
+      }
+      case 'bildu': {
+        width = '50px';
+        break;
+      }
+      case 'mp': {
+        width = '36px';
+        break;
+      }
+      case 'cup': {
+        width = '34px';
+        break;
+      }
+      case 'cc': {
+        width = '37px';
+        break;
+      }
+      case 'upn': {
+        width = '49px';
+        break;
+      }
+      case 'bng': {
+        width = '34px';
+        break;
+      }
+      case 'prc': {
+        width = '48px';
+        break;
+      }
+      case 'te': {
+        width = '34px';
+        break;
+      }
+      default: {
+        break;
+      }
+    }
+    return width;
+  }
+
+  logoHeight(party: string): string {
+    let height = '30px';
+    switch (party) {
+      case 'psoe': {
+        height = '29px';
+        break;
+      }
+      case 'pp': {
+        height = '30px';
+        break;
+      }
+      case 'vox': {
+        height = '25px';
+        break;
+      }
+      case 'podemos': {
+        height = '17px';
+        break;
+      }
+      case 'ciudadanos': {
+        height = '25px';
+        break;
+      }
+      case 'erc': {
+        height = '19px';
+        break;
+      }
+      case 'jpc': {
+        height = '23px';
+        break;
+      }
+      case 'pnv': {
+        height = '30px';
+        break;
+      }
+      case 'bildu': {
+        height = '19px';
+        break;
+      }
+      case 'mp': {
+        height = '23px';
+        break;
+      }
+      case 'cup': {
+        height = '35px';
+        break;
+      }
+      case 'cc': {
+        height = '35px';
+        break;
+      }
+      case 'upn': {
+        height = '30px';
+        break;
+      }
+      case 'bng': {
+        height = '37px';
+        break;
+      }
+      case 'prc': {
+        height = '15px';
+        break;
+      }
+      case 'te': {
+        height = '33px';
+        break;
+      }
+      default: {
+        break;
+      }
+    }
+    return height;
   }
 }

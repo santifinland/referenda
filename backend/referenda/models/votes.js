@@ -1,18 +1,18 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 // create a schema
-var voteSchema = new Schema({
+const voteSchema = new Schema({
       lawId: String,
       userId: String,
-      vote: Number
+      vote: Number  // 1: second, 2: against, 3: abstention
 }, {
     timestamps: true
 });
 
 // the schema is useless so far
 // we need to create a model using it
-var Votes = mongoose.model('Vote', voteSchema);
+const Votes = mongoose.model('Vote', voteSchema);
 
 // make this available to our Node applications
 module.exports = Votes;

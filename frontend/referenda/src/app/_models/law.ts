@@ -42,4 +42,5 @@ export class Law {
   negativeParties: string[];
   abstentionParties: string[];
   comments: Comment[];
+  userPosition: number;
 }

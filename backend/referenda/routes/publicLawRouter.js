@@ -39,28 +39,6 @@ const findVote = function findVote(law, user, callback) {
     });
 };
 
-const updateVotes = function updateVotes(law, users, accPositive, accNegative, accAbstention, callback) {
-    console.log("Users length: " + users.length);
-    if (users.length > 0) {
-        console.log("Mas de un usuario")
-        Users.findById(users[0]._id, function (err, user) {
-            if (err) return callback(err, null, null, null);
-            console.log("Buscando voto del usuario: " + user.username)
-            findVote(law, user, function (err, vote) {
-                console.log("Encontrado voto del usuario: " + vote)
-                if (err) return callback(err, null, null, null);
-                users.shift();
-                if (vote === 0) return updateVotes(law, users, accPositive, accNegative, accAbstention, callback);
-                if (vote === 1) return updateVotes(law, users, accPositive + 1, accNegative, accAbstention, callback);
-                if (vote === 2) return updateVotes(law, users, accPositive, accNegative + 1, accAbstention, callback);
-                if (vote === 3) return updateVotes(law, users, accPositive, accNegative, accAbstention + 1, callback);
-            });
-        });
-    } else {
-        return callback(null, accPositive, accNegative, accAbstention);
-    }
-};
-
 const lawRouter = express.Router();
 lawRouter.use(bodyParser.json());
 

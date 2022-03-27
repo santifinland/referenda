@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 import { AuthenticationService } from './authentication.service';
 import { environment } from '../../environments/environment';
 import { Law, User, VoteResponse } from '../_models';
+import {Vote} from "../_models/vote";
 
 @Injectable({
   providedIn: 'root'
@@ -68,6 +69,14 @@ export class LawService {
     return this.http.get<Law>(this.publicLawsUrl + '/ley/' + slug)
       .pipe(
         catchError(this.handleError<Law>('getLaw slug=${slug}'))
+      );
+  }
+
+  getLawVote(slug: string): Observable<VoteResponse> {
+    return this.http.get<VoteResponse>(this.lawsUrl + '/ley/' + slug + '/votes')
+      .pipe(
+        catchError(this.handleError<VoteResponse>('getLaw slug=${slug}',
+          new VoteResponse(0, 0, 0)))
       );
   }
 
