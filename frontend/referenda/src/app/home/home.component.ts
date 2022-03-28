@@ -32,7 +32,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private userService: UserService) {
     this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
-      console.log(user);
       this.currentUser = user;
       this.delegatedParty();
       this.delegatedUser();

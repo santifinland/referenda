@@ -1,13 +1,14 @@
-﻿import { Component, Inject, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { first } from 'rxjs/operators';
-import { Meta, Title } from '@angular/platform-browser';
+﻿import {Component, Inject, OnInit,PLATFORM_ID} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {isPlatformBrowser} from '@angular/common';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {first} from 'rxjs/operators';
+import {Meta, Title} from '@angular/platform-browser';
 
-import { SocialAuthService, FacebookLoginProvider, GoogleLoginProvider, SocialUser } from 'angularx-social-login';
+import {SocialAuthService, FacebookLoginProvider, GoogleLoginProvider, SocialUser} from 'angularx-social-login';
 
-import { AlertService, UserService, AuthenticationService, WINDOW } from '../_services';
-import { User } from '../_models';
+import {AlertService, UserService, AuthenticationService, WINDOW} from '../_services';
+import {User } from '../_models';
 
 
 @Component({
@@ -40,6 +41,7 @@ export class RegisterComponent implements OnInit {
       private router: Router,
       private titleService: Title,
       private userService: UserService,
+      @Inject(PLATFORM_ID) private platformId: Object,
       @Inject(WINDOW) private window: Window
   ) {
     if (this.authenticationService.currentUserValue) {
@@ -51,7 +53,9 @@ export class RegisterComponent implements OnInit {
     const title = 'Regístrate en Referenda y empieza a votar';
     this.titleService.setTitle(title);
     this.metaTagService.updateTag({ name: 'description', content: title });
-    window.scroll({top: 0, behavior: 'smooth'});
+    if (isPlatformBrowser(this.platformId)) {
+      window.scroll({top: 0, behavior: 'smooth'});
+    }
     this.socialRegisterForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.minLength(4)]],
       consent: [false, [Validators.requiredTrue]]

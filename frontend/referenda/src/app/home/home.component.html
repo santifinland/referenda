@@ -1,11 +1,12 @@
 ﻿<div class="home">
 
   <div class="header">
-    <h1>¡Hola, {{currentUser.username}}!</h1>
+    <h1 *ngIf="!currentUser">¡Hola!</h1>
+    <h1 *ngIf="currentUser">¡Hola, {{currentUser.username}}!</h1>
     <h3>Aqu&iacute; puedes gestionar tus preferencias y tu actividad en Referenda</h3>
   </div>
 
-  <div class="delegations">
+  <div class="delegations" *ngIf="currentUser">
     <h2>Delegaci&oacute;n de voto</h2>
     <div class="delegation-party-user">
       <div class="text" *ngIf="delegation == 'party'"> Has delegado tu voto al partido</div>
@@ -17,7 +18,7 @@
     <div class="delegate" routerLink="/delegar">MODIFICAR DELEGACI&Oacute;N DE VOTO</div>
   </div>
 
-  <div class="preferences">
+  <div class="preferences" *ngIf="currentUser">
     <h2>Nombre de usuario</h2>
     <div class="text">Aqu&iacute; puedes cambiar tu nombre de usuario</div>
     <form class="homeForm" [formGroup]="profileForm" (ngSubmit)="onChangeUsername()">
@@ -36,11 +37,12 @@
     </form>
   </div>
 
-  <div class="preferences">
+  <div class="preferences" *ngIf="currentUser">
     <h2>Contraseña</h2>
     <div class="text">Pincha<a class="remember" routerLink="/password"> aqu&iacute; </a>para cambiar tu contraseña</div>
   </div>
 
-  <button type="button" class="logout" (click)="logout()">Finalizar sesi&oacute;n</button>
+  <button type="button" class="logout" (click)="logout()" *ngIf="currentUser">Finalizar sesi&oacute;n</button>
+  <button type="button" class="logout login" routerLink="/login" *ngIf="!currentUser">Iniciar sesi&oacute;n</button>
 
 </div>

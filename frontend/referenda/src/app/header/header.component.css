@@ -101,6 +101,7 @@ a:hover {
 
 .sesion:hover .dropdown-sesion {
   display: block;
+  height: 117px;
 }
 
 .dropdown-sesion {

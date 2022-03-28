@@ -180,10 +180,21 @@ img.party-logo {
   color: #FFFFFF;
 }
 
+.login {
+  background: #3E979E;
+  border: 2px solid #3E979E;
+}
+
 .logout:hover {
   padding: 12px 18px;
   background: #FFF;
   color: red;
+  cursor: pointer;
+}
+
+.login:hover {
+  color: #3E979E;
+  cursor: pointer;
 }
 
 .remember {

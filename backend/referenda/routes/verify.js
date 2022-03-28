@@ -1,5 +1,5 @@
-var jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
-var config = require('../config.js');
+const jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
+const config = require('../config.js');
 
 
 exports.getToken = function (user) {
@@ -10,14 +10,14 @@ exports.getToken = function (user) {
 
 exports.verifyOrdinaryUser = function (req, res, next) {
     // check header or url parameters or post parameters for token
-    var token = req.body.token || req.query.token || req.headers['x-access-token'];
+    const token = req.body.token || req.query.token || req.headers['x-access-token'];
 
     // decode token
     if (token) {
         // verifies secret and checks exp
         jwt.verify(token, config.secretKey, function (err, decoded) {
             if (err) {
-                var err = new Error('You are not authenticated!');
+                const err = new Error('You are not authenticated!');
                 err.status = 401;
                 return next(err);
             } else {
@@ -29,7 +29,7 @@ exports.verifyOrdinaryUser = function (req, res, next) {
     } else {
         // if there is no token
         // return an error
-        var err = new Error('No token provided!');
+        const err = new Error('No token provided!');
         err.status = 403;
         return next(err);
     }
@@ -38,13 +38,12 @@ exports.verifyOrdinaryUser = function (req, res, next) {
 exports.verifyAdmin = function (req, res, next) {
 
     if (!req.decoded) {
-        var err = new Error('Your are not authorized to perform that');
+        const err = new Error('Your are not authorized to perform that');
         err.status = 403;
         return next(err);
     } else {
-        var id = req.decoded._id;
         if (!req.decoded.admin) {
-            var err = new Error('You are not authorized admin');
+            const err = new Error('You are not authorized admin');
             err.status = 403;
             return next(err);
         } else
