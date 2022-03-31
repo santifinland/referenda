@@ -63,23 +63,23 @@
       <div class="law-info">
         <div class="texto">{{law.short_description}}</div>
         <div class="vote-advise" *ngIf="law.userPosition === 0">Aún no has votado esta propuesta</div>
-        <div class="vote-remember" *ngIf="law.userPosition !== 0" >Ya has votado esta propuesta</div>
+        <div class="vote-remember" *ngIf="law.userPosition !== 0">Ya has votado esta propuesta</div>
         <!--<div class="voto">A&uacute;n no has votado esta propuesta</div>-->
         <div class="botones">
           <div class="boton si" (click)="submitVote([law.slug], 1);"
-            [ngClass]="{'position-active': law.userPosition === 1,
+               [ngClass]="{'position-active': law.userPosition === 1,
                         disabled: !law.isPositive || law.checkNegative || law.checkAbstention}"
-            (mouseover)="law.checkPositive=true" (mouseleave)="law.checkPositive=false">S&Iacute;
+               (mouseover)="law.checkPositive=true" (mouseleave)="law.checkPositive=false">S&Iacute;
           </div>
           <div class="boton no" (click)="submitVote([law.slug], 2);"
-            [ngClass]="{'position-active': law.userPosition === 2,
+               [ngClass]="{'position-active': law.userPosition === 2,
                         disabled: !law.isNegative || law.checkPositive || law.checkAbstention}"
-            (mouseover)="law.checkNegative=true" (mouseleave)="law.checkNegative=false">NO
+               (mouseover)="law.checkNegative=true" (mouseleave)="law.checkNegative=false">NO
           </div>
           <div class="boton abs" (click)="submitVote([law.slug], 3);"
-            [ngClass]="{'position-active': law.userPosition === 3,
+               [ngClass]="{'position-active': law.userPosition === 3,
                         disabled: !law.isAbstention || law.checkPositive || law.checkNegative}"
-            (mouseover)="law.checkAbstention=true" (mouseleave)="law.checkAbstention=false">ABS
+               (mouseover)="law.checkAbstention=true" (mouseleave)="law.checkAbstention=false">ABS
           </div>
           <div class="boton more disabled" routerLink="/ley/{{law.slug}}">LEER M&Aacute;S</div>
         </div>
@@ -120,7 +120,8 @@
 
           <div class="voter-button-bar">
             <div class="voter-button" (click)="submitVote([law.slug], 1);"
-                 [ngClass]="{vote: law.userPosition===1}">S&Iacute;</div>
+                 [ngClass]="{vote: law.userPosition===1}">S&Iacute;
+            </div>
             <div class="voter-bar">
               <div class="voter-bar-value" [style.width.%]="law.positivePercentage">
                 <div class="voter-percentage">
@@ -132,7 +133,8 @@
 
           <div class="voter-button-bar">
             <div class="voter-button" (click)="submitVote([law.slug], 2);"
-                 [ngClass]="{vote: law.userPosition===2}">NO</div>
+                 [ngClass]="{vote: law.userPosition===2}">NO
+            </div>
             <div class="voter-bar">
               <div class="voter-bar-value" [style.width.%]="law.negativePercentage">
                 <div class="voter-percentage">
@@ -144,7 +146,8 @@
 
           <div class="voter-button-bar">
             <div class="voter-button" (click)="submitVote([law.slug], 3);"
-                 [ngClass]="{vote: law.userPosition===3}">ABS</div>
+                 [ngClass]="{vote: law.userPosition===3}">ABS
+            </div>
             <div class="voter-bar">
               <div class="voter-bar-value" [style.width.%]="law.abstentionPercentage">
                 <div class="voter-percentage">
@@ -201,6 +204,15 @@
             <img *ngFor="let party of law.abstentionParties" src="assets/img/{{party}}.svg" alt="{{party}}"
                  [ngStyle]="{'width': logoWidth(party), 'height': logoHeight(party)}">
           </div>
+        </div>
+      </div>
+
+      <div class="position-container">
+        <div class="voter-shower" [routerLink]="['/ley/' + law.slug]" [queryParams]="{comments: true}">
+          <div class="voter azul-referenda">
+            COMENTARIOS ({{law.commentsLength}})
+          </div>
+          <div class="miniuparrowblueright" *ngIf="!partiesSlugs.includes(law.slug)"></div>
         </div>
       </div>
 

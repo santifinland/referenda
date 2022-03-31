@@ -360,6 +360,15 @@ input:focus {
   cursor: pointer;
 }
 
+.miniuparrowblueright {
+  padding-right: 33px;
+  width: 21px;
+  height: 11px;
+  background: url(../../assets/img/uparrowblue.svg) no-repeat;
+  cursor: pointer;
+  transform: rotate(90deg) translate(15px, 12px);
+}
+
 .minidownarrowblue {
   padding-right: 33px;
   width: 21px;

@@ -1,6 +1,5 @@
-import {ActivatedRoute} from '@angular/router';
 import {Component, Inject, OnInit, PLATFORM_ID} from '@angular/core';
-import {Router} from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
 import {Meta, Title} from '@angular/platform-browser';
 import {isPlatformBrowser} from '@angular/common';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -46,6 +45,8 @@ export class LawDetailComponent implements OnInit {
   tab = 'all';
   mobile = false;
   voterMenu = false;
+  mobileCommentsMenu = false;
+  addCommentMenu = false;
 
   location: string;
   partiesSlugs: string[] = [];
@@ -56,6 +57,7 @@ export class LawDetailComponent implements OnInit {
     private metaTagService: Meta,
     private route: ActivatedRoute,
     private router: Router,
+    private activatedRoute: ActivatedRoute,
     private titleService: Title,
     @Inject(PLATFORM_ID) private platformId: Object,
     @Inject(WINDOW) private window: Window) {
@@ -68,6 +70,12 @@ export class LawDetailComponent implements OnInit {
       comment: ['', Validators.required]
     });
     this.partiesPosition = 'favour';
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.mobileCommentsMenu = params['comments'] === 'true';
+      if (isPlatformBrowser(this.platformId)) {
+        window.scrollTo(0, 0);
+      }
+    });
   }
 
   get f() {
@@ -102,6 +110,9 @@ export class LawDetailComponent implements OnInit {
           this.mobile = window.innerWidth < 640;
         }
         this.getVote(law.slug);
+        if (this.numComments === 0) {
+          this.addCommentMenu = true;
+        }
       });
   }
 
@@ -186,7 +197,7 @@ export class LawDetailComponent implements OnInit {
       .subscribe(
         (data: any) => {
           this.getLaw(this.law.slug);
-        },
+      },
         err => this.router.navigateByUrl('login?returnUrl=' + encodeURI(this.router.url))
       );
   }
@@ -366,5 +377,13 @@ export class LawDetailComponent implements OnInit {
     } else {
       this.partiesSlugs.push(slug);
     }
+  }
+
+  showMobileCommentsMenu() {
+    this.mobileCommentsMenu = !this.mobileCommentsMenu;
+  }
+
+  showAddCommentMenu() {
+    this.addCommentMenu = !this.addCommentMenu;
   }
 }

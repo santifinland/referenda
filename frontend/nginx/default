@@ -1,8 +1,8 @@
 # Default server configuration
 #
 server {
-	listen 80 default_server;
-	listen [::]:80 default_server;
+    listen 80 default_server;
+    listen [::]:80 default_server;
     rewrite ^ https://$host$request_uri permanent;
 }
 
@@ -19,13 +19,23 @@ upstream ssr_referenda_nodejs {
 }
 
 server {
-    listen 443;
+    listen 443 ssl http2;
+    server_name referenda.es;
     ssl on;
-    gzip on;
-    gzip_types text/plain text/css text/js text/xml text/javascript application/javascript application/json application/xml image/svg+xml image/png image/jpeg;
-    ssl_certificate /home/ubuntu/referenda/backend/referenda/bin/referenda.es.cer;
+    ssl_certificate /home/ubuntu/referenda/backend/referenda/bin/referenda.es.pem;
     ssl_certificate_key /home/ubuntu/referenda/backend/referenda/bin/referenda.es.key;
+    gzip on;
+    gzip_static on;
+    gzip_vary on;
+    gzip_proxied any;
+    gzip_comp_level 6;
+    gzip_buffers 16 8k;
+    gzip_http_version 1.1;
+    gzip_types text/plain text/css text/js text/xml text/javascript application/javascript application/json application/xml image/svg+xml image/png image/jpeg;
     root /home/ubuntu/referenda/frontend/referenda/dist/browser;
+    ssl_session_cache shared:SSL:1m; # holds approx 4000 sessions
+    ssl_session_timeout 1h; # 1 hour during which sessions can be re-used.
+    ssl_session_tickets off;
 
     location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg|webp)$ {
         add_header Cache-Control 'max-age=31449600'; # one year
@@ -76,11 +86,14 @@ server {
 }
 
 server {
-	listen 80;
-	listen [::]:80;
+	listen 443;
+	listen [::]:443;
+        ssl on;
+        ssl_certificate /home/ubuntu/blog/certificate.cert;
+        ssl_certificate_key /home/ubuntu/blog/private.pem;
+	server_name blog.referenda.es;
 	root /var/www/wordpress;
 	index index.html index.php;
-	server_name blog.referenda.es;
 	location / {
 		try_files $uri $uri/ /index.html /index.php;
 		index index.php index.html index.htm;
@@ -93,9 +106,13 @@ server {
 	location ~ \.php$ {
 		try_files $uri =404;
 		fastcgi_split_path_info ^(.+\.php)(/.+)$;
-		fastcgi_pass unix:/var/run/php/php7.2-fpm.sock;
+		include fastcgi_params;
+		fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
 		fastcgi_index index.php;
 		fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-		include fastcgi_params;
 	}
+        location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg|webp)$ {
+                add_header Cache-Control 'max-age=31449600'; # one year
+        }
 }
+

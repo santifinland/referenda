@@ -56,6 +56,7 @@ const lawSchema = new Schema({
         default:false
       },
       comments: [commentSchema],
+      commentsLength: Number,
       positiveParties: [String],
       negativeParties: [String],
       abstentionParties: [String]

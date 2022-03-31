@@ -129,9 +129,14 @@
         </div>
 
         <div class="position">
-          <div class="favour" [ngClass]="{active: partiesPosition==='favour'}" (click)="partiesPosition='favour';">A FAVOR</div>
-          <div class="against" [ngClass]="{active: partiesPosition==='against'}" (click)="partiesPosition='against';">EN CONTRA</div>
-          <div class="abstention" [ngClass]="{active: partiesPosition==='abs'}" (click)="partiesPosition='abs';">ABSTENCI&Oacute;N
+          <div class="favour" [ngClass]="{active: partiesPosition==='favour'}" (click)="partiesPosition='favour';">A
+            FAVOR
+          </div>
+          <div class="against" [ngClass]="{active: partiesPosition==='against'}" (click)="partiesPosition='against';">EN
+            CONTRA
+          </div>
+          <div class="abstention" [ngClass]="{active: partiesPosition==='abs'}" (click)="partiesPosition='abs';">
+            ABSTENCI&Oacute;N
           </div>
         </div>
         <div class="position-hr"></div>
@@ -304,7 +309,8 @@
 
         <div class="voter-button-bar">
           <div class="voter-button" (click)="submitVote([law.slug], 3);"
-               [ngClass]="{vote: userPosition===3}">ABS</div>
+               [ngClass]="{vote: userPosition===3}">ABS
+          </div>
           <div class="voter-bar">
             <div class="voter-bar-value" [style.width.%]="law.abstentionPercentage">
               <div class="voter-percentage">{{law.abstentionPercentage | number:'1.0-0'}}%</div>
@@ -343,7 +349,7 @@
         </div>
       </div>
       <div class="position-logos" *ngIf="partiesSlugs.includes(law.slug)">
-       <div class="parties" *ngIf="partiesPosition==='favour'">
+        <div class="parties" *ngIf="partiesPosition==='favour'">
           <img *ngFor="let party of law.positiveParties" src="assets/img/{{party}}.svg" alt="{{party}}"
                [ngStyle]="{'width': logoWidth(party), 'height': logoHeight(party)}">
         </div>
@@ -356,9 +362,64 @@
                [ngStyle]="{'width': logoWidth(party), 'height': logoHeight(party)}">
         </div>
       </div>
-
     </div>
 
+    <div class="comments-container">
+      <div class="position-shower" (click)="showMobileCommentsMenu()">
+        <div class="position-title azul-referenda">
+          COMENTARIOS ({{numComments}})
+        </div>
+        <div class="miniuparrowblue" *ngIf="!mobileCommentsMenu"></div>
+        <div class="minidownarrowblue" *ngIf="mobileCommentsMenu"></div>
+      </div>
+      <div class="comments-menu" *ngIf="mobileCommentsMenu && law.comments.length > 0">
+        <div class="position-button favor" [ngClass]="{'position-active': partiesPosition==='favour'}"
+             (click)="partiesPosition='favour';">A FAVOR
+        </div>
+        <div class="position-button contra" [ngClass]="{'position-active': partiesPosition==='against'}"
+             (click)="partiesPosition='against';">EN CONTRA
+        </div>
+        <div class="position-button abs" [ngClass]="{'position-active': partiesPosition==='abs'}"
+             (click)="partiesPosition='abs';">ABS
+        </div>
+      </div>
+      <div class="mobile-comments" *ngIf="mobileCommentsMenu">
+        <div class="comment-advise" *ngIf="law.comments.length === 0">Todavía no hay comentarios. ¡Añade el tuyo!</div>
+        <div class="comment-info" *ngFor="let comment of law.comments">
+          <div class="comment-username">{{comment.postedBy.username}}</div>
+          <div class="comment-datetime">{{comment.updatedAt | date:'d \'de\' MMMM \'de\' yyyy'}}</div>
+          <div class="comment-content" [innerHTML]="comment.comment"></div>
+        </div>
+      </div>
+
+      <div class="add-comment-container" *ngIf="mobileCommentsMenu">
+        <div class="mob-voter-shower" (click)="showAddCommentMenu()">
+          <div class="mob-voter">
+            AÑADE TU COMENTARIO
+          </div>
+          <div class="miniuparrow" *ngIf="!addCommentMenu"></div>
+          <div class="minidownarrow" *ngIf="addCommentMenu"></div>
+        </div>
+
+        <div class="comments" *ngIf="addCommentMenu">
+          <div class="comments-title-mob" *ngIf="addCommentMenu">Deja un comentario</div>
+          <form [formGroup]="commentForm" (ngSubmit)="comment()">
+            <div class="form-group">
+          <textarea type="text" formControlName="comment" class="form-control comment-area" id="comment"
+                    placeholder="Escribe aqu&iacute; tu comentario"
+                    [ngClass]="{ 'is-invalid': submitted && f.comment.errors }">
+          </textarea>
+              <div *ngIf="submitted && f.comment.errors" class="invalid-feedback">
+                <div *ngIf="submitted && f.comment.errors.required">Es necesario escribir un comentario</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <button class="comment-send">Enviar comentario</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
 
   </div>
 </div>
