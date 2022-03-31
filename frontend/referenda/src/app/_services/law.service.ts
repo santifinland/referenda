@@ -7,7 +7,6 @@ import { Subscription } from 'rxjs';
 import { AuthenticationService } from './authentication.service';
 import { environment } from '../../environments/environment';
 import { Law, User, VoteResponse } from '../_models';
-import {Vote} from "../_models/vote";
 
 @Injectable({
   providedIn: 'root'

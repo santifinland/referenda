@@ -56,9 +56,9 @@ lawRouter.route('/')
         req.query.vote_end = {$gte: today};
     }
     Laws.find(req.query)
-        .select('law_id, reviewed, law_type institution tier area headline slug short_description long_description link pub_date ' +
-                 'vote_start vote_end positive negative abstention official_positive official_negative ' +
-                 'official_abstention featured  positiveParties negativeParties abstentionParties -_id')
+        .select('law_id, reviewed, law_type institution tier area headline slug short_description ' +
+                'link pub_date vote_start vote_end positive negative abstention official_positive official_negative ' +
+                'official_abstention commentsLength featured  positiveParties negativeParties abstentionParties -_id')
         .exec(function (err, law) {
         if (err) next(err);
         res.json(law);
@@ -75,7 +75,7 @@ lawRouter.route('/latest')
     Laws.find({featured: true, vote_end: {$gte: today}})
         .select('law_id, reviewed, law_type institution tier area headline slug short_description link pub_date ' +
             'vote_start vote_end positive negative abstention official_positive official_negative ' +
-            'official_abstention featured  positiveParties negativeParties abstentionParties -_id')
+            'official_abstention commentsLength featured positiveParties negativeParties abstentionParties -_id')
         .exec(function (err, law) {
             if (err) next(err);
             res.json(law);

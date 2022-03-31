@@ -96,7 +96,6 @@ export class LawsComponent implements OnInit {
         const tierLaws = this.prepareLaws(laws.filter(law => law.tier === 1));
         this.laws = this.sortLaws(tierLaws);
         if (this.currentUser) {
-          console.log("Current user " + this.currentUser)
           this.laws = this.getVotes(this.laws);
         }
       });
@@ -121,6 +120,7 @@ export class LawsComponent implements OnInit {
     law.negativeWidth   = (15 + 40 * law.negative   / (law.positive + law.negative + law.abstention)) + '%';
     law.abstentionWidth = (15 + 40 * law.abstention / (law.positive + law.negative + law.abstention)) + '%';
     law.userPosition = 0;
+    law.commentsLength = law.commentsLength || 0;
     return law;
   }
 
@@ -244,7 +244,6 @@ export class LawsComponent implements OnInit {
 
   submitVote(slug: string, vote: number): void {
     if (this.currentUser !== undefined) {
-      console.log('submit logged');
       this.lawService.submitVote(slug, vote)
         .subscribe(
           (data: VoteResponse) => {
@@ -253,7 +252,6 @@ export class LawsComponent implements OnInit {
           err => this.router.navigateByUrl('login?returnUrl=' + encodeURI(this.router.url))
         );
     } else {
-      console.log('submit NOT logged');
       this.router.navigateByUrl('login?returnUrl=' + encodeURI(this.router.url));
     }
   }

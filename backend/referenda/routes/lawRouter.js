@@ -90,6 +90,7 @@ lawRouter.route('/')
   req.body.positiveParties = [];
   req.body.negativeParties = [];
   req.body.abstentionParties = [];
+  req.body.commentsLength = 0;
   // PP
   if (req.body.pp === 1) {
       req.body.positiveParties.push("pp");
@@ -334,6 +335,7 @@ lawRouter.route('/ley/:slug/comments')
         if (law) {
             if (err) return next(err);
             law.comments.push({"comment": req.body.comment, "postedBy": req.decoded._id});
+            law.commentsLength = law.comments.length;
             law.save(function (err, law) {
                 if (err) return next(err);
                 console.log('Updated Comments!');

@@ -3,5 +3,6 @@ export class Comment {
   positive: number;
   negative: number;
   comment: string;
+  position: number;
   userId: any;
 }
