@@ -2,7 +2,7 @@
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { Subscription } from 'rxjs';
 
-import { SocialAuthService, SocialUser } from 'angularx-social-login';
+import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 
 import { AuthenticationService, UserService } from '../_services';
 import { Party, User } from '../_models';
@@ -103,7 +103,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.userService.changeUsername(this.pf.username.value)
         .subscribe(
           data => {
-            const newUser = new User(this.pf.username.value, this.currentUser.token);
+            const newUser = new User(this.pf.username.value, this.currentUser.token, this.currentUser.origin);
             this.authenticationService.loginWithToken(newUser);
           },
           error => {

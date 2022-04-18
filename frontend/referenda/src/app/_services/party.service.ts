@@ -5,7 +5,7 @@ import { catchError} from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 
 import { environment } from '../../environments/environment';
-import { Party } from '../_models/party';
+import { Party } from '../_models';
 
 
 @Injectable({ providedIn: 'root' })

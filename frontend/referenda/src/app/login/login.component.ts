@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Meta, Title } from '@angular/platform-browser';
 
-import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthService, SocialUser } from 'angularx-social-login';
+import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { first } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 
@@ -64,7 +64,7 @@ export class LoginComponent implements OnInit {
         this.userService.googleRegister(user)
           .subscribe(
             (data: any) => {
-              const referendaUser: User = {username: data.username, token: data.token};
+              const referendaUser: User = {username: data.username, token: data.token, origin: "google"};
               this.authenticationService.loginWithToken(referendaUser);
             },
             err => console.log(err)
@@ -74,7 +74,7 @@ export class LoginComponent implements OnInit {
         this.userService.facebookRegister(user)
           .subscribe(
             (data: any) => {
-              const referendaUser: User = {username: data.username, token: data.token};
+              const referendaUser: User = {username: data.username, token: data.token, origin: "facebook"};
               this.authenticationService.loginWithToken(referendaUser);
             },
             err => console.log(err)

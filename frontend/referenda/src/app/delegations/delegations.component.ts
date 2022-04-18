@@ -4,7 +4,7 @@ import {Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {Meta, Title} from '@angular/platform-browser';
 
-import {FacebookLoginProvider, GoogleLoginProvider, SocialAuthService, SocialUser} from 'angularx-social-login';
+import {FacebookLoginProvider, GoogleLoginProvider, SocialAuthService, SocialUser} from '@abacritt/angularx-social-login';
 import {first} from 'rxjs/operators';
 import {SwiperOptions} from 'swiper';
 
@@ -124,7 +124,7 @@ export class DelegationsComponent implements OnInit {
         this.userService.googleRegister(user)
           .subscribe(
             (data: any) => {
-              const referendaUser: User = {username: data.username, token: data.token};
+              const referendaUser: User = {username: data.username, token: data.token, origin: "google"};
               this.authenticationService.loginWithToken(referendaUser);
             },
             err => console.log(err)
@@ -134,7 +134,7 @@ export class DelegationsComponent implements OnInit {
         this.userService.facebookRegister(user)
           .subscribe(
             (data: any) => {
-              const referendaUser: User = {username: data.username, token: data.token};
+              const referendaUser: User = {username: data.username, token: data.token, origin: "facebook"};
               this.authenticationService.loginWithToken(referendaUser);
             },
             err => console.log(err)

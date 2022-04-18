@@ -4,8 +4,8 @@ import { formatDate, isPlatformBrowser } from '@angular/common';
 
 import { matchSorter } from 'match-sorter';
 
-import { Law } from '../_models/law';
-import { LawService } from '../_services/law.service';
+import { Law } from '../_models';
+import { LawService } from '../_services';
 
 
 @Component({
