@@ -39,7 +39,15 @@
 
   <div class="preferences" *ngIf="currentUser">
     <h2>Contraseña</h2>
-    <div class="text">Pincha<a class="remember" routerLink="/password"> aqu&iacute; </a>para cambiar tu contraseña</div>
+    <div class="text" *ngIf="currentUser.origin === 'referenda'">
+      Pincha<a class="remember" routerLink="/password"> aqu&iacute; </a>para cambiar tu contraseña
+    </div>
+    <div class="text" *ngIf="currentUser.origin === 'google'">
+      Estás registrado en Referenda con tu cuenta de Google. No tienes por tanto contraseña definida.
+    </div>
+    <div class="text" *ngIf="currentUser.origin === 'facebook'">
+      Estás registrado en Referenda con tu cuenta de Facebook. No tienes por tanto contraseña definida.
+    </div>
   </div>
 
   <button type="button" class="logout" (click)="logout()" *ngIf="currentUser">Finalizar sesi&oacute;n</button>

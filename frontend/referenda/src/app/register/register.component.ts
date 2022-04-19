@@ -5,7 +5,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
 import {Meta, Title} from '@angular/platform-browser';
 
-import {SocialAuthService, FacebookLoginProvider, GoogleLoginProvider, SocialUser} from 'angularx-social-login';
+import {SocialAuthService, FacebookLoginProvider, GoogleLoginProvider, SocialUser} from '@abacritt/angularx-social-login';
 
 import {AlertService, UserService, AuthenticationService, WINDOW} from '../_services';
 import {User } from '../_models';
@@ -89,10 +89,12 @@ export class RegisterComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
+          console.log(data)
           this.alertService.success('Registro correcto.', true);
           this.router.navigate(['/login']);
         },
         error => {
+          console.log("error in onRegister")
           this.alertService.error(error);
         });
   }
@@ -102,7 +104,6 @@ export class RegisterComponent implements OnInit {
 
     if (this.socialRegisterForm.invalid) {
       return;
-      this.socialConsentGranted = false;
     } else {
       this.socialConsentGranted = true;
       this.user.name = this.socialRegisterForm.controls.username.value
@@ -110,9 +111,10 @@ export class RegisterComponent implements OnInit {
         this.userService.googleRegister(this.user)
           .subscribe(
             (data: any) => {
-              const referendaUser: User = {username: data.username, token: data.token};
+              const referendaUser: User = {username: data.username, token: data.token, origin: "google"};
               this.authenticationService.loginWithToken(referendaUser);
               this.socialConsentNeeded = false;
+              this.router.navigateByUrl('/home');
             },
             err => console.log(err)
           );
@@ -121,14 +123,15 @@ export class RegisterComponent implements OnInit {
         this.userService.facebookRegister(this.user)
           .subscribe(
             (data: any) => {
-              const referendaUser: User = {username: data.username, token: data.token};
+              const referendaUser: User = {username: data.username, token: data.token, origin: "facebook"};
               this.authenticationService.loginWithToken(referendaUser);
               this.socialConsentNeeded = false;
+              this.router.navigateByUrl('/home');
             },
             err => console.log(err)
           );
       }
-      this.router.navigateByUrl('/leyes');
+      this.router.navigateByUrl('/home');
     }
   }
 

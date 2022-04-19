@@ -56,7 +56,7 @@ userRouter.route('/register')
   if ((req.body.username.length < 4) || (req.body.username.length > 15)) {
     return res.status(400).json({err: "Username too long"});
   }
-  if ((req.body.consent != true) && (req.body.consent != false)) {
+  if ((req.body.consent !== true) && (req.body.consent !== false)) {
     return res.status(400).json({err: "Bad consent"});
   }
   if (validator.validate(req.body.email)) {
@@ -121,11 +121,12 @@ userRouter.route('/login')
           });
         }
 
-        var token = Verify.getToken({"username":user.username, "_id":user._id, "admin":user.admin});
+        const token = Verify.getToken({"username": user.username, "_id": user._id, "admin": user.admin});
 
         res.status(200).json({
           username: user.username,
-          token: token
+          token: token,
+          origin: user.origin
         });
       });
     })(req,res,next);
@@ -259,14 +260,15 @@ userRouter.route('/googleregister')
                   err: 'Could not log in user'
                 });
               }
-              var token = Verify.getToken({"username":user.username, "_id":user._id, "admin":user.admin});
+              const token = Verify.getToken({"username":user.username, "_id":user._id, "admin":user.admin});
               res.status(200).json({
                 username: user.username,
-                token: token
+                token: token,
+                origin: "google"
               });
             });
           } else {
-            if ((req.body.consent != true) && (req.body.consent != false)) {
+            if ((req.body.consent !== true) && (req.body.consent !== false)) {
               return res.status(400).json({err: "Bad consent"});
             }
             User.register(new User(
@@ -285,10 +287,11 @@ userRouter.route('/googleregister')
                           err: 'Could not log in user'
                         });
                       }
-                      var token = Verify.getToken({"username":user.username, "_id":user._id, "admin":user.admin});
+                      const token = Verify.getToken({"username":user.username, "_id":user._id, "admin":user.admin});
                       res.status(200).json({
                         username: user.username,
-                        token: token
+                        token: token,
+                        origin: "google"
                       });
                     });
                   }

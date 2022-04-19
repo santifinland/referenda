@@ -10,8 +10,8 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
 import { CookieService } from 'ngx-cookie-service';
 import { OrderModule } from 'ngx-order-pipe';
 import {NgxUsefulSwiperModule} from 'ngx-useful-swiper';
-import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
-import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
+import { GoogleLoginProvider, FacebookLoginProvider } from '@abacritt/angularx-social-login';
+import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 
 import { AdminLawComponent } from './admin-law/admin-law.component';
 import { AlertComponent } from './_components';
