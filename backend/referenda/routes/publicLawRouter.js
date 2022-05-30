@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const Laws = require('../models/laws');
+const Users = require('../models/user');
 const Votes = require('../models/votes');
 
 const findVote = function findVote(law, user, callback) {
