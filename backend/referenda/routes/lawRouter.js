@@ -25,7 +25,7 @@ const findVote = function findVote(law, user, callback) {
             console.log("Username: " + user.username);
             console.log("Delegated party: " + user.delegatedParty);
             console.log("Delegated user: " + user.delegatedUser);
-            if ((user.delegatedParty != null) && (user.delegatedParty != 'nd')) {
+            if ((user.delegatedParty != null) && (user.delegatedParty !== 'nd')) {
                 console.log("El usuario ha delagado en un partido");
                 // User has a party delegations. Checking type
                 if (law.positiveParties.indexOf(user.delegatedParty) >= 0) return callback(null, 1);
