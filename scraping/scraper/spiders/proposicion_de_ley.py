@@ -65,5 +65,9 @@ class QuotesSpider(scrapy.Spider):
             'headline': headline,
             'link': link,
             'vote_start': vote_start,
-            'long_description': response.xpath("//div[@class='texto_completo']").getall()
+            'long_description': self.string_cleaner(response.xpath("//div[@class='texto_completo']").getall())
         }
+
+    @staticmethod
+    def string_cleaner(rouge_text):
+        return ("".join(rouge_text.strip()).encode('iso8859-1', 'ignore').decode("iso8859-1").encode('utf-8'))

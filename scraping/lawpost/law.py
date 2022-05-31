@@ -1,39 +1,57 @@
 # -*- coding: utf-8 -*-
 
-import json
-import re
 from datetime import datetime
+from typing import Dict, List
+import json
+
+import re
+import requests
 
 
 class Law(object):
 
-    def __init__(self, law_type, institution, tier, featured, headline, long_description, link, vote_start):
+    def __init__(self, law_id, law_type, institution, tier, featured, headline, long_description, link, vote_start):
+        self.law_id = law_id
         self.law_type = law_type
         self.institution = self.clean_institution(institution)
         self.tier = tier
+        self.area = 'economia'
         self.featured = False if featured == 'False' else True
         self.headline = headline.partition('.')[0]
-        long_description = long_description[0] if len(long_description) > 0 else "No disponible"
-        long_description_replaced = (long_description
-                                     .replace('\n\n', 'carrier-return')
-                                     .replace('\n', '')
-                                     .replace('<br>', '')
-                                     .replace('', '')
-                                     .replace('carrier-return', '\n\n'))
-        long_description_no_page = re.sub('<p style=\"text-align:center\"><a name=\".*\"><b>P.*</b></a></p>', '',
-                                          long_description_replaced)
-        self.long_description = long_description_no_page[0:min(90000, len(long_description_no_page))]
+        long_description = (long_description[0] if long_description is not None and len(long_description) > 0
+                            else "No disponible")
+
+        pattern_to_remove_i: str = r'^.*n de motivos'
+        pattern_to_remove_ii: str = r'<.div>'
+        pattern_to_remove_iii: str = r'<p.*p>'
+        pattern_to_remove_iv: str = r'<br><br><br><br><br><br>'
+        pattern_to_remove_v: str = r'<br><br><br>'
+        pattern_to_remove_vi: str = r'<br>'
+        pattern_to_remove_vii: str = r'doble_retorno_de_carro'
+        pattern_to_remove_viii: str = r'simple_retorno_de_carro'
+        i = re.sub(pattern_to_remove_i, '', long_description)
+        ii = re.sub(pattern_to_remove_ii, '', i)
+        iii = re.sub(pattern_to_remove_iii, '', ii)
+        iv = re.sub(pattern_to_remove_iv, 'doble_retorno_de_carro', iii)
+        v = re.sub(pattern_to_remove_v, 'simple_retorno_de_carro ', iv)
+        vi = re.sub(pattern_to_remove_vi, ' ', v)
+        vii = re.sub(pattern_to_remove_vii, '<br><br>', vi)
+        viii = re.sub(pattern_to_remove_viii, '<br><br>', vii)
+        long_description_replaced = viii
+        self.long_description = long_description_replaced
         self.link = link
-        self.vote_start = datetime.strptime(vote_start, '%d/%m/%Y')
+        #self.vote_start = datetime.strptime(vote_start.strip(), '%d/%m/%Y')
+        self.vote_start = vote_start
         self.pub_date = self.vote_start
         self.vote_end = datetime(2030, 1, 1, 0, 0, 0)
         self.official_positive = 0
         self.official_negative = 0
         self.official_abstention = 0
+        self.reviewed = False
 
     def __str__(self):
-        return '{} - {}: institution: {}. Long des: {}'\
-            .format(self.vote_start, self.headline[0:220], self.institution, len(self.long_description))
+        return '{} - {} - {}: institution: {}. Long des: {}'\
+            .format(self.vote_start, self.law_id, self.headline[0:220], self.institution, len(self.long_description))
 
     @staticmethod
     def datetime_option(value):
@@ -45,8 +63,23 @@ class Law(object):
     def toJSON(self):
         return json.dumps(self, default=self.datetime_option)
 
+    @staticmethod
+    def from_JSON(law: Dict):
+        parsed_law = Law(
+            law.get('law_id', None),
+            law.get('law_type'),
+            law.get('institution'),
+            law.get('tier'),
+            law.get('featured'),
+            law.get('headline'),
+            law.get('long_description'),
+            law.get('link'),
+            datetime.fromisoformat(law.get('vote_start')[:-1]))  # Removing last Z
+        return parsed_law
+
     def clean_institution(self, institution):
-        institution = institution.lower()
+        #print("Cleaning institution: {}".format(institution))
+        institution = [x.lower() for x in institution]
         if "socialista" in institution:
             return "psoe"
         if "popular" in institution:
@@ -61,3 +94,29 @@ class Law(object):
             return "erc"
         else:
             return institution
+
+    @staticmethod
+    def is_in_db(laws: List['Law'], law: 'Law'):
+        """Checks whether a law is in the referenda db or not
+
+        :return:  True if the law is included in the referenda db. False otherwise
+        """
+        for x in laws:
+            if x.law_id == law.law_id:
+                return True
+        return False
+
+    @staticmethod
+    def get_laws() -> List['Law']:
+        print("Getting current laws")
+        r = requests.get('https://referenda.es/api/laws?all=true')
+        r.encoding = "utf-8"
+        laws: List['Law'] = []
+        print(type(r.status_code))
+        print(r.status_code)
+        if r.status_code == 200:
+            for x in r.json():
+                law = Law.from_JSON(x)
+                laws.append(law)
+        return laws
+
