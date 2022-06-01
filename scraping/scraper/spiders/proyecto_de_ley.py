@@ -15,7 +15,7 @@ class PDLSpider(scrapy.Spider):
 
     start_urls = ['https://www.congreso.es/proyectos-de-ley']
 
-    def parse(self, response):
+    def parse(self, response, **kwargs):
 
         return [FormRequest(url="https://www.congreso.es/proyectos-de-ley?p_p_id=iniciativas&p_p_lifecycle=2&p_p_state=normal&p_p_mode=view&p_p_resource_id=filtrarListado&p_p_cacheability=cacheLevelPage",
             formdata={'_iniciativas_legislatura': '14',

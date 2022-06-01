@@ -1,18 +1,27 @@
 # -*- coding: utf-8 -*-
 
 import logging
+
+from scrapy.http import FormRequest
 import scrapy
 
 
 class QuotesSpider(scrapy.Spider):
     name = "proyecto_de_ley"
 
-    start_urls = ['http://www.congreso.es/portal/page/portal/Congreso/Congreso/Iniciativas/Indice%20de%20Iniciativas']
-
-    def parse(self, response):
+    def parse(self, response, **kwargs):
+        return [FormRequest(
+            url="https://www.congreso.es/proyectos-de-ley?p_p_id=iniciativas&p_p_lifecycle=2&p_p_state=normal&p_p_mode=view&p_p_resource_id=filtrarListado&p_p_cacheability=cacheLevelPage",
+            formdata={'_iniciativas_legislatura': '14',
+                      '_iniciativas_cini': '121.CINI.',
+                      '_iniciativas_tipoLlamada': 'T',
+                      '_iniciativas_paginaActual': '2'},
+            callback=self.parse_link)]
 
         # Main proyectos de ley site
         pdl_links = response.xpath("//a[contains(text(),'Real Decreto-Ley.')]").attrib['href']
+        for p in pdl_links:
+            print(p)
 
         # List of proyectos de ley urls
         yield scrapy.Request(url=response.urljoin(pdl_links), callback=self.parse_link)

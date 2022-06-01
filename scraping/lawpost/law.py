@@ -78,8 +78,8 @@ class Law(object):
         return parsed_law
 
     def clean_institution(self, institution):
-        #print("Cleaning institution: {}".format(institution))
-        institution = [x.lower() for x in institution]
+        print("Cleaning institution: {}".format(institution))
+        institution = [x.lower() for x in institution if x is not None]
         if "socialista" in institution:
             return "psoe"
         if "popular" in institution:
@@ -96,27 +96,9 @@ class Law(object):
             return institution
 
     @staticmethod
-    def is_in_db(laws: List['Law'], law: 'Law'):
-        """Checks whether a law is in the referenda db or not
-
-        :return:  True if the law is included in the referenda db. False otherwise
-        """
-        for x in laws:
-            if x.law_id == law.law_id:
-                return True
-        return False
-
-    @staticmethod
-    def get_laws() -> List['Law']:
+    def get_laws() -> List[str]:
         print("Getting current laws")
         r = requests.get('https://referenda.es/api/laws?all=true')
         r.encoding = "utf-8"
-        laws: List['Law'] = []
-        print(type(r.status_code))
         print(r.status_code)
-        if r.status_code == 200:
-            for x in r.json():
-                law = Law.from_JSON(x)
-                laws.append(law)
-        return laws
-
+        return [x["law_id"] for x in r.json() if "law_id" in x.keys()] if r.status_code == 200 else []
