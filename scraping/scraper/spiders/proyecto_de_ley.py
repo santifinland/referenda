@@ -15,7 +15,7 @@ class PDLSpider(scrapy.Spider):
 
     start_urls = ['https://www.congreso.es/proyectos-de-ley']
 
-    def parse(self, response):
+    def parse(self, response, **kwargs):
 
         return [FormRequest(url="https://www.congreso.es/proyectos-de-ley?p_p_id=iniciativas&p_p_lifecycle=2&p_p_state=normal&p_p_mode=view&p_p_resource_id=filtrarListado&p_p_cacheability=cacheLevelPage",
             formdata={'_iniciativas_legislatura': '14',
@@ -43,7 +43,7 @@ class PDLSpider(scrapy.Spider):
         logging.info('----------------------------------------------------')
         headline: str = response.xpath("//div[@class='entradilla-iniciativa']/text()").get()
         logging.info('Proyecto de Ley: {}'.format(headline))
-        institution = response.xpath("//div[@class='cuerpo-iniciativa-det iniciativa']/ul[1]/li/text()").get()
+        institution = [response.xpath("//div[@class='cuerpo-iniciativa-det iniciativa']/ul[1]/li/text()").get()]
         presented: str = response.xpath("//div[@class='f-present']/text()").get()
         vote_start: str = presented[15:26]
         logging.info('Vote Start: {}'.format(vote_start))
@@ -64,7 +64,7 @@ class PDLSpider(scrapy.Spider):
             'institution': institution,
             'tier': 1,
             'featured': 'False',
-            'id': law_id,
+            'law_id': law_id,
             'headline': headline,
             'link': link,
             'vote_start': vote_start,
@@ -72,12 +72,23 @@ class PDLSpider(scrapy.Spider):
                                  response.xpath("//div[@class='textoIntegro publicaciones']").getall()]
         }
 
-    @staticmethod
-    def refine_long_description(long_description: str) -> str:
+    def refine_long_description(self, long_description: str) -> str:
         pattern_to_remove_i: str = r'.p style=.text-align.center...a name=..P.C3.A1gina.....b.P.gina ...b...a...p.'
         pattern_to_remove_ii: str = r'.p style=.text-align.center...a name=..P.C3.A1gina......b.P.gina ....b...a...p.'
         pattern_to_remove_iii = r'.p style=.text-align.center...a name=..P.C3.A1gina.......b.P.gina .....b...a...p.'
         i = re.sub(pattern_to_remove_i, '', long_description)
         ii = re.sub(pattern_to_remove_ii, '', i)
         iii = re.sub(pattern_to_remove_iii, '', ii)
-        return iii
+        long_description_replaced = iii
+                                     #.replace('\n\n', 'carrier-return')
+                                     #.replace('\n', '')
+                                     #.replace('<br><br><br>', 'carrier-return')
+                                     #.replace('<br>', ' ')
+                                     #.replace('carrier-return', '<br><br><br>'))
+                                     #.replace('', '')
+                                     #.replace('carrier-return', '\n\n'))
+        return self.string_cleaner(long_description_replaced)
+
+    @staticmethod
+    def string_cleaner(rouge_text):
+        return ("".join(rouge_text.strip()).encode('iso8859-1', 'ignore').decode("iso8859-1").encode("utf-8").decode("utf-8"))
