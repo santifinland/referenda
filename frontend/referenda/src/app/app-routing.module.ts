@@ -34,6 +34,7 @@ const routes: Routes = [
   { path: 'referenda', loadChildren: () => import('./aboutus/aboutus.module').then(m => m.AboutusModule) },
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'resultados', component: ResultsComponent },
+  { path: '**',  loadChildren: () => import('./not-found/not-found.module').then(m => m.NotFoundModule) }
 ];
 
 @NgModule({
