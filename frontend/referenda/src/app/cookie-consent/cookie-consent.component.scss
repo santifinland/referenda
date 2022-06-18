@@ -28,6 +28,10 @@
   outline: none;
 }
 
+.link:hover {
+  cursor: pointer;
+}
+
 .buttons {
   display: flex;
   gap: 10px;

@@ -1,4 +1,5 @@
 ﻿import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 import { CookieService } from 'ngx-cookie-service';
 
@@ -8,6 +9,9 @@ export class CookiesService {
 
   REFERENDA_CONSENT = 'referendaConsent';
   REFERENDA_LANDING = 'referendaLanding';
+
+  private cookiesDecided = new BehaviorSubject('not decided');
+  cookiesDecidedMessage = this.cookiesDecided.asObservable();
 
   constructor(private cookieService: CookieService) {  }
 
@@ -23,9 +27,7 @@ export class CookiesService {
                              'referenda.es',
                              true,
                              'None');
-
-
-                             //{expires: 30, domain: 'referenda.es', path: '/', secure: true});
+      this.cookiesDecided.next('decided');
   }
 
   public isCookieConsentDecided(): boolean {
