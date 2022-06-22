@@ -7,11 +7,11 @@
       Reg&iacute;strate con tus redes sociales
     </div>
     <div class="facebook-google">
-      <div class="button facebook-button" (click)="signInWithFB()">
+      <div id="facebook" class="button facebook-button" (click)="signInWithFB()">
         <img class="facebook-img" src="assets/img/facebook_login.svg"/>
         Reg&iacute;strate con Facebook
       </div>
-      <div class="button google-button" (click)="signInWithGoogle()">
+      <div id="google" class="button google-button" (click)="signInWithGoogle()">
         <img class="google-img" src="assets/img/btn_google_light_normal_ios.svg"/>
         Reg&iacute;strate con Google
       </div>
@@ -75,14 +75,14 @@
           Completa tu registro eligiendo un nombre de usuario
         </div>
         <div class="form-group">
-          <input type="text" formControlName="username" class="form-control" placeholder="Nombre de usuario"
-                 [ngClass]="{ 'is-invalid': socialSubmitted && srf.username.errors }"/>
+          <input id="complete-username" type="text" formControlName="username" class="form-control"
+                 placeholder="Nombre de usuario" [ngClass]="{ 'is-invalid': socialSubmitted && srf.username.errors }"/>
           <div *ngIf="socialSubmitted && srf.username.errors" class="invalid-feedback">
             <div *ngIf="srf.username.errors.required">Es necesario un nombre de usuario</div>
           </div>
         </div>
         <div class="form-check">
-          <input type="checkbox" formControlName="consent" class="form-check-input"
+          <input id="complete-gdpr" type="checkbox" formControlName="consent" class="form-check-input"
                  [ngClass]="{ 'is-invalid-check': socialGdprCompliant()}"/>
           <label class="gdpr-conditions">
             Accepto la
@@ -93,7 +93,7 @@
         <div *ngIf="socialGdprCompliant()" class="gdpr-feedback invalid-feedback">
           <div>Para registrarse es necesario aceptar la politica de protección de datos</div>
         </div>
-        <button class="register-button">Registrarse</button>
+        <button id="complete-register" class="register-button">Registrarse</button>
       </form>
     </div>
   </div>

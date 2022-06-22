@@ -18,17 +18,17 @@
     <div class="vertical-line">
     </div>
     <div class="seccion sesion" *ngIf="currentUser">
-      <a routerLink="/home" (click)="section='';">{{currentUser.username}}</a>
+      <a id="username" routerLink="/home" (click)="section='';">{{currentUser.username}}</a>
     </div>
     <div class="seccion sesion" *ngIf="!currentUser" (click)="section='';">
-      <a routerLink="/login">MI SESI&Oacute;N</a>
+      <a id="session" routerLink="/login">MI SESI&Oacute;N</a>
       <div class="dropdown-sesion">
         <div class="dropdown-sesion-content">
           <div class="dropdown-iniciar">
-            <a routerLink="/login">INICIAR SESI&Oacute;N</a>
+            <a id="login" routerLink="/login">INICIAR SESI&Oacute;N</a>
           </div>
           <div class="dropdown-registrarse">
-            <a routerLink="/register">REGISTRARSE</a>
+            <a id="register" routerLink="/register">REGISTRARSE</a>
           </div>
         </div>
       </div>
