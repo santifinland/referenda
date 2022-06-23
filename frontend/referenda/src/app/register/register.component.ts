@@ -123,7 +123,7 @@ export class RegisterComponent implements OnInit {
         this.userService.facebookRegister(this.user)
           .subscribe(
             (data: any) => {
-              const referendaUser: User = {username: data.username, token: data.token, origin: "facebook"};
+              const referendaUser: User = {username: this.user.name, token: data.token, origin: "facebook"};
               this.authenticationService.loginWithToken(referendaUser);
               this.socialConsentNeeded = false;
               this.router.navigateByUrl('/home');

@@ -21,7 +21,7 @@ class PDLSpider(scrapy.Spider):
             formdata={'_iniciativas_legislatura': '14',
                        '_iniciativas_cini': '121.CINI.',
                        '_iniciativas_tipoLlamada': 'T',
-                       '_iniciativas_paginaActual': '1'},
+                       '_iniciativas_paginaActual': '2'},
             callback=self.parse_link)]
         # Main proyectos de ley site
         #pdl_links = response.xpath("//a[contains(text(),'Proyecto de Ley')]").attrib['href']

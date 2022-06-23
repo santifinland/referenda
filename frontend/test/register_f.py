@@ -4,6 +4,8 @@ from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 
+import time
+
 
 def test_register():
     driver = webdriver.Chrome()
@@ -26,58 +28,58 @@ def test_register():
 
     parent_window = driver.window_handles[0]
 
-    google = driver.find_element(value="facebook")
+    facebook = driver.find_element(value="facebook")
     driver.implicitly_wait(10)
-    google.click()
+    facebook.click()
     driver.implicitly_wait(10)
 
     child_window = [x for x in driver.window_handles if x != parent_window][0]
     driver.switch_to.window(child_window)
     title = driver.title
     print(title)
-    driver.implicitly_wait(100)
+    driver.implicitly_wait(10)
     assert title == "Facebook", "No matching title for child window"
 
     cookies = driver.find_element(by=By.XPATH, value="//button[contains(string(), 'Only allow essential cookies')]")
+    #cookies = driver.find_element(by=By.XPATH, value="//button[contains(string(), 'Permitir solo cookies necesarias')]")
     cookies.click()
-    driver.implicitly_wait(100)
+    driver.implicitly_wait(10)
 
-    #email = driver.find_element(value="email")
-    #email.send_keys("referenda.es@gmail.com")
-    #driver.implicitly_wait(100)
-    #password = driver.find_element(value="pass")
-    #driver.implicitly_wait(100)
-    #password.send_keys("r3f3r3nd4")
-    create_account = driver.find_element(by=By.LINK_TEXT, value="Create new account")
-    driver.implicitly_wait(100)
+    email = driver.find_element(value="email")
+    email.send_keys("jatljptpqh_1655890132@tfbnw.net")
+    driver.implicitly_wait(10)
+    password = driver.find_element(value="pass")
+    driver.implicitly_wait(10)
+    password.send_keys("")
+    create_account = driver.find_element(by=By.NAME, value="login")
+    driver.implicitly_wait(10)
     create_account.click()
-    driver.implicitly_wait(100)
 
     driver.switch_to.window(parent_window)
-    cookies_reg = driver.find_element(by=By.XPATH, value="//button[contains(string(), 'Only allow essential cookies')]")
-    driver.implicitly_wait(100)
-    cookies_reg.click()
+    #cookies_reg = driver.find_element(by=By.XPATH, value="//button[contains(string(), 'Continur como Samantha')]")
+    #driver.implicitly_wait(10)
+    #cookies_reg.click()
 
-    firstname = driver.find_element(by=By.NAME, value="firstname")
-    firstname.send_keys("referenda")
-    lastname = driver.find_element(by=By.NAME, value="lastname")
-    lastname.send_keys("es")
+    time.sleep(10)
 
+    driver.implicitly_wait(10)
     register_username = driver.find_element(value="complete-username")
     register_username.send_keys("referenda")
-    driver.implicitly_wait(100)
+    driver.implicitly_wait(10)
     gdpr = driver.find_element(value="complete-gdpr")
     gdpr.click()
-    driver.implicitly_wait(100)
+    driver.implicitly_wait(10)
     register_button = driver.find_element(value="complete-register")
-    driver.implicitly_wait(100)
+    time.sleep(10)
+    driver.implicitly_wait(10)
     register_button.click()
-    driver.implicitly_wait(100)
+    driver.implicitly_wait(10)
 
-    username = driver.find_element(value="username")
-    driver.implicitly_wait(100)
-    driver.implicitly_wait(100)
-    assert username.text == "referenda", "Not showing the username"
+    time.sleep(10)
+
+    username = driver.find_element(by=By.LINK_TEXT, value="Samantha Alhbhdehgaegd Adeagboman")
+    driver.implicitly_wait(10)
+    assert username.text == "Samantha Alhbhdehgaegd Adeagboman", "Not showing the username"
 
     driver.quit()
 

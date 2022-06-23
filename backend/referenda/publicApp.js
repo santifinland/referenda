@@ -3,7 +3,6 @@
  */
 
 const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
 const express = require('express');
 const logger = require('morgan');
 const mongoose = require('mongoose');
@@ -25,7 +24,8 @@ db.once('open', function () {
 /* Referenda API */
 const app = express();
 app.all('*', function(req, res, next){  // Secure traffic only
-  console.log('req: ',req.secure, req.hostname, req.url, req.socket.localPort, req.socket.remotePort, app.get('port'));
+  console.log('req: ',req.secure, req.socket.remoteAddress, req.hostname, req.url, req.socket.localPort,
+      req.socket.remotePort, app.get('port'));
   if (req.secure) {
     res.setHeader('Access-Control-Allow-Origin', 'https://referenda.es');
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type,x-access-token');
@@ -39,7 +39,6 @@ app.all('*', function(req, res, next){  // Secure traffic only
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/laws', publicLawRouter);
 
