@@ -66,7 +66,7 @@
         <div class="vote-remember" *ngIf="law.userPosition !== 0">Ya has votado esta propuesta</div>
         <!--<div class="voto">A&uacute;n no has votado esta propuesta</div>-->
         <div class="botones">
-          <div class="boton si" (click)="submitVote([law.slug], 1);"
+          <div class="boton si visible" (click)="submitVote([law.slug], 1);"
                [ngClass]="{'position-active': law.userPosition === 1,
                         disabled: !law.isPositive || law.checkNegative || law.checkAbstention}"
                (mouseover)="law.checkPositive=true" (mouseleave)="law.checkPositive=false">S&Iacute;

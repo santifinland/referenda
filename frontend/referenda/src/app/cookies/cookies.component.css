@@ -63,6 +63,49 @@ a {
   text-align: center
 }
 
+.button {
+  height: 75px;
+  text-align: center;
+  border: 2px solid #3E979E;
+  box-sizing: border-box;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 26px;
+  padding: 12px;
+  color: #F3F3F3;
+  background: #66ADB3;
+  cursor: pointer;
+}
+
+.select {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.saved {
+  display: flex;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 26px;
+  padding: 12px;
+}
+
+.return {
+  display: flex;
+  width: 120px;
+  color: white;
+  padding: 16px;
+  justify-content: center;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 25px;
+  background-color: grey;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+
 @media(max-width: 950px) {
 
   .text {

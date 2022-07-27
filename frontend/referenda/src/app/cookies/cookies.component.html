@@ -12,30 +12,69 @@
       pueden utilizarse para identificarte.</p>
   </div>
 
+  <h2>Configuración de cookies</h2>
+  <div class="text">
+    <p class="section">
+      <input type="checkbox" checked disabled>
+      Cookies técnicas (necesarias):
+    </p>
+    <p>
+      Estas cookies son necesarias para el funcionamiento
+      del sitio Web y por tanto no pueden ser deshabilitadas.
+    </p>
+    <br>
+    <p class="section">
+      <input type="checkbox" [checked]="cookieConsent" (click)="changeConsent()">
+      Cookies de análisis o medición y publicitarias:
+    </p>
+    <p>
+      Son aquellas que, bien tratadas por el sitio Web
+      o por terceros, permiten cuantificar el número de usuarios y así realizar la medición y
+      análisis estadístico de la utilización que hacen los usuarios del sitio Web.
+      Para ello se analiza la navegación que realizas en este sitio Web con el fin de mejorarlo.
+      También pueden ser utilizadas con fines publicitarios.
+    </p>
+    <p>
+      Si no deseas que se almacenen estas cookies en tu
+      dispositivo, deshabilítalas pulsando el checkbox.
+    </p>
+    <div class="select">
+      <p class="button" (click)="avoidAll()">Rechazar todas las cookies</p>
+      <p class="button" (click)="acceptAll()">Aceptar todas las cookies</p>
+    </div>
+    <div class="select">
+      <div class="saved" *ngIf="decidedNow">Configuración guardada</div>
+      <div class="return" *ngIf="decidedNow" (click)="return()">Volver</div>
+    </div>
+  </div>
+
   <h2>Tipos de Cookies utilizadas en referenda.es</h2>
   <div class="text">
     <p>A continuación se clasifican las cookies utilizadas por el sitio Web https://referenda.es:</p>
     <p class="section">Según la entidad que las gestiona:</p>
-    <p><b>Cookies propias:</b> Son aquellas enviadas y gestionadas directamente por referenda.es.</p>
-    <p><b>Cookies de terceros:</b> Son aquellas que se envían al usuario desde un dominio ajeno a referenda.es.</p>
+    <p><b>Cookies propias:</b> son aquellas enviadas y gestionadas directamente por referenda.es.</p>
+    <p><b>Cookies de terceros:</b> son aquellas que se envían al usuario desde un dominio ajeno a referenda.es.</p>
     <p class="section">Según su finalidad:</p>
-    <p><b>Cookies técnicas:</b> Son aquellas que permiten a los usuarios registrados navegar a través
+    <p><b>Cookies técnicas:</b> son aquellas que permiten a los usuarios registrados navegar a través
       del sitio Web, del área restringida y a utilizar sus diferentes funciones,
       como por ejemplo, el sistema de comentarios.</p>
-    <p><b>Cookies de personalización:</b> Son aquellas que permiten a los usuarios acceder a Referenda
+    <p><b>Cookies de personalización:</b> son aquellas que permiten a los usuarios acceder a Referenda
       con algunas características de carácter general predefinidas en función de una serie de
       criterios establecidos por el usuario como, por ejemplo, el idioma o
       el tipo de navegador a través del cual se conecta a este sitio Web.</p>
-    <p><b>Cookies de análisis o medición:</b> Son aquellas que, bien tratadas por el sitio Web
+    <p><b>Cookies de análisis o medición:</b> son aquellas que, bien tratadas por el sitio Web
       o por terceros, permiten cuantificar el número de usuarios y así realizar la medición y
       análisis estadístico de la utilización que hacen los usuarios del sitio Web.
       Para ello se analiza la navegación que realizas en este sitio Web con el fin de mejorarlo. </p>
-    <p><b>Cookies sociales:</b> Son establecidas por las plataformas de redes sociales
+    <p><b>Cookies publicitarias comportamentales:</b> son aquellas que, tratadas por nosotros o por terceros,
+      nos permiten analizar sus hábitos de navegación en Internet para que podamos mostrarle publicidad relacionada
+      con su perfil de navegación.</p>
+    <p><b>Cookies sociales:</b> son establecidas por las plataformas de redes sociales
       para permitir a los usuarios compartir contenido con sus amigos y redes. </p>
     <p class="section">Según su duración:</p>
-    <p><b>Cookies de sesión:</b> Son aquellas diseñadas para recabar y almacenar datos mientras
+    <p><b>Cookies de sesión:</b> son aquellas diseñadas para recabar y almacenar datos mientras
       el usuario accede al sitio Web.</p>
-    <p><b>Cookies persistentes:</b> Son aquellas en las que los datos siguen almacenados
+    <p><b>Cookies persistentes:</b> son aquellas en las que los datos siguen almacenados
       en el terminal del usuario y pueden ser accedidos y tratados durante un período definido
       por el responsable de la cookie.</p>
   </div>
@@ -55,11 +94,11 @@
     <p><b>fbsr_*:</b> Cookie técnica utilizada para permitir la navegación de usuario autenticados
       mediante su cuenta de usuario de Facebook. Se trata de una cookie de sesión.</p>
     <p class="section">Cookies de análisis o medición:</p>
-    <p><b>_ga:</b> Cookie de medición de Google para distinguir a los usuarios. Se trata de una
+    <p><b>_ga:</b> Cookie publicitaria de medición de Google para distinguir a los usuarios. Se trata de una
       cookie persistente con una caducidad de dos años.</p>
-    <p><b>_gat:</b> Cookie de medición de Google para limitar el número de solicitudes. Se trata de una
+    <p><b>_gat:</b> Cookie publicitaria de medición de Google para limitar el número de solicitudes. Se trata de una
       cookie de sesión con una caducidad de un minuto.</p>
-    <p><b>_gid:</b> Cookie de medición de Google para distinguir a los usuarios. Se trata de una
+    <p><b>_gid:</b> Cookie publicitaria de medición de Google para distinguir a los usuarios. Se trata de una
       cookie persistente con una caducidad de veinticuatro horas.</p>
     <p class="section">Cookies sociales:</p>
     <p>El sitio Web incluye otras funcionalidades proporcionadas por servicios de terceros y
@@ -70,28 +109,6 @@
       Como resultado, estos servicios pueden instalar cookies y utilizarlas
       para rastrear tu actividad online.
       No tenemos control directo sobre la información recopilada por estas cookies.</p>
-  </div>
-
-  <h2>Configuración de cookies</h2>
-  <div class="text">
-    <p class="section">
-      <input type="checkbox" checked disabled>
-      Cookies técnicas (necesarias):
-    </p>
-    <p>
-      Estas cookies son necesarias para el funcionamiento
-      del sitio Web y por tanto no pueden ser deshabilitadas.
-    </p>
-    <br>
-    <p class="section">
-       <input type="checkbox" [checked]="cookieConsent" (click)="changeConsent()">
-       Cookies de análisis o medición:
-    </p>
-    <p>
-      Si no deseas que se almacenen estas cookies en tu
-      dispositivo, deshabilitalas pulsando el checkbox.
-    </p>
-
   </div>
 
   <h2>Eliminación de Cookies</h2>

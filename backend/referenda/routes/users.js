@@ -250,10 +250,13 @@ userRouter.route('/googleregister')
       // TODO: Verificar que el token es correcto
       User.findOne({"mail": JSON.parse(data).email})
         .exec(function(err, user) {
-          if (err) return next(err);
+          if (err) {
+            console.log("Can not find one: " + err);
+            return next(err);
+          }
           if (user) {
             // Logar al usuario mediante la creación de un jwt
-            req.logIn(user, function(err) {
+            req.login(user, function(err) {
               if (err) {
                 return res.status(500).json({
                   err: 'Could not log in user'

@@ -3,8 +3,8 @@
  */
 
 const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
 const express = require('express');
+const session = require('express-session');
 const logger = require('morgan');
 const mongoose = require('mongoose');
 const passport = require('passport');
@@ -31,7 +31,8 @@ db.once('open', function () {
 /* Referenda API */
 const app = express();
 app.all('*', function(req, res, next){  // Secure traffic only
-  console.log('req: ',req.secure, req.hostname, req.url, req.socket.localPort, req.socket.remotePort, app.get('port'));
+  console.log('req: ',req.secure, req.socket.remoteAddress, req.hostname, req.url, req.socket.localPort,
+      req.socket.remotePort, app.get('port'));
   if (req.secure) {
     res.setHeader('Access-Control-Allow-Origin', 'https://referenda.es');
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type,x-access-token');
@@ -42,11 +43,19 @@ app.all('*', function(req, res, next){  // Secure traffic only
   console.log('https://'+req.hostname+':'+app.get('secPort')+req.url);
   res.redirect('https://'+req.hostname+':'+app.get('secPort')+req.url);
 });
+//app.use(express.favicon());
 app.use(logger('dev'));
 app.use(bodyParser.json({limit: '2mb'}));
 app.use(bodyParser.urlencoded({ extended: false, limit: '2mb' }));
-app.use(cookieParser());
+app.use(session({
+  secret: 're fe ren da',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true },
+  name: 'referenda-server-cookie'
+}));
 app.use(passport.initialize());
+app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());

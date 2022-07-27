@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 import { CookiesService } from '../_services';
 
@@ -12,19 +12,22 @@ import { CookiesService } from '../_services';
 export class CookieConsentComponent implements OnInit {
 
   decided = true;
+  currentUrl: string;
 
   constructor(
       private cookiesService: CookiesService,
+      private route: ActivatedRoute,
       private router: Router) {
     this.decided = this.cookiesService.isCookieConsentDecided();
+    this.currentUrl = this.route.snapshot.url.toString();
   }
 
-  ngOnInit(): void { }
-
-  configure(): void {
-    this.cookiesService.setCookieConsent(true);
-    this.decided = true;
-    this.router.navigateByUrl('/cookies');
+  ngOnInit(): void {
+    this.cookiesService.cookiesDecidedMessage.subscribe(x => {
+      if (x == 'decided') {
+        this.decided = true;
+      }
+    })
   }
 
   cookies(accept: boolean): void {

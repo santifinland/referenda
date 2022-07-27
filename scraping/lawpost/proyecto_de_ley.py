@@ -69,7 +69,9 @@ def main():
     """ main script """
 
     # Read scraped congress laws and build LawPost instance
-    f = open("/tmp/proyecto_de_ley.json", "r")
+    #f = open("/tmp/p1.json", "r")
+    f = open("/tmp/proposicion_de_ley.json", "r")
+    #f = open("/tmp/proyecto_de_ley.json", "r")
     #f = open("/tmp/proposicion_no_de_ley.json", "r")
     law_post: LawPost = LawPost(f.read())
     f.close()
