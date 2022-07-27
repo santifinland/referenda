@@ -25,6 +25,7 @@ export class RegisterComponent implements OnInit {
   socialConsentNeeded = false;
   socialConsentGranted = false;
   refconsent = false;
+  usernameUsed = false;
 
   private socialUser: SocialUser;
   private socialUserLoggedIn: boolean;
@@ -101,6 +102,7 @@ export class RegisterComponent implements OnInit {
 
   onSocialRegister() {
     this.socialSubmitted = true;
+    this.usernameUsed = false;
 
     if (this.socialRegisterForm.invalid) {
       return;
@@ -128,7 +130,10 @@ export class RegisterComponent implements OnInit {
               this.socialConsentNeeded = false;
               this.router.navigateByUrl('/home');
             },
-            err => console.log(err)
+            err => {
+              this.usernameUsed = true;
+              console.log(err)
+            }
           );
       }
       this.router.navigateByUrl('/home');

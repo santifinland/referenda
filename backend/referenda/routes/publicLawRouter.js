@@ -53,12 +53,13 @@ lawRouter.route('/')
         delete req.query.all;
     } else {
         req.query.vote_start = {$lt: today};
-        req.query.vote_end = {$gte: today};
+        //req.query.vote_end = {$gte: today}; // Comment when no weekly congress session
+        delete req.query.all; // Comment when weekly congress session
     }
     Laws.find(req.query)
         .select('law_id reviewed law_type institution tier area headline slug short_description ' +
                 'link pub_date vote_start vote_end positive negative abstention official_positive official_negative ' +
-                'official_abstention commentsLength featured  positiveParties negativeParties abstentionParties -_id')
+                'official_abstention commentsLength featured positiveParties negativeParties abstentionParties -_id')
         .exec(function (err, law) {
         if (err) next(err);
         res.json(law);

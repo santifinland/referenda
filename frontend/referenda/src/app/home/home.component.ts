@@ -22,6 +22,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   profileForm: FormGroup;
   submitted = false;
+  usernameUsed = false;
 
   private socialUser: SocialUser;
   private socialUserLoggedIn: boolean;
@@ -94,6 +95,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   onChangeUsername() {
 
     this.submitted = true;
+    this.usernameUsed = false;
 
     if (this.profileForm.invalid) {
       return;
@@ -108,6 +110,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           },
           error => {
             this.submitted = false;
+            this.usernameUsed = true;
             this.profileForm = this.formBuilder.group({
               username: ['', Validators.required]
             });

@@ -71,7 +71,11 @@ userRouter.route('/register')
       if (user.length === 0) {
         console.log("Mail libre");
         User.register(new User(
-          { username: req.body.username, mail: req.body.email, origin: "referenda", consent: req.body.consent }),
+          {
+              username: req.body.username.toLowerCase(),
+              mail: req.body.email,
+              origin: "referenda",
+              consent: req.body.consent }),
           // { username : req.body.username, admin: req.body.admin }),
           req.body.password,
           function(err, user) {
@@ -148,7 +152,7 @@ userRouter.route('/username')
     if (user) {
       console.log(user);
       console.log(req.body.username);
-      User.find({"username": req.body.username}).exec(function (err, usernameUsers) {
+      User.find({"username": req.body.username.toLowerCase()}).exec(function (err, usernameUsers) {
         if (err) {
           return res.status(500).json({err: err});
         }
@@ -158,7 +162,7 @@ userRouter.route('/username')
           res.status(400).json({status: 'Impossible to change username'});
         } else {
           console.log("Changing username");
-          user.username = req.body.username;
+          user.username = req.body.username.toLowerCase();
           user.save(function (err, user) {
             if (err) return next(err);
             console.log('Updated User!');
@@ -274,7 +278,10 @@ userRouter.route('/googleregister')
               return res.status(400).json({err: "Bad consent"});
             }
             User.register(new User(
-              {username: req.body.username, mail: JSON.parse(data).email, origin: "google", consent: req.body.consent}),
+              {username: req.body.username.toLowerCase(),
+                  mail: JSON.parse(data).email,
+                  origin: "google",
+                  consent: req.body.consent}),
               "Google01!",
               function(err, user) {
                 if (err) {
@@ -334,7 +341,7 @@ userRouter.route('/facebookregister')
                   err: 'Could not log in user'
                 });
               }
-              var token = Verify.getToken({"username":user.username, "_id":user._id, "admin":user.admin});
+              const token = Verify.getToken({"username":user.username, "_id":user._id, "admin":user.admin});
               res.status(200).json({
                 username: user.username,
                 token: token
@@ -345,7 +352,10 @@ userRouter.route('/facebookregister')
               return res.status(400).json({err: "Bad consent"});
             }
             User.register(new User(
-              { username: req.body.username, mail: req.body.email, origin: "facebook", consent: req.body.consent }),
+              { username: req.body.username.toLowerCase(),
+                  mail: req.body.email,
+                  origin: "facebook",
+                  consent: req.body.consent }),
               "Facebook01!",
               function(err, user) {
                 if (err) {
@@ -360,7 +370,7 @@ userRouter.route('/facebookregister')
                           err: 'Could not log in user'
                         });
                       }
-                      var token = Verify.getToken({"username":user.username, "_id":user._id, "admin":user.admin});
+                      const token = Verify.getToken({"username":user.username, "_id":user._id, "admin":user.admin});
                       res.status(200).json({
                         username: user.username,
                         token: token

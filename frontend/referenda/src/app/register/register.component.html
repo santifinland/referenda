@@ -80,6 +80,7 @@
           <div *ngIf="socialSubmitted && srf.username.errors" class="invalid-feedback">
             <div *ngIf="srf.username.errors.required">Es necesario un nombre de usuario</div>
           </div>
+          <div *ngIf="usernameUsed" class="invalid-feedback">El nombre de usuario elegido no está disponible</div>
         </div>
         <div class="form-check">
           <input id="complete-gdpr" type="checkbox" formControlName="consent" class="form-check-input"

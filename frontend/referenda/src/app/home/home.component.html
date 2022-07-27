@@ -27,11 +27,14 @@
                placeholder={{currentUser.username}} value={{currentUser.username}}
                [ngClass]="{ 'is-invalid': submitted && pf.username.errors }"/>
         <div *ngIf="submitted && pf.username.errors" class="invalid-feedback">
-          <div *ngIf="pf.username.errors.required">Es necesario el nombre de usuario</div>
-          <div *ngIf="pf.username.errors.minlength">El nombre de usuario debe tener al menos 4 caracteres</div>
-          <div *ngIf="pf.username.errors.maxlength">El nombre de usuario debe tener como m&aacute;ximo 15 caracteres
+          <div *ngIf="pf.username.errors.required" class="text">Es necesario el nombre de usuario</div>
+          <div *ngIf="pf.username.errors.minlength" class="text">El nombre de usuario debe tener al menos 4 caracteres
+          </div>
+          <div *ngIf="pf.username.errors.maxlength" class="text">
+            El nombre de usuario debe tener como m&aacute;ximo 15 caracteres
           </div>
         </div>
+        <div *ngIf="usernameUsed" class="text">El nombre de usuario elegido no está disponible</div>
         <button class="save">Guardar cambios</button>
       </div>
     </form>
