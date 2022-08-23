@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {Subscription} from 'rxjs';
@@ -12,6 +12,7 @@ import {AuthenticationService} from '../_services';
 import {Party} from '../_models';
 import {User} from '../_models';
 import {UserService} from '../_services';
+import {DOCUMENT} from "@angular/common";
 
 
 @Component({
@@ -20,6 +21,8 @@ import {UserService} from '../_services';
   styleUrls: ['./delegations.component.css']
 })
 export class DelegationsComponent implements OnInit {
+
+  richSnippets = true;
 
   currentUser: User;
   currentUserSubscription: Subscription;
@@ -92,14 +95,18 @@ export class DelegationsComponent implements OnInit {
     private metaTagService: Meta,
     private router: Router,
     private titleService: Title,
-    private userService: UserService) {
-    this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
-      this.currentUser = user;
-      this.delegatedParty();
-      this.delegatedUser();
-    });
+    private userService: UserService,
+    @Inject(DOCUMENT) private document: Document) {
+      this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
+        this.currentUser = user;
+        this.delegatedParty();
+        this.delegatedUser();
+      });
+      if (this.richSnippets) {
+        this.richSnippets = false;
+        this.setRichSnippetBreadcrumb()
+      }
   }
-
 
   ngOnInit() {
     const title = 'Delegación de voto en partido político o usuario';
@@ -141,6 +148,27 @@ export class DelegationsComponent implements OnInit {
           );
       }
     });
+  }
+
+  setRichSnippetBreadcrumb() {
+    let script = this.document.createElement('script');
+    script.id = 'breadcrumb';
+    script.type = 'application/ld+json';
+    script.text = '{' +
+      '"@context": "https://schema.org", ' +
+      '"@type": "BreadcrumbList", ' +
+      '"itemListElement": [{' +
+        '"@type": "ListItem", ' +
+        '"position": 1, ' +
+        '"name": "Delegar Voto", ' +
+        '"item": "https://referenda.es/delegar"' +
+      '}]' +
+      '}';
+    const prev = this.document.getElementById('breadcrumb')
+    if (prev) {
+      prev.remove()
+    }
+    this.document.getElementsByTagName('head')[0].appendChild(script);
   }
 
   // convenience getter for easy access to form fields

@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit, PLATFORM_ID} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {Meta, Title} from '@angular/platform-browser';
-import {isPlatformBrowser} from '@angular/common';
+import {isPlatformBrowser, DOCUMENT} from '@angular/common';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 import {first} from 'rxjs/operators';
@@ -17,7 +17,8 @@ import {LawService, WINDOW} from '../_services';
 })
 export class LawDetailComponent implements OnInit {
 
-  law: Law;
+  law: Law = new Law();
+  richSnippets = true;
   facebook: string;
   twitter: string;
 
@@ -40,6 +41,8 @@ export class LawDetailComponent implements OnInit {
   currentState = true;
   readMore = false;
   numComments = 0;
+  finished = false;
+  approved = false;
   vote = '';
   comments = false;
   tab = 'all';
@@ -59,6 +62,7 @@ export class LawDetailComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private titleService: Title,
+    @Inject(DOCUMENT) private document: Document,
     @Inject(PLATFORM_ID) private platformId: Object,
     @Inject(WINDOW) private window: Window) {
       this.route.params.subscribe(params => this.getLaw(params['slug']));
@@ -83,11 +87,12 @@ export class LawDetailComponent implements OnInit {
   }
 
   getLaw(slug): void {
+    const today = new Date();
     this.lawService.getLaw(slug)
       .subscribe(law => {
         const title = law.headline;
         this.titleService.setTitle(title);
-        this.metaTagService.updateTag({name: 'description', content: title});
+        this.metaTagService.updateTag({name: 'description', content: law.short_description});
         law.positiveWidth = (50 * law.positive / (law.positive + law.negative + law.abstention)) + '%';
         law.negativeWidth = (50 * law.negative / (law.positive + law.negative + law.abstention)) + '%';
         law.abstentionWidth = (50 * law.abstention / (law.positive + law.negative + law.abstention)) + '%';
@@ -102,6 +107,8 @@ export class LawDetailComponent implements OnInit {
         law.positivePercentage = totalVotes === 0 ? 0 : 100 * law.positive / totalVotes;
         law.negativePercentage = totalVotes === 0 ? 0 : 100 * law.negative / totalVotes;
         law.abstentionPercentage = totalVotes === 0 ? 0 : 100 * law.abstention / totalVotes;
+        this.finished = new Date(law.vote_end).getTime() < today.getTime();
+        this.approved = this.finished && law.official_positive > law.official_negative
         this.numComments = law.comments.length;
         this.law = law;
         this.facebook = this.facebookPrefix + law.headline + this.facebookSuffix;
@@ -113,8 +120,123 @@ export class LawDetailComponent implements OnInit {
         if (this.numComments === 0) {
           this.addCommentMenu = true;
         }
+
+        if (this.richSnippets) {
+          this.richSnippets = false;
+          this.setRichSnippetBreadcrumb()
+          this.setRichSnippetLegislation()
+          this.setRichSnippetFAQ()
+        }
+
       });
   }
+
+  setRichSnippetBreadcrumb() {
+    let script = this.document.createElement('script');
+    script.id = 'breadcrumb';
+    script.type = 'application/ld+json';
+    script.text = '{' +
+      '"@context": "https://schema.org", ' +
+      '"@type": "BreadcrumbList", ' +
+      '"itemListElement": [{' +
+        '"@type": "ListItem", ' +
+        '"position": 1, ' +
+        '"name": "Iniciativas", ' +
+        '"item": "https://referenda.es/leyes"' +
+      '}]' +
+      '}';
+    const prev = this.document.getElementById('breadcrumb')
+    if (prev) {
+      prev.remove()
+    }
+    this.document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  setRichSnippetLegislation() {
+    let script = this.document.createElement('script');
+    script.id = 'legislation';
+    script.type = 'application/ld+json';
+    script.text = '{' +
+      '"@context": "https://schema.org", ' +
+      '"@type": "Legislation", ' +
+      '"headline": "' + this.law.headline + '"' +
+      '}';
+    const prev = this.document.getElementById('legislation')
+    if (prev) {
+      prev.remove()
+    }
+    this.document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  setRichSnippetFAQ() {
+    let script = this.document.createElement('script');
+    script.id = 'faq';
+    script.type = 'application/ld+json';
+    script.text = '{' +
+      '"@context": "https://schema.org", ' +
+      '"@type": "FAQPage", ' +
+      '"mainEntity": [' +
+
+      '{' +
+        '"@type": "Question", ' +
+        '"name": "¿Quién ha propuesto esta iniciativa?", ' +
+        '"acceptedAnswer": {' +
+          '"@type": "Answer", ' +
+          '"text": "' + this.institucionNames(this.law.institution) + '"' +
+          //meter FAQ con grupo politico, etc, quien está a favor, quien en contra, etc
+        '} ' +
+      '}, ' +
+
+      '{' +
+        '"@type": "Question", ' +
+        '"name": "¿Se ha aprobado esta iniciativa?", ' +
+        '"acceptedAnswer": {' +
+          '"@type": "Answer", ' +
+          '"text": "' + this.finishedApproved() + '"' +
+        '} ' +
+      '}, ' +
+
+      '{' +
+        '"@type": "Question", ' +
+        '"name": "¿Qué partidos políticos están a favor de esta iniciativa?", ' +
+        '"acceptedAnswer": {' +
+          '"@type": "Answer", ' +
+          '"text": "' + this.institucionNames(this.law.positiveParties) + '"' +
+        '} ' +
+      '}, ' +
+
+      '{' +
+        '"@type": "Question", ' +
+        '"name": "¿Qué partidos políticos están en contra de esta iniciativa?", ' +
+        '"acceptedAnswer": {' +
+          '"@type": "Answer", ' +
+          '"text": "' + this.institucionNames(this.law.negativeParties) + '"' +
+        '} ' +
+      '} ' +
+
+      ']' +
+      '}';
+    const prev = this.document.getElementById('faq')
+    if (prev) {
+      prev.remove()
+    }
+    this.document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  finishedApproved() {
+    if (this.finished) {
+      if (this.approved) {
+        return "Esta iniciativa ha sido aprobada con " + this.law.official_positive + " votos a favor, " +
+          this.law.official_negative + " votos en contra y " + this.law.official_abstention + " abstenciones."
+      } else {
+        return "Esta iniciativa ha sido rechazada con " + this.law.official_positive + " votos a favor, " +
+          this.law.official_negative + " votos en contra y " + this.law.official_abstention + " abstenciones."
+      }
+    } else {
+      return "Esta iniciativa todavía no se ha votado"
+    }
+  }
+
 
   toggle() {
     this.readMore = !this.readMore;
@@ -385,5 +507,53 @@ export class LawDetailComponent implements OnInit {
 
   showAddCommentMenu() {
     this.addCommentMenu = !this.addCommentMenu;
+  }
+
+  institucionNames(institutions: string[]) {
+    const message =  institutions.map(x => this.institutionName(x)).join(", ")
+    return message.length == 0 ? "Ninguno" : message
+  }
+
+  institutionName(institution: string) {
+    switch (institution) {
+      case "psoe": return "Partido Socialista Obrero Español";
+      case "pp": return "Partido Popular";
+      case "vox": return "Vox";
+      case "podemos": return "Unidas Podemos";
+      case "ciudadanos": return "Ciudadanos";
+      case "erc": return "Esquerra Republicana de Catalunya";
+      case "jpc": return "Junts per Catalunya";
+      case "pnv": return "Partido Nacionalista Vasco";
+      case "bildu": return "Bildu";
+      case "mp": return "Más País";
+      case "cc": return "Coalición Canaria";
+      case "cup": return "Candidatura de Unidad Popular";
+      case "upn": return "Navarra Suma";
+      case "bng": return "Bloque Nacionalista Gallego";
+      case "prc": return "Partido Regionalista Cántabro";
+      case "te": return "Teruel Existe";
+      case "gobierno": return "Gobierno de España";
+      case "senado": return "Senado de España";
+      case "popular": return "Iniciativa legislativa popular";
+      case "andalucia": return "Andalucía";
+      case "aragon": return "Aragón";
+      case "asturias": return "Principado de Asturias";
+      case "baleares": return "Illes Balears";
+      case "canarias": return "Canarias";
+      case "cantabria": return "Cantabria";
+      case "castillalamancha": return "Castilla-La Mancha";
+      case "castillayleon": return "Castilla y León";
+      case "catalunya": return "Catalunya";
+      case "extremadura": return "Extremadura";
+      case "galicia": return "Galicia";
+      case "rioja": return "La Rioja";
+      case "madrid": return "Comunidad de Madrid";
+      case "murcia": return "Región de Madrid";
+      case "navarra": return "Comunidad Foral de Navarra";
+      case "paisvasco": return "País Vasco";
+      case "valencia": return "Comunidad Valenciana";
+      case "ceuta": return "Ceuta";
+      case "melilla": return "Melilla";
+    }
   }
 }

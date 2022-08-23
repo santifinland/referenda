@@ -1,6 +1,6 @@
 import { APP_ID, Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
-import { formatDate, isPlatformBrowser } from '@angular/common';
+import {DOCUMENT, formatDate, isPlatformBrowser} from '@angular/common';
 
 import { matchSorter } from 'match-sorter';
 
@@ -22,19 +22,48 @@ export class ResultsComponent implements OnInit {
   approved = false;
   notApproved = false;
   searchMenu = false;
+  richSnippets = true;
 
   constructor(
       private lawService: LawService,
       private metaTagService: Meta,
       private titleService: Title,
+      @Inject(DOCUMENT) private document: Document,
       @Inject(PLATFORM_ID) private platformId: object,
-      @Inject(APP_ID) private appId: string) { }
+      @Inject(APP_ID) private appId: string) {
+
+    if (this.richSnippets) {
+      this.richSnippets = false;
+      this.setRichSnippetBreadcrumb()
+    }
+  }
 
   ngOnInit() {
     const title = 'Resultados de votaciones Congreso de los Diputados';
     this.titleService.setTitle(title);
     this.metaTagService.updateTag({ name: 'description', content: title });
     this.getResults();
+  }
+
+  setRichSnippetBreadcrumb() {
+    let script = this.document.createElement('script');
+    script.id = 'breadcrumb';
+    script.type = 'application/ld+json';
+    script.text = '{' +
+      '"@context": "https://schema.org", ' +
+      '"@type": "BreadcrumbList", ' +
+      '"itemListElement": [{' +
+        '"@type": "ListItem", ' +
+        '"position": 1, ' +
+        '"name": "Resultados", ' +
+        '"item": "https://referenda.es/resultados"' +
+      '}]' +
+      '}';
+    const prev = this.document.getElementById('breadcrumb')
+    if (prev) {
+      prev.remove()
+    }
+    this.document.getElementsByTagName('head')[0].appendChild(script);
   }
 
   getResults(): void {
@@ -47,6 +76,7 @@ export class ResultsComponent implements OnInit {
         });
         this.laws = laws;
       });
+
   }
 
   isApproved(law: Law): boolean {
