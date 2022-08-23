@@ -319,7 +319,7 @@ export class CreateLawComponent implements OnInit {
       law.area.push('interior');
     }
     if (law.agricultura === 'Yes') {
-      law.area.push('agri');
+      law.area.push('agricultura');
     }
     if (law.infraestructuras === 'Yes') {
       law.area.push('infraestructuras');

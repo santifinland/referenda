@@ -53,8 +53,7 @@ lawRouter.route('/')
         delete req.query.all;
     } else {
         req.query.vote_start = {$lt: today};
-        //req.query.vote_end = {$gte: today}; // Comment when no weekly congress session
-        delete req.query.all; // Comment when weekly congress session
+        req.query.vote_end = {$gte: today};
     }
     Laws.find(req.query)
         .select('law_id reviewed law_type institution tier area headline slug short_description ' +

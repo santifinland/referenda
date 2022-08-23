@@ -1,7 +1,7 @@
 import {Component, HostListener, Inject, OnInit, PLATFORM_ID} from '@angular/core';
 import {Router} from '@angular/router';
 import {Meta, Title} from '@angular/platform-browser';
-import {isPlatformBrowser} from '@angular/common';
+import {DOCUMENT, isPlatformBrowser} from '@angular/common';
 
 import {matchSorter } from 'match-sorter';
 import {Subscription, timer} from 'rxjs';
@@ -48,6 +48,8 @@ export class LawsComponent implements OnInit {
   currentUser: User | undefined;
   currentUserSubscription: Subscription;
 
+  richSnippets = true;
+
   @HostListener('window:scroll') onScroll(e: Event): void {
     if (this.scrolled === false) {
       this.getLaws();
@@ -64,12 +66,25 @@ export class LawsComponent implements OnInit {
       private readonly transferStateService: TransferStateService,
       private authenticationService: AuthenticationService,
       private userService: UserService,
+      @Inject(DOCUMENT) private document: Document,
       @Inject(PLATFORM_ID) private platformId: Object,
       @Inject(WINDOW) private window: Window) {
     this.landing = !this.cookiesService.getLanding();
     this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
       this.currentUser = user;
     });
+    this.transferStateService.fetch('laws', this.lawService.getLaws())
+      .subscribe(laws => {
+        const tierLaws = this.prepareLaws(laws.filter(law => law.tier === 1));
+        this.laws = this.sortLaws(tierLaws);
+        if (this.currentUser) {
+          this.laws = this.getVotes(this.laws);
+        }
+      });
+    if (this.richSnippets) {
+      this.richSnippets = false;
+      this.setRichSnippetBreadcrumb()
+    }
   }
 
   ngOnInit() {
@@ -82,11 +97,36 @@ export class LawsComponent implements OnInit {
       title = 'Leyes debatidas en el Congreso de los Diputados de España';
     }
     this.titleService.setTitle(title);
-    this.metaTagService.updateTag({ name: 'description', content: title });
+    const content = "Referenda es una aplicación web de Democracia Directa y delegación de voto. " +
+      "Nuestro objetivo es acercar la política a la ciudadanía. " +
+      "Queremos formar una opinión pública responsable fomentando el conocimiento sobre nuestras leyes, " +
+      "su proceso de creación y sus legisladores."
+    this.metaTagService.updateTag({ name: 'description', content: content });
     if (isPlatformBrowser(this.platformId)) {
       this.smartphoneMenu = window.innerWidth > 640;
     }
     this.partiesPosition = 'favour';
+  }
+
+  setRichSnippetBreadcrumb() {
+    let script = this.document.createElement('script');
+    script.id = 'breadcrumb';
+    script.type = 'application/ld+json';
+    script.text = '{' +
+      '"@context": "https://schema.org", ' +
+      '"@type": "BreadcrumbList", ' +
+      '"itemListElement": [{' +
+        '"@type": "ListItem", ' +
+        '"position": 1, ' +
+        '"name": "Iniciativas", ' +
+        '"item": "https://referenda.es/leyes"' +
+      '}]' +
+      '}';
+    const prev = this.document.getElementById('breadcrumb')
+    if (prev) {
+      prev.remove()
+    }
+    this.document.getElementsByTagName('head')[0].appendChild(script);
   }
 
   async getLatestLaws() {

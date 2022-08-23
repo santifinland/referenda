@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 
 import * as d3 from 'd3';
 
 import { Law } from '../_models';
 import { LawService } from '../_services';
+import {DOCUMENT} from "@angular/common";
 
 
 @Component({
@@ -27,12 +28,18 @@ export class StatsComponent implements OnInit {
   proposicionNoLey = 0;
   proyectoLey = 0;
   decretoLey = 0;
-
+  richSnippets = true;
 
   constructor(
       private lawService: LawService,
       private metaTagService: Meta,
-      private titleService: Title) {
+      private titleService: Title,
+      @Inject(DOCUMENT) private document: Document) {
+
+        if (this.richSnippets) {
+          this.richSnippets = false;
+          this.setRichSnippetBreadcrumb()
+        }
   }
 
   ngOnInit() {
@@ -42,6 +49,27 @@ export class StatsComponent implements OnInit {
     this.titleService.setTitle(title);
     this.metaTagService.updateTag({ name: 'description', content: title });
     window.scroll(-1, 0);
+  }
+
+  setRichSnippetBreadcrumb() {
+    let script = this.document.createElement('script');
+    script.id = 'breadcrumb';
+    script.type = 'application/ld+json';
+    script.text = '{' +
+      '"@context": "https://schema.org", ' +
+      '"@type": "BreadcrumbList", ' +
+      '"itemListElement": [{' +
+        '"@type": "ListItem", ' +
+        '"position": 1, ' +
+        '"name": "Estadísticas", ' +
+        '"item": "https://referenda.es/estadisticas"' +
+      '}]' +
+      '}';
+    const prev = this.document.getElementById('breadcrumb')
+    if (prev) {
+      prev.remove()
+    }
+    this.document.getElementsByTagName('head')[0].appendChild(script);
   }
 
   getPartyLaws(): void {

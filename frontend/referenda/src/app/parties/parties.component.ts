@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit, PLATFORM_ID} from '@angular/core';
-import {isPlatformBrowser} from '@angular/common';
+import {DOCUMENT, isPlatformBrowser} from '@angular/common';
 import {Router} from '@angular/router';
 import {Meta, Title} from '@angular/platform-browser';
 
@@ -28,6 +28,7 @@ export class PartiesComponent implements OnInit {
   mobile = false;
   mobileMenu = false;
   positionMenu = false;
+  richSnippets = true;
 
   constructor(
       private lawService: LawService,
@@ -35,8 +36,15 @@ export class PartiesComponent implements OnInit {
       private metaTagService: Meta,
       private router: Router,
       private titleService: Title,
+      @Inject(DOCUMENT) private document: Document,
       @Inject(PLATFORM_ID) private platformId: Object,
-      @Inject(WINDOW) private window: Window) { }
+      @Inject(WINDOW) private window: Window) {
+
+        if (this.richSnippets) {
+          this.richSnippets = false;
+          this.setRichSnippetBreadcrumb()
+        }
+  }
 
   ngOnInit() {
     this.getLaws();
@@ -49,6 +57,27 @@ export class PartiesComponent implements OnInit {
     if (isPlatformBrowser(this.platformId)) {
       this.mobile = window.innerWidth < 761;
     }
+  }
+
+  setRichSnippetBreadcrumb() {
+    let script = this.document.createElement('script');
+    script.id = 'breadcrumb';
+    script.type = 'application/ld+json';
+    script.text = '{' +
+      '"@context": "https://schema.org", ' +
+      '"@type": "BreadcrumbList", ' +
+      '"itemListElement": [{' +
+        '"@type": "ListItem", ' +
+        '"position": 1, ' +
+        '"name": "Partidos Políticos", ' +
+        '"item": "https://referenda.es/partidos"' +
+      '}]' +
+      '}';
+    const prev = this.document.getElementById('breadcrumb')
+    if (prev) {
+      prev.remove()
+    }
+    this.document.getElementsByTagName('head')[0].appendChild(script);
   }
 
   getLaws(): void {

@@ -64,7 +64,6 @@
         <div class="texto">{{law.short_description}}</div>
         <div class="vote-advise" *ngIf="law.userPosition === 0">Aún no has votado esta propuesta</div>
         <div class="vote-remember" *ngIf="law.userPosition !== 0">Ya has votado esta propuesta</div>
-        <!--<div class="voto">A&uacute;n no has votado esta propuesta</div>-->
         <div class="botones">
           <div class="boton si visible" (click)="submitVote([law.slug], 1);"
                [ngClass]="{'position-active': law.userPosition === 1,
