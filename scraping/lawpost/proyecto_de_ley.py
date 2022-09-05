@@ -31,7 +31,7 @@ class LawPost:
 
         # Send laws to Referenda API
         headers = {"Content-Type": "application/json",
-                   "x-access-token": ""}
+                   "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlNhbnRpIiwiX2lkIjoiNjJiMDFkNGI4NjlmMWJmODkwY2M5ZmYzIiwiYWRtaW4iOnRydWUsImlhdCI6MTY2MzU2ODI3OSwiZXhwIjoxNjYzNTg5ODc5fQ.nnxa3V-uquAp4UEGBE8aZT3l64-yc0pHEmyBw8mwlyI"}
         for law in selected_laws:
             print("{}: {} from {}".format(law.law_id, law.headline, law.institution))
             r = requests.post('https://referenda.es:3443/api/laws', headers=headers, data=law.toJSON(), verify=False)
@@ -70,8 +70,8 @@ def main():
 
     # Read scraped congress laws and build LawPost instance
     #f = open("/tmp/p1.json", "r")
-    f = open("/tmp/proposicion_de_ley.json", "r")
-    #f = open("/tmp/proyecto_de_ley.json", "r")
+    #f = open("/tmp/proposicion_de_ley.json", "r")
+    f = open("/tmp/proyecto_de_ley.json", "r")
     #f = open("/tmp/proposicion_no_de_ley.json", "r")
     law_post: LawPost = LawPost(f.read())
     f.close()
@@ -82,6 +82,7 @@ def main():
 
 if __name__ == "__main__":
     try:
+        print("Law delivery script started")
         main()
     except Exception as e:
         print('Failed to execute. Exception: {}'.format(e))

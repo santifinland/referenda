@@ -18,12 +18,14 @@ class QuotesSpider(scrapy.Spider):
 
     def parse(self, response, **kwargs):
         return [FormRequest(
-            url="https://www.congreso.es/busqueda-de-iniciativas?p_p_id=iniciativas&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&_iniciativas_mode=mostrarDetalle&_iniciativas_legislatura=XIV&_iniciativas_id=" + law_id,
+            #url="https://www.congreso.es/busqueda-de-iniciativas?p_p_id=iniciativas&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&_iniciativas_mode=mostrarDetalle&_iniciativas_legislatura=XIV&_iniciativas_id=" + law_id,
+            url="https://www.congreso.es/proposiciones-de-ley?p_p_id=iniciativas&p_p_lifecycle=2&p_p_state=normal&p_p_mode=view&p_p_resource_id=filtrarListado&p_p_cacheability=cacheLevelPage",
             formdata={'_iniciativas_legislatura': '14',
                       '_iniciativas_cini': '162.CINI.',
                       '_iniciativas_tipoLlamada': 'T',
-                      '_iniciativas_paginaActual': '1'},
-            callback=self.parse_pdl) for law_id in self.law_ids]
+                      '_iniciativas_paginaActual': '2'},
+            callback=self.parse_link)]
+            #callback=self.parse_pdl) for law_id in self.law_ids]
 
     def parse_link(self, response):
         iniciativas = json.loads(response.text).get('lista_iniciativas')
