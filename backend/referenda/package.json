@@ -16,7 +16,7 @@
     "fibers": "^5.0.0",
     "https": "^1.0.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.0.6",
+    "mongoose": "^6.4.6",
     "mongoose-url-slugs": "github:talha-asad/mongoose-url-slugs",
     "morgan": "~1.10.0",
     "mquery": "^4.0.0",
