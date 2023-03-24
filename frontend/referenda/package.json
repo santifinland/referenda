@@ -44,7 +44,7 @@
     "rxjs": "^7.5.5",
     "rxjs-compat": "^6.6.7",
     "stream-browserify": "^3.0.0",
-    "swagger-ui": "^4.10.3",
+    "swagger-ui": "^4.18.1",
     "swiper": "^6.8.4",
     "tslib": "^2.3.1",
     "zone.js": "^0.11.5"
