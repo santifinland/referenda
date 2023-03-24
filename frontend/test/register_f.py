@@ -50,7 +50,7 @@ def test_register():
     driver.implicitly_wait(10)
     password = driver.find_element(value="pass")
     driver.implicitly_wait(10)
-    password.send_keys("")
+    password.send_keys("r3f3r3nd4")
     create_account = driver.find_element(by=By.NAME, value="login")
     driver.implicitly_wait(10)
     create_account.click()
@@ -75,11 +75,11 @@ def test_register():
     register_button.click()
     driver.implicitly_wait(10)
 
-    time.sleep(10)
+    time.sleep(5)
 
-    username = driver.find_element(by=By.LINK_TEXT, value="Samantha Alhbhdehgaegd Adeagboman")
+    username = driver.find_element(value="username")
     driver.implicitly_wait(10)
-    assert username.text == "Samantha Alhbhdehgaegd Adeagboman", "Not showing the username"
+    assert username.text == "referenda", "Not showing the username"
 
     driver.quit()
 

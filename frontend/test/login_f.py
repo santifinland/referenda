@@ -45,15 +45,19 @@ def test_login():
     email.send_keys("jatljptpqh_1655890132@tfbnw.net")
     driver.implicitly_wait(10)
     password = driver.find_element(value="pass")
-    password.send_keys("")
+    password.send_keys("r3f3r3nd4")
     driver.implicitly_wait(10)
     login = driver.find_element(by=By.NAME, value="login")
     login.click()
 
     driver.switch_to.window(parent_window)
     driver.implicitly_wait(10)
-    username = driver.find_element(by=By.LINK_TEXT, value="Samantha Alhbhdehgaegd Adeagboman")
-    assert username.text == "Samantha Alhbhdehgaegd Adeagboman", "Not showing the username"
+    username = driver.find_element(value="username")
+    driver.implicitly_wait(10)
+    print(username)
+    print(username.text)
+    print(username.tag_name)
+    assert username.text == "referenda", "Not showing the username"
 
     driver.quit()
 
