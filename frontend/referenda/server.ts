@@ -31,7 +31,7 @@ export function app() {
   // server.get('/api/**', (req, res) => { });
   // Serve static files from /browser
   server.get('*.*', express.static(distFolder, {
-    maxAge: '1y'
+    maxAge: 31536000000,
   }));
 
   // All regular routes use the Universal engine

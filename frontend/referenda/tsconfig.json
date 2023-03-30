@@ -10,7 +10,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "target": "es5",
+    "target": "ES2022",
     "typeRoots": [
       "node_modules/@types"
     ],
@@ -19,7 +19,10 @@
       "dom"
     ],
     "paths": {
-      "stream":["node_modules/stream-browserify"]
-    }
+      "stream": [
+        "node_modules/stream-browserify"
+      ]
+    },
+    "useDefineForClassFields": false
   }
 }

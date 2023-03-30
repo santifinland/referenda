@@ -10,7 +10,7 @@ import {tap} from 'rxjs/operators';
 })
 export class TransferStateService {
 
-  private keys = new Map<string, StateKey<string>>();
+  private keys = new Map<string, StateKey<any>>();
 
   constructor(
     @Inject(PLATFORM_ID) private readonly platformId: Object,
@@ -41,7 +41,7 @@ export class TransferStateService {
       return defaultValue || null;
     }
     return this.transferState.get<T>(
-      this.getStateKey(key),
+      this.getStateKey<T>(key),
       defaultValue
     );
   }
@@ -66,17 +66,17 @@ export class TransferStateService {
       }
       console.log('Set transfer state ' + key);
       this.transferState.set(
-        this.getStateKey(key),
+        this.getStateKey<T>(key),
         <any> value
       );
     }
   }
 
-  private getStateKey(key: string): StateKey<string> {
+  private getStateKey<T>(key: string): StateKey<T> {
     if (this.keys.has(key)) {
       return this.keys.get(key);
     }
-    this.keys.set(key, makeStateKey(key));
+    this.keys.set(key, makeStateKey<T>(key));
     return this.keys.get(key);
   }
 }
