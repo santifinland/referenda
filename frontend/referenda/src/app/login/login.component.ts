@@ -3,7 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Meta, Title } from '@angular/platform-browser';
 
-import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
+import { GoogleLoginProvider, SocialAuthService } from '@abacritt/angularx-social-login';
+import { SocialUser } from '@abacritt/angularx-social-login';
+import { FacebookLoginProvider } from '@abacritt/angularx-social-login';
 import { first } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 
@@ -17,6 +19,8 @@ import { User } from '../_models';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
+  GoogleLoginProvider = GoogleLoginProvider;
 
   loginForm: FormGroup;
   loading = false;
@@ -61,6 +65,7 @@ export class LoginComponent implements OnInit {
       this.socialUser = user;
       this.socialUserLoggedIn = (user != null);
       if (this.socialProvider === 'Google') {
+        this.authService.refreshAuthToken(GoogleLoginProvider.PROVIDER_ID);
         this.userService.googleRegister(user)
           .subscribe(
             (data: any) => {
@@ -120,5 +125,9 @@ export class LoginComponent implements OnInit {
     this.socialProvider = 'Facebook';
     this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
     this.router.navigate([this.returnUrl]);
+  }
+
+  refreshGoogleToken(): void {
+    this.authService.refreshAuthToken(GoogleLoginProvider.PROVIDER_ID);
   }
 }

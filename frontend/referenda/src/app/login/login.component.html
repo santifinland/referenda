@@ -10,9 +10,13 @@
       <img class="facebook-img" src="assets/img/facebook_login.svg"/>
       Iniciar sesi&oacute;n con Facebook
     </div>
-    <div id="google" class="button google-button" (click)="signInWithGoogle()">
-      <img class="google-img" src="assets/img/btn_google_light_normal_ios.svg"/>
-      Iniciar sesi&oacute;n con Google
+    <div>
+      <asl-google-signin-button
+        type="standard"
+        size="large"
+        logo_alignment="center"
+        text="signin_with">
+      </asl-google-signin-button>
     </div>
   </div>
   <div class="social referenda">
