@@ -53,6 +53,10 @@ export class UserService {
 
   googleRegister(user: any): Observable<string> {
     const uri = this.usersUrl + '/googleregister';
+    console.log(user)
+    console.log(user.idToken)
+    console.log(user.authToken)
+    console.log(user.name)
     const body = {'id': user.idToken, 'token': user.authToken, 'username': user.name, 'consent': true};
     return this.http.post<string>(uri, body);
   }

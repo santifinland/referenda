@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
 
   private socialUser: SocialUser;
   private socialUserLoggedIn: boolean;
-  private socialProvider: string;
+  private socialProvider: string = 'Google';  // Default social provider since used the asl-google-signin-button button
 
   constructor(
       private alertService: AlertService,
@@ -65,10 +65,10 @@ export class LoginComponent implements OnInit {
       this.socialUser = user;
       this.socialUserLoggedIn = (user != null);
       if (this.socialProvider === 'Google') {
-        this.authService.refreshAuthToken(GoogleLoginProvider.PROVIDER_ID);
         this.userService.googleRegister(user)
           .subscribe(
             (data: any) => {
+              console.log(data)
               const referendaUser: User = {username: data.username, token: data.token, origin: "google"};
               this.authenticationService.loginWithToken(referendaUser);
             },
@@ -125,9 +125,5 @@ export class LoginComponent implements OnInit {
     this.socialProvider = 'Facebook';
     this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
     this.router.navigate([this.returnUrl]);
-  }
-
-  refreshGoogleToken(): void {
-    this.authService.refreshAuthToken(GoogleLoginProvider.PROVIDER_ID);
   }
 }

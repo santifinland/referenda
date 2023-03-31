@@ -85,6 +85,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.authenticationService.logout();
     this.currentUserSubscription.unsubscribe();
     if (this.socialUser) {
+      console.log("llamado a singout")
       this.socialUserLoggedIn = false;
       this.socialUser = null;
       this.authService.signOut();

@@ -40,7 +40,7 @@ export class DelegationsComponent implements OnInit {
   loginForm: FormGroup;
   private socialUser: SocialUser;
   private socialUserLoggedIn: boolean;
-  private socialProvider: string;
+  private socialProvider: string = 'Google';  // Default social provider since used the asl-google-signin-button button
 
   parties: string[] = ['psoe', 'pp', 'vox', 'podemos', 'ciudadanos', 'erc', 'jpc', 'pnv', 'bildu', 'mp', 'cup', 'cc',
     'upn', 'bng', 'prc', 'te'];
