@@ -31,7 +31,7 @@ class LawPost:
 
         # Send laws to Referenda API
         headers = {"Content-Type": "application/json",
-                   "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlNhbnRpIiwiX2lkIjoiNjJiMDFkNGI4NjlmMWJmODkwY2M5ZmYzIiwiYWRtaW4iOnRydWUsImlhdCI6MTY2MzU2ODI3OSwiZXhwIjoxNjYzNTg5ODc5fQ.nnxa3V-uquAp4UEGBE8aZT3l64-yc0pHEmyBw8mwlyI"}
+                   "x-access-token": ""}
         for law in selected_laws:
             print("{}: {} from {}".format(law.law_id, law.headline, law.institution))
             r = requests.post('https://referenda.es:3443/api/laws', headers=headers, data=law.toJSON(), verify=False)

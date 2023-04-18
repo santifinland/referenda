@@ -17,7 +17,7 @@ def main():
     print("Start law send")
     laws = parse_laws()
     headers = {"Content-Type": "application/json",
-               "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhbnRpZmlubGFuZCIsIl9pZCI6IjU3YjIxNGQxMGNkYmZlYTkxYTgzOThiMCIsImFkbWluIjp0cnVlLCJpYXQiOjE1ODk3Mjg0OTAsImV4cCI6MTU4OTc1MDA5MH0.nWWSr7XUZh1O0m9O4mq-Pp-UeLRzcj-7-Au8oBguD7U"}
+               "x-access-token": ""}
     # Send laws to referenda
     for l in laws:
         print(l)
