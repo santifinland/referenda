@@ -242,16 +242,14 @@ userRouter.route('/googleregister')
 .post(function(req, res, next) {
   console.log(req.body);
   // Extrater el nombre de usuario y el mail del token preguntando a google
-  https.get('https://www.googleapis.com/oauth2/v3/tokeninfo?access_token=' + req.body.token, (resp) => {
+  https.get('https://oauth2.googleapis.com/tokeninfo?id_token=' + req.body.id, (resp) => {
     let data = '';
     // The whole response has been received. Print out the result.
     resp.on('data', (chunk) => {
       data += chunk;
     });
     resp.on('end', () => {
-      console.log(data);
-      console.log(JSON.parse(data));
-      // TODO: Verificar que el token es correcto
+      // TODO: Verificar que el token es correcto y espcialmente que no está vacio. undefinded devuelve el primer user!!
       User.findOne({"mail": JSON.parse(data).email})
         .exec(function(err, user) {
           if (err) {
