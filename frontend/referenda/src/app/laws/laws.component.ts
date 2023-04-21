@@ -223,6 +223,36 @@ export class LawsComponent implements OnInit {
     return this.sortLaws(headlineLaws);
   }
 
+  lawsTwo(): Law[] {
+    if (isPlatformBrowser(this.platformId)) {
+      switch (true) {
+        case window.innerWidth <= 1165:
+          return
+        case window.innerWidth <= 1920:
+          return this.lawsToShow().slice(0, 1)
+        case window.innerWidth > 1920:
+          return this.lawsToShow().slice(0, 2)
+      }
+    } else {
+      return
+    }
+  }
+
+  lawsRest(): Law[] {
+    if (isPlatformBrowser(this.platformId)) {
+      switch (true) {
+        case window.innerWidth <= 1165:
+          return this.lawsToShow()
+        case window.innerWidth <= 1920:
+          return this.lawsToShow().slice(1)
+        case window.innerWidth > 1920:
+          return this.lawsToShow().slice(2)
+      }
+    } else {
+      return
+    }
+  }
+
   showSmartphoneMenu() {
     this.smartphoneMenu = !this.smartphoneMenu;
   }
