@@ -20,30 +20,59 @@
       <div class="read-more" *ngIf="!readMore && !mobile" (click)="toggle()">+ Leer m&aacute;s</div>
       <div class="read-less" *ngIf="readMore && !mobile" (click)="toggle()">- Leer menos</div>
 
-      <div class="comments-title">Comentarios ({{numComments}})</div>
-      <div class="comment-tabs">
-        <div class="tabs-base all" [ngClass]="{activetab: tab==='all'}" (click)="tab='all'; dateComments();">
-          TODOS
+      <div class="comments-outer">
+        <div class="comments-title">Deja un comentario</div>
+        <form [formGroup]="commentForm" (ngSubmit)="comment()">
+          <div class="form-group">
+            <textarea type="text" formControlName="comment" class="form-control comment-area" id="comment"
+                      placeholder="Escribe aqu&iacute; tu comentario"
+                      [ngClass]="{ 'is-invalid': submitted && f.comment.errors }">
+            </textarea>
+            <div *ngIf="submitted && f.comment.errors" class="invalid-feedback">
+              <div *ngIf="submitted && f.comment.errors.required">Es necesario escribir un comentario</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <button class="comment-send">Enviar comentario</button>
+          </div>
+        </form>
+        <div class="comment-tabs">
+          <div class="tabs-base all" [ngClass]="{activetab: tab==='all'}" (click)="tab='all'; dateComments();">
+            TODOS ({{numComments}})
+          </div>
+          <div class="tabs-base yes" [ngClass]="{activetab: tab==='yes'}" (click)="tab='yes'; dateComments();">
+            S&Iacute;
+          </div>
+          <div class="tabs-base no" [ngClass]="{activetab: tab==='no'}" (click)="tab='no'; dateComments();">
+            NO
+          </div>
+          <div class="tabs-base abs" [ngClass]="{activetab: tab==='abs'}" (click)="tab='abs'; dateComments();">
+            ABS
+          </div>
         </div>
-        <div class="tabs-base top-comments" [ngClass]="{activetab: tab==='top'}" (click)="tab='top'; sortComments()">
-          MEJOR VALORADOS
-        </div>
-      </div>
-      <div class="comments-list">
-        <div class="comment" *ngFor="let comment of law.comments">
-          <div class="comment-container">
-            <div class="comment-info">
-              <div class="comment-username">{{comment.postedBy.username}}</div>
-              <div class="comment-datetime">{{comment.updatedAt | date:'d \'de\' MMMM \'de\' yyyy'}}</div>
+        <div class="comments-list">
+          <div class="comment" *ngFor="let comment of law.comments">
+            <div class="comment-container">
+              <div class="comment-info">
+                <div class="comment-username">{{comment.postedBy.username}}</div>
+                <div class="comment-datetime">{{comment.updatedAt | date:'d \'de\' MMMM \'de\' yyyy'}}</div>
+              </div>
               <div class="comment-content" [innerHTML]="comment.comment"></div>
             </div>
+
             <div class="comment-votes">
+              <div class="comment-vote answer">
+                Responder
+              </div>
+              <div class="comment-vote">
+                {{numComments}} Comentarios
+              </div>
               <div class="comment-vote" (click)="voteComment([comment._id], 1)">
-                <div class="uparrowbluebig"></div>
+                <div class="like"></div>
                 {{comment.positive}}
               </div>
               <div class="comment-vote" (click)="voteComment([comment._id], 2)">
-                <div class="downarrowbluebig"></div>
+                <div class="dislike"></div>
                 {{comment.negative}}
               </div>
             </div>
@@ -372,22 +401,13 @@
         <div class="miniuparrowblue" *ngIf="!mobileCommentsMenu"></div>
         <div class="minidownarrowblue" *ngIf="mobileCommentsMenu"></div>
       </div>
-      <div class="comments-menu" *ngIf="mobileCommentsMenu && law.comments.length > 0">
-        <div class="position-button favor" [ngClass]="{'position-active': partiesPosition==='favour'}"
-             (click)="partiesPosition='favour';">A FAVOR
-        </div>
-        <div class="position-button contra" [ngClass]="{'position-active': partiesPosition==='against'}"
-             (click)="partiesPosition='against';">EN CONTRA
-        </div>
-        <div class="position-button abs" [ngClass]="{'position-active': partiesPosition==='abs'}"
-             (click)="partiesPosition='abs';">ABS
-        </div>
-      </div>
       <div class="mobile-comments" *ngIf="mobileCommentsMenu">
         <div class="comment-advise" *ngIf="law.comments.length === 0">Todavía no hay comentarios. ¡Añade el tuyo!</div>
-        <div class="comment-info" *ngFor="let comment of law.comments">
-          <div class="comment-username">{{comment.postedBy.username}}</div>
-          <div class="comment-datetime">{{comment.updatedAt | date:'d \'de\' MMMM \'de\' yyyy'}}</div>
+        <div class="comment-container" *ngFor="let comment of law.comments">
+          <div class="comment-info">
+            <div class="comment-username">{{comment.postedBy.username}}</div>
+            <div class="comment-datetime">{{comment.updatedAt | date:'d \'de\' MMMM \'de\' yyyy'}}</div>
+          </div>
           <div class="comment-content" [innerHTML]="comment.comment"></div>
         </div>
       </div>

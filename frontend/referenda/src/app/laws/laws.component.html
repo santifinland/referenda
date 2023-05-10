@@ -50,6 +50,9 @@
     <div class="laws-line-2">
       <div class="law-2" *ngFor="let law of lawsTwo()">
 
+        <div class="featured-2" *ngIf="law.featured">
+          &nbsp;¡A debate esta semana en el Congreso de los Diputados!
+        </div>
         <div class="law-headline-2" [style.background-image]="'url(../../assets/img/' + law.area[0] + '.webp)'">
           <h2 class="headline-h2">
             <a routerLink="/ley/{{law.slug}}">{{law.headline}}</a>
@@ -60,7 +63,7 @@
         <div class="law-info-2">
           <div class="text-2">{{law.short_description}}</div>
           <div class="vote-advise-2" *ngIf="law.userPosition === 0">Aún no has votado esta propuesta</div>
-          <div class="vote-remember-2" *ngIf="law.userPosition !== 0">Ya has votado esta propuesta</div>
+          <div class="vote-remember-2" *ngIf="law.userPosition !== 0"></div>
           <div class="botones-2">
             <div class="boton-2 si-2 visible" (click)="submitVote([law.slug], 1);"
                  [ngClass]="{'position-active-2': law.userPosition === 1,
@@ -110,6 +113,9 @@
     <div class="laws-line-3">
       <div class="law-3" *ngFor="let law of lawsRest()">
 
+        <div class="featured-3" *ngIf="law.featured">
+          &nbsp;¡A debate esta semana en el Congreso de los Diputados!
+        </div>
         <div class="law-headline-3" [style.background-image]="'url(../../assets/img/' + law.area[0] + '.webp)'">
           <h2 class="headline-h2-3">
             <a routerLink="/ley/{{law.slug}}">{{law.headline}}</a>
@@ -120,20 +126,20 @@
         <div class="law-info-3">
           <div class="text-3">{{law.short_description}}</div>
           <div class="vote-advise-3" *ngIf="law.userPosition === 0">Aún no has votado esta propuesta</div>
-          <div class="vote-remember-3" *ngIf="law.userPosition !== 0">Ya has votado esta propuesta</div>
+          <div class="vote-remember-3" *ngIf="law.userPosition !== 0"></div>
           <div class="botones-3">
             <div class="boton-3 si-3 visible" (click)="submitVote([law.slug], 1);"
-                 [ngClass]="{'position-active-3': law.userPosition === 1,
+                 [ngClass]="{'position-active-2': law.userPosition === 1,
                         winner: law.isPositive || law.checkNegative || law.checkAbstention}"
                  (mouseover)="law.checkPositive=true" (mouseleave)="law.checkPositive=false">S&Iacute;
             </div>
             <div class="boton-3 no-3" (click)="submitVote([law.slug], 2);"
-                 [ngClass]="{'position-active-3': law.userPosition === 2,
+                 [ngClass]="{'position-active-2': law.userPosition === 2,
                         winner: law.isNegative || law.checkPositive || law.checkAbstention}"
                  (mouseover)="law.checkNegative=true" (mouseleave)="law.checkNegative=false">NO
             </div>
             <div class="boton-3 abs-3" (click)="submitVote([law.slug], 3);"
-                 [ngClass]="{'position-active-3': law.userPosition === 3,
+                 [ngClass]="{'position-active-2': law.userPosition === 3,
                         winner: law.isAbstention || law.checkPositive || law.checkNegative}"
                  (mouseover)="law.checkAbstention=true" (mouseleave)="law.checkAbstention=false">ABS
             </div>
@@ -404,66 +410,6 @@
         </div>
       </div>
 
-    </div>
-  </div>
-
-  <div class="searcher-sticky"></div>
-  <div class="searcher">
-    <div class="searcher-title searcher-text">Busca una ley o proposici&oacute;n</div>
-    <div class="searcher-title-container" (click)="showSmartphoneMenu()">
-      <div class="searcher-title-mobile">
-        BUSCA UNA LEY O PROPOSICI&Oacute;N
-      </div>
-      <div class="smartphone-menu-show" *ngIf="!smartphoneMenu"></div>
-      <div class="smartphone-menu-hide" *ngIf="smartphoneMenu"></div>
-    </div>
-    <div class="searcher-input-container" *ngIf="smartphoneMenu">
-      <input class="search-input searcher-text" [(ngModel)]="headline"
-             placeholder="Escribe aqu&iacute; tus palabras clave">
-    </div>
-    <div class="searcher-title-category-type" *ngIf="smartphoneMenu">Elige una categor&iacute;a</div>
-    <div class="law-area" *ngIf="smartphoneMenu">
-      <div class="searcher-small-box searcher-text"
-           [ngClass]="{active: area==='educacion'}" (click)="toggleArea('educacion')">Educaci&oacute;n
-      </div>
-      <div class="searcher-small-box searcher-text"
-           [ngClass]="{active: area==='sanidad'}" (click)="toggleArea('sanidad')">Sanidad
-      </div>
-      <div class="searcher-small-box searcher-text"
-           [ngClass]="{active: area==='economia'}" (click)="toggleArea('economia')">Econom&iacute;a
-      </div>
-      <div class="searcher-small-box searcher-text"
-           [ngClass]="{active: area==='justicia'}" (click)="toggleArea('justicia')">Justicia
-      </div>
-      <div class="searcher-small-box searcher-text"
-           [ngClass]="{active: area==='exteriores'}" (click)="toggleArea('exteriores')">Exteriores
-      </div>
-      <div class="searcher-small-box searcher-text"
-           [ngClass]="{active: area==='defensa'}" (click)="toggleArea('defensa')">Defensa
-      </div>
-      <div class="searcher-small-box searcher-text"
-           [ngClass]="{active: area==='interior'}" (click)="toggleArea('interior')">Interior
-      </div>
-      <div class="searcher-small-box searcher-text"
-           [ngClass]="{active: area==='agricultura'}" (click)="toggleArea('agricultura')">Agricultura
-      </div>
-      <div class="searcher-small-box searcher-text"
-           [ngClass]="{active: area==='infraestructuras'}" (click)="toggleArea('infraestructuras')">Infraestructuras
-      </div>
-      <div class="searcher-small-box searcher-text"
-           [ngClass]="{active: area==='cultura'}" (click)="toggleArea('cultura')">Cultura
-      </div>
-    </div>
-    <div class="searcher-title-category-type" *ngIf="smartphoneMenu">Elige el tipo de propuesta</div>
-    <div class="law-type" *ngIf="smartphoneMenu">
-      <div class="searcher-large-box searcher-text"
-           [ngClass]="{active: lawType==='legislativa'}" (click)="toggleType('legislativa')">
-        Propuesta legislativas
-      </div>
-      <div class="searcher-large-box searcher-text"
-           [ngClass]="{active: lawType==='orientacion'}" (click)="toggleType('orientacion')">
-        Propuesta de orientaci&oacute;n pol&iacute;tica
-      </div>
     </div>
   </div>
 
