@@ -68,17 +68,27 @@ lawRouter.route('/')
 lawRouter.route('/latest')
 .get(function (req, res, next) {
     const today = new Date();
-    const lastMonth = new Date(today.setMonth(today.getMonth() - 2));
-    //req.query.vote_start = {$gt: lastMonth};
-    //req.query.vote_end = {$gte: today};
-    //req.query.featured = {true};
-    Laws.find({featured: true, vote_end: {$gte: today}})
+    // Query for 5 items
+    Laws.find({vote_end: {$gte: today}})
+        .limit(7)
         .select('law_id reviewed law_type institution tier area headline slug short_description link pub_date ' +
             'vote_start vote_end positive negative abstention official_positive official_negative ' +
             'official_abstention commentsLength featured positiveParties negativeParties abstentionParties -_id')
-        .exec(function (err, law) {
+        .exec(function (err, laws) {
             if (err) next(err);
-            res.json(law);
+
+            // Query for all featured laws
+            Laws.find({featured: true, vote_end: {$gte: today}})
+                .select('law_id reviewed law_type institution tier area headline slug short_description link pub_date ' +
+                    'vote_start vote_end positive negative abstention official_positive official_negative ' +
+                    'official_abstention commentsLength featured positiveParties negativeParties abstentionParties -_id')
+                .exec(function (err, featuredLaws) {
+                    if (err) next(err);
+
+                    // Combine the results and return to the client
+                    const result = laws.concat(featuredLaws);
+                    res.json(result);
+                });
         });
 });
 

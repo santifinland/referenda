@@ -73,14 +73,14 @@ export class LawsComponent implements OnInit {
     this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
       this.currentUser = user;
     });
-    this.transferStateService.fetch('laws', this.lawService.getLaws())
-      .subscribe(laws => {
-        const tierLaws = this.prepareLaws(laws.filter(law => law.tier === 1));
-        this.laws = this.sortLaws(tierLaws);
-        if (this.currentUser) {
-          this.laws = this.getVotes(this.laws);
-        }
-      });
+    //this.transferStateService.fetch('laws', this.lawService.getLaws())
+      //.subscribe(laws => {
+        //const tierLaws = this.prepareLaws(laws.filter(law => law.tier === 1));
+        //this.laws = this.sortLaws(tierLaws);
+        //if (this.currentUser) {
+          //this.laws = this.getVotes(this.laws);
+        //}
+      //});
     if (this.richSnippets) {
       this.richSnippets = false;
       this.setRichSnippetBreadcrumb()
@@ -205,10 +205,30 @@ export class LawsComponent implements OnInit {
     }
   }
 
+  //sortLaws(laws: Law[]) {
+    //return laws.sort((a, b) =>
+      //a.featured > b.featured ? -1 : a.featured === b.featured ? 0 : 1);
+  //}
+
   sortLaws(laws: Law[]) {
-    return laws.sort((a, b) =>
-      a.featured > b.featured ? -1 : a.featured === b.featured ? 0 : 1);
-  }
+  return laws.sort((a, b) => {
+    // Sort by featured
+    if (a.featured !== b.featured) {
+      return a.featured ? -1 : 1;
+    }
+
+    // Sort by pub_date
+    const dateA = new Date(a.pub_date);
+    const dateB = new Date(b.pub_date);
+    if (dateA > dateB) {
+      return -1;
+    } else if (dateA < dateB) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
+}
 
   lawsToShow(): Law[] {
     const typeLaws: Law[] = this.filterByType(this.laws);
