@@ -9,6 +9,7 @@ def test_cookies():
     driver.get("https://referenda.es")
 
     cookies = driver.get_cookies()
+    print(cookies)
     assert len(cookies) == 2, "Not the 2 desired cookies"
 
     assert {'domain': 'referenda.es',

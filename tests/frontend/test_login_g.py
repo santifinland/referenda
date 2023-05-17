@@ -1,12 +1,16 @@
 # Referenda
 
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 
 
 def test_login():
-    driver = webdriver.Chrome()
+    chrome_options = Options()
+    chrome_options.add_argument("--lang=es")
+    driver = webdriver.Chrome(options=chrome_options)
+    driver.implicitly_wait(2)
 
     driver.get("https://referenda.es")
     action_chains = ActionChains(driver)
@@ -35,7 +39,7 @@ def test_login():
     driver.switch_to.window(child_window)
     title = driver.title
     driver.implicitly_wait(10)
-    assert title == "Inicia sesión: Cuentas de Google", "No matching title for child window"
+    assert title == "Sign In - Google Accounts", "No matching title for child window"
 
     email = driver.find_element(value="identifierId")
     email.send_keys("referenda.es@gmail.com")
