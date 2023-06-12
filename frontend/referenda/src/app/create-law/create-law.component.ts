@@ -85,19 +85,14 @@ export class CreateLawComponent implements OnInit {
       institution_psoe: [0, []],
       institution_pp: [0, []],
       institution_vox: [0, []],
-      institution_podemos: [0, []],
-      institution_ciudadanos: [0, []],
+      institution_sumar: [0, []],
       institution_erc: [0, []],
       institution_jpc: [0, []],
       institution_pnv: [0, []],
       institution_bildu: [0, []],
-      institution_mp: [0, []],
-      institution_cup: [0, []],
       institution_cc: [0, []],
       institution_upn: [0, []],
       institution_bng: [0, []],
-      institution_prc: [0, []],
-      institution_te: [0, []],
       institution_andalucia: [0, []],
       institution_aragon: [0, []],
       institution_asturias: [0, []],
@@ -142,19 +137,14 @@ export class CreateLawComponent implements OnInit {
       psoe: [0, []],
       pp: [0, []],
       vox: [0, []],
-      podemos: [0, []],
-      ciudadanos: [0, []],
+      sumar: [0, []],
       erc: [0, []],
       jpc: [0, []],
       pnv: [0, []],
       bildu: [0, []],
-      mp: [0, []],
-      cup: [0, []],
       cc: [0, []],
       upn: [0, []],
       bng: [0, []],
-      prc: [0, []],
-      te: [0, []]
     });
   }
 
@@ -191,11 +181,8 @@ export class CreateLawComponent implements OnInit {
     if (law.institution_vox === 'Yes') {
       law.institution.push('vox');
     }
-    if (law.institution_podemos === 'Yes') {
-      law.institution.push('podemos');
-    }
-    if (law.institution_ciudadanos === 'Yes') {
-      law.institution.push('ciudadanos');
+    if (law.institution_sumar === 'Yes') {
+      law.institution.push('sumar');
     }
     if (law.institution_erc === 'Yes') {
       law.institution.push('erc');
@@ -209,12 +196,6 @@ export class CreateLawComponent implements OnInit {
     if (law.institution_bildu === 'Yes') {
       law.institution.push('bildu');
     }
-    if (law.institution_mp === 'Yes') {
-      law.institution.push('mp');
-    }
-    if (law.institution_cup === 'Yes') {
-      law.institution.push('cup');
-    }
     if (law.institution_cc === 'Yes') {
       law.institution.push('cc');
     }
@@ -223,12 +204,6 @@ export class CreateLawComponent implements OnInit {
     }
     if (law.institution_bng === 'Yes') {
       law.institution.push('bng');
-    }
-    if (law.institution_prc === 'Yes') {
-      law.institution.push('prc');
-    }
-    if (law.institution_te === 'Yes') {
-      law.institution.push('te');
     }
     if (law.institution_gobierno === 'Yes') {
       law.institution.push('gobierno');
@@ -344,21 +319,13 @@ export class CreateLawComponent implements OnInit {
     } else {
       law.psoe = 3;
     }
-    // Podemos
-    if (law.podemos === 'Yes') {
-      law.podemos = 1;
-    } else if (law.podemos === 'No') {
-      law.podemos = 2;
+    // Sumar
+    if (law.sumar === 'Yes') {
+      law.sumar = 1;
+    } else if (law.sumar === 'No') {
+      law.sumar = 2;
     } else {
-      law.podemos = 3;
-    }
-    // Ciudada'No's
-    if (law.ciudadanos === 'Yes') {
-      law.ciudadanos = 1;
-    } else if (law.ciudadanos === 'No') {
-      law.ciudadanos = 2;
-    } else {
-      law.ciudadanos = 3;
+      law.sumar = 3;
     }
     // Erc
     if (law.erc === 'Yes') {
@@ -376,14 +343,6 @@ export class CreateLawComponent implements OnInit {
     } else {
       law.pnv = 3;
     }
-    // Mas pais
-    if (law.mp === 'Yes') {
-      law.mp = 1;
-    } else if (law.mp === 'No') {
-      law.mp = 2;
-    } else {
-      law.mp = 3;
-    }
     // Coalicion Canaria
     if (law.cc === 'Yes') {
       law.cc = 1;
@@ -399,14 +358,6 @@ export class CreateLawComponent implements OnInit {
       law.vox = 2;
     } else {
       law.vox = 3;
-    }
-    // Partido Regionalista Cantabro
-    if (law.prc === 'Yes') {
-      law.prc = 1;
-    } else if (law.prc === 'No') {
-      law.prc = 2;
-    } else {
-      law.prc = 3;
     }
     // Navarra suma
     if (law.upn === 'Yes') {
@@ -432,22 +383,6 @@ export class CreateLawComponent implements OnInit {
     } else {
       law.jpc = 3;
     }
-    // Teruel Existe
-    if (law.te === 'Yes') {
-      law.te = 1;
-    } else if (law.te === 'No') {
-      law.te = 2;
-    } else {
-      law.te = 3;
-    }
-    // CUP
-    if (law.cup === 'Yes') {
-      law.cup = 1;
-    } else if (law.cup === 'No') {
-      law.cup = 2;
-    } else {
-      law.cup = 3;
-    }
     // BNG
     if (law.bng === 'Yes') {
       law.bng = 1;
@@ -460,19 +395,14 @@ export class CreateLawComponent implements OnInit {
     law.psoe = parseInt(law.psoe, 10);
     law.pp = parseInt(law.pp, 10);
     law.vox = parseInt(law.vox, 10);
-    law.podemos = parseInt(law.podemos, 10);
-    law.ciudadanos = parseInt(law.ciudadanos, 10);
+    law.sumar = parseInt(law.sumar, 10);
     law.erc = parseInt(law.erc, 10);
     law.jpc = parseInt(law.jpc, 10);
     law.pnv = parseInt(law.pnv, 10);
     law.bildu = parseInt(law.bildu, 10);
-    law.mp = parseInt(law.mp, 10);
-    law.cup = parseInt(law.cup, 10);
     law.cc = parseInt(law.cc, 10);
     law.upn = parseInt(law.upn, 10);
     law.bng = parseInt(law.bng, 10);
-    law.prc = parseInt(law.prc, 10);
-    law.te = parseInt(law.te, 10);
 
     this.lawService.postLaw(law)
       .pipe(first())

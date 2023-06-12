@@ -90,19 +90,14 @@ export class AdminLawComponent implements OnInit {
       institution_psoe: [0, []],
       institution_pp: [0, []],
       institution_vox: [0, []],
-      institution_podemos: [0, []],
-      institution_ciudadanos: [0, []],
+      institution_sumar: [0, []],
       institution_erc: [0, []],
       institution_jpc: [0, []],
       institution_pnv: [0, []],
       institution_bildu: [0, []],
-      institution_mp: [0, []],
-      institution_cup: [0, []],
       institution_cc: [0, []],
       institution_upn: [0, []],
       institution_bng: [0, []],
-      institution_prc: [0, []],
-      institution_te: [0, []],
       institution_andalucia: [0, []],
       institution_aragon: [0, []],
       institution_asturias: [0, []],
@@ -147,19 +142,14 @@ export class AdminLawComponent implements OnInit {
       psoe: [0, []],
       pp: [0, []],
       vox: [0, []],
-      podemos: [0, []],
-      ciudadanos: [0, []],
+      sumar: [0, []],
       erc: [0, []],
       jpc: [0, []],
       pnv: [0, []],
       bildu: [0, []],
-      mp: [0, []],
-      cup: [0, []],
       cc: [0, []],
       upn: [0, []],
       bng: [0, []],
-      prc: [0, []],
-      te: [0, []],
       official_positive: [0, [Validators.required]],
       official_negative: [0, [Validators.required]],
       official_abstention: [0, [Validators.required]],
@@ -181,19 +171,14 @@ export class AdminLawComponent implements OnInit {
         this.lawForm.controls.institution_psoe.setValue((this.law.institution.includes('psoe')) ? 'Yes' : 'No');
         this.lawForm.controls.institution_pp.setValue((this.law.institution.includes('pp')) ? 'Yes' : 'No');
         this.lawForm.controls.institution_vox.setValue((this.law.institution.includes('vox')) ? 'Yes' : 'No');
-        this.lawForm.controls.institution_podemos.setValue((this.law.institution.includes('podemos')) ? 'Yes' : 'No');
-        this.lawForm.controls.institution_ciudadanos.setValue((this.law.institution.includes('ciudadanos')) ? 'Yes' : 'No');
+        this.lawForm.controls.institution_sumar.setValue((this.law.institution.includes('sumar')) ? 'Yes' : 'No');
         this.lawForm.controls.institution_erc.setValue((this.law.institution.includes('erc')) ? 'Yes' : 'No');
         this.lawForm.controls.institution_jpc.setValue((this.law.institution.includes('jpc')) ? 'Yes' : 'No');
         this.lawForm.controls.institution_pnv.setValue((this.law.institution.includes('pnv')) ? 'Yes' : 'No');
         this.lawForm.controls.institution_bildu.setValue((this.law.institution.includes('bildu')) ? 'Yes' : 'No');
-        this.lawForm.controls.institution_mp.setValue((this.law.institution.includes('mp')) ? 'Yes' : 'No');
-        this.lawForm.controls.institution_cup.setValue((this.law.institution.includes('cup')) ? 'Yes' : 'No');
         this.lawForm.controls.institution_cc.setValue((this.law.institution.includes('cc')) ? 'Yes' : 'No');
         this.lawForm.controls.institution_upn.setValue((this.law.institution.includes('upn')) ? 'Yes' : 'No');
         this.lawForm.controls.institution_bng.setValue((this.law.institution.includes('bng')) ? 'Yes' : 'No');
-        this.lawForm.controls.institution_prc.setValue((this.law.institution.includes('prc')) ? 'Yes' : 'No');
-        this.lawForm.controls.institution_te.setValue((this.law.institution.includes('te')) ? 'Yes' : 'No');
         this.lawForm.controls.institution_andalucia.setValue((this.law.institution.includes('andalucia')) ? 'Yes' : 'No');
         this.lawForm.controls.institution_aragon.setValue((this.law.institution.includes('aragon')) ? 'Yes' : 'No');
         this.lawForm.controls.institution_asturias.setValue((this.law.institution.includes('asturias')) ? 'Yes' : 'No');
@@ -237,19 +222,14 @@ export class AdminLawComponent implements OnInit {
         this.lawForm.controls.psoe.setValue(this.getPosition('psoe'));
         this.lawForm.controls.pp.setValue(this.getPosition('pp'));
         this.lawForm.controls.vox.setValue(this.getPosition('vox'));
-        this.lawForm.controls.podemos.setValue(this.getPosition('podemos'));
-        this.lawForm.controls.ciudadanos.setValue(this.getPosition('ciudadanos'));
+        this.lawForm.controls.sumar.setValue(this.getPosition('sumar'));
         this.lawForm.controls.erc.setValue(this.getPosition('erc'));
         this.lawForm.controls.jpc.setValue(this.getPosition('jpc'));
         this.lawForm.controls.pnv.setValue(this.getPosition('pnv'));
         this.lawForm.controls.bildu.setValue(this.getPosition('bildu'));
-        this.lawForm.controls.mp.setValue(this.getPosition('mp'));
-        this.lawForm.controls.cup.setValue(this.getPosition('cup'));
         this.lawForm.controls.cc.setValue(this.getPosition('cc'));
         this.lawForm.controls.upn.setValue(this.getPosition('upn'));
         this.lawForm.controls.bng.setValue(this.getPosition('bng'));
-        this.lawForm.controls.prc.setValue(this.getPosition('prc'));
-        this.lawForm.controls.te.setValue(this.getPosition('te'));
         this.lawForm.controls.official_positive.setValue(law.official_positive);
         this.lawForm.controls.official_negative.setValue(law.official_negative);
         this.lawForm.controls.official_abstention.setValue(law.official_abstention);
@@ -312,11 +292,8 @@ export class AdminLawComponent implements OnInit {
     if (law.institution_vox === 'Yes') {
       law.institution.push('vox');
     }
-    if (law.institution_podemos === 'Yes') {
-      law.institution.push('podemos');
-    }
-    if (law.institution_ciudadanos === 'Yes') {
-      law.institution.push('ciudadanos');
+    if (law.institution_sumar === 'Yes') {
+      law.institution.push('sumar');
     }
     if (law.institution_erc === 'Yes') {
       law.institution.push('erc');
@@ -330,12 +307,6 @@ export class AdminLawComponent implements OnInit {
     if (law.institution_bildu === 'Yes') {
       law.institution.push('bildu');
     }
-    if (law.institution_mp === 'Yes') {
-      law.institution.push('mp');
-    }
-    if (law.institution_cup === 'Yes') {
-      law.institution.push('cup');
-    }
     if (law.institution_cc === 'Yes') {
       law.institution.push('cc');
     }
@@ -344,12 +315,6 @@ export class AdminLawComponent implements OnInit {
     }
     if (law.institution_bng === 'Yes') {
       law.institution.push('bng');
-    }
-    if (law.institution_prc === 'Yes') {
-      law.institution.push('prc');
-    }
-    if (law.institution_te === 'Yes') {
-      law.institution.push('te');
     }
     if (law.institution_gobierno === 'Yes') {
       law.institution.push('gobierno');
@@ -466,20 +431,12 @@ export class AdminLawComponent implements OnInit {
         law.abstentionParties.push('psoe');
     }
     // Podemos
-    if (law.podemos === 'Yes') {
-        law.positiveParties.push('podemos');
-    } else if (law.podemos === 'No') {
-        law.negativeParties.push('podemos');
+    if (law.sumar === 'Yes') {
+        law.positiveParties.push('sumar');
+    } else if (law.sumar === 'No') {
+        law.negativeParties.push('sumar');
     } else {
-        law.abstentionParties.push('podemos');
-    }
-    // Ciudada'No's
-    if (law.ciudadanos === 'Yes') {
-        law.positiveParties.push('ciudadanos');
-    } else if (law.ciudadanos === 'No') {
-        law.negativeParties.push('ciudadanos');
-    } else {
-        law.abstentionParties.push('ciudadanos');
+        law.abstentionParties.push('sumar');
     }
     // Erc
     if (law.erc === 'Yes') {
@@ -497,14 +454,6 @@ export class AdminLawComponent implements OnInit {
     } else {
         law.abstentionParties.push('pnv');
     }
-    // Mas pais
-    if (law.mp === 'Yes') {
-        law.positiveParties.push('mp');
-    } else if (law.mp === 'No') {
-        law.negativeParties.push('mp');
-    } else {
-        law.abstentionParties.push('mp');
-    }
     // Coalicion Canaria
     if (law.cc === 'Yes') {
         law.positiveParties.push('cc');
@@ -520,14 +469,6 @@ export class AdminLawComponent implements OnInit {
         law.negativeParties.push('vox');
     } else {
         law.abstentionParties.push('vox');
-    }
-    // Partido Regionalista Cantabro
-    if (law.prc === 'Yes') {
-        law.positiveParties.push('prc');
-    } else if (law.prc === 'No') {
-        law.negativeParties.push('prc');
-    } else {
-        law.abstentionParties.push('prc');
     }
     // Navarra suma
     if (law.upn === 'Yes') {
@@ -552,22 +493,6 @@ export class AdminLawComponent implements OnInit {
         law.negativeParties.push('jpc');
     } else {
         law.abstentionParties.push('jpc');
-    }
-    // Teruel Existe
-    if (law.te === 'Yes') {
-        law.positiveParties.push('te');
-    } else if (law.te === 'No') {
-        law.negativeParties.push('te');
-    } else {
-        law.abstentionParties.push('te');
-    }
-    // CUP
-    if (law.cup === 'Yes') {
-        law.positiveParties.push('cup');
-    } else if (law.cup === 'No') {
-        law.negativeParties.push('cup');
-    } else {
-        law.abstentionParties.push('cup');
     }
     // BNG
     if (law.bng === 'Yes') {

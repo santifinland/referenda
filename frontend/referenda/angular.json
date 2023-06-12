@@ -135,7 +135,8 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
-              "optimization": true
+              "optimization": true,
+              "buildOptimizer": true
             }
           }
         },

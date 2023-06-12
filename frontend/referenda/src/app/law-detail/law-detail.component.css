@@ -1107,7 +1107,7 @@ form textarea {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: start;
+    align-items: flex-start;
     width: calc(100% - 80px);
     height: 200px;
     gap: 14px;
