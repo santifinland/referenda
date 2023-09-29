@@ -103,20 +103,20 @@
     </div>
   </div>
 
-  <swiper *ngIf="currentUser" class="swiper-container" [config]="config">
+  <div *ngIf="currentUser" class="swiper-container" #swiperContainer >
     <div class="swiper-wrapper">
       <div class="swiper-slide" *ngFor="let party of parties">
         <div class="party-container">
           <button class="party-button" (click)="delegateParty(party)">
-            <img src="assets/img/{{party}}.svg" alt="{{party}}"
+            <img src="assets/img/{{ party }}.svg" alt="{{ party }}"
                  [ngStyle]="{'width': logoWidth(party), 'height': logoHeight(party)}">
           </button>
-          <div class="tick party-tick" *ngIf="delegatedPartyValue && delegatedPartyValue.name === party">
-          </div>
+          <div class="tick party-tick" *ngIf="delegatedPartyValue && delegatedPartyValue.name === party"></div>
         </div>
       </div>
     </div>
-  </swiper>
+    <div class="swiper-pagination"></div>
+  </div>
 
   <div class="delegation-type" *ngIf="currentUser">
     <div class="party-container-mobile" *ngFor="let party of parties" (click)="delegateParty(party)">

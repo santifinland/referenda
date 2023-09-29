@@ -4,11 +4,15 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
 
 
 def test_login():
     chrome_options = Options()
     chrome_options.add_argument("--lang=es")
+    chrome_options.add_argument("--disable-web-security=true")
+    chrome_options.add_argument("--user-data-dir=true")
+    chrome_options.add_argument("--allow-running-insecure-content")
     driver = webdriver.Chrome(options=chrome_options)
     driver.implicitly_wait(2)
 
@@ -37,9 +41,11 @@ def test_login():
 
     child_window = [x for x in driver.window_handles if x != parent_window][0]
     driver.switch_to.window(child_window)
+    driver.implicitly_wait(10)
     title = driver.title
     driver.implicitly_wait(10)
-    assert title == "Sign In - Google Accounts", "No matching title for child window"
+    WebDriverWait(driver, 10).until(lambda x: 'Sign in - Google Accounts' in driver.title)
+    assert title == "Sign in - Google Accounts", "No matching title for child window"
 
     email = driver.find_element(value="identifierId")
     email.send_keys("referenda.es@gmail.com")

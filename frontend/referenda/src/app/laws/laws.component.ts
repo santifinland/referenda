@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {Meta, Title} from '@angular/platform-browser';
 import {DOCUMENT, isPlatformBrowser} from '@angular/common';
 
-import {matchSorter } from 'match-sorter';
+import {matchSorter} from 'match-sorter';
 import {Subscription, timer} from 'rxjs';
 
 import {Law, User, VoteResponse} from '../_models';
@@ -58,29 +58,29 @@ export class LawsComponent implements OnInit {
   }
 
   constructor(
-      private cookiesService: CookiesService,
-      private lawService: LawService,
-      private metaTagService: Meta,
-      private router: Router,
-      private titleService: Title,
-      private readonly transferStateService: TransferStateService,
-      private authenticationService: AuthenticationService,
-      private userService: UserService,
-      @Inject(DOCUMENT) private document: Document,
-      @Inject(PLATFORM_ID) private platformId: Object,
-      @Inject(WINDOW) private window: Window) {
+    private cookiesService: CookiesService,
+    private lawService: LawService,
+    private metaTagService: Meta,
+    private router: Router,
+    private titleService: Title,
+    private readonly transferStateService: TransferStateService,
+    private authenticationService: AuthenticationService,
+    private userService: UserService,
+    @Inject(DOCUMENT) private document: Document,
+    @Inject(PLATFORM_ID) private platformId: Object,
+    @Inject(WINDOW) private window: Window) {
     this.landing = !this.cookiesService.getLanding();
     this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
       this.currentUser = user;
     });
     //this.transferStateService.fetch('laws', this.lawService.getLaws())
-      //.subscribe(laws => {
-        //const tierLaws = this.prepareLaws(laws.filter(law => law.tier === 1));
-        //this.laws = this.sortLaws(tierLaws);
-        //if (this.currentUser) {
-          //this.laws = this.getVotes(this.laws);
-        //}
-      //});
+    //.subscribe(laws => {
+    //const tierLaws = this.prepareLaws(laws.filter(law => law.tier === 1));
+    //this.laws = this.sortLaws(tierLaws);
+    //if (this.currentUser) {
+    //this.laws = this.getVotes(this.laws);
+    //}
+    //});
     if (this.richSnippets) {
       this.richSnippets = false;
       this.setRichSnippetBreadcrumb()
@@ -92,7 +92,7 @@ export class LawsComponent implements OnInit {
     let title: string;
     if (this.router.url === '/') {
       title = 'Referenda - Democracia directa';
-    }  else {
+    } else {
       this.landing = false;
       title = 'Leyes debatidas en el Congreso de los Diputados de España';
     }
@@ -101,7 +101,7 @@ export class LawsComponent implements OnInit {
       "Nuestro objetivo es acercar la política a la ciudadanía. " +
       "Queremos formar una opinión pública responsable fomentando el conocimiento sobre nuestras leyes, " +
       "su proceso de creación y sus legisladores."
-    this.metaTagService.updateTag({ name: 'description', content: content });
+    this.metaTagService.updateTag({name: 'description', content: content});
     if (isPlatformBrowser(this.platformId)) {
       this.smartphoneMenu = window.innerWidth > 640;
     }
@@ -116,10 +116,10 @@ export class LawsComponent implements OnInit {
       '"@context": "https://schema.org", ' +
       '"@type": "BreadcrumbList", ' +
       '"itemListElement": [{' +
-        '"@type": "ListItem", ' +
-        '"position": 1, ' +
-        '"name": "Iniciativas", ' +
-        '"item": "https://referenda.es/leyes"' +
+      '"@type": "ListItem", ' +
+      '"position": 1, ' +
+      '"name": "Iniciativas", ' +
+      '"item": "https://referenda.es/leyes"' +
       '}]' +
       '}';
     const prev = this.document.getElementById('breadcrumb')
@@ -131,10 +131,10 @@ export class LawsComponent implements OnInit {
 
   async getLatestLaws() {
     this.transferStateService.fetch('latestLaws', this.lawService.getLatestLaws())
-    // this.lawService.getLatestLaws()
+      // this.lawService.getLatestLaws()
       .subscribe(laws => {
         const tierLaws = this.prepareLaws(laws.filter(law => law.tier === 1));
-        this.laws = this.sortLaws(tierLaws);
+        this.laws = [... new Set(this.sortLaws(tierLaws))];
         if (this.currentUser) {
           this.laws = this.getVotes(this.laws);
         }
@@ -156,8 +156,8 @@ export class LawsComponent implements OnInit {
     law.positivePercentage = totalVotes === 0 ? 0 : 100 * law.positive / totalVotes;
     law.negativePercentage = totalVotes === 0 ? 0 : 100 * law.negative / totalVotes;
     law.abstentionPercentage = totalVotes === 0 ? 0 : 100 * law.abstention / totalVotes;
-    law.positiveWidth   = (15 + 40 * law.positive   / (law.positive + law.negative + law.abstention)) + '%';
-    law.negativeWidth   = (15 + 40 * law.negative   / (law.positive + law.negative + law.abstention)) + '%';
+    law.positiveWidth = (15 + 40 * law.positive / (law.positive + law.negative + law.abstention)) + '%';
+    law.negativeWidth = (15 + 40 * law.negative / (law.positive + law.negative + law.abstention)) + '%';
     law.abstentionWidth = (15 + 40 * law.abstention / (law.positive + law.negative + law.abstention)) + '%';
     law.userPosition = 0;
     law.commentsLength = law.commentsLength || 0;
@@ -168,7 +168,7 @@ export class LawsComponent implements OnInit {
     this.transferStateService.fetch('laws', this.lawService.getLaws())
       .subscribe(laws => {
         const tierLaws = this.prepareLaws(laws.filter(law => law.tier === 1));
-        this.laws = this.sortLaws(tierLaws);
+        this.laws = [... new Set(this.sortLaws(tierLaws))];
         if (this.currentUser) {
           this.laws = this.getVotes(this.laws);
         }
@@ -206,40 +206,43 @@ export class LawsComponent implements OnInit {
   }
 
   //sortLaws(laws: Law[]) {
-    //return laws.sort((a, b) =>
-      //a.featured > b.featured ? -1 : a.featured === b.featured ? 0 : 1);
+  //return laws.sort((a, b) =>
+  //a.featured > b.featured ? -1 : a.featured === b.featured ? 0 : 1);
   //}
 
   sortLaws(laws: Law[]) {
-  return laws.sort((a, b) => {
-    // Sort by featured
-    if (a.featured !== b.featured) {
-      return a.featured ? -1 : 1;
-    }
+    return laws.sort((a, b) => {
+      // Sort by featured
+      if (a.featured !== b.featured) {
+        return a.featured ? -1 : 1;
+      }
 
-    // Sort by pub_date
-    const dateA = new Date(a.pub_date);
-    const dateB = new Date(b.pub_date);
-    if (dateA > dateB) {
-      return -1;
-    } else if (dateA < dateB) {
-      return 1;
-    } else {
-      return 0;
-    }
-  });
-}
+      // Sort by pub_date
+      const dateA = new Date(a.pub_date);
+      const dateB = new Date(b.pub_date);
+      if (dateA > dateB) {
+        return -1;
+      } else if (dateA < dateB) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+  }
 
   lawsToShow(): Law[] {
     const typeLaws: Law[] = this.filterByType(this.laws);
-    const areaLaws: Law[] = matchSorter(typeLaws,
+    const uniqueLaws: Law[] = [...new Set(typeLaws)]
+    const areaLaws: Law[] = matchSorter(uniqueLaws,
       this.area, {keys: [{threshold: matchSorter.rankings.STARTS_WITH, key: 'area'}]});
     const headlineLaws = matchSorter(
       areaLaws,
       this.headline,
-      {keys: ['headline'],
-       baseSort: (a, b) => (a.item.pub_date < b.item.pub_date ? -1 : 1),
-       threshold: matchSorter.rankings.CONTAINS});
+      {
+        keys: ['headline'],
+        baseSort: (a, b) => (a.item.pub_date < b.item.pub_date ? -1 : 1),
+        threshold: matchSorter.rankings.CONTAINS
+      });
     return this.sortLaws(headlineLaws);
   }
 
@@ -251,7 +254,7 @@ export class LawsComponent implements OnInit {
         case window.innerWidth <= 1920:
           return this.lawsToShow().slice(0, 1)
         case window.innerWidth > 1920:
-          return this.lawsToShow().slice(0, 2)
+          return [...new Set(this.lawsToShow().slice(0, 2))]
       }
     } else {
       return

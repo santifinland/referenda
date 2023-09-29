@@ -349,12 +349,8 @@ export class LawDetailComponent implements OnInit {
         width = '50px';
         break;
       }
-      case 'podemos': {
+      case 'sumar': {
         width = '69px';
-        break;
-      }
-      case 'ciudadanos': {
-        width = '100px';
         break;
       }
       case 'erc': {
@@ -373,14 +369,6 @@ export class LawDetailComponent implements OnInit {
         width = '50px';
         break;
       }
-      case 'mp': {
-        width = '36px';
-        break;
-      }
-      case 'cup': {
-        width = '34px';
-        break;
-      }
       case 'cc': {
         width = '37px';
         break;
@@ -390,14 +378,6 @@ export class LawDetailComponent implements OnInit {
         break;
       }
       case 'bng': {
-        width = '34px';
-        break;
-      }
-      case 'prc': {
-        width = '48px';
-        break;
-      }
-      case 'te': {
         width = '34px';
         break;
       }
@@ -423,12 +403,8 @@ export class LawDetailComponent implements OnInit {
         height = '25px';
         break;
       }
-      case 'podemos': {
+      case 'sumar': {
         height = '17px';
-        break;
-      }
-      case 'ciudadanos': {
-        height = '25px';
         break;
       }
       case 'erc': {
@@ -447,14 +423,6 @@ export class LawDetailComponent implements OnInit {
         height = '19px';
         break;
       }
-      case 'mp': {
-        height = '23px';
-        break;
-      }
-      case 'cup': {
-        height = '35px';
-        break;
-      }
       case 'cc': {
         height = '35px';
         break;
@@ -465,14 +433,6 @@ export class LawDetailComponent implements OnInit {
       }
       case 'bng': {
         height = '37px';
-        break;
-      }
-      case 'prc': {
-        height = '15px';
-        break;
-      }
-      case 'te': {
-        height = '33px';
         break;
       }
       default: {
@@ -519,19 +479,14 @@ export class LawDetailComponent implements OnInit {
       case "psoe": return "Partido Socialista Obrero Español";
       case "pp": return "Partido Popular";
       case "vox": return "Vox";
-      case "podemos": return "Unidas Podemos";
-      case "ciudadanos": return "Ciudadanos";
+      case "sumar": return "Sumar";
       case "erc": return "Esquerra Republicana de Catalunya";
       case "jpc": return "Junts per Catalunya";
       case "pnv": return "Partido Nacionalista Vasco";
       case "bildu": return "Bildu";
-      case "mp": return "Más País";
       case "cc": return "Coalición Canaria";
-      case "cup": return "Candidatura de Unidad Popular";
-      case "upn": return "Navarra Suma";
+      case "upn": return "Unión del Pueblo Navarro";
       case "bng": return "Bloque Nacionalista Gallego";
-      case "prc": return "Partido Regionalista Cántabro";
-      case "te": return "Teruel Existe";
       case "gobierno": return "Gobierno de España";
       case "senado": return "Senado de España";
       case "popular": return "Iniciativa legislativa popular";

@@ -3,9 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Meta, Title } from '@angular/platform-browser';
 
-import { GoogleLoginProvider, SocialAuthService } from '@abacritt/angularx-social-login';
+import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthService } from '@abacritt/angularx-social-login';
 import { SocialUser } from '@abacritt/angularx-social-login';
-import { FacebookLoginProvider } from '@abacritt/angularx-social-login';
 import { first } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 
@@ -60,7 +59,6 @@ export class LoginComponent implements OnInit {
         password: ['', Validators.required]
     });
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-    console.log(this.returnUrl);
     this.authService.authState.subscribe((user) => {
       this.socialUser = user;
       this.socialUserLoggedIn = (user != null);
@@ -68,9 +66,9 @@ export class LoginComponent implements OnInit {
         this.userService.googleRegister(user)
           .subscribe(
             (data: any) => {
-              console.log(data)
               const referendaUser: User = {username: data.username, token: data.token, origin: "google"};
               this.authenticationService.loginWithToken(referendaUser);
+              this.router.navigate([this.returnUrl]);
             },
             err => console.log(err)
           );

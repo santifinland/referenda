@@ -118,8 +118,8 @@ export class StatsComponent implements OnInit {
 
   getAreaLaws(): void {
     let data = [];
-    const parties = ['psoe', 'pp', 'vox', 'podemos', 'erc', 'ciudadanos', 'jpc', 'pnv', 'bildu', 'mp', 'cup', 'cc', 'upn',
-                     'bng', 'prc', 'te', 'gobierno', 'senado', 'popular'];
+    const parties = ['psoe', 'pp', 'vox', 'sumar', 'erc', 'jpc', 'pnv', 'bildu', 'cc', 'upn',
+                     'bng', 'gobierno', 'senado', 'popular'];
     for (const p in parties) {
       if (parties.hasOwnProperty(p)) {
         data = data.concat(this.buildPartyAreaData(parties[p], this.laws.filter(l => l.institution.includes(parties[p]))));
@@ -132,19 +132,14 @@ export class StatsComponent implements OnInit {
     const psoe = {'label': 'PSOE', 'id': 1, 'value': 0, 'width': 0, 'color': '#ee1d1d'};
     const pp = {'label': 'PP', 'id': 2, 'value': 0, 'width': 0, 'color': '#00a3df'};
     const vox = {'label': 'VOX', 'id': 3, 'value': 0, 'width': 0, 'color': '#81c03b'};
-    const podemos = {'label': 'PODEMOS - IU', 'id': 4, 'value': 0, 'width': 0, 'color': '#683064'};
-    const ciudadanos = {'label': 'Ciudadanos', 'id': 6, 'value': 0, 'width': 0, 'color': '#f36b25'};
+    const sumar = {'label': 'SUMAR', 'id': 4, 'value': 0, 'width': 0, 'color': '#683064'};
     const erc = {'label': 'ERC', 'id': 5, 'value': 0, 'width': 0, 'color': '#feb832'};
     const jpc = {'label': 'Junts per Cat', 'id': 7, 'value': 0, 'width': 0, 'color': '#02428b'};
     const pnv = {'label': 'PNV', 'id': 8, 'value': 0, 'width': 0, 'color': '#409552'};
     const bildu = {'label': 'Bildu', 'id': 9, 'value': 0, 'width': 0, 'color': '#b0d136'};
-    const mp = {'label': 'Más País', 'id': 10, 'value': 0, 'width': 0, 'color': '#0ff'};
-    const cup = {'label': 'CUP', 'id': 11, 'value': 0, 'width': 0, 'color': '#ffeea7'};
     const cc = {'label': 'Coal. Canaria', 'id': 12, 'value': 0, 'width': 0, 'color': '#ffed00'};
-    const upn = {'label': 'Navarra Suma', 'id': 13, 'value': 0, 'width': 0, 'color': '#0065a7'};
+    const upn = {'label': 'Unión del Pueblo Navarro', 'id': 13, 'value': 0, 'width': 0, 'color': '#0065a7'};
     const bng = {'label': 'BNG', 'id': 14, 'value': 0, 'width': 0, 'color': '#76b3dd'};
-    const prc = {'label': 'PRC', 'id': 15, 'value': 0, 'width': 0, 'color': '#bfcd16'};
-    const te = {'label': 'Teruel Existe', 'id': 16, 'value': 0, 'width': 0, 'color': '#007f54'};
     const gobierno = {'label': 'Gobierno', 'id': 17, 'value': 0, 'width': 0, 'color': '#000'};
     const senado = {'label': 'Senado', 'id': 18, 'value': 0, 'width': 0, 'color': '#038758'};
     const popular = {'label': 'Iniciativa Pop.', 'id': 19, 'value': 0, 'width': 0, 'color': '#ffb400'};
@@ -152,25 +147,19 @@ export class StatsComponent implements OnInit {
       if (law.institution.includes('psoe')) { psoe.value += 1; }
       if (law.institution.includes('pp')) { pp.value += 1; }
       if (law.institution.includes('vox')) { vox.value += 1; }
-      if (law.institution.includes('podemos')) { podemos.value += 1; }
+      if (law.institution.includes('sumar')) { sumar.value += 1; }
       if (law.institution.includes('erc')) { erc.value += 1; }
-      if (law.institution.includes('ciudadanos')) { ciudadanos.value += 1; }
       if (law.institution.includes('jpc')) { jpc.value += 1; }
       if (law.institution.includes('pnv')) { pnv.value += 1; }
       if (law.institution.includes('bildu')) { bildu.value += 1; }
-      if (law.institution.includes('mp')) { mp.value += 1; }
-      if (law.institution.includes('cup')) { cup.value += 1; }
       if (law.institution.includes('cc')) { cc.value += 1; }
       if (law.institution.includes('upn')) { upn.value += 1; }
       if (law.institution.includes('bng')) { bng.value += 1; }
-      if (law.institution.includes('prc')) { prc.value += 1; }
-      if (law.institution.includes('te')) { te.value += 1; }
       if (law.institution.includes('gobierno')) { gobierno.value += 1; }
       if (law.institution.includes('senado')) { senado.value += 1; }
       if (law.institution.includes('popular')) { popular.value += 1; }
     });
-    return [psoe, pp, vox, podemos, erc, ciudadanos, jpc, pnv, bildu, mp, cup, cc, upn, bng, prc, te, gobierno, senado,
-            popular];
+    return [psoe, pp, vox, sumar, erc, jpc, pnv, bildu, cc, upn, bng, gobierno, senado, popular];
   }
 
   buildCCAAData(laws: Law[]) {
@@ -325,8 +314,6 @@ export class StatsComponent implements OnInit {
   }
 
   drawArea(id: string, totalLaws: number, laws: any[]) {
-    console.log('DRAAAAAAAAAAAAAAAAAAAA');
-    console.log(laws);
     const WIDTH = document.getElementById(id).offsetWidth * 0.95;
     const HEIGHT = WIDTH * 0.6;
 

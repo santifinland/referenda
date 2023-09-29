@@ -1,18 +1,17 @@
 import { APP_BASE_HREF, registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
-import {BrowserModule, BrowserTransferStateModule, Title} from '@angular/platform-browser';
-import { FilterPipeModule } from 'ngx-filter-pipe';
+import {BrowserModule, Title} from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LOCALE_ID, NgModule } from '@angular/core';
+import {provideClientHydration} from '@angular/platform-browser';
 
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { CookieService } from 'ngx-cookie-service';
-import { OrderModule } from 'ngx-order-pipe';
-import {NgxUsefulSwiperModule} from 'ngx-useful-swiper';
 import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 import { GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
 import { GoogleLoginProvider, FacebookLoginProvider } from '@abacritt/angularx-social-login';
+
 
 import { AdminLawComponent } from './admin-law/admin-law.component';
 import { AlertComponent } from './_components';
@@ -60,13 +59,9 @@ registerLocaleData(localeEs);
     AngularEditorModule,
     AppRoutingModule,
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
-    FilterPipeModule,
     FormsModule,
     HttpClientModule,
-    NgxUsefulSwiperModule,
-    OrderModule,
     ReactiveFormsModule,
-    BrowserTransferStateModule,
     SocialLoginModule,
     GoogleSigninButtonModule
   ],
@@ -75,6 +70,7 @@ registerLocaleData(localeEs);
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: LOCALE_ID, useValue: 'es-ES'},
+    provideClientHydration(),
     CookieService,
     {
       provide: 'SocialAuthServiceConfig',
@@ -90,6 +86,9 @@ registerLocaleData(localeEs);
             provider: new FacebookLoginProvider('297519443717240')
           }
         ],
+        onError: (err) => {
+          console.error(err);
+        }
       } as SocialAuthServiceConfig,
     },
     Title,

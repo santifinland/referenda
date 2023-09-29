@@ -1,12 +1,16 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {Meta, Title} from '@angular/platform-browser';
 
-import {FacebookLoginProvider, GoogleLoginProvider, SocialAuthService, SocialUser} from '@abacritt/angularx-social-login';
+import {
+  FacebookLoginProvider,
+  SocialAuthService,
+  SocialUser
+} from '@abacritt/angularx-social-login';
 import {first} from 'rxjs/operators';
-import {SwiperOptions} from 'swiper';
+import Swiper from 'swiper';
 
 import {AuthenticationService} from '../_services';
 import {Party} from '../_models';
@@ -27,7 +31,7 @@ export class DelegationsComponent implements OnInit {
   currentUser: User;
   currentUserSubscription: Subscription;
 
-  initialState = true;
+  @ViewChild('swiperContainer') swiperContainer!: ElementRef;
 
   delegation = 'none';
   delegatedPartyValue: Party;
@@ -42,51 +46,8 @@ export class DelegationsComponent implements OnInit {
   private socialUserLoggedIn: boolean;
   private socialProvider: string = 'Google';  // Default social provider since used the asl-google-signin-button button
 
-  parties: string[] = ['psoe', 'pp', 'vox', 'podemos', 'ciudadanos', 'erc', 'jpc', 'pnv', 'bildu', 'mp', 'cup', 'cc',
-    'upn', 'bng', 'prc', 'te'];
+  parties: string[] = ['psoe', 'pp', 'vox', 'sumar', 'erc', 'jpc', 'pnv', 'bildu', 'cc', 'upn', 'bng'];
 
-  config: SwiperOptions = {
-    pagination: {el: '.swiper-pagination', clickable: true},
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev'
-    },
-    slidesPerView: 9,
-    spaceBetween: 0,
-    centerInsufficientSlides: true,
-    breakpoints: {
-      100: {
-        slidesPerView: 2,
-      },
-      900: {
-        slidesPerView: 2,
-      },
-      1000: {
-        slidesPerView: 3,
-      },
-      1400: {
-        slidesPerView: 4,
-      },
-      1700: {
-        slidesPerView: 5,
-      },
-      2000: {
-        slidesPerView: 6,
-      },
-      2400: {
-        slidesPerView: 7,
-      },
-      2800: {
-        slidesPerView: 8,
-      },
-      3200: {
-        slidesPerView: 9,
-      },
-      3600: {
-        slidesPerView: 10,
-      },
-    }
-  };
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -106,6 +67,16 @@ export class DelegationsComponent implements OnInit {
         this.richSnippets = false;
         this.setRichSnippetBreadcrumb()
       }
+  }
+
+  ngAfterViewInit() {
+    const swiper = new Swiper(this.swiperContainer.nativeElement, {
+      direction: 'horizontal',
+      loop: true,
+      slidesPerView: 4,
+      spaceBetween: 20,
+      effect: 'slide',
+    });
   }
 
   ngOnInit() {
@@ -158,10 +129,10 @@ export class DelegationsComponent implements OnInit {
       '"@context": "https://schema.org", ' +
       '"@type": "BreadcrumbList", ' +
       '"itemListElement": [{' +
-        '"@type": "ListItem", ' +
-        '"position": 1, ' +
-        '"name": "Delegar Voto", ' +
-        '"item": "https://referenda.es/delegar"' +
+      '"@type": "ListItem", ' +
+      '"position": 1, ' +
+      '"name": "Delegar Voto", ' +
+      '"item": "https://referenda.es/delegar"' +
       '}]' +
       '}';
     const prev = this.document.getElementById('breadcrumb')
@@ -211,17 +182,18 @@ export class DelegationsComponent implements OnInit {
 
   delegateParty(party: string): void {
     this.foundUsers = [];
-    this.userService.delegateParty(party)
-      .subscribe(
-        (data: any) => {
-          this.tentativeUser = undefined;
-          this.delegatedUserValue = undefined;
-          this.findUsersForm.setValue({'username': ''});
-          this.findUsersForm.reset();
-          this.delegatedParty();
-        },
-        err => this.router.navigateByUrl('login?returnUrl=' + encodeURI(this.router.url))
-      );
+    this.userService.delegateParty(party).subscribe(
+      (data: any) => {
+        this.tentativeUser = undefined;
+        this.delegatedUserValue = undefined;
+        this.findUsersForm.get('username')?.setValue(''); // Access the form control using get() method
+        this.findUsersForm.reset();
+        this.delegatedParty();
+      },
+      (err) => {
+        this.router.navigateByUrl('login?returnUrl=' + encodeURI(this.router.url));
+      }
+    );
   }
 
   findUsers() {
@@ -318,11 +290,6 @@ export class DelegationsComponent implements OnInit {
         });
   }
 
-  signInWithGoogle(): void {
-    this.socialProvider = 'Google';
-    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
-  }
-
   signInWithFB(): void {
     this.socialProvider = 'Facebook';
     this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
@@ -343,12 +310,8 @@ export class DelegationsComponent implements OnInit {
         width = '90px';
         break;
       }
-      case 'podemos': {
+      case 'sumar': {
         width = '185px';
-        break;
-      }
-      case 'ciudadanos': {
-        width = '268px';
         break;
       }
       case 'erc': {
@@ -367,14 +330,6 @@ export class DelegationsComponent implements OnInit {
         width = '134px';
         break;
       }
-      case 'mp': {
-        width = '96px';
-        break;
-      }
-      case 'cup': {
-        width = '91px';
-        break;
-      }
       case 'cc': {
         width = '99px';
         break;
@@ -384,14 +339,6 @@ export class DelegationsComponent implements OnInit {
         break;
       }
       case 'bng': {
-        width = '91px';
-        break;
-      }
-      case 'prc': {
-        width = '128px';
-        break;
-      }
-      case 'te': {
         width = '91px';
         break;
       }
@@ -417,12 +364,8 @@ export class DelegationsComponent implements OnInit {
         height = '45px';
         break;
       }
-      case 'podemos': {
+      case 'sumar': {
         height = '45px';
-        break;
-      }
-      case 'ciudadanos': {
-        height = '67px';
         break;
       }
       case 'erc': {
@@ -441,14 +384,6 @@ export class DelegationsComponent implements OnInit {
         height = '50px';
         break;
       }
-      case 'mp': {
-        height = '61px';
-        break;
-      }
-      case 'cup': {
-        height = '93px';
-        break;
-      }
       case 'cc': {
         height = '93px';
         break;
@@ -459,14 +394,6 @@ export class DelegationsComponent implements OnInit {
       }
       case 'bng': {
         height = '99px';
-        break;
-      }
-      case 'prc': {
-        height = '40px';
-        break;
-      }
-      case 'te': {
-        height = '88px';
         break;
       }
       default: {
@@ -491,12 +418,8 @@ export class DelegationsComponent implements OnInit {
         width = '62px';
         break;
       }
-      case 'podemos': {
+      case 'sumar': {
         width = '99px';
-        break;
-      }
-      case 'ciudadanos': {
-        width = '88px';
         break;
       }
       case 'erc': {
@@ -515,14 +438,6 @@ export class DelegationsComponent implements OnInit {
         width = '89px';
         break;
       }
-      case 'mp': {
-        width = '70px';
-        break;
-      }
-      case 'cup': {
-        width = '53px';
-        break;
-      }
       case 'cc': {
         width = '51px';
         break;
@@ -533,14 +448,6 @@ export class DelegationsComponent implements OnInit {
       }
       case 'bng': {
         width = '53px';
-        break;
-      }
-      case 'prc': {
-        width = '87px';
-        break;
-      }
-      case 'te': {
-        width = '43px';
         break;
       }
       default: {
@@ -565,12 +472,8 @@ export class DelegationsComponent implements OnInit {
         height = '31px';
         break;
       }
-      case 'podemos': {
+      case 'sumar': {
         height = '25px';
-        break;
-      }
-      case 'ciudadanos': {
-        height = '22px';
         break;
       }
       case 'erc': {
@@ -589,14 +492,6 @@ export class DelegationsComponent implements OnInit {
         height = '34px';
         break;
       }
-      case 'mp': {
-        height = '44px';
-        break;
-      }
-      case 'cup': {
-        height = '54px';
-        break;
-      }
       case 'cc': {
         height = '48x';
         break;
@@ -607,14 +502,6 @@ export class DelegationsComponent implements OnInit {
       }
       case 'bng': {
         height = '58px';
-        break;
-      }
-      case 'prc': {
-        height = '40px';
-        break;
-      }
-      case 'te': {
-        height = '88px';
         break;
       }
       default: {

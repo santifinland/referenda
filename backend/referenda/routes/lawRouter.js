@@ -108,20 +108,12 @@ lawRouter.route('/')
       req.body.abstentionParties.push("psoe");
   }
   // Podemos
-  if (req.body.podemos === 1) {
-      req.body.positiveParties.push("podemos");
-  } else if (req.body.podemos === 2) {
-      req.body.negativeParties.push("podemos");
+  if (req.body.sumar === 1) {
+      req.body.positiveParties.push("sumar");
+  } else if (req.body.sumar === 2) {
+      req.body.negativeParties.push("sumar");
   } else {
-      req.body.abstentionParties.push("podemos");
-  }
-  // Ciudadanos
-  if (req.body.ciudadanos === 1) {
-      req.body.positiveParties.push("ciudadanos");
-  } else if (req.body.ciudadanos === 2) {
-      req.body.negativeParties.push("ciudadanos");
-  } else {
-      req.body.abstentionParties.push("ciudadanos");
+      req.body.abstentionParties.push("sumar");
   }
   // Erc
   if (req.body.erc === 1) {
@@ -139,14 +131,6 @@ lawRouter.route('/')
   } else {
       req.body.abstentionParties.push("pnv");
   }
-  // Mas pais
-  if (req.body.mp === 1) {
-      req.body.positiveParties.push("mp");
-  } else if (req.body.mp === 2) {
-      req.body.negativeParties.push("mp");
-  } else {
-      req.body.abstentionParties.push("mp");
-  }
   // Coalicion Canaria
   if (req.body.cc === 1) {
       req.body.positiveParties.push("cc");
@@ -162,14 +146,6 @@ lawRouter.route('/')
       req.body.negativeParties.push("vox");
   } else {
       req.body.abstentionParties.push("vox");
-  }
-  // Partido Regionalista Cantabro
-  if (req.body.prc === 1) {
-      req.body.positiveParties.push("prc");
-  } else if (req.body.prc === 2) {
-      req.body.negativeParties.push("prc");
-  } else {
-      req.body.abstentionParties.push("prc");
   }
   // Navarra suma
   if (req.body.upn === 1) {
@@ -194,22 +170,6 @@ lawRouter.route('/')
       req.body.negativeParties.push("jpc");
   } else {
       req.body.abstentionParties.push("jpc");
-  }
-  // Teruel Existe
-  if (req.body.te === 1) {
-      req.body.positiveParties.push("te");
-  } else if (req.body.te === 2) {
-      req.body.negativeParties.push("te");
-  } else {
-      req.body.abstentionParties.push("te");
-  }
-  // CUP
-  if (req.body.cup === 1) {
-      req.body.positiveParties.push("cup");
-  } else if (req.body.cup === 2) {
-      req.body.negativeParties.push("cup");
-  } else {
-      req.body.abstentionParties.push("cup");
   }
   // BNG
   if (req.body.bng === 1) {

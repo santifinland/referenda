@@ -63,27 +63,17 @@
             </div>
           </div>
           <div class="institution">
-            <label for="institution_podemos">Institution Podemos</label>
-            <select class="form-control" id="institution_podemos" formControlName="institution_podemos"
-                    [ngClass]="{ 'is-invalid': submitted && lf.institution_podemos.errors }">
+            <label for="institution_sumar">Institution Sumar</label>
+            <select class="form-control" id="institution_sumar" formControlName="institution_sumar"
+                    [ngClass]="{ 'is-invalid': submitted && lf.institution_sumar.errors }">
               <option>Yes</option>
               <option>No</option>
             </select>
-            <div *ngIf="submitted && lf.institution_podemos.errors" class="invalid-feedback">
-              <div *ngIf="lf.institution_podemos.errors.required">Es necesaria una institucion</div>
+            <div *ngIf="submitted && lf.institution_sumar.errors" class="invalid-feedback">
+              <div *ngIf="lf.institution_sumar.errors.required">Es necesaria una institucion</div>
             </div>
           </div>
-          <div class="institution">
-            <label for="institution_ciudadanos">Institution Ciudadanos</label>
-            <select class="form-control" id="institution_ciudadanos" formControlName="institution_ciudadanos"
-                    [ngClass]="{ 'is-invalid': submitted && lf.institution_ciudadanos.errors }">
-              <option>Yes</option>
-              <option>No</option>
-            </select>
-            <div *ngIf="submitted && lf.institution_ciudadanos.errors" class="invalid-feedback">
-              <div *ngIf="lf.institution_ciudadanos.errors.required">Es necesaria una institucion</div>
-            </div>
-          </div>
+
           <div class="institution">
             <label for="institution_erc">Institution ERC</label>
             <select class="form-control" id="institution_erc" formControlName="institution_erc"
@@ -128,28 +118,7 @@
               <div *ngIf="lf.institution_bildu.errors.required">Es necesaria una institucion</div>
             </div>
           </div>
-          <div class="institution">
-            <label for="institution_mp">Institution Mas pais</label>
-            <select class="form-control" id="institution_mp" formControlName="institution_mp"
-                    [ngClass]="{ 'is-invalid': submitted && lf.institution_mp.errors }">
-              <option>Yes</option>
-              <option>No</option>
-            </select>
-            <div *ngIf="submitted && lf.institution_mp.errors" class="invalid-feedback">
-              <div *ngIf="lf.institution_mp.errors.required">Es necesaria una institucion</div>
-            </div>
-          </div>
-          <div class="institution">
-            <label for="institution_cup">Institution CUP</label>
-            <select class="form-control" id="institution_cup" formControlName="institution_cup"
-                    [ngClass]="{ 'is-invalid': submitted && lf.institution_cup.errors }">
-              <option>Yes</option>
-              <option>No</option>
-            </select>
-            <div *ngIf="submitted && lf.institution_cup.errors" class="invalid-feedback">
-              <div *ngIf="lf.institution_cup.errors.required">Es necesaria una institucion</div>
-            </div>
-          </div>
+
           <div class="institution">
             <label for="institution_cc">Institution C. canaria</label>
             <select class="form-control" id="institution_cc" formControlName="institution_cc"
@@ -181,28 +150,6 @@
             </select>
             <div *ngIf="submitted && lf.institution_bng.errors" class="invalid-feedback">
               <div *ngIf="lf.institution_bng.errors.required">Es necesaria una institucion</div>
-            </div>
-          </div>
-          <div class="institution">
-            <label for="institution_prc">Institution P R Cántabro</label>
-            <select class="form-control" id="institution_prc" formControlName="institution_prc"
-                    [ngClass]="{ 'is-invalid': submitted && lf.institution_prc.errors }">
-              <option>Yes</option>
-              <option>No</option>
-            </select>
-            <div *ngIf="submitted && lf.institution_prc.errors" class="invalid-feedback">
-              <div *ngIf="lf.institution_prc.errors.required">Es necesaria una institucion</div>
-            </div>
-          </div>
-          <div class="institution">
-            <label for="institution_te">Institution Teruel Existe</label>
-            <select class="form-control" id="institution_te" formControlName="institution_te"
-                    [ngClass]="{ 'is-invalid': submitted && lf.institution_te.errors }">
-              <option>Yes</option>
-              <option>No</option>
-            </select>
-            <div *ngIf="submitted && lf.institution_te.errors" class="invalid-feedback">
-              <div *ngIf="lf.institution_te.errors.required">Es necesaria una institucion</div>
             </div>
           </div>
         </div>
@@ -709,27 +656,15 @@
             </div>
           </div>
           <div class="institution">
-            <label for="podemos">Podemos</label>
-            <select class="form-control" id="podemos" formControlName="podemos"
-                    [ngClass]="{ 'is-invalid': submitted && lf.podemos.errors }">
+            <label for="sumar">Sumar</label>
+            <select class="form-control" id="sumar" formControlName="sumar"
+                    [ngClass]="{ 'is-invalid': submitted && lf.sumar.errors }">
               <option>Yes</option>
               <option>No</option>
               <option>Abstention</option>
             </select>
-            <div *ngIf="submitted && lf.podemos.errors" class="invalid-feedback">
-              <div *ngIf="lf.podemos.errors.required">Es necesario un voto</div>
-            </div>
-          </div>
-          <div class="institution">
-            <label for="ciudadanos">Ciudadanos</label>
-            <select class="form-control" id="ciudadanos" formControlName="ciudadanos"
-                    [ngClass]="{ 'is-invalid': submitted && lf.ciudadanos.errors }">
-              <option>Yes</option>
-              <option>No</option>
-              <option>Abstention</option>
-            </select>
-            <div *ngIf="submitted && lf.ciudadanos.errors" class="invalid-feedback">
-              <div *ngIf="lf.ciudadanos.errors.required">Es necesario un voto</div>
+            <div *ngIf="submitted && lf.sumar.errors" class="invalid-feedback">
+              <div *ngIf="lf.sumar.errors.required">Es necesario un voto</div>
             </div>
           </div>
           <div class="institution">
@@ -781,30 +716,6 @@
             </div>
           </div>
           <div class="institution">
-            <label for="mp">Mp</label>
-            <select class="form-control" id="mp" formControlName="mp"
-                    [ngClass]="{ 'is-invalid': submitted && lf.mp.errors }">
-              <option>Yes</option>
-              <option>No</option>
-              <option>Abstention</option>
-            </select>
-            <div *ngIf="submitted && lf.mp.errors" class="invalid-feedback">
-              <div *ngIf="lf.mp.errors.required">Es necesario un voto</div>
-            </div>
-          </div>
-          <div class="institution">
-            <label for="cup">Cup</label>
-            <select class="form-control" id="cup" formControlName="cup"
-                    [ngClass]="{ 'is-invalid': submitted && lf.cup.errors }">
-              <option>Yes</option>
-              <option>No</option>
-              <option>Abstention</option>
-            </select>
-            <div *ngIf="submitted && lf.cup.errors" class="invalid-feedback">
-              <div *ngIf="lf.cup.errors.required">Es necesario un voto</div>
-            </div>
-          </div>
-          <div class="institution">
             <label for="cc">CC</label>
             <select class="form-control" id="cc" formControlName="cc"
                     [ngClass]="{ 'is-invalid': submitted && lf.cc.errors }">
@@ -838,30 +749,6 @@
             </select>
             <div *ngIf="submitted && lf.bng.errors" class="invalid-feedback">
               <div *ngIf="lf.bng.errors.required">Es necesario un voto</div>
-            </div>
-          </div>
-          <div class="institution">
-            <label for="prc">Prc</label>
-            <select class="form-control" id="prc" formControlName="prc"
-                    [ngClass]="{ 'is-invalid': submitted && lf.prc.errors }">
-              <option>Yes</option>
-              <option>No</option>
-              <option>Abstention</option>
-            </select>
-            <div *ngIf="submitted && lf.prc.errors" class="invalid-feedback">
-              <div *ngIf="lf.prc.errors.required">Es necesario un voto</div>
-            </div>
-          </div>
-          <div class="institution">
-            <label for="te">Te</label>
-            <select class="form-control" id="te" formControlName="te"
-                    [ngClass]="{ 'is-invalid': submitted && lf.te.errors }">
-              <option>Yes</option>
-              <option>No</option>
-              <option>Abstention</option>
-            </select>
-            <div *ngIf="submitted && lf.te.errors" class="invalid-feedback">
-              <div *ngIf="lf.te.errors.required">Es necesario un voto</div>
             </div>
           </div>
         </div>
