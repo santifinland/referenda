@@ -76,7 +76,6 @@ export class AdminLawComponent implements OnInit {
       private formBuilder: FormBuilder,
       private lawService: LawService,
       private route: ActivatedRoute) {
-    this.route.params.subscribe( params => this.getLaw(params['slug']));
     this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
       this.currentUser = user;
     });
@@ -154,6 +153,7 @@ export class AdminLawComponent implements OnInit {
       official_negative: [0, [Validators.required]],
       official_abstention: [0, [Validators.required]],
     });
+    this.route.params.subscribe( params => this.getLaw(params['slug']));
   }
 
 
@@ -162,6 +162,7 @@ export class AdminLawComponent implements OnInit {
   getLaw(slug): void {
     this.lawService.getLaw(slug)
       .subscribe(law => {
+        console.log(law)
         this.law = law;
         this.law.slug = slug;
         this.lawForm.controls.law_id.setValue(law.law_id);
@@ -234,21 +235,6 @@ export class AdminLawComponent implements OnInit {
         this.lawForm.controls.official_negative.setValue(law.official_negative);
         this.lawForm.controls.official_abstention.setValue(law.official_abstention);
       });
-  }
-
-  isPositive(party) {
-    if (this.law.positiveParties.includes(party)) { return 1; }
-    return 0;
-  }
-
-  isNegative(party) {
-    if (this.law.negativeParties.includes(party)) { return 1; }
-    return 0;
-  }
-
-  isAbstention(party) {
-    if (this.law.abstentionParties.includes(party)) { return 1; }
-    return 0;
   }
 
   getPosition(party) {
@@ -510,6 +496,7 @@ export class AdminLawComponent implements OnInit {
           this.alertService.success('Law created.', true);
         },
         error => {
+          console.log(error)
           this.alertService.error(error);
         });
   }

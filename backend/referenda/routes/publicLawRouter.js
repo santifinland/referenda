@@ -69,7 +69,7 @@ lawRouter.route('/latest')
 .get(function (req, res, next) {
     const today = new Date();
     // Query for 5 items
-    Laws.find({vote_end: {$gte: today}})
+    Laws.find({featured: false, vote_end: {$gte: today}})
         .limit(7)
         .select('law_id reviewed law_type institution tier area headline slug short_description link pub_date ' +
             'vote_start vote_end positive negative abstention official_positive official_negative ' +
